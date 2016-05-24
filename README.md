@@ -1,29 +1,47 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+CovoiturageLibreRails5 is a Carpooling Open Source platform, originally created for the French website http://covoiturage-libre.fr
 
-Things you may want to cover:
+It aims at providing a free carpooling service for the shared economy, without profit and without a company controlling the service.
 
-* Ruby version
+## Install
 
-2.3.1
+* Ruby and Rails version
 
-* System dependencies
+`ruby 2.3.1`
 
-postgresql 9.3+
-postgis
+`rails 5.0.0.rc1`
+
+* System dependencies (versions originally used on this project
+
+`postgresql 9.5.3`
+
+`postgis 2.2.2`
 
 * Configuration
 
+Create a database.yml with postgis adapter
+
+`cp config/database.yml.example config/database.yml`
+
 * Database creation
+
+`bundle exec rake db:create`
 
 * Database initialization
 
+`bundle exec rake db:create`
+
 * How to run the test suite
+
+planning on using rspec
 
 * Services (job queues, cache servers, search engines, etc.)
 
+probably important later
+
 * Deployment instructions
+
+let's start on heroku
 
 * ...
