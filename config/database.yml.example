@@ -1,0 +1,5 @@
+development:
+  adapter:            postgis
+  host:               localhost
+  schema_search_path: public
+  database:           covoiturage-libre-rails5_dev

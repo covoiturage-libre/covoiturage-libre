@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kind: MyString
+  rank: 1
+  initerary: one
+  lonlat: 
+  address1: MyString
+  address2: MyString
+  city: MyString
+  zipcode: MyString
+  country_iso_code: MyString
+
+two:
+  kind: MyString
+  rank: 1
+  initerary: two
+  lonlat: 
+  address1: MyString
+  address2: MyString
+  city: MyString
+  zipcode: MyString
+  country_iso_code: MyString
