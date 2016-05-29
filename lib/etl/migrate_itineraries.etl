@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+require_relative 'itinerary_source'
+require_relative 'itinerary_destination'
+
+mysql_url = ENV["MYSQL_URL"]
+
+source ItinerarySource, mysql_url
+
+start_time = Time.now
+pre_process do
+  puts "*** START ITINERARY MIGRATION #{start_time}***"
+end
+
+def get_state(statut)
+  case statut
+    when 'En attente'
+      0
+    when 'Valide'
+      1
+    when 'Supprime'
+      2
+  end
+end
+
+transform do |row|
+  puts "OK"
+  newrow = {}
+  newrow[:id] = row[:ID]
+  newrow[:leave_at] = row[:DATE_PARCOURS]
+  newrow[:seats] = row[:PLACES]
+  newrow[:comfort] = row[:CONFORT]
+  newrow[:description] = row[:COMMENTAIRES]
+  newrow[:price] = row[:PRIX]
+  newrow[:title] = row[:CIVILITE]
+  newrow[:smoking] = row[:FUMEUR]
+  newrow[:name] = row[:NOM]
+  newrow[:age] = row[:AGE]
+  newrow[:email] = row[:EMAIL]
+  newrow[:phone] = row[:TELEPHONE]
+  newrow[:creation_token] = row[:CODE_CREATION]
+  newrow[:edition_token] = row[:CODE_MODIFICATION]
+  newrow[:deletion_token] = row[:CODE_SUPPRESSION]
+  newrow[:state] = get_state(row[:STATUT])
+  newrow[:creation_ip] = row[:IP_CREATION]
+  newrow[:deletion_ip] = row[:IP_SUPPRESSION]
+  newrow[:create_at] = row[:DATE_CREATION]
+  newrow[:updated_at] = row[:DATE_CREATION]
+
+  newrow
+end
+
+post_process do
+  end_time = Time.now
+  duration_in_minutes = (end_time - start_time)/60
+  puts "*** End ACCOUNT MIGRATION #{end_time}***"
+  puts "*** Duration (min): #{duration_in_minutes.round(2)}"
+end
+
+destination ItineraryDestination, ENV["PG_URL"]
