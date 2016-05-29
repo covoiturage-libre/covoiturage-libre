@@ -23,3 +23,6 @@
 
 # IDEs and text editors
 .idea
+
+# environment
+.env

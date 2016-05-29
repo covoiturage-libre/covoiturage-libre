@@ -12,7 +12,7 @@ It aims at providing a free carpooling service for the shared economy, without p
 
 `rails 5.0.0.rc1`
 
-* System dependencies (versions originally used on this project
+* System dependencies (versions originally used on this project)
 
 `postgresql 9.5.3`
 
@@ -30,7 +30,7 @@ Create a database.yml with postgis adapter
 
 * Database initialization
 
-`bundle exec rake db:create`
+`bundle exec rake db:migrate`
 
 * How to run the test suite
 
@@ -43,5 +43,3 @@ probably important later
 * Deployment instructions
 
 let's start on heroku
-
-* ...
