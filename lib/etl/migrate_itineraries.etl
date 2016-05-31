@@ -11,8 +11,6 @@ pre_process do
   puts "*** START ITINERARY MIGRATION #{start_time}***"
 end
 
-limit(25)
-
 transform do |row|
   puts "OK"
   newrow = {}
