@@ -7,10 +7,11 @@ gem 'rails', '>= 5.0.0.rc1', '< 5.1'
 
 # Use postgresql + postgis as the database for Active Record
 gem 'pg'
-gem 'activerecord-postgis-adapter', '~> 4.0.0.beta'
+gem 'activerecord-postgis-adapter', :github => 'rgeo/activerecord-postgis-adapter', :branch => 'rails-5' #, '~> 4.0.0.beta'
 
 gem 'kiba'
 gem 'mysql2' # for kiba migrations
+gem 'awesome_print'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

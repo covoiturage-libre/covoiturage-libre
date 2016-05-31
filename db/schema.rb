@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524170347) do
+ActiveRecord::Schema.define(version: 20160531161647) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
   create_table "itineraries", id: :integer, force: :cascade do |t|
-    t.datetime "leave_at",                       null: false
+    t.datetime "leave_at",                           null: false
     t.integer  "seats"
     t.string   "comfort"
     t.text     "description"
     t.integer  "price"
     t.string   "title"
-    t.boolean  "smoking",        default: false
+    t.boolean  "smoking",        default: false,     null: false
     t.string   "name"
     t.integer  "age"
     t.string   "email"
@@ -32,11 +32,12 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.string   "creation_token"
     t.string   "edition_token"
     t.string   "deletion_token"
-    t.integer  "state",          default: 0
+    t.string   "state",          default: "pending"
     t.string   "creation_ip"
     t.string   "deletion_ip"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "kind"
   end
 
   create_table "locations", id: :integer, force: :cascade do |t|
@@ -49,8 +50,11 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.string   "city"
     t.string   "zipcode"
     t.string   "country_iso_code"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                                                                  null: false
+    t.datetime "updated_at",                                                                  null: false
+    t.decimal  "latitude",                                            precision: 9, scale: 6
+    t.decimal  "longitude",                                           precision: 9, scale: 6
+    t.integer  "price"
     t.index ["itinerary_id"], name: "index_locations_on_itinerary_id", using: :btree
   end
 

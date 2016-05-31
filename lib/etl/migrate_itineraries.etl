@@ -1,39 +1,31 @@
 #!/usr/bin/env ruby
 
+require_relative 'common'
 require_relative 'itinerary_source'
 require_relative 'itinerary_destination'
 
-mysql_url = ENV["MYSQL_URL"]
-
-source ItinerarySource, mysql_url
+source ItinerarySource, ENV["MYSQL_URL"]
 
 start_time = Time.now
 pre_process do
   puts "*** START ITINERARY MIGRATION #{start_time}***"
 end
 
-def get_state(statut)
-  case statut
-    when 'En attente'
-      0
-    when 'Valide'
-      1
-    when 'Supprime'
-      2
-  end
-end
+limit(25)
 
 transform do |row|
   puts "OK"
   newrow = {}
+  # the Itinerary columns
   newrow[:id] = row[:ID]
-  newrow[:leave_at] = row[:DATE_PARCOURS]
+  newrow[:kind] = get_kind(row[:TYPE])
+  newrow[:leave_at] = get_leave_at(row[:DATE_PARCOURS], row[:HEURE])
   newrow[:seats] = row[:PLACES]
-  newrow[:comfort] = row[:CONFORT]
+  newrow[:comfort] = get_comfort(row[:CONFORT])
   newrow[:description] = row[:COMMENTAIRES]
   newrow[:price] = row[:PRIX]
-  newrow[:title] = row[:CIVILITE]
-  newrow[:smoking] = row[:FUMEUR]
+  newrow[:title] = get_title(row[:CIVILITE])
+  newrow[:smoking] = !row[:FUMEUR].nil?
   newrow[:name] = row[:NOM]
   newrow[:age] = row[:AGE]
   newrow[:email] = row[:EMAIL]
@@ -47,8 +39,50 @@ transform do |row|
   newrow[:create_at] = row[:DATE_CREATION]
   newrow[:updated_at] = row[:DATE_CREATION]
 
+  # the Location columns
+  time = Time.now
+  newrow[:locations] = []
+  newrow[:locations] << {
+          kind: 'From',
+          itinerary_id: newrow[:id],
+          longitude: row[:DEPART_LON],
+          latitude: row[:DEPART_LAT],
+          zipcode: row[:DEPART].match(/\d+/).to_a[0],
+          city: row[:DEPART].partition(' (').first,
+          country_iso_code: row[:DEPART].partition(' (').last[0..1],
+          created_at: time,
+          updated_at: time
+      }
+  newrow[:locations] << {
+          kind: 'To',
+          itinerary_id: newrow[:id],
+          longitude: row[:ARRIVEE_LON],
+          latitude: row[:ARRIVEE_LAT],
+          zipcode: row[:ARRIVEE].match(/\d+/).to_a[0],
+          city: row[:ARRIVEE].partition(' (').first,
+          country_iso_code: row[:ARRIVEE].partition(' (').last[0..1],
+          created_at: time,
+          updated_at: time
+  }
+  [1, 2, 3].each do |step|
+    newrow[:locations] << {
+            kind: 'Step',
+            rank: step,
+            itinerary_id: newrow[:id],
+            longitude: row["ETAPE#{step}_LON"],
+            latitude: row[:"ETAPE#{step}_LAT"],
+            zipcode: row[:"ETAPE#{step}"].match(/\d+/).to_a[0],
+            city: row[:"ETAPE#{step}"].partition(' (').first,
+            country_iso_code: row[:"ETAPE#{step}"].partition(' (').last[0..1],
+            created_at: time,
+            updated_at: time,
+            price: row[:"PRIX#{step}"]
+    } unless row[:"ETAPE#{step}"].nil?
+  end
   newrow
 end
+
+show_me!
 
 post_process do
   end_time = Time.now
