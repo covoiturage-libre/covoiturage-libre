@@ -4,7 +4,7 @@ class CreateLocations < ActiveRecord::Migration[5.0]
       t.string :kind
       t.integer :rank
       t.references :itinerary, foreign_key: true
-      t.st_point :lonlat
+      #t.st_point :lonlat commented that for deployment purposes
       t.string :address1
       t.string :address2
       t.string :city
