@@ -46,6 +46,7 @@ def get_kind(type)
 end
 
 def get_leave_at(date_parcours, heure)
+  return nil if date_parcours.nil? || heure.nil?
   dt = DateTime.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec, heure.zone)
 end
 
