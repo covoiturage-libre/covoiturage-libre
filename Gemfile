@@ -11,7 +11,7 @@ gem 'activerecord-postgis-adapter', '~> 4.0' #, :github => 'rgeo/activerecord-po
 gem 'kiba' # the awesome ETL tool
 gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
-
+gem 'kaminari' # for pagination
 
 ### App Server
 

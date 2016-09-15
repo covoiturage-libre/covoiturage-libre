@@ -1,0 +1,14 @@
+%li.itinerary.row
+  =link_to '#', id: "itinerary_#{itinerary.id}" do
+    .driver.col-md-3.name
+      = itinerary.name
+      = number_to_age(itinerary.age)
+    .trip-info.col-md-6
+      .title= l itinerary.leave_at, format: :long
+      %p
+        = itinerary.locations.find_by(kind: 'From').city
+        &rarr;
+        = itinerary.locations.find_by(kind: 'To').city
+    .trip-info.col-md-3
+      .price= number_to_currency itinerary.price
+
