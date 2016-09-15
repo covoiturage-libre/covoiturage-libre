@@ -10,7 +10,7 @@ It aims at providing a free carpooling service for the shared economy, without p
 
 `ruby 2.3.1`
 
-`rails 5.0.0.rc1`
+`rails 5.0.0`
 
 * System dependencies (versions originally used on this project)
 
@@ -31,6 +31,28 @@ Create a database.yml with postgis adapter
 * Database initialization
 
 `bundle exec rake db:migrate`
+
+* Import the data
+
+We use the ETL gem Kiba to migrate the data from mysql to postgresql
+
+You need a MySQL server running
+
+Import the table trajets.sql
+
+Then make sure you configure the data source (mysql) and the data destination (postgresql) for Kiba
+
+```
+# .env file with dotenv
+export MYSQL_URL=mysql://root@localhost:3306/covoiturage-libre-rails5_dev
+export PG_URL=postgres://thb@localhost:5432/covoiturage-libre-rails5_dev
+```
+
+Then run the command to migrate the data from source into destination 
+
+```
+bundle exec kiba ./lib/etl/migrate_itineraries.etl
+```
 
 * How to run the test suite
 
