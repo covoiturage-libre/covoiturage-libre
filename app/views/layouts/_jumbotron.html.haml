@@ -1,7 +1,17 @@
 / Main jumbotron for a primary marketing message or call to action
 .jumbotron
   .container
-    %h1 Hello, world!
-    %p This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.
-    %p
-      %a.btn.btn-primary.btn-lg{:href => "#", :role => "button"} Learn more »
+    %h2 Trouvez votre covoiturage
+    %p Covoiturage Libre est gratuit, communautaire et libre.
+    %form.form-inline
+      .form-group
+        %label.sr-only{:for => "from"} De
+        %input#exampleInputEmail3.form-control.input-lg{:placeholder => "De", :type => "email"}/
+      .form-group
+        %label.sr-only{:for => "to"} À
+        %input#exampleInputPassword3.form-control.input-lg{:placeholder => "À", :type => "password"}/
+      .form-group
+        %label.sr-only{:for => "to"} Date
+        %input#exampleInputPassword3.form-control.input-lg{:placeholder => "Date", :type => "password"}/
+      %button.btn.btn-default.btn-primary.btn-lg{:type => "submit"} Rechercher
+

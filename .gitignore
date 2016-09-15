@@ -31,3 +31,5 @@
 # pessimize gem Gemfile backups
 Gemfile.backup
 Gemfile.lock.backup
+
+.DS_Store
