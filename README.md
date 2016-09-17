@@ -54,6 +54,98 @@ Then run the command to migrate the data from source into destination
 bundle exec kiba ./lib/etl/migrate_itineraries.etl
 ```
 
+* The look of an Itinerary, once migrated to the PostgreSQL Database
+(tables itineraries and locations)
+
+```
+{
+                :id => 726347,
+              :kind => "Driver",
+          :leave_at => #<DateTime: 2016-07-17T08:20:00+01:00 ((2457587j,26400s,0n),+3600s,2299161j)>,
+             :seats => 3,
+           :comfort => "basic",
+       :description => "Bonjour!\r\nJe rentre enfin dans ma provence natale, ce serait un plaisir de faire le voyage avec vous, parce que c'est toujours plus sympas a plusieurs! Au plaisir de vous rencontrer! Pas de note spÃ©ciale concernant le trajet Ã  vous communiquer, si ce n'est qu'on fera autant de pauses que chacun dÃ©sirera. A bientÃ´t!",
+             :price => 21,
+             :title => "M",
+           :smoking => false,
+              :name => "Jordi",
+               :age => "25",
+             :email => "john.doe@email.com",
+             :phone => "0606060606",
+    :creation_token => "QdFHh50khv2duwne8E8ca4HgW",
+     :edition_token => "M6lS61eaUhL8FVr20eP0Jgo1h",
+    :deletion_token => "m6YZcGrGYooPs5ZfwRn2JyV96",
+             :state => "confirmed",
+       :creation_ip => "90.45.121.150",
+       :deletion_ip => nil,
+         :create_at => 2016-07-16 12:09:43 +0200,
+        :updated_at => 2016-07-16 12:09:43 +0200,
+         :locations => [
+        [0] {
+                        :kind => "From",
+                :itinerary_id => 726347,
+                   :longitude => 1.433333,
+                    :latitude => 43.6,
+                     :zipcode => "31000",
+                        :city => "Toulouse",
+            :country_iso_code => "FR",
+                  :created_at => 2016-09-17 15:56:57 +0200,
+                  :updated_at => 2016-09-17 15:56:57 +0200
+        },
+        [1] {
+                        :kind => "To",
+                :itinerary_id => 726347,
+                   :longitude => 5.633333,
+                    :latitude => 44.033333,
+                     :zipcode => "04150",
+                        :city => "Banon",
+            :country_iso_code => "FR",
+                  :created_at => 2016-09-17 15:56:57 +0200,
+                  :updated_at => 2016-09-17 15:56:57 +0200
+        },
+        [2] {
+                        :kind => "Step",
+                        :rank => 1,
+                :itinerary_id => 726347,
+                   :longitude => nil,
+                    :latitude => 43.610804,
+                     :zipcode => "34000",
+                        :city => "Montpellier",
+            :country_iso_code => "FR",
+                  :created_at => 2016-09-17 15:56:57 +0200,
+                  :updated_at => 2016-09-17 15:56:57 +0200,
+                       :price => 13
+        },
+        [3] {
+                        :kind => "Step",
+                        :rank => 2,
+                :itinerary_id => 726347,
+                   :longitude => nil,
+                    :latitude => 43.95,
+                     :zipcode => "84000",
+                        :city => "Avignon",
+            :country_iso_code => "FR",
+                  :created_at => 2016-09-17 15:56:57 +0200,
+                  :updated_at => 2016-09-17 15:56:57 +0200,
+                       :price => 16
+        },
+        [4] {
+                        :kind => "Step",
+                        :rank => 3,
+                :itinerary_id => 726347,
+                   :longitude => nil,
+                    :latitude => 43.883333,
+                     :zipcode => "84400",
+                        :city => "Apt",
+            :country_iso_code => "FR",
+                  :created_at => 2016-09-17 15:56:57 +0200,
+                  :updated_at => 2016-09-17 15:56:57 +0200,
+                       :price => 17
+        }
+    ]
+}
+```
+
 * How to run the test suite
 
 planning on using rspec

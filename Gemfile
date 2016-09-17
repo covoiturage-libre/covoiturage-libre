@@ -13,6 +13,8 @@ gem 'kiba' # the awesome ETL tool
 gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
 gem 'kaminari' # for pagination
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 
 ### App Server
 

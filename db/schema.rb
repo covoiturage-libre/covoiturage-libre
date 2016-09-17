@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,13 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531161647) do
+ActiveRecord::Schema.define(version: 20160524170347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "itineraries", id: :integer, force: :cascade do |t|
+  create_table "points", force: :cascade do |t|
+    t.string   "kind"
+    t.integer  "rank"
+    t.integer  "trip_id"
+    t.decimal  "lat",              precision: 9, scale: 6
+    t.decimal  "decimal",          precision: 9, scale: 6
+    t.decimal  "lon",              precision: 9, scale: 6
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "zipcode"
+    t.string   "country_iso_code"
+    t.integer  "price"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["trip_id"], name: "index_points_on_trip_id", using: :btree
+  end
+
+  create_table "trips", force: :cascade do |t|
     t.datetime "leave_at",                           null: false
     t.integer  "seats"
     t.string   "comfort"
@@ -35,28 +52,10 @@ ActiveRecord::Schema.define(version: 20160531161647) do
     t.string   "state",          default: "pending"
     t.string   "creation_ip"
     t.string   "deletion_ip"
+    t.string   "kind"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.string   "kind"
   end
 
-  create_table "locations", id: :integer, force: :cascade do |t|
-    t.string   "kind"
-    t.integer  "rank"
-    t.integer  "itinerary_id"
-    t.geometry "lonlat",           limit: {:srid=>0, :type=>"point"}
-    t.string   "address1"
-    t.string   "address2"
-    t.string   "city"
-    t.string   "zipcode"
-    t.string   "country_iso_code"
-    t.datetime "created_at",                                                                  null: false
-    t.datetime "updated_at",                                                                  null: false
-    t.decimal  "latitude",                                            precision: 9, scale: 6
-    t.decimal  "longitude",                                           precision: 9, scale: 6
-    t.integer  "price"
-    t.index ["itinerary_id"], name: "index_locations_on_itinerary_id", using: :btree
-  end
-
-  add_foreign_key "locations", "itineraries"
+  add_foreign_key "points", "trips"
 end
