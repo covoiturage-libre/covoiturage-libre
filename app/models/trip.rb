@@ -10,23 +10,24 @@ class Trip < ApplicationRecord
   include Elasticsearch::Model::Indexing
 
   mappings do
-
-  end
-
-  mappings do
     indexes :seats,      type: 'integer'
     indexes :comfort,    type: 'string'
     indexes :state,      type: 'string'
-    indexes :points do
+    indexes :leave_at,   type: 'date'
+    indexes :points, type: 'nested' do
       indexes :kind,       type: 'string'
       indexes :rank,       type: 'string'
-      indexes :latlon,     type: 'geo_point'
+      indexes :location,   type: 'geo_point'
       indexes :city,       type: 'string'
     end
   end
 
-  def as_indexed_json
-    self.as_json({ only: [:seats, :comfort, :state] }).merge( points: points.as_json)
+  def as_indexed_json(options = {})
+    self.as_json(
+        { only: [:seats, :comfort, :state, :leave_at] }
+    ).merge(
+        points: points.as_json
+    )
   end
 
 
@@ -50,34 +51,48 @@ class Trip < ApplicationRecord
       search_definition[:size] = ELASTICSEARCH_MAX_RESULTS
     end
 
-    # query
+    # query on root document (trip)
     if query.present?
       search_definition[:query][:bool][:must] << {
-          multi_match: {
-              query: query,
-              fields: { points: [:city]},
-              operator: 'and'
+          match: {
+              seats: options[:seats],
+              comfort: options[:comfort],
+              state: options[:state],
+              leave_at: options[:leave_at],
           }
       }
     end
 
-    # geo spatial
+    # geo spatial query on nested document (point)
     if options[:lat].present? && options[:lon].present?
       options[:distance] ||= 100
 
       search_definition[:query][:bool][:must] << {
-          filtered: {
-              filter: {
-                  geo_distance: {
-                      distance: "#{options[:distance]}mi",
-                      location: {
-                          lat: options[:lat].to_f,
-                          lon: options[:lon].to_f
+          nested: {
+              path: :points,
+              query: {
+                  bool: {
+                      must: [
+                          match: {
+                              city: query
+                          }
+                      ]
+                  },
+                  filtered: {
+                      filter: {
+                          geo_distance: {
+                              distance: "#{options[:distance]}km",
+                              location: {
+                                  lat: options[:lat].to_f,
+                                  lon: options[:lon].to_f
+                              }
+                          }
                       }
                   }
               }
           }
       }
+
     end
 
     __elasticsearch__.search(search_definition)
