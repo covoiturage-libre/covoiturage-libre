@@ -30,7 +30,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render 'layouts/navbar'
-    = render 'layouts/jumbotron'
+    = yield :jumbotron
     .container
       = yield
       %hr/
