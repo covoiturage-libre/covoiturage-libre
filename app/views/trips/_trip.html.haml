@@ -6,9 +6,9 @@
     .trip-info.col-md-6
       .title= l trip.leave_at, format: :long
       %p
-        = trip.locations.find_by(kind: 'From').city
+        = trip.points.find_by(kind: 'From').city
         &rarr;
-        = trip.locations.find_by(kind: 'To').city
+        = trip.points.find_by(kind: 'To').city
     .trip-info.col-md-3
       .price= number_to_currency trip.price
 
