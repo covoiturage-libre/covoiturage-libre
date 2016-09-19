@@ -1,5 +1,6 @@
 /*
  * import nothing from sprockets as it is explained here https://github.com/twbs/bootstrap-sass
+ *= require bootstrap-datepicker3
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"

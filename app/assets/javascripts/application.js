@@ -14,3 +14,13 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
+//= require_self
+
+
+$(function() {
+    $('.datepicker').datepicker({
+        language: 'fr'
+    });
+});

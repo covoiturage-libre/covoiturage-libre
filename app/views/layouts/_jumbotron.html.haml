@@ -5,16 +5,14 @@
       .col-md-9
         %h2 Trouvez votre covoiturage
         %p Le covoiturage gratuit, communautaire et libre.
-        %form.form-inline
+        = simple_form_for @trip_search, method: :get, html: { class: 'form-inline' } do |f|
           .form-group
             %label.sr-only{:for => "from"} De
             %input#exampleInputEmail3.form-control.input-lg{:placeholder => "De", :type => "email"}/
           .form-group
             %label.sr-only{:for => "to"} À
             %input#exampleInputPassword3.form-control.input-lg{:placeholder => "À", :type => "password"}/
-          .form-group
-            %label.sr-only{:for => "to"} Date
-            %input#exampleInputPassword3.form-control.input-lg{:placeholder => "Date", :type => "password"}/
+          = f.input :leave_at, as: :string, input_html: { class: 'datepicker input-lg' }, label: false
           %button.btn.btn-default.btn-primary.btn-lg{:type => "submit"} Rechercher
       .col-md-3
         .publish

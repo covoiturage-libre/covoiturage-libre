@@ -30,6 +30,11 @@ gem 'turbolinks', '~> 5.0' # Turbolinks makes navigating your web application fa
 gem 'jbuilder', '~> 2.6' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'haml'
 gem 'simple_form'
+gem 'bootstrap-datepicker-rails'
+
+### Services
+gem 'geocoder'
+
 ### Other Gems
 
 # gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production

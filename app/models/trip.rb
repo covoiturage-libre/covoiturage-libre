@@ -51,18 +51,6 @@ class Trip < ApplicationRecord
       search_definition[:size] = ELASTICSEARCH_MAX_RESULTS
     end
 
-    # query on root document (trip)
-    if query.present?
-      search_definition[:query][:bool][:must] << {
-          match: {
-              seats: options[:seats],
-              comfort: options[:comfort],
-              state: options[:state],
-              leave_at: options[:leave_at],
-          }
-      }
-    end
-
     # geo spatial query on nested document (point)
     if options[:lat].present? && options[:lon].present?
       options[:distance] ||= 100
@@ -71,20 +59,13 @@ class Trip < ApplicationRecord
           nested: {
               path: :points,
               query: {
-                  bool: {
-                      must: [
-                          match: {
-                              city: query
-                          }
-                      ]
-                  },
                   filtered: {
                       filter: {
                           geo_distance: {
                               distance: "#{options[:distance]}km",
                               location: {
-                                  lat: options[:lat].to_f,
-                                  lon: options[:lon].to_f
+                                  lat: options[:departure][:lat].to_f,
+                                  lon: options[:departure][:lon].to_f
                               }
                           }
                       }
