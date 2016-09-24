@@ -31,6 +31,7 @@ gem 'jbuilder', '~> 2.6' # Build JSON APIs with ease. Read more: https://github.
 gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
+gem 'jquery-ui-rails'
 
 ### Services
 gem 'geocoder'

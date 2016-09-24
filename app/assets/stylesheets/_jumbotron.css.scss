@@ -17,3 +17,7 @@ $bgDefault        : #e9f1ff;
   border-radius: 0 0 15px 15px;
   text-align: center;
 }
+
+.ui-autocomplete-loading {
+  background: #fff image_url('ui-anim_basic_34x34.gif') no-repeat right center;
+}

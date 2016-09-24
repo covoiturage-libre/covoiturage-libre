@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
 
   def index
-    @trip_search = Trip.new
+    @search = Search.new
   end
 
 end
