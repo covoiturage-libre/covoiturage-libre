@@ -1,20 +1,22 @@
 !!!
 %html{:lang => "fr"}
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title Covoiturage Libre - Le 1er site de covoiturage français communautaire et libre.
 
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}/
-    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
     / The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
-    %meta{:content => "Le 1er site de covoiturage français communautaire et libre", :name => "description"}/
-    %meta{:content => "Association CovoiturageLibre", :name => "author"}/
+    %meta{:content => "Le 1er site de covoiturage français communautaire et libre", :name => "description"}
+    %meta{:content => "Association CovoiturageLibre", :name => "author"}
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    .loading-indicator
     = render 'layouts/navbar'
     = yield :jumbotron
     .container
@@ -22,5 +24,3 @@
       %hr/
       %footer
         %p © 2016 Covoiturage Libre, association loi 1901.
-        
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'

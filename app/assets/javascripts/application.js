@@ -19,4 +19,6 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require _layout
 //= require _jumbotron
+//= require nprogress
+//= require nprogress-turbolinks
 //= require turbolinks

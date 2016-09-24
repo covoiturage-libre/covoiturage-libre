@@ -33,6 +33,7 @@ gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
+gem "nprogress-rails"
 
 ### Services
 gem 'geocoder'
