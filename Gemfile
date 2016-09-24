@@ -32,6 +32,7 @@ gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
 
 ### Services
 gem 'geocoder'
