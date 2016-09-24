@@ -5,7 +5,7 @@
       .col-md-9
         %h2 Trouvez votre covoiturage
         %p Le covoiturage gratuit, communautaire et libre.
-        = simple_form_for @search, html: { class: 'form-inline' } do |f|
+        = simple_form_for @search, url: search_url,html: { class: 'form-inline' } do |f|
           = f.input :from, as: :string, wrapper_html: { class: 'ui-widget' }, input_html: { class: 'input-lg' }, label: false, placeholder: 'De'
           = f.input :from_coordinates, as: :hidden
           = f.input :to, as: :string, wrapper_html: { class: 'ui-widget' }, input_html: { class: 'input-lg' }, label: false, placeholder: 'À'

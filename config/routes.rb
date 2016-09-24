@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   resources :trips
-  resources :searches
 
   resources :geocodes do
     collection do
@@ -9,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'search', to: 'search#index'
   get 'home/index'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

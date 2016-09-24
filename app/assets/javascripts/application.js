@@ -40,8 +40,7 @@ $(function() {
         },
         minLength: 2,
         select: function( event, ui ) {
-            console.log( "Selected: " + ui.item.label + " aka " + ui.item.id )
-            $('#search_from_coordinates').val(ui.item.id)
+            $('#'+this.id+'_coordinates').val(ui.item.id)
         }
     })
 

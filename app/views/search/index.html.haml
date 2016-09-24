@@ -1,0 +1,17 @@
+%h1 Résultats de votre recherche
+
+%p
+  %strong De :
+  = @search.from
+  (
+  = @search.from_coordinates
+  )
+%p
+  %strong À :
+  = @search.to
+  (
+  = @search.to_coordinates
+  )
+%p
+  %strong Date :
+  = @search.date
