@@ -8,7 +8,7 @@ class SearchController < ApplicationController
   private
 
     def search_params
-      params.require(:search).permit(:from, :from_coordinates, :to, :to_coordinates, :date)
+      params.require(:search).permit(:from_name, :from_coordinates, :to_name, :to_coordinates, :date)
     end
 
 

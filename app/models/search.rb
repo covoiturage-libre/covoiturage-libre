@@ -2,9 +2,9 @@ class Search
   include ActiveModel::Model
 
   attr_accessor(
-      :from,
+      :from_name,
       :from_coordinates,
-      :to,
+      :to_name,
       :to_coordinates,
       :date
   )

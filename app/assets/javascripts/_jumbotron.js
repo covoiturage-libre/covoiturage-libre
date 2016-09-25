@@ -1,7 +1,7 @@
 
 
 function initAutocomplete() {
-    $("#search_from, #search_to").autocomplete({
+    $("#search_from_name, #search_to_name").autocomplete({
         source: function (request, response) {
             $.getJSON("/geocodes/autocomplete?term=" + request.term, function (data) {
                 response($.map(data, function (el) {
@@ -15,7 +15,7 @@ function initAutocomplete() {
         },
         minLength: 2,
         select: function (event, ui) {
-            $('#' + this.id + '_coordinates').val(ui.item.id)
+            $('#' + this.id.replace(/name/, 'coordinates')).val(ui.item.id)
         }
     })
 }
