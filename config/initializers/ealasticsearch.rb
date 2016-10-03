@@ -7,6 +7,13 @@ config = {
 
 if File.exists?("config/elasticsearch.yml")
   config.merge!(YAML.load_file("config/elasticsearch.yml").symbolize_keys)
+elsif SCALINGO_ELASTICSEARCH_URL.present?
+  config = {
+      host: SCALINGO_ELASTICSEARCH_URL,
+      transport_options: {
+          request: { timeout: 5 }
+      }
+  }
 end
 
 Elasticsearch::Model.client = Elasticsearch::Client.new(config)
