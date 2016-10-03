@@ -1,5 +1,17 @@
 - content_for :jumbotron do
-  = render 'layouts/jumbotron'
+  .jumbotron
+    .container
+      .row
+        .col-md-9
+          %h2 Trouvez votre covoiturage
+          %p Le covoiturage gratuit, communautaire et libre.
+          = render partial: 'search/form', locals: { 'large_inputs': true }
+        .col-md-3
+          .publish
+            Vous avez une voiture ?
+            %br
+            %br
+            = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-warning'
 
 .row
   .col-md-4

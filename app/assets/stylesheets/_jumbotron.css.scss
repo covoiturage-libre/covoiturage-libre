@@ -5,6 +5,11 @@ $bgDefault        : #e9f1ff;
 
 .jumbotron {
   background-color: $bgDefault;
+
+  &.small-jumbotron {
+    padding: 15px 0 15px 0;
+    margin-bottom: 0px;
+  }
 }
 
 .publish {

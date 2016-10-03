@@ -32,7 +32,7 @@ class Trip < ApplicationRecord
   end
 
   #
-  # Trip.search({ from_coordinates: {}, to_coordinates: {}, date: 'yyyy-mm-dd' })
+  # Trip.search({ from_coordinates: {}, to_coordinates: {}, date: Date })
   #
   def self.search(options = {})
     options ||= {}
@@ -61,7 +61,7 @@ class Trip < ApplicationRecord
 
     # root object criteria
     if options[:date].present?
-      search_definition[:query][:bool][:must] << { range: { leave_at: { gte: options[:date] } } }
+      search_definition[:query][:bool][:must] << { range: { leave_at: { gte: options[:date].to_s } } }
     end
 
     # geo spatial query on nested document (point)
@@ -70,7 +70,7 @@ class Trip < ApplicationRecord
       search_definition[:query][:bool][:must] << nested_point_definition("To", options[:to_coordinates])
     end
 
-    #logger.info JSON.pretty_generate search_definition
+    logger.info JSON.pretty_generate search_definition
 
     __elasticsearch__.search(search_definition)
   end

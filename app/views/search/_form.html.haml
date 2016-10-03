@@ -1,0 +1,14 @@
+- input_class = large_inputs ? 'input-lg' : ''
+- btn_class = large_inputs ? 'btn-lg' : ''
+
+= simple_form_for @search, url: search_url, method: :get, html: { class: 'form-inline' } do |f|
+  = f.input :from_name, as: :string, wrapper_html: { class: 'ui-widget' }, input_html: { class: input_class }, label: false, placeholder: 'De'
+  = f.input :from_coordinates, as: :hidden
+  = f.input :to_name, as: :string, wrapper_html: { class: 'ui-widget' }, input_html: { class: input_class }, label: false, placeholder: 'À'
+  = f.input :to_coordinates, as: :hidden
+  = f.input :date, as: :string, input_html: { class: "datepicker #{input_class}" }, label: false, placeholder: 'Date'
+  %button.btn.btn-default.btn-primary{class: btn_class, type: 'submit'} Rechercher
+
+:javascript
+  initAutocomplete()
+  initDatepicker()

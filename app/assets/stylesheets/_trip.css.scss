@@ -1,35 +1,64 @@
-$borderColor      : #ccc;
-$mainLinkColor    : #C1E4FF;
+$borderColor      : #eeeeee;
+$mainLinkColor    : #e9f1ff;
 $priceColor       : #ff6f00;
+
+hr.trip-list {
+  margin-bottom: 0;
+}
+
+
+a.trip-item {
+  display: block;
+  color: black;
+}
+a.trip-item:hover {
+  background-color: $mainLinkColor;
+}
 
 .trip {
   border-bottom: 1px solid $borderColor;
-  list-style: none;
-
-  a {
-    color: black;
-  }
-  a:hover {
-    backgroud-color: $mainLinkColor;
-  }
 
   .driver {
-    padding: 4px;
-    .name {
-      font-weight: bold;
+    display: block;
+    float: left;
+    padding: 8px;
+    width: 180px;
+    .avatar {
+      text-align: center;
+      display: block;
+      float: left;
+      width: 65px;
+      height: 65px;
+      background-color: $borderColor;
+      border-radius: 100px;
+      padding: 15px 0 15px 0;
+      img {
+        height: 35px;
+      }
+    }
+    .info {
+      float: left;
+      margin: 10px 0 0 10px;
+      .name {
+        font-weight: bold;
+      }
     }
   }
   .trip-info {
-    padding: 4px;
+    display: block;
+    float: left;
+    padding: 8px;
+    width: 320px;
     .title {
       font-weight: bold;
       font-size: 18px;
     }
   }
   .price {
-    padding: 4px;
+    display: block;
+    float: left;
+    padding: 8px;
     text-align: center;
-    padding:4px;
     font-size: 24px;
     font-weight: bold;
     color: $priceColor;

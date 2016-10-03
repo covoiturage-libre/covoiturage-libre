@@ -207,6 +207,6 @@ fr:
     am: am
     formats:
       default: "%d %B %Y %Hh %Mmin %Ss"
-      long: "%A %d %B %Y à %Hh%M"
+      long: "%a. %-d %B %Y à %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm

@@ -5,8 +5,7 @@
         .col-md-9
           = render partial: 'search/form', locals: { 'large_inputs': false }
 
-- if @search.valid?
-  %h3= "#{pluralize(@trips.count, 'covoiturage', 'covoiturages')} de #{@search.short_from_name} à #{@search.short_to_name}"
+%h3= "#{pluralize(Trip.count, 'covoiturage', 'covoiturages')} trajets sur le site"
 
 %hr.trip-list
 
