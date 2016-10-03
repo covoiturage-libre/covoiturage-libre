@@ -51,7 +51,7 @@ export PG_URL=postgres://thb@localhost:5432/covoiturage-libre-rails5_dev
 Then run the command to migrate the data from source into destination 
 
 ```
-bundle exec kiba ./lib/etl/migrate_itineraries.etl
+bundle exec kiba ./lib/etl/migrate_trips.etl
 ```
 
 * The look of an Itinerary, once migrated to the PostgreSQL Database
