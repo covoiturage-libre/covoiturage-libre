@@ -7,9 +7,9 @@ config = {
 
 if File.exists?("config/elasticsearch.yml")
   config.merge!(YAML.load_file("config/elasticsearch.yml").symbolize_keys)
-elsif SCALINGO_ELASTICSEARCH_URL.present?
+elsif ENV['SCALINGO_ELASTICSEARCH_URL'].present?
   config = {
-      host: SCALINGO_ELASTICSEARCH_URL,
+      host: ENV['SCALINGO_ELASTICSEARCH_URL'],
       transport_options: {
           request: { timeout: 5 }
       }
