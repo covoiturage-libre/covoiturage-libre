@@ -2,12 +2,16 @@
   .jumbotron.small-jumbotron
     .container
       .row
-        .col-md-9
+        .col-md-9.col-md-offset-1
           = render partial: 'search/form', locals: { 'large_inputs': false }
 
+%br
+
 - if @search.valid?
-  %h3= "#{pluralize(@trips.count, 'covoiturage', 'covoiturages')} de #{@search.short_from_name} à #{@search.short_to_name}"
-
-%hr.trip-list
-
-= render @trips
+  .row
+    .col-md-7.col-md-offset-1
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            ="#{pluralize(@trips.count, 'covoiturage', 'covoiturages')} de #{@search.short_from_name} à #{@search.short_to_name}"
+        .panel-body{ style: 'padding: 0' }= render @trips
