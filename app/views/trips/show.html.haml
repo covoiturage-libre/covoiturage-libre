@@ -8,21 +8,62 @@
     .panel.panel-default
       .panel-body
         .row
-          .col-md-3
+          .col-md-4
             Départ
-          .col-md-9
+          .col-md-8
             %strong="#{@trip.point_from.city}"
         .row
-          .col-md-3
+          .col-md-4
             Arrivée
-          .col-md-9
+          .col-md-8
             %strong="#{@trip.point_to.city}"
         .row
-          .col-md-3
+          .col-md-4
             Date de départ
-          .col-md-9
-            %strong="#{l @trip.leave_at, format: :long}"
+          .col-md-8
+            %strong="#{l(@trip.leave_at, format: :long).split(' à ')[0]}"
         .row
-          .col-md-3
-            Détails
-          .col-md-9
+          .col-md-4
+            Heure de départ
+          .col-md-8
+            %strong="#{l(@trip.leave_at, format: :long).split(' à ')[1]}"
+        .row
+          .col-md-4
+            Nombre de places
+          .col-md-8
+            %strong=@trip.seats
+        .row
+          .col-md-4
+            Confort
+          .col-md-8
+            %strong=@trip.comfort
+        .row
+          .col-md-4
+            Commentaire
+          .col-md-8
+            .well=@trip.description.encode("iso-8859-1").force_encoding("utf-8")
+        .row
+          .col-md-4
+            Prix
+          .col-md-8
+            =@trip.price
+        .row
+          .col-md-4
+            Titre
+          .col-md-8
+            =@trip.title
+        .row
+          .col-md-4
+            Fumeur
+          .col-md-8
+            =@trip.smoking
+  .col-md-6
+    .panel.panel-default
+      .panel-body
+        .driver
+          .avatar= image_tag('covoiturage-avatar-default2.png')
+          .info
+            .name= @trip.name
+            .age= "#{@trip.age} ans" if @trip.age.present?
+            .email= @trip.email
+            .phone= @trip.phone

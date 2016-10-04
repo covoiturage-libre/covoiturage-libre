@@ -18,32 +18,6 @@ a.trip-item:hover {
 .trip {
   border-bottom: 1px solid $borderColor;
 
-  .driver {
-    display: block;
-    float: left;
-    padding: 8px;
-    width: 30%;
-    .avatar {
-      text-align: center;
-      display: block;
-      float: left;
-      width: 65px;
-      height: 65px;
-      background-color: $borderColor;
-      border-radius: 100px;
-      padding: 15px 0 15px 0;
-      img {
-        height: 35px;
-      }
-    }
-    .info {
-      float: left;
-      margin: 10px 0 0 10px;
-      .name {
-        font-weight: bold;
-      }
-    }
-  }
   .trip-info {
     display: block;
     float: left;
@@ -67,6 +41,33 @@ a.trip-item:hover {
     }
     .seats {
       font-size: 12px;
+    }
+  }
+}
+
+.driver {
+  display: block;
+  float: left;
+  padding: 8px;
+  width: 30%;
+  .avatar {
+    text-align: center;
+    display: block;
+    float: left;
+    width: 65px;
+    height: 65px;
+    background-color: $borderColor;
+    border-radius: 100px;
+    padding: 15px 0 15px 0;
+    img {
+      height: 35px;
+    }
+  }
+  .info {
+    float: left;
+    margin: 10px 0 0 10px;
+    .name {
+      font-weight: bold;
     }
   }
 }
