@@ -1,7 +1,20 @@
 require 'elasticsearch/model'
 
 class Trip < ApplicationRecord
-  has_many :points
+
+  has_many :points, dependent: :destroy
+
+  default_scope { includes(:points).order('created_at ASC') }
+
+  def point_from
+    points.find { |point| point.kind == 'From' }
+  end
+
+  def point_to
+    points.find { |point| point.kind == 'To' }
+  end
+
+  ### ELASTICSEARCH SECTION
 
   ELASTICSEARCH_MAX_RESULTS = 25
   ELASTICSEARCH_GEO_DISTANCE = "10km"
@@ -70,7 +83,8 @@ class Trip < ApplicationRecord
       search_definition[:query][:bool][:must] << nested_point_definition("To", options[:to_coordinates])
     end
 
-    logger.info JSON.pretty_generate search_definition
+    # pretty log for json elasticsearch request (do not delete)
+    #logger.info JSON.pretty_generate search_definition
 
     __elasticsearch__.search(search_definition)
   end

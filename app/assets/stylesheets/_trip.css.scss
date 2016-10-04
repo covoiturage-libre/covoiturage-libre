@@ -47,7 +47,7 @@ a.trip-item:hover {
   .trip-info {
     display: block;
     float: left;
-    padding: 8px;
+    padding: 14px;
     width: 320px;
     .title {
       font-weight: bold;
@@ -59,8 +59,13 @@ a.trip-item:hover {
     float: left;
     padding: 8px;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
     color: $priceColor;
+    p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .seats {
+      font-size: 12px;
+    }
   }
 }

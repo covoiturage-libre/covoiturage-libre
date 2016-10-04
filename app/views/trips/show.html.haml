@@ -1,12 +1,28 @@
-- content_for :jumbotron do
-  .jumbotron.small-jumbotron
-    .container
-      .row
-        .col-md-9
-          = render partial: 'search/form', locals: { 'large_inputs': false }
+%br
+%p= link_to '&larr; Retour aux résutats'.html_safe, :back
 
-%h3= "#{pluralize(Trip.count, 'covoiturage', 'covoiturages')} trajets sur le site"
+%h3="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city}"
 
-%hr.trip-list
-
-= render @trips
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-md-3
+            Départ
+          .col-md-9
+            %strong="#{@trip.point_from.city}"
+        .row
+          .col-md-3
+            Arrivée
+          .col-md-9
+            %strong="#{@trip.point_to.city}"
+        .row
+          .col-md-3
+            Date de départ
+          .col-md-9
+            %strong="#{l @trip.leave_at, format: :long}"
+        .row
+          .col-md-3
+            Détails
+          .col-md-9

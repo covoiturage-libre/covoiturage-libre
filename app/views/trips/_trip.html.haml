@@ -1,5 +1,5 @@
 .trip
-  = link_to '#', class: 'trip-item' do
+  = link_to trip, class: 'trip-item' do
     .driver
       .avatar= image_tag('covoiturage-avatar-default2.png')
       .info
@@ -8,9 +8,11 @@
     .trip-info
       .title=l trip.leave_at, format: :long
       .details
-        = "#{@search.short_from_name}"
+        = "#{trip.point_from.city}"
         &rarr;
-        = "#{@search.short_to_name}"
+        = "#{trip.point_to.city}"
     .price
-      %p= number_to_currency(trip.price)
+      %p= "#{trip.price} €"
+      .seats
+        = "#{trip.seats} places"
     .clearfix
