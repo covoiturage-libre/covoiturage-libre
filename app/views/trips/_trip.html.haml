@@ -4,7 +4,7 @@
       .avatar= image_tag('covoiturage-avatar-default2.png')
       .info
         .name= trip.name
-        .age= "#{trip.age} ans"
+        .age= "#{trip.age} ans" if trip.age.present?
     .trip-info
       .title=l trip.leave_at, format: :long
       .details
