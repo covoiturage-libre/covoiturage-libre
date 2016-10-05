@@ -82,4 +82,9 @@
 
     .panel.panel-default
       .panel-body
-        %center= link_to 'Réserver', '#', class: 'btn btn-warning btn-lg'
+        %center= link_to 'Réserver', '#', class: 'btn btn-warning btn-lg', id: 'cta_book'
+
+:javascript
+  $('#cta_book').on('click', function() {
+    alert('Bientôt disponible !')
+  })
