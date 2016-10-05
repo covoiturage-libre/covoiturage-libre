@@ -1,0 +1,12 @@
+fr:
+  activerecord:
+    models:
+      trip: Voyage
+    attributes:
+      trip:
+        kind: Type
+        comfort: confort
+        comfort_basic: basique
+        comfort_normal: normal
+        comfort_comfort: confortable
+        comfort_luxe: luxe

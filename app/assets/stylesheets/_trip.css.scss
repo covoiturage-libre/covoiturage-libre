@@ -28,20 +28,13 @@ a.trip-item:hover {
       font-size: 18px;
     }
   }
+
+  .driver {
+    width: 30%;
+  }
+
   .price {
     width: 20%;
-    display: block;
-    float: left;
-    padding: 8px;
-    text-align: center;
-    color: $priceColor;
-    p {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .seats {
-      font-size: 12px;
-    }
   }
 }
 
@@ -49,7 +42,6 @@ a.trip-item:hover {
   display: block;
   float: left;
   padding: 8px;
-  width: 30%;
   .avatar {
     text-align: center;
     display: block;
@@ -69,5 +61,20 @@ a.trip-item:hover {
     .name {
       font-weight: bold;
     }
+  }
+}
+
+.price {
+  display: block;
+  float: left;
+  padding: 8px;
+  text-align: center;
+  color: $priceColor;
+  p {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .seats {
+    font-size: 12px;
   }
 }

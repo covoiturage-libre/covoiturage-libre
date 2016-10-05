@@ -9,14 +9,19 @@
       .panel-body
         .row
           .col-md-4
+            =t Trip.human_attribute_name(:kind)
+          .col-md-8
+            %strong="#{@trip.kind}"
+        .row
+          .col-md-4
             Départ
           .col-md-8
-            %strong="#{@trip.point_from.city}"
+            %strong=ed "#{@trip.point_from.city}"
         .row
           .col-md-4
             Arrivée
           .col-md-8
-            %strong="#{@trip.point_to.city}"
+            %strong=ed "#{@trip.point_to.city}"
         .row
           .col-md-4
             Date de départ
@@ -34,14 +39,14 @@
             %strong=@trip.seats
         .row
           .col-md-4
-            Confort
+            =t Trip.human_attribute_name(:comfort)
           .col-md-8
-            %strong=@trip.comfort
+            %strong=t :"activerecord.attributes.trip.comfort_#{@trip.comfort}"
         .row
           .col-md-4
             Commentaire
           .col-md-8
-            .well=@trip.description.encode("iso-8859-1").force_encoding("utf-8")
+            .well=ed @trip.description
         .row
           .col-md-4
             Prix
@@ -60,10 +65,21 @@
   .col-md-6
     .panel.panel-default
       .panel-body
-        .driver
-          .avatar= image_tag('covoiturage-avatar-default2.png')
-          .info
-            .name= @trip.name
-            .age= "#{@trip.age} ans" if @trip.age.present?
-            .email= @trip.email
-            .phone= @trip.phone
+        .row
+          .col-md-8
+            .driver
+              .avatar= image_tag('covoiturage-avatar-default2.png')
+              .info
+                .name=ed @trip.name
+                .age= "#{@trip.age} ans" if @trip.age.present?
+                .email= @trip.email
+                .phone= @trip.phone
+          .col-md-4
+            .price
+              %p= "#{@trip.price} €"
+              .seats
+                = "#{@trip.seats} places"
+
+    .panel.panel-default
+      .panel-body
+        %center= link_to 'Réserver', '#', class: 'btn btn-warning btn-lg'
