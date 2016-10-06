@@ -8,7 +8,6 @@ gem 'rails', '~> 5.0', '< 5.1' # Bundle edge Rails instead: gem 'rails', github:
 ### Database
 
 gem 'pg', '~> 0.18' # Use postgresql + postgis as the database for Active Record
-gem 'activerecord-postgis-adapter', '~> 4.0' #, :github => 'rgeo/activerecord-postgis-adapter', :branch => 'rails-5' #, '~> 4.0.0.beta'
 gem 'kiba' # the awesome ETL tool
 gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
