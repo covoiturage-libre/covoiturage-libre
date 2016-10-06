@@ -17,6 +17,7 @@ class SearchController < ApplicationController
                            date: Date.parse(search_params[:date], 'dd/mm/yyyy')
                          }
       )
+      # TODO don't use AR, don't hit the pg db to get the data
       @trips = response.records.to_a
     else
       @trips ||= []
