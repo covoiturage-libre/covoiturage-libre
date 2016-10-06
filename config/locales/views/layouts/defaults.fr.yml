@@ -1,0 +1,7 @@
+fr:
+  from: De
+  to: À
+  step: Ville ou lieu-dit
+  from_place: Départ
+  to_place: Arrivée
+  step_place: Étape

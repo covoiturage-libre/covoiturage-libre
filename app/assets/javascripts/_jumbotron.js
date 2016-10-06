@@ -1,7 +1,7 @@
 
 
 function initAutocomplete() {
-    $("#search_from_name, #search_to_name").autocomplete({
+    $('.geocoder').autocomplete({
         source: function (request, response) {
             $.getJSON("/geocodes/autocomplete?term=" + request.term, function (data) {
                 response($.map(data, function (el) {

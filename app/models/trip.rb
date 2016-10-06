@@ -4,6 +4,8 @@ class Trip < ApplicationRecord
 
   has_many :points, dependent: :destroy
 
+  accepts_nested_attributes_for :points
+
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
 
@@ -85,7 +87,7 @@ class Trip < ApplicationRecord
     end
 
     # pretty log for json elasticsearch request (do not delete)
-    #logger.info JSON.pretty_generate search_definition
+    logger.info JSON.pretty_generate search_definition
 
     __elasticsearch__.search(search_definition)
   end

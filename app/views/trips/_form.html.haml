@@ -1,7 +1,36 @@
-= simple_form_for @trip do |f|
+.row
+  .col-md-6
 
-  %h3 Itinéraire
+    = simple_form_for @trip, html: { class: 'form-horizontal' } do |f|
 
-  = f.input :kind, as: :radio
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Vous êtes
+        .panel-body
+          = f.input :kind, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Chauffeur', 'Driver'], ['Passager', 'Passenger']], label: false
 
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Votre trajet
+        .panel-body
+          = f.input :leave_at, as: :string, wrapper: :horizontal_form, input_html: { class: 'datepicker' }, placeholder: 'Date', label: 'Date'
+          = f.simple_fields_for :points, @required_points do |p|
+            = p.input :location_name, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place')
+            = p.input :kind, as: :hidden
 
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Optionnel : faites-vous des étapes ?
+        .panel-body
+          - i = 0
+          = f.simple_fields_for :points, @optional_points do |p|
+            - i += 1
+            = p.input :location_name, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}"
+            = p.input :location_coordinates, as: :hidden
+            = p.input :kind, as: :hidden
+
+      = f.submit 'Créez votre annonce', class: 'btn btn-primary btn-lg'
+
+:javascript
+  initAutocomplete()
+  initDatepicker()

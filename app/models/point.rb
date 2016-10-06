@@ -1,5 +1,8 @@
 class Point < ApplicationRecord
+
   belongs_to :trip
+
+  attr_accessor :location_name, :location_coordinates
 
   def as_json(options={})
     super(
