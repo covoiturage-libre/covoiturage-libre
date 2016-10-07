@@ -6,6 +6,9 @@ class Trip < ApplicationRecord
 
   accepts_nested_attributes_for :points
 
+  attr_accessor :date, :hour
+  validates_presence_of :kind, :date, :hour, :title, :name, :age, :phone, :email
+
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
 

@@ -5,9 +5,9 @@
 
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Vous êtes
+          %h3.panel-title Type d'annonce
         .panel-body
-          = f.input :kind, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Chauffeur', 'Driver'], ['Passager', 'Passenger']], label: false
+          = f.input :kind, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Chauffeur', 'Driver'], ['Passager', 'Passenger']], label: 'Vous êtes'
 
       .panel.panel-default
         .panel-heading
@@ -28,6 +28,16 @@
             = p.input :location_name, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}"
             = p.input :location_coordinates, as: :hidden
             = p.input :kind, as: :hidden
+
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Vous
+        .panel-body
+          = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes'
+          = f.input :name, as: :string, wrapper: :horizontal_form
+          = f.input :age, as: :string, wrapper: :horizontal_form
+          = f.input :phone, as: :string, wrapper: :horizontal_form
+          = f.input :email, as: :string, wrapper: :horizontal_form
 
       = f.submit 'Créez votre annonce', class: 'btn btn-primary btn-lg'
 
