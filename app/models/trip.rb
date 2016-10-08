@@ -4,10 +4,12 @@ class Trip < ApplicationRecord
 
   has_many :points, dependent: :destroy
 
-  accepts_nested_attributes_for :points
+  accepts_nested_attributes_for :points, reject_if: lambda {|point| point[:location_name].blank? }
 
   attr_accessor :date, :hour
-  validates_presence_of :kind, :date, :hour, :title, :name, :age, :phone, :email
+
+  validates_presence_of :kind, :leave_at, :price, :description, :title, :name, :age, :phone, :email
+  validate :must_have_from_and_to_points
 
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
@@ -20,6 +22,11 @@ class Trip < ApplicationRecord
   # access the destination point that comes eager loaded with a trip
   def point_to
     points.find { |point| point.kind == 'To' }
+  end
+
+  # access the steps point that comes eager loaded with a trip
+  def step_points
+    points.select { |point| point.kind == 'Step' }
   end
 
   ### ELASTICSEARCH SECTION
@@ -123,6 +130,16 @@ class Trip < ApplicationRecord
               }
           }
       }
+    end
+
+    def must_have_from_and_to_points
+      logger.info JSON.pretty_generate(as_json)
+      logger.info errors.full_messages
+      if points.empty? or point_from.nil? or point_to.nil?
+        errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires")
+      else
+        logger.info JSON.pretty_generate(points.as_json)
+      end
     end
 
 end
