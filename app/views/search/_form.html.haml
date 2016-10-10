@@ -11,6 +11,7 @@
   = f.input :date, as: :string, input_html: { class: "datepicker #{input_class}" }, label: false, placeholder: 'Date'
   %button.btn.btn-default.btn-primary{class: btn_class, type: 'submit'} Rechercher
 
-:javascript
-  initAutocomplete()
-  initDatepicker()
+- content_for :javascript_footer do
+  :javascript
+    initAutocomplete()
+    initDatepicker()

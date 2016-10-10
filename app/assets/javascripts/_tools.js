@@ -1,4 +1,10 @@
 
+function initDatepicker() {
+    $('.datepicker').datepicker({
+        autoclose: true,
+        language: 'fr'
+    })
+}
 
 function initAutocomplete() {
     $('.geocoder').autocomplete({
