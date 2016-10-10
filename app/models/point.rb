@@ -1,10 +1,11 @@
 class Point < ApplicationRecord
 
-  belongs_to :trip, optional: true
+  belongs_to :trip, inverse_of: :points
 
   attr_accessor :location_name, :location_coordinates
 
-  validates_presence_of :lat, :lon, :city
+  validates_presence_of :location_name, :location_coordinates
+  validates_presence_of :trip, :lat, :lon, :city
 
   before_validation :set_lat_lon, :set_city
 

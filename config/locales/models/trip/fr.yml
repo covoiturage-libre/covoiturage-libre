@@ -4,11 +4,17 @@ fr:
       trip: Voyage
     attributes:
       trip:
-        kind: Type
+        departure_date: Date
+        departure_time: Heure
         price: Prix
         description: Commentaire
-        comfort: confort
-        comfort_basic: basique
-        comfort_normal: normal
-        comfort_comfort: confortable
-        comfort_luxe: luxe
+        name: Nom
+        age: Âge
+        phone: Téléphone
+        email: Email
+        seats: Nombre de places
+        comfort: Confort
+        comfort_standard: Basique
+        comfort_comfort: Normal
+        comfort_first_class: Confortable
+        comfort_luxury: Luxe

@@ -9,11 +9,6 @@
       .panel-body
         .row
           .col-md-4
-            =t Trip.human_attribute_name(:kind)
-          .col-md-8
-            %strong="#{@trip.kind}"
-        .row
-          .col-md-4
             Départ
           .col-md-8
             %strong=ed "#{@trip.point_from.city}"
@@ -26,12 +21,12 @@
           .col-md-4
             Date de départ
           .col-md-8
-            %strong="#{l(@trip.leave_at, format: :long).split(' à ')[0]}"
+            %strong=l @trip.departure_date
         .row
           .col-md-4
             Heure de départ
           .col-md-8
-            %strong="#{l(@trip.leave_at, format: :long).split(' à ')[1]}"
+            %strong=l @trip.departure_time, format: :short
         .row
           .col-md-4
             Nombre de places

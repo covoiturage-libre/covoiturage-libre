@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.integer  "rank"
     t.integer  "trip_id"
     t.decimal  "lat",              precision: 9, scale: 6
-    t.decimal  "decimal",          precision: 9, scale: 6
     t.decimal  "lon",              precision: 9, scale: 6
     t.string   "address1"
     t.string   "address2"
@@ -34,13 +33,14 @@ ActiveRecord::Schema.define(version: 20160524170347) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.datetime "leave_at",                           null: false
+    t.date     "departure_date"
+    t.time     "departure_time"
     t.integer  "seats"
     t.string   "comfort"
     t.text     "description"
     t.integer  "price"
     t.string   "title"
-    t.boolean  "smoking",        default: false,     null: false
+    t.boolean  "smoking"
     t.string   "name"
     t.integer  "age"
     t.string   "email"
@@ -48,12 +48,11 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.string   "creation_token"
     t.string   "edition_token"
     t.string   "deletion_token"
-    t.string   "state",          default: "pending"
+    t.string   "state"
     t.string   "creation_ip"
     t.string   "deletion_ip"
-    t.string   "kind"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   add_foreign_key "points", "trips"

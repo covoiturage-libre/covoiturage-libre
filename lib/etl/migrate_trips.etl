@@ -16,8 +16,8 @@ transform do |row|
   newrow = {}
   # the Trip columns
   newrow[:id] = row[:ID]
-  newrow[:kind] = ed get_kind(row[:TYPE])
-  newrow[:leave_at] = get_leave_at(row[:DATE_PARCOURS], row[:HEURE])
+  newrow[:departure_date] = get_departure_date(row[:DATE_PARCOURS])
+  newrow[:departure_time] = get_departure_time(row[:DATE_PARCOURS], row[:HEURE])
   newrow[:seats] = row[:PLACES]
   newrow[:comfort] = ed get_comfort(row[:CONFORT])
   newrow[:description] = ed row[:COMMENTAIRES]

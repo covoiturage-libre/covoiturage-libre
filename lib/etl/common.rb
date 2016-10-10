@@ -45,21 +45,26 @@ def get_kind(type)
   end
 end
 
-def get_leave_at(date_parcours, heure)
-  return nil if date_parcours.nil? || heure.nil?
-  dt = DateTime.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec, heure.zone)
+def get_departure_date(date_parcours)
+  return nil if date_parcours.nil?
+  Date.new(date_parcours.year, date_parcours.month, date_parcours.day)
+end
+
+def get_departure_time(date_parcours, heure)
+  return nil if heure.nil?
+  Time.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec, heure.zone)
 end
 
 def get_comfort(confort)
   case confort
     when 'Basique'
-      'basic'
+      'standard'
     when 'Normal'
-      'normal'
-    when 'Confortable'
       'comfort'
+    when 'Confortable'
+      'first_class'
     when 'Luxe'
-      'luxe'
+      'luxury'
   end
 end
 
