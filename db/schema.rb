@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.text     "description"
     t.integer  "price"
     t.string   "title"
-    t.boolean  "smoking"
+    t.boolean  "smoking",        default: false,     null: false
     t.string   "name"
     t.integer  "age"
     t.string   "email"
@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 20160524170347) do
     t.string   "creation_token"
     t.string   "edition_token"
     t.string   "deletion_token"
-    t.string   "state"
+    t.string   "state",          default: "pending", null: false
     t.string   "creation_ip"
     t.string   "deletion_ip"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_foreign_key "points", "trips"

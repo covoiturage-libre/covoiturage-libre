@@ -7,10 +7,15 @@ class Trip < ApplicationRecord
 
   has_many :points, inverse_of: :trip, dependent: :destroy
 
+  has_secure_token :creation_token
+  has_secure_token :edition_token
+  has_secure_token :deletion_token
+
   accepts_nested_attributes_for :points, reject_if: proc {|attrs| attrs[:location_name].blank? && attrs[:kind]=='Step' }
 
   validates_presence_of :departure_date, :departure_time, :price, :description, :title, :name, :age, :phone, :email, :seats, :comfort
-  #validates_inclusion_of :comfort, in: CAR_RATINGS
+  validates_inclusion_of :smoking, in: [true, false]
+  validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_numericality_of :price, :age, :seats
   validate :must_have_from_and_to_points
 
