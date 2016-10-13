@@ -20,6 +20,4 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:sender_name, :sender_email, :body)
     end
 
-
-
 end
