@@ -4,8 +4,7 @@ class CreateMessages < ActiveRecord::Migration[5.0]
       t.references :trip, foreign_key: true
       t.string :sender_name
       t.string :sender_email
-      t.string :body
-      t.text :message
+      t.text :body
 
       t.timestamps
     end
