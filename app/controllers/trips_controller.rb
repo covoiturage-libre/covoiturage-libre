@@ -1,15 +1,17 @@
 class TripsController < ApplicationController
 
-  before_filter :load_trip, only: [:show]
+  before_filter :load_trip, only: [:show, :update]
 
   def show
+    unless @trip.confirmed?
+      flash[:notice] = 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
+    end
   end
 
   def index
   end
 
   def new
-    flash[:notice] = "Bienvenue !!!"
     @trip = Trip.new
     point_from = @trip.points.build({ kind: 'From' })
     point_to = @trip.points.build({ kind: 'To' })
@@ -30,11 +32,54 @@ class TripsController < ApplicationController
     end
   end
 
+  # caution, this is a modifying action reached by a GET method
+  def confirm
+    @trip = Trip.find_by(confirmation_token: params[:token])
+    if @trip
+      if @trip.confirm!
+        redirect_to @trip, notice: 'Votre annonce est publiée! Merci pour votre contribution à la communauté!'
+      else
+        render :not_found # let's give no information on this error to the internet
+      end
+    else
+      render :not_found # let's give no information on this error to the internet
+    end
+  end
+
   def edit
+    flash[:notice] = "Vous pouvez modifier votre annonce en mettant à jour le formulaire ci-dessous."
+    @trip = Trip.find_by(edition_token: params[:token])
+    if @trip
+      render :edit
+    else
+      render :not_found # let's give no information on this error to the internet
+    end
   end
 
   def update
+    if @trip.save
+      redirect_to @trip, notice: 'Votre annonce est mise à jour. Merci pour votre contribution à la communauté!'
+    else
+      point_from = @trip.point_from || @trip.points.build({ kind: 'From' })
+      point_to = @trip.point_to || @trip.points.build({ kind: 'To' })
+      @required_points = [point_from, point_to]
+      @optional_points = @trip.step_points.empty? ? build_three_step_points : @trip.step_points
+      render :new
+    end
+  end
 
+  # caution, this is a destructive action reached by a GET method
+  def delete
+    @trip = Trip.find_by(deletion_token: params[:token])
+    if @trip
+      if @trip.soft_delete!
+        render :show, notice: "Votre annonce est supprimée. Pour annuler cliquez ici: <a href='/trips/@trip.id/confirm?confirmation_token: #{@trip.confirmation_token}'>Annuler</a>"
+      else
+        render :not_found # let's give no information on this error to the internet
+      end
+    else
+      render :not_found # let's give no information on this error to the internet
+    end
   end
 
   private
@@ -69,11 +114,5 @@ class TripsController < ApplicationController
       end
       three_step_points
     end
-
-=begin
-    def merge_leave_at_date_time_parameters(params)
-      leave_at = Date
-    end
-=end
 
 end

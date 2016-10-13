@@ -1,0 +1,9 @@
+Bonjour <%= @trip.name %>
+
+Vous avez reçu un message de <%= @message.sender_name %> pour votre trajet de <%= @trip.point_from.city %> à <%= @trip.point_to.city %>
+
+Son message :
+
+<%= @message.body %>
+
+Vous pouvez le recontacter, son email est : <%= @message.sender_email %>

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :trips
+  resources :trips, except: [:destroy] do
+    member do
+      get 'confirm'
+      get 'delete'
+    end
+    resources :messages
+  end
 
   resources :geocodes do
     collection do
@@ -11,6 +17,9 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
   get 'home/index'
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   root to: 'home#index'
 end

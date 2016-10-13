@@ -1,0 +1,18 @@
+%h1
+  Bonjour #{@trip.name}
+%p
+  Information sur votre annonce :
+  Trajet de
+  = @trip.point_from.city
+  à
+  = @trip.point_to.city
+  %br/
+%p
+  Lien de confirmation
+  = link_to 'Confirmez votre annonce', confirm_trip_url(@trip, { token: @trip.confirmation_token })
+%p
+  Lien de modification
+  = link_to 'Éditez votre annonce', edit_trip_url(@trip, { token: @trip.edition_token })
+%p
+  Lien de suppression
+  = link_to 'Supprimez votre annonce', delete_trip_url(@trip, { token: @trip.deletion_token })

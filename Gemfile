@@ -14,6 +14,7 @@ gem 'awesome_print'
 gem 'kaminari' # for pagination
 gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
 gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'sidekiq'
 
 ### App Server
 
@@ -35,6 +36,8 @@ gem 'jquery-turbolinks'
 
 ### Services
 gem 'geocoder'
+gem 'mailgun_rails'
+gem 'appsignal'
 
 ### Other Gems
 
@@ -47,6 +50,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'letter_opener'
+  gem 'letter_opener_web'
   gem 'web-console', '~> 3.3' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'listen', '~> 3.0'
   gem 'spring', '~> 1.7' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

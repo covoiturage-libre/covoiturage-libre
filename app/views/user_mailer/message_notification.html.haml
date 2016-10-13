@@ -1,0 +1,17 @@
+%h1
+  Bonjour
+  = @trip.name
+%p
+  Vous avez reçu un message de
+  = @message.sender_name
+  pour votre trajet de
+  = @trip.point_from.city
+  à
+  = @trip.point_to.city
+  %br/
+%p
+  Son message :
+  = @message.body
+%p
+  Vous pouvez le recontacter, son email est :
+  = @message.sender_email

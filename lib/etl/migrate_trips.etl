@@ -28,7 +28,7 @@ transform do |row|
   newrow[:age] = row[:AGE]
   newrow[:email] = row[:EMAIL]
   newrow[:phone] = row[:TELEPHONE]
-  newrow[:creation_token] = row[:CODE_CREATION]
+  newrow[:confirmation_token] = row[:CODE_CREATION]
   newrow[:edition_token] = row[:CODE_MODIFICATION]
   newrow[:deletion_token] = row[:CODE_SUPPRESSION]
   newrow[:state] = get_state(row[:STATUT])

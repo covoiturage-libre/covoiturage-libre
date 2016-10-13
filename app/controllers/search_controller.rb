@@ -1,6 +1,5 @@
 class SearchController < ApplicationController
-
-
+  
   def index
     @search = Search.new(search_params)
     if @search.valid?

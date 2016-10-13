@@ -13,7 +13,7 @@ class CreateTrips < ActiveRecord::Migration[5.0]
       t.integer :age
       t.string :email
       t.string :phone
-      t.string :creation_token
+      t.string :confirmation_token
       t.string :edition_token
       t.string :deletion_token
       t.string :state, default: 'pending', null: false

@@ -13,5 +13,5 @@
       .panel.panel-default
         .panel-heading
           %h3.panel-title
-            ="#{pluralize(@trips.count, 'covoiturage', 'covoiturages')} de #{@search.short_from_name} à #{@search.short_to_name}"
+            ="#{pluralize(@trips.count, 'covoiturage', plural: 'covoiturages')} de #{@search.short_from_name} à #{@search.short_to_name}"
         .panel-body{ style: 'padding: 0' }= render @trips
