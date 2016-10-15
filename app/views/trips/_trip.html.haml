@@ -6,7 +6,9 @@
         .name= trip.name
         .age= "#{trip.age} ans" if trip.age.present?
     .trip-info
-      .title=l trip.departure_time, format: :long
+      .title
+        =l trip.departure_date, format: :long
+        =l trip.departure_time, format: :short
       .details
         = "#{trip.point_from.city}"
         &rarr;
