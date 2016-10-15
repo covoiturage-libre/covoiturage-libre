@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
 
-  default from: 'noreply@covoiturage-libre.fr'
+  default from: 'Covoiturage Libre <noreply@covoiturage-libre.fr>'
   layout 'mailer'
 
 end
