@@ -1,4 +1,4 @@
-require 'elasticsearch/model'
+#require 'elasticsearch/model'
 
 class Trip < ApplicationRecord
   #include Searchable
