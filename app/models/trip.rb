@@ -1,11 +1,11 @@
 require 'elasticsearch/model'
 
 class Trip < ApplicationRecord
-  include Searchable
+  #include Searchable
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
-  CAR_RATINGS = %w(standard comfort first_class luxury)
-  STATES = %w(pending confirmed deleted)
+  CAR_RATINGS = %w(standard comfort first_class luxury).freeze
+  STATES = %w(pending confirmed deleted).freeze
 
   has_many :points, inverse_of: :trip, dependent: :destroy
   has_many :messages
@@ -53,6 +53,50 @@ class Trip < ApplicationRecord
 
   def confirmed?
     state == 'confirmed'
+  end
+
+  class << self
+
+    def search(options = {})
+      options ||= {}
+
+      # empty search not allowed, for now
+      return nil if options.blank?
+
+      sql_query_string = <<-SQL
+          select trip_point_a.id, departure_date, point_a_rank as from_rank, rank as to_rank
+          from (
+          select trips.id, departure_date, points.rank as point_a_rank
+          from trips
+          inner join points on points.trip_id = trips.id
+          where state = 'confirmed'
+          and
+            ST_Dwithin(
+              ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
+              ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
+              2000
+            )
+          ) as trip_point_a
+          inner join points on points.trip_id = trip_point_a.id
+          where
+            ST_Dwithin(
+              ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
+              ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
+              2000
+            )
+          and point_a_rank < points.rank
+          order by departure_date asc
+      SQL
+
+      Trip.find_by_sql([
+          sql_query_string,
+          options[:from_coordinates][:lon],
+          options[:from_coordinates][:lat],
+          options[:to_coordinates][:lon],
+          options[:to_coordinates][:lat]
+        ])
+    end
+
   end
 
   private

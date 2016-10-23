@@ -3,7 +3,7 @@ class SearchController < ApplicationController
   def index
     @search = Search.new(search_params)
     if @search.valid?
-      response = Trip.search(
+      found_trips = Trip.search(
                          {
                            from_coordinates: {
                                lat: search_params[:from_coordinates].split(',').first,
@@ -17,7 +17,7 @@ class SearchController < ApplicationController
                          }
       )
       # TODO don't use AR, don't hit the pg db to get the data
-      @trips = response.records.to_a
+      @trips = Trip.includes(:points).find(found_trips.map &:id)
     else
       @trips ||= []
       @search = Search.new
