@@ -107,6 +107,9 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     kiba (0.6.1)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -262,6 +265,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   kaminari
+  kaminari-bootstrap
   kiba
   letter_opener
   letter_opener_web

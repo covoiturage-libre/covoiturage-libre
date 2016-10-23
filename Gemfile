@@ -24,6 +24,7 @@ gem 'puma', '~> 3.6' # Use Puma as the app server
 
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
+gem 'kaminari-bootstrap'
 gem 'uglifier', '~> 3.0' # Use Uglifier as compressor for JavaScript assets
 gem 'jquery-rails', '~> 4.2' # Use jquery as the JavaScript library
 gem 'turbolinks', '~> 5.0' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

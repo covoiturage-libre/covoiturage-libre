@@ -1,1 +1,11 @@
-Derniers trajets
+%br
+
+.row
+  .col-md-7.col-md-offset-1
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          Derniers trajets
+      .panel-body{ style: 'padding: 0' }= render @trips
+
+    = paginate @trips
