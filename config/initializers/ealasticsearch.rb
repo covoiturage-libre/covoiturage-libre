@@ -1,3 +1,4 @@
+=begin
 config = {
     host: "http://localhost:9200/",
     transport_options: {
@@ -17,3 +18,4 @@ elsif ENV['SCALINGO_ELASTICSEARCH_URL'].present?
 end
 
 Elasticsearch::Model.client = Elasticsearch::Client.new(config)
+=end

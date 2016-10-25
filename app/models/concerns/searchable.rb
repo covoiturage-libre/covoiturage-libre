@@ -1,3 +1,8 @@
+#
+# Supposed to be included in Trip
+# but Elasticsearch use is being pause because of that issue :
+#
+#
 module Searchable
   extend ActiveSupport::Concern
 

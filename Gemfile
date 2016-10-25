@@ -8,13 +8,19 @@ gem 'rails', '~> 5.0', '< 5.1' # Bundle edge Rails instead: gem 'rails', github:
 ### Database
 
 gem 'pg', '~> 0.18' # Use postgresql + postgis as the database for Active Record
+gem 'kaminari' # for pagination
+gem 'delayed_job_active_record'
+
+### Elasticsearch
+#gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+#gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+
+
+### for ETL job only > delete after platform migration
 gem 'kiba' # the awesome ETL tool
 gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
-gem 'kaminari' # for pagination
-gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-gem 'sidekiq'
+
 
 ### App Server
 
@@ -57,6 +63,7 @@ group :development do
   gem 'listen', '~> 3.0'
   gem 'spring', '~> 1.7' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.0'
+  gem 'daemons' # for running delayed jobs in development env
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
