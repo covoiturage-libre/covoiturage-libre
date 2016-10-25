@@ -25,6 +25,7 @@ gem 'awesome_print'
 ### App Server
 
 gem 'puma', '~> 3.6' # Use Puma as the app server
+gem 'daemons' # for running delayed jobs
 
 ### Front tools
 
@@ -63,7 +64,6 @@ group :development do
   gem 'listen', '~> 3.0'
   gem 'spring', '~> 1.7' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen', '~> 2.0'
-  gem 'daemons' # for running delayed jobs
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
