@@ -8,7 +8,7 @@ class Trip < ApplicationRecord
   STATES = %w(pending confirmed deleted).freeze
 
   has_many :points, inverse_of: :trip, dependent: :destroy
-  has_many :messages
+  has_many :messages, dependent: :destroy
 
   has_secure_token :confirmation_token
   has_secure_token :edition_token
