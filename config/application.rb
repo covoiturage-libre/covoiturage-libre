@@ -14,8 +14,6 @@ module CovoiturageLibreRails5
 
     config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
 
-    config.active_job.queue_adapter = :delayed_job
-
     config.generators do |g|
       g.test_framework :rspec
     end
