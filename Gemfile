@@ -44,7 +44,7 @@ gem 'jquery-turbolinks'
 
 ### Services
 gem 'geocoder'
-gem 'mailgun_rails'
+gem 'mailjet'
 gem 'appsignal'
 
 ### Other Gems
