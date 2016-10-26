@@ -8,7 +8,7 @@ source TripSource, ENV["MYSQL_URL"]
 
 start_time = Time.now
 pre_process do
-  puts "*** START ITINERARY MIGRATION #{start_time}***"
+  puts "*** START TRIP MIGRATION #{start_time}***"
 end
 
 transform do |row|
@@ -42,6 +42,7 @@ transform do |row|
   newrow[:points] = []
   newrow[:points] << {
           kind: 'From',
+          rank: 0,
           trip_id: newrow[:id],
           lon: row[:DEPART_LON],
           lat: row[:DEPART_LAT],
@@ -53,6 +54,7 @@ transform do |row|
       }
   newrow[:points] << {
           kind: 'To',
+          rank: 99,
           trip_id: newrow[:id],
           lon: row[:ARRIVEE_LON],
           lat: row[:ARRIVEE_LAT],
@@ -85,7 +87,7 @@ show_me!
 post_process do
   end_time = Time.now
   duration_in_minutes = (end_time - start_time)/60
-  puts "*** End ACCOUNT MIGRATION #{end_time}***"
+  puts "*** End TRIP MIGRATION #{end_time}***"
   puts "*** Duration (min): #{duration_in_minutes.round(2)}"
 end
 

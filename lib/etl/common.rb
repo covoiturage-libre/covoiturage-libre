@@ -51,8 +51,8 @@ def get_departure_date(date_parcours)
 end
 
 def get_departure_time(date_parcours, heure)
-  return nil if heure.nil?
-  Time.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec, heure.zone)
+  return nil if date_parcours.nil? || heure.nil?
+  Time.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec)
 end
 
 def get_comfort(confort)
@@ -69,6 +69,6 @@ def get_comfort(confort)
 end
 
 def encode_decode(string)
-  string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
+  string
 end
 alias :ed :encode_decode
