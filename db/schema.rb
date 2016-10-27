@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025134051) do
+ActiveRecord::Schema.define(version: 20161027090728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20161025134051) do
     t.integer  "price"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.index "st_geographyfromtext((((('SRID=4326;POINT('::text || lon) || ' '::text) || lat) || ')'::text))", name: "index_on_points_location", using: :gist
     t.index ["trip_id"], name: "index_points_on_trip_id", using: :btree
   end
 
