@@ -2,21 +2,33 @@ class Search
   include ActiveModel::Model
 
   attr_accessor(
-      :from_name,
-      :from_coordinates,
-      :to_name,
-      :to_coordinates,
+      :from_city,
+      :from_lon,
+      :from_lat,
+      :to_city,
+      :to_lon,
+      :to_lat,
       :date
   )
 
-  validates_presence_of :from_coordinates, :to_coordinates, :date
+  validates_presence_of :from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date
 
-  def short_from_name
-    from_name.split(', ').first
+  validate :dont_search_the_past
+
+  def date_value
+    if date.present?
+      Date.strptime(self.date, '%d/%m/%Y')
+    else
+      nil
+    end
   end
 
-  def short_to_name
-    to_name.split(', ').first
-  end
+  private
+
+    def dont_search_the_past
+      if date.present? && date_value < Date.today
+        errors.add(:date, "ne peut pas être dans le passé")
+      end
+    end
 
 end

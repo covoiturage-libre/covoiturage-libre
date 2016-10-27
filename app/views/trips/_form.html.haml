@@ -11,8 +11,9 @@
           = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: { class: 'datepicker' }, placeholder: 'Date'
           = f.input :departure_time, as: :time, wrapper: :horizontal_form, required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
           = f.simple_fields_for :points, @required_points do |p|
-            = p.input :location_name, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
-            = p.input :location_coordinates, as: :hidden
+            = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
+            = p.input :lon, as: :hidden
+            = p.input :lat, as: :hidden
             = p.input :kind, as: :hidden
           = f.input :price, wrapper: :horizontal_form
           = f.input :description, wrapper: :horizontal_form
@@ -24,8 +25,9 @@
           - i = 0
           = f.simple_fields_for :points, @optional_points do |p|
             - i += 1
-            = p.input :location_name, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}"
-            = p.input :location_coordinates, as: :hidden
+            = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geocoder' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}"
+            = p.input :lon, as: :hidden
+            = p.input :lat, as: :hidden
             = p.input :kind, as: :hidden
             = p.input :rank, as: :hidden
 

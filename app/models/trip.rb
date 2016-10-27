@@ -14,7 +14,7 @@ class Trip < ApplicationRecord
   has_secure_token :edition_token
   has_secure_token :deletion_token
 
-  accepts_nested_attributes_for :points, reject_if: proc {|attrs| attrs[:location_name].blank? && attrs[:kind]=='Step' }
+  accepts_nested_attributes_for :points, reject_if: proc {|attrs| attrs[:city].blank? && attrs[:kind]=='Step' }
 
   validates_presence_of :departure_date, :departure_time, :price, :description, :title, :name, :age, :phone, :email, :seats, :comfort, :state
   validates_inclusion_of :smoking, in: [true, false]
@@ -57,11 +57,11 @@ class Trip < ApplicationRecord
 
   class << self
 
-    def search(options = {})
+    def search(search)
       options ||= {}
 
-      # empty search not allowed, for now
-      return nil if options.blank?
+      # empty search not allowed
+      return nil if search.blank? || !search.valid?
 
       sql_query_string = <<-SQL
           select trip_point_a.id, departure_date, point_a_rank as from_rank, rank as to_rank
@@ -91,11 +91,11 @@ class Trip < ApplicationRecord
 
       Trip.find_by_sql([
           sql_query_string,
-          options[:from_coordinates][:lon],
-          options[:from_coordinates][:lat],
-          options[:to_coordinates][:lon],
-          options[:to_coordinates][:lat],
-          options[:date]
+          search.from_lon,
+          search.from_lat,
+          search.to_lon,
+          search.to_lat,
+          search.date_value
         ])
     end
 
