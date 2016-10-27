@@ -1,3 +1,5 @@
+@charset 'utf-8';
+
 /*
  * import nothing from sprockets as it is explained here https://github.com/twbs/bootstrap-sass
  *= require bootstrap-datepicker3
@@ -5,12 +7,14 @@
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 
-@import "_layout";
-@import "_typography";
-@import "_navbar";
-@import "_jumbotron";
-@import "_home";
-@import "_trip";
+@import 'atoms/typography';
+
+@import 'molecules/navbar';
+@import 'molecules/jumbotron';
+
+@import 'templates/home';
+@import 'templates/trip';
+@import 'templates/layout';
