@@ -66,16 +66,17 @@ class Trip < ApplicationRecord
       sql_query_string = <<-SQL
           select trip_point_a.id, departure_date, point_a_rank as from_rank, rank as to_rank
           from (
-          select trips.id, departure_date, points.rank as point_a_rank
-          from trips
-          inner join points on points.trip_id = trips.id
-          where state = 'confirmed'
-          and
-            ST_Dwithin(
-              ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
-              ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
-              10000
-            )
+            select trips.id, departure_date, points.rank as point_a_rank
+            from trips
+            inner join points on points.trip_id = trips.id
+            where state = 'confirmed'
+            and departure_date = '%s'
+            and
+              ST_Dwithin(
+                ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
+                ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
+                10000
+              )
           ) as trip_point_a
           inner join points on points.trip_id = trip_point_a.id
           where
@@ -85,17 +86,16 @@ class Trip < ApplicationRecord
               10000
             )
           and point_a_rank < points.rank
-          and departure_date = '%s'
           order by departure_date asc
       SQL
 
       Trip.find_by_sql([
           sql_query_string,
+          search.date_value,
           search.from_lon,
           search.from_lat,
           search.to_lon,
-          search.to_lat,
-          search.date_value
+          search.to_lat
         ])
     end
 
