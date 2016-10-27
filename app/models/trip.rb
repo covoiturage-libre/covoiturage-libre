@@ -85,6 +85,7 @@ class Trip < ApplicationRecord
               10000
             )
           and point_a_rank < points.rank
+          and departure_date = '%s'
           order by departure_date asc
       SQL
 
@@ -93,7 +94,8 @@ class Trip < ApplicationRecord
           options[:from_coordinates][:lon],
           options[:from_coordinates][:lat],
           options[:to_coordinates][:lon],
-          options[:to_coordinates][:lat]
+          options[:to_coordinates][:lat],
+          options[:date]
         ])
     end
 
