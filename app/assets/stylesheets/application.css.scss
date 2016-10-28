@@ -6,10 +6,14 @@
  *= require jquery-ui/autocomplete
  */
 
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import 'colors';
+@import 'bootstrap-variables';
+@import 'mixins';
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+@import 'atoms/buttons';
 @import 'atoms/typography';
 
 @import 'molecules/navbar';

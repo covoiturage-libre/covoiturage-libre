@@ -2,16 +2,15 @@
   .jumbotron
     .container
       .row
-        .col-md-9
+        .col-md-12
           %h2 Trouvez votre covoiturage
-          %p Le covoiturage gratuit, communautaire et libre.
+          %p
+            Le covoiturage
+            %strong gratuit,
+            %strong communautaire
+            &
+            %strong libre.
           = render partial: 'search/form', locals: { 'large_inputs': true }
-        .col-md-3
-          .publish
-            Vous avez une voiture ?
-            %br
-            %br
-            = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-warning'
 
 .row
   .col-md-4
@@ -19,28 +18,30 @@
       %h3 Sans commission
       %p
         Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers.
+        %br
         Les prix sont fixés par les conducteurs, le site ne se prend aucune commission sur les trajets, nous ne
         vivons que de dons.
       %p
-        %a.btn.btn-default{:href => "#", :role => "button"} Plus d'informations »
+        %a.btn.btn-default{:href => "#", :role => "button"} Plus d’informations →
   .col-md-4
     .feature-block
       %h3 Libre
       %p
-        Nous garantissons que :
+        Nous garantissons que
       %ul
         %li la plateforme est un bien commun : nous ne serons jamais achetés ou côtés en bourse ;
         %li la gouvernance de la plateforme est fondée sur la communauté ;
         %li notre communauté contribue à la protection de l'environnement ;
         %li la plateforme contribue au lien social entre covoitureurs.
       %p
-        %a.btn.btn-default{:href => "#", :role => "button"} Plus d'informations »
+        %a.btn.btn-default{:href => "#", :role => "button"} Plus d’informations →
   .col-md-4
     .feature-block
       %h3 Communautaire
       %p
-        Le service Covoiturage Libre est maintenu et géré par une communauté de bénévoles dévloppeurs, designers, communiquants
-        qui croient que le covoiturage est une magnifique invention mais qu'elle doit rester dans les mains
+        Le service Covoiturage Libre est maintenu et géré par une communauté de bénévoles.
+        %br
+        Développeurs, designers & communiquants qui croient que le covoiturage est une magnifique invention mais qu’elle doit rester dans les mains
         des citoyens et pas controllé par une entreprise privée côtée en bourse.
       %p
-        %a.btn.btn-default{:href => "#", :role => "button"} Plus d'informations »
+        %a.btn.btn-default{:href => "#", :role => "button"} Plus d’informations →

@@ -1,8 +1,8 @@
-
-$bgFeatureBlock      : #fffbf2;
+$bgFeatureBlock: #fff;
 
 .feature-block {
   background-color: $bgFeatureBlock;
   margin: 0 5px;
   padding: 7px 14px;
+  border: 1px solid $gray-lighter;
 }

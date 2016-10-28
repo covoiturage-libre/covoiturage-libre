@@ -1,0 +1,9 @@
+.btn {
+  transition: transform 100ms ease-in-out;
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+}

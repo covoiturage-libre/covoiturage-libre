@@ -1,10 +1,10 @@
 !!!
 %html{:lang => "fr"}
   %head
+    %meta{:charset => "utf-8"}
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %title Covoiturage Libre - Le 1er site de covoiturage français communautaire et libre.
 
-    %meta{:charset => "utf-8"}
     %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
     / The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
@@ -24,6 +24,11 @@
 
       %footer
         %hr
-        %p © 2016 Covoiturage Libre, association loi 1901.
+        %ul.list-inline
+          %li= link_to 'L’association', '#', class: 'btn btn-link'
+          %li= link_to 'Faire un don', '#', class: 'btn btn-link'
+          %li= link_to 'Contribuer', '#', class: 'btn btn-link'
+        %p
+          %small © 2016 Covoiturage Libre, association loi 1901.
 
     = yield :javascript_footer
