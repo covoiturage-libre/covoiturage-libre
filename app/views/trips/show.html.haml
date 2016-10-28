@@ -48,17 +48,17 @@
           .col-md-4
             Prix
           .col-md-8
-            =@trip.price
+            = number_to_currency @trip.price
         .row
           .col-md-4
-            Titre
+            Sexe
           .col-md-8
-            =@trip.title
+            =t :"activerecord.attributes.trip.title_#{@trip.title}"
         .row
           .col-md-4
             Fumeur
           .col-md-8
-            =@trip.smoking
+            =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
   .col-md-6
     .panel.panel-default
       .panel-body
