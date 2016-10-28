@@ -1,7 +1,46 @@
-.navbar-default {
-  background-color: $bgDefault;
+.navbar {
+  border-width: 0;
+  .navbar-form {
+    border-width: 0;
+  }
 
   .navbar-brand {
-    padding: 0;
+    padding: 10px;
+    svg {
+      max-width: 150px;
+      @media (min-width: $grid-float-breakpoint) {
+        max-width: 240px;
+      }
+    }
+    .logo-title-baseline {
+      @media (max-width: $grid-float-breakpoint) {
+        display: none;
+      }
+      display: inherit;
+    }
+  }
+
+  .container {
+    position: relative;
+    .logo-truck {
+      @media (max-width: $grid-float-breakpoint) {
+        display: none;
+      }
+
+      display: block;
+      @include absolute-center();
+      top: 0;
+      transform: translate(-50%, 0);
+      svg {
+        max-width: 120px;
+      }
+    }
+  }
+
+  .btn-new-trip {
+    @media (min-width: $grid-float-breakpoint) {
+      margin-top: 15px;
+    }
   }
 }
+
