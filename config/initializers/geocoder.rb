@@ -2,14 +2,13 @@
 Geocoder.configure(
 
     # geocoding service (see below for supported options):
-    :lookup => :google,
-    :use_https => true,
+    :lookup => :nominatim,
 
     # IP address geocoding service (see below for supported options):
     :ip_lookup => :maxmind,
 
     # to use an API key:
-    :api_key => ENV['GOOGLE_API_KEY'],
+    # :api_key => ENV['KEY'],
 
     # geocoding service request timeout, in seconds (default 3):
     :timeout => 5,

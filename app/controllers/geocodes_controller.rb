@@ -1,12 +1,9 @@
 class GeocodesController < ApplicationController
 
-  #
-  # @returns :
-  #  [{ display_name: "Lille", lat: ..., lon: ...}, {}]
-  #
-  def autocomplete
-    @results = Geocoder.search(params[:term])
-  end
+  COUNTRY_SEARCH_LIST = 'fr,be.ch'.freeze
 
+  def autocomplete
+    @results = Geocoder.search(params[:term], countrycodes: COUNTRY_SEARCH_LIST ).select { |res| res.data['address']['city'] && res.data['address']['postcode'] }
+  end
 
 end

@@ -1,5 +1,5 @@
 json.array! @results do |result|
-  json.city result.data['address_components'][0]['short_name']
-  json.lat result.data['geometry']['location']['lat']
-  json.lon result.data['geometry']['location']['lng']
+  json.city result.data['address']['city'] + " (#{result.data['address']['postcode']})"
+  json.lat result.data['lat']
+  json.lon result.data['lon']
 end
