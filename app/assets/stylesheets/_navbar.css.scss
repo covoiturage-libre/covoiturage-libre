@@ -2,11 +2,44 @@
 
 $bgDefault      : #fff;
 
-.navbar-default {
+@media (min-width: $screen-sm-min) {
+  .navbar {
+    height: 80px;
+    .navbar-nav > li > a {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      line-height: 40px;
+    }
+    .navbar-nav > li > .navbar-btn  {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  }
+}
+@media (max-width: $screen-xs-max) {
+  .navbar .navbar-brand img {
+    height: 50px;
+  }
+  .navbar{
+    .navbar-nav > li > .navbar-btn > a.btn {
+      width: 97%;
+      display:block;
+      padding: 10px 16px;
+      font-size: 18px;
+      line-height: 1.3333333;
+      border-radius: 6px;
+      margin: 0 5px 0 5px;
+    }
+  }
+}
+
+
+.navbar {
   background-color: $bgDefault;
+  margin-bottom: 0;
 
   .navbar-brand {
     padding: 0;
   }
-}
 
+}
