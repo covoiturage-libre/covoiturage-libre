@@ -27,6 +27,9 @@ gem 'awesome_print'
 gem 'puma', '~> 3.6' # Use Puma as the app server
 gem 'daemons' # for running delayed jobs
 
+### Middlewares
+gem 'rack-rewrite'
+
 ### Front tools
 
 gem 'bootstrap-sass'
@@ -41,6 +44,9 @@ gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
+
+### i18n
+gem 'route_translator'
 
 ### Services
 gem 'geocoder'

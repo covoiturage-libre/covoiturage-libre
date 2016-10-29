@@ -1,0 +1,6 @@
+fr:
+  routes:
+    trips: trajets
+    new: nouveau
+    edit: editer
+    search: recherche

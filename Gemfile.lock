@@ -130,6 +130,7 @@ GEM
     pkg-config (1.1.7)
     puma (3.6.0)
     rack (2.0.1)
+    rack-rewrite (1.5.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.1)
@@ -168,6 +169,9 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    route_translator (5.0.2)
+      actionpack (>= 5.0.0, < 5.1)
+      activesupport (>= 5.0.0, < 5.1)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -251,8 +255,10 @@ DEPENDENCIES
   mysql2 (~> 0.4)
   pg (~> 0.18)
   puma (~> 3.6)
+  rack-rewrite
   rails (~> 5.0, < 5.1)
   rails_12factor
+  route_translator
   rspec (~> 3.5)
   sass-rails (~> 5.0)
   simple_form

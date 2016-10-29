@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
 
-  resources :trips, except: [:destroy] do
-    member do
-      get 'confirm'
-      get 'delete'
+  # translated routes by the route_translator gem
+  localized do
+    resources :trips, except: [:destroy] do
+      member do
+        get 'confirm'
+        get 'delete'
+      end
+      resources :messages
     end
-    resources :messages
+    get 'search', to: 'search#index'
+    get 'association', to: 'pages#association'
   end
 
   resources :geocodes do
@@ -14,7 +19,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'search', to: 'search#index'
   get 'home/index'
 
   if Rails.env.development?
