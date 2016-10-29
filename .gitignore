@@ -33,3 +33,5 @@ Gemfile.backup
 Gemfile.lock.backup
 
 .DS_Store
+
+.ruby-version
