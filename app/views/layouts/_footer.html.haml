@@ -1,0 +1,20 @@
+%hr
+
+.text-center
+  %ul.list-inline
+    %li= link_to 'L’association', '/association'
+    %li= link_to 'Presse', press_url
+    %li= link_to 'F.A.Q.', faq_url
+    %li= link_to 'CGUs', '#'
+    %li= link_to 'Contact', contact_url
+    %li= link_to 'Mentions légales', terms_url
+    %li
+      = link_to 'https://www.facebook.com/CovoitLibre/' do
+        = image_tag 'facebook.png', alt: 'Facebook'
+    %li
+      = link_to 'https://twitter.com/covoitlibre?lang=fr' do
+        = image_tag 'twitter.png', alt: 'Twitter'
+    %li
+      = link_to 'https://www.instagram.com/covoituragelibre/' do
+        = image_tag 'instagram.png', alt: 'Instagram'
+    %li © 2016 Covoiturage Libre, association loi 1901.

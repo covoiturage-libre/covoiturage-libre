@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   # translated routes by the route_translator gem
   localized do
+
     resources :trips, except: [:destroy] do
       member do
         get 'confirm'
@@ -10,7 +11,11 @@ Rails.application.routes.draw do
       resources :messages
     end
     get 'search', to: 'search#index'
-    get 'association', to: 'pages#association'
+
+    PagesController::STATIC_PAGES.each do |page|
+      get page, to: "pages##{page}"
+    end
+
   end
 
   resources :geocodes do
@@ -18,8 +23,6 @@ Rails.application.routes.draw do
       get 'autocomplete'
     end
   end
-
-  get 'home/index'
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
