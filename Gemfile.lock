@@ -67,7 +67,6 @@ GEM
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
-    geocoder (1.4.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -127,6 +126,10 @@ GEM
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
     pg (0.18.4)
+    pg_search (1.0.6)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     pkg-config (1.1.7)
     puma (3.6.0)
     rack (2.0.1)
@@ -239,7 +242,6 @@ DEPENDENCIES
   byebug (~> 9.0)
   daemons
   delayed_job_active_record
-  geocoder
   haml
   jbuilder (~> 2.6)
   jquery-rails (~> 4.2)
@@ -254,6 +256,7 @@ DEPENDENCIES
   mailjet
   mysql2 (~> 0.4)
   pg (~> 0.18)
+  pg_search
   puma (~> 3.6)
   rack-rewrite
   rails (~> 5.0, < 5.1)

@@ -8,6 +8,7 @@ gem 'rails', '~> 5.0', '< 5.1' # Bundle edge Rails instead: gem 'rails', github:
 ### Database
 
 gem 'pg', '~> 0.18' # Use postgresql + postgis as the database for Active Record
+gem 'pg_search'
 gem 'kaminari' # for pagination
 gem 'delayed_job_active_record'
 
@@ -49,7 +50,6 @@ gem 'jquery-turbolinks'
 gem 'route_translator'
 
 ### Services
-gem 'geocoder'
 gem 'mailjet'
 gem 'appsignal'
 

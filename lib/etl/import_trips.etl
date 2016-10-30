@@ -8,7 +8,7 @@ source TripSource, ENV["MYSQL_URL"]
 
 start_time = Time.now
 pre_process do
-  puts "*** START TRIP MIGRATION #{start_time}***"
+  puts "*** START TRIP IMPORT #{start_time}***"
 end
 
 transform do |row|
@@ -87,7 +87,7 @@ show_me!
 post_process do
   end_time = Time.now
   duration_in_minutes = (end_time - start_time)/60
-  puts "*** End TRIP MIGRATION #{end_time}***"
+  puts "*** End TRIP IMPORT #{end_time}***"
   puts "*** Duration (min): #{duration_in_minutes.round(2)}"
 end
 

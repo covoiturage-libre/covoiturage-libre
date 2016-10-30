@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require_relative 'common'
+require_relative 'geoname_source'
+require_relative 'geoname_destination'
+
+count = 0
+
+file = '/Users/thb/Projects/covoli/DATA/ES/ES.txt'
+
+source GeonameSource, file
+
+transform do |row|
+  count += 1
+  row
+end
+
+show_me!
+
+destination GeonameDestination, ENV["PG_URL"]

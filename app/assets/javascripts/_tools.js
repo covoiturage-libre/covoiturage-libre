@@ -9,7 +9,7 @@ function initDatepicker() {
 function initAutocomplete() {
     $('.geocoder').autocomplete({
         source: function (request, response) {
-            $.getJSON("/geocodes/autocomplete?term=" + request.term, function (data) {
+            $.getJSON("/geonames/autocomplete?term=" + request.term, function (data) {
                 response($.map(data, function (el) {
                     return {
                         label: el.city,
