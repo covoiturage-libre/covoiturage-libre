@@ -6,8 +6,6 @@ class SearchController < ApplicationController
     if @search.valid?
       found_trips = Trip.search(@search)
       @trips = Trip.includes(:points).find(found_trips.map &:id)
-    else
-      @search = Search.new
     end
   end
 
