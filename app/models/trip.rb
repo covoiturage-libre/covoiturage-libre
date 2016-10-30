@@ -28,6 +28,10 @@ class Trip < ApplicationRecord
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
 
+  def to_param
+    confirmation_token
+  end
+
   # access the departure point that comes eager loaded with a trip
   def point_from
     points.find { |point| point.kind == 'From' }

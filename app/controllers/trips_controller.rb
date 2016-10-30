@@ -1,8 +1,7 @@
 class TripsController < ApplicationController
 
-  before_filter :load_trip, only: [:show, :update]
-
   def show
+    @trip = Trip.find_by_confirmation_token(params[:id])
     unless @trip.confirmed?
       flash[:notice] = 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
     end
@@ -59,6 +58,7 @@ class TripsController < ApplicationController
   end
 
   def update
+    @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip.update_attributes(trip_params)
       redirect_to @trip, notice: 'Votre annonce est mise à jour. Merci pour votre contribution à la communauté!'
     else
@@ -85,10 +85,6 @@ class TripsController < ApplicationController
   end
 
   private
-
-    def load_trip
-      @trip = Trip.find(params[:id])
-    end
 
     def trip_params
       params.require(:trip).permit(:departure_date,
