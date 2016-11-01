@@ -69,9 +69,17 @@ Searchkick is based on elasticsearch, visit searchkick github page to set it up.
 
 Once Elasticsearch is running, you have to index Geonames :
 
+2 choices. Go in the console :
+
 ```
 rails c
 irb> Geoname.reindex
+```
+
+or use the rake task :
+
+```
+rake searchkick:reindex CLASS=Geoname
 ```
 
 * Delayed jobs
