@@ -62,8 +62,6 @@ class Trip < ApplicationRecord
   class << self
 
     def search(search)
-      options ||= {}
-
       # empty search not allowed
       return nil if search.blank? || !search.valid?
 

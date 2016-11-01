@@ -8,20 +8,15 @@ gem 'rails', '~> 5.0', '< 5.1' # Bundle edge Rails instead: gem 'rails', github:
 ### Database
 
 gem 'pg', '~> 0.18' # Use postgresql + postgis as the database for Active Record
-gem 'pg_search'
 gem 'kaminari' # for pagination
 gem 'delayed_job_active_record'
-
-### Elasticsearch
-#gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-#gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-
+gem 'searchkick'
 
 ### for ETL job only > delete after platform migration
+
 gem 'kiba' # the awesome ETL tool
 gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
-
 
 ### App Server
 
@@ -29,6 +24,7 @@ gem 'puma', '~> 3.6' # Use Puma as the app server
 gem 'daemons' # for running delayed jobs
 
 ### Middlewares
+
 gem 'rack-rewrite'
 
 ### Front tools
@@ -47,9 +43,11 @@ gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 
 ### i18n
+
 gem 'route_translator'
 
 ### Services
+
 gem 'mailjet'
 gem 'appsignal'
 

@@ -16,5 +16,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
-//= require _tools
+//= require _init_datepicker.js
+//= require _init_autocomplete.js
 //= require turbolinks

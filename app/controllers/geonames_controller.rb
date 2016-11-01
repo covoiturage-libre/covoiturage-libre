@@ -1,9 +1,7 @@
 class GeonamesController < ApplicationController
 
-  COUNTRY_SEARCH_LIST = 'fr,be.ch'.freeze
-
   def autocomplete
-    @results = Geoname.search_by_name(params[:term]).limit(5)
+    @results = Geoname.search(params[:term])
   end
 
 end
