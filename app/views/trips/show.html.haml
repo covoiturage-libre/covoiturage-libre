@@ -60,6 +60,27 @@
           .col-md-8
             =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
 
+    .panel.panel-default
+      .panel-body
+        %h4 Étapes
+        .row
+          .col-md-4
+            Départ
+          .col-md-8
+            %strong= @trip.point_from.city
+        - @trip.step_points.each_with_index do |step, index|
+          .row
+            .col-md-4
+              = "Étape #{index+1}"
+            .col-md-8
+              %strong= step.city
+
+        .row
+          .col-md-4
+            Arrivée
+          .col-md-8
+            %strong= @trip.point_to.city
+
   .col-md-6
     .panel.panel-default
       .panel-body
