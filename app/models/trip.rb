@@ -1,13 +1,12 @@
 #require 'elasticsearch/model'
 
 class Trip < ApplicationRecord
-  #include Searchable
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
   CAR_RATINGS = %w(standard comfort first_class luxury).freeze
   STATES = %w(pending confirmed deleted).freeze
 
-  has_many :points, inverse_of: :trip, dependent: :destroy
+  has_many :points, -> { order('rank asc') }, inverse_of: :trip, dependent: :destroy
   has_many :messages, dependent: :destroy
 
   has_secure_token :confirmation_token
