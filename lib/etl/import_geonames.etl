@@ -1,14 +1,17 @@
 #!/usr/bin/env ruby
 
+require 'open-uri'
+
+require_relative '../../config/environment'
 require_relative 'common'
 require_relative 'geoname_source'
 require_relative 'geoname_destination'
 
 count = 0
 
-file = '/Users/thb/Projects/covoli/DATA/ES/ES.txt'
+url = ENV['GEONAMES_URL']
 
-source GeonameSource, file
+source GeonameSource, url
 
 transform do |row|
   count += 1

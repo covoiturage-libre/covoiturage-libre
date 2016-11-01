@@ -2,8 +2,10 @@ require 'csv'
 require 'awesome_print'
 
 class GeonameSource
-  def initialize(input_file)
-    @csv = CSV.open(input_file, 'r', { col_sep: "\t" })
+  def initialize(url)
+    download = open(url)
+
+    @csv = CSV.open(download, 'r', { col_sep: "\t" })
   end
 
   def each
