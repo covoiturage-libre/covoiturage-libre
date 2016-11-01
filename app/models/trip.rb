@@ -19,6 +19,7 @@ class Trip < ApplicationRecord
   validates_inclusion_of :smoking, in: [true, false]
   validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_inclusion_of :state, in: STATES
+  validates_inclusion_of :departure_date, in: Date.today..Date.today+1.year, message: "cette date n'est pas entre aujourd'hui et dans 1 an"
   validates_numericality_of :price, :age, :seats
   validate :must_have_from_and_to_points
 
