@@ -18,11 +18,16 @@ It aims at providing a free carpooling service for the shared economy, without p
 
 `postgis 2.2.2`
 
+`elasticsearch 2.4`
+
 * Configuration
 
-Create a database.yml with postgis adapter
+Create a database.yml file
 
 `cp config/database.yml.example config/database.yml`
+
+NB : a simple postgresql config file does the jobs. The adapter is `postgis` but `postgresql` works as well.
+
 
 * Database creation
 
@@ -30,29 +35,52 @@ Create a database.yml with postgis adapter
 
 * Database initialization
 
+Install postgis extension on your database :
+
+```
+user=> CREATE extension postgis;
+CREATE EXTENSION
+```
+Then you can run the migrations
+
 `bundle exec rake db:migrate`
 
-* Import the data
+* Import geonames
 
-We use the ETL gem Kiba to migrate the data from mysql to postgresql
+We use Geonames to search for cities in the app as we aim at using open technologies only
+For more information, visit the geoname website http://www.geonames.org/
 
-You need a MySQL server running
+We use the excellent Kiba gem for ETL operations such as importing geonames data or importing
+legacy covoiturage-libre.fr data.
 
-Import the table trajets.sql
+Kiba files are located in `./lib/etl/`
 
-Then make sure you configure the data source (mysql) and the data destination (postgresql) for Kiba
+I host publicly unzipped city files at this bucket on AWS s3 : https://s3-eu-west-1.amazonaws.com/covoli/
+Country files are FR.txt, BE.txt, CH.txt, etc.
+So for each fil you want to import, you have to run :
+
+`GEONAMES_URL='https://s3-eu-west-1.amazonaws.com/covoli/CH.txt' kiba ./lib/etl/import_geonames.etl`
+
+* Setting up searchkick
+
+We use searchkick as a search engine for Geonames autocompletion.
+
+Searchkick is based on elasticsearch, visit searchkick github page to set it up.
+
+Once Elasticsearch is running, you have to index Geonames :
 
 ```
-# .env file with dotenv
-export MYSQL_URL=mysql://root@localhost:3306/covoiturage-libre-rails5_dev
-export PG_URL=postgres://thb@localhost:5432/covoiturage-libre-rails5_dev
+rails c
+irb> Geoname.reindex
 ```
 
-Then run the command to migrate the data from source into destination 
+* Delayed jobs
 
-```
-bundle exec kiba ./lib/etl/migrate_trips.etl
-```
+We use delayed_jobs_activerecord to process asynchronous jobs like delivering email.
+
+You have to run it with the command :
+
+`./bin/delayed_job start`
 
 * How to run the test suite
 
@@ -60,8 +88,6 @@ planning on using rspec
 
 * Services (job queues, cache servers, search engines, etc.)
 
-probably important later
+in order to make the emails delivered, you have to start delayed_jobs
 
-* Deployment instructions
-
-let's start on heroku
+`./bin/delayed_jobs start`
