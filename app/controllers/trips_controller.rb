@@ -14,10 +14,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    point_from = @trip.points.build({ kind: 'From' })
-    point_to = @trip.points.build({ kind: 'To' })
-    @required_points = [point_from, point_to]
-    @optional_points = build_three_step_points
+    build_points
   end
 
   def create
@@ -25,10 +22,7 @@ class TripsController < ApplicationController
     if @trip.save
       redirect_to @trip, notice: 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
     else
-      point_from = @trip.point_from || @trip.points.build({ kind: 'From' })
-      point_to = @trip.point_to || @trip.points.build({ kind: 'To' })
-      @required_points = [point_from, point_to]
-      @optional_points = @trip.step_points.empty? ? build_three_step_points : @trip.step_points
+      build_points
       render :new
     end
   end
@@ -51,6 +45,7 @@ class TripsController < ApplicationController
     flash[:notice] = "Vous pouvez modifier votre annonce en mettant à jour le formulaire ci-dessous."
     @trip = Trip.find_by(edition_token: params[:token])
     if @trip
+      build_points
       render :edit
     else
       render :not_found # let's give no information on this error to the internet
@@ -62,11 +57,7 @@ class TripsController < ApplicationController
     if @trip.update_attributes(trip_params)
       redirect_to @trip, notice: 'Votre annonce est mise à jour. Merci pour votre contribution à la communauté!'
     else
-      point_from = @trip.point_from || @trip.points.build({ kind: 'From' })
-      point_to = @trip.point_to || @trip.points.build({ kind: 'To' })
-      @required_points = [point_from, point_to]
-      @optional_points = @trip.step_points.empty? ? build_three_step_points : @trip.step_points
-      render :new
+      build_points
     end
   end
 
@@ -105,7 +96,16 @@ class TripsController < ApplicationController
       )
     end
 
+    def build_points
+      return nil if @trip.nil?
+      point_from = @trip.point_from || @trip.points.build({ kind: 'From' })
+      point_to = @trip.point_to || @trip.points.build({ kind: 'To' })
+      @required_points = [point_from, point_to]
+      @optional_points = @trip.step_points.empty? ? build_three_step_points : @trip.step_points
+    end
+
     def build_three_step_points
+      return nil if @trip.nil?
       three_step_points = []
       3.times do |i|
         three_step_points << @trip.points.build({ kind: 'Step', rank: (i + 1) })
