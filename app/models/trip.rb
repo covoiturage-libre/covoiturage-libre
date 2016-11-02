@@ -20,6 +20,7 @@ class Trip < ApplicationRecord
   validates_inclusion_of :departure_date, in: Date.today..Date.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an"
   validates_numericality_of :price, :age, :seats, { greater_than_or_equal_to: 1 }
   validate :must_have_from_and_to_points
+  validates_acceptance_of :terms_of_service#, message: 'Vous devez accepter les CGUs pour pouvoir poster une annonce'
 
   after_create :send_information_email
 

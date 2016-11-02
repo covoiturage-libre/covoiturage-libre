@@ -90,6 +90,7 @@ class TripsController < ApplicationController
                                    :seats,
                                    :comfort,
                                    :smoking,
+                                   :terms_of_service,
                                    points_attributes: [
                                        :id, :kind, :rank, :city, :lon, :lat, :_destroy
                                    ]
