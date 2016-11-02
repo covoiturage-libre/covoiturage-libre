@@ -20,8 +20,7 @@ $bgDefault      : #fff;
   .navbar .navbar-brand img {
     height: 50px;
   }
-  .navbar{
-    .navbar-nav > li > .navbar-btn > a.btn {
+  .btn {
       width: 97%;
       display:block;
       padding: 10px 16px;
@@ -29,7 +28,7 @@ $bgDefault      : #fff;
       line-height: 1.3333333;
       border-radius: 6px;
       margin: 0 5px 0 5px;
-    }
+
   }
 }
 
