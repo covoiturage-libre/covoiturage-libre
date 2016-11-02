@@ -178,7 +178,7 @@ fr:
           unit: ''
       format:
         delimiter: ''
-        precision: 2
+        precision: 3
         significant: true
         strip_insignificant_zeros: true
       storage_units:
@@ -207,6 +207,6 @@ fr:
     am: am
     formats:
       default: "%d %B %Y %Hh %Mmin %Ss"
-      long: "%a. %-d %B %Y à %Hh%M"
-      short: "%Hh%M"
+      long: "%A %d %B %Y %Hh%M"
+      short: "%d %b %Hh%M"
     pm: pm
