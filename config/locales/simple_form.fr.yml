@@ -36,3 +36,8 @@ fr:
           comfort: Normal
           first_class: Confortable
           luxury: Luxe
+  helpers:
+    submit:
+      trip:
+        create: "Créez votre annonce"
+        update: "Sauvegardez vos modifications"
