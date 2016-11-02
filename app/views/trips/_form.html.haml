@@ -15,7 +15,7 @@
             = p.input :lon, as: :hidden
             = p.input :lat, as: :hidden
             = p.input :kind, as: :hidden
-          = f.input :price, wrapper: :horizontal_form
+          = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
           = f.input :description, wrapper: :horizontal_form
 
       .panel.panel-default
