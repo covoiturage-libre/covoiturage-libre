@@ -1,4 +1,4 @@
-
+- date_value = @trip.departure_date.present? ? @trip.departure_date.strftime('%d/%m/%Y') : ''
 = simple_form_for @trip, html: { class: 'form-horizontal' } do |f|
   = f.error_notification
   .row
@@ -8,7 +8,7 @@
         .panel-heading
           %h3.panel-title Votre trajet
         .panel-body
-          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: { class: 'datepicker' }, placeholder: 'Date'
+          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: {value: date_value, class: 'datepicker' }, placeholder: 'Date'
           = f.input :departure_time, as: :time, wrapper: :horizontal_form, required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
           = f.simple_fields_for :points, @required_points do |p|
             = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
