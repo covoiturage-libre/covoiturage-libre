@@ -1,4 +1,5 @@
 - date_value = @trip.departure_date.present? ? @trip.departure_date.strftime('%d/%m/%Y') : ''
+
 = simple_form_for @trip, html: { class: 'form-horizontal' } do |f|
   = f.error_notification
   .row
