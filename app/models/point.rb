@@ -7,10 +7,18 @@ class Point < ApplicationRecord
   validates_presence_of :kind, :rank, :trip, :lat, :lon, :city
   validates_inclusion_of :kind, in: KINDS
   validates_numericality_of :rank
+  validate :lat_lon_must_be_set
 
   before_validation :set_from_rank, :set_to_rank
 
   private
+
+    def lat_lon_must_be_set
+      if lat.blank? or lon.blank?
+        errors.add(:city, "Vous devez sélectionner une ville dans la liste")
+      end
+    end
+
 
     def set_from_rank
       self.rank = 0 if self.kind == 'From'
