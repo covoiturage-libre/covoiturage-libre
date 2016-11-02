@@ -1,5 +1,3 @@
-#require 'elasticsearch/model'
-
 class Trip < ApplicationRecord
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
