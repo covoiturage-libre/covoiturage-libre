@@ -6,4 +6,8 @@ Son message :
 
 <%= @message.body %>
 
-Vous pouvez le recontacter, son email est : <%= @message.sender_email %>
+Vous pouvez le recontacter, son email est : <%= @message.sender_email %>.
+
+<%- if @message.sender_phone.present? %>
+  Son numéro de téléphone est le : <%= @message.sender_phone %>
+<%- end %>
