@@ -6,4 +6,5 @@ fr:
       message:
         sender_name: Votre nom
         sender_email: Votre email
+        sender_phone: Votre numéro de téléphone
         body: Votre message
