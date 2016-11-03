@@ -28,7 +28,7 @@
           .col-md-4
             Heure de départ
           .col-md-8
-            %strong=l @trip.departure_time.try(:strftime, "%k:%m")
+            %strong= @trip.departure_time.try(:strftime, "%k:%m")
         .row
           .col-md-4
             Nombre de places
