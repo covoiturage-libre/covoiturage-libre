@@ -1,4 +1,4 @@
 class Geoname < ApplicationRecord
-  searchkick
+  searchkick word_start: [:place_name]
 
 end
