@@ -74,7 +74,7 @@
 }
 
 .leaflet-routing-icon {
-    background-image: url(leaflet.routing.icons.png);
+    background-image: image-url('leaflet.routing.icons.png');
     -webkit-background-size: 240px 20px;
     background-size: 240px 20px;
     background-repeat: no-repeat;
@@ -228,7 +228,7 @@
     display: block;
     width: 26px;
     height: 23px;
-    background-image: url(routing-icon.png);
+    background-image: image-url('routing-icon.png');
 }
 
 .leaflet-routing-container-hide .leaflet-routing-collapse-btn:after {
