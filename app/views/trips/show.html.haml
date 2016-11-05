@@ -59,10 +59,7 @@
       .panel-heading
         %h3.panel-title
           %strong Étapes :
-          - @trip.points.each_with_index do |step|
-            = step.city
-            - unless step == @trip.points.last
-              &rarr;
+          = display_steps(@trip)
       .panel-body
         #route-wrapper
           #route
