@@ -14,6 +14,9 @@ module CovoiturageLibreRails5
 
     config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
 
+    config.assets.paths << Rails.root.join("vendor", "assets", "images")
+    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg)
+
     config.generators do |g|
       g.test_framework :rspec
     end

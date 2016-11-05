@@ -3,6 +3,8 @@
  *= require bootstrap-datepicker3
  *= require ie10-viewport-bug-workaround
  *= require jquery-ui/autocomplete
+ *= require leaflet
+ *= require leaflet-routing-machine
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
@@ -14,3 +16,12 @@
 @import "_jumbotron";
 @import "_home";
 @import "_trip";
+
+
+#route-wrapper {
+  #route {
+    width: 100%;
+    height: 400px;
+    border: 1px solid #ccc;
+  }
+}

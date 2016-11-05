@@ -75,6 +75,11 @@ class TripsController < ApplicationController
     end
   end
 
+  def points
+    @trip = Trip.find_by_confirmation_token(params[:id])
+    render json: @trip.points
+  end
+
   private
 
     def trip_params
