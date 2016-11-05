@@ -74,7 +74,7 @@ class Trip < ApplicationRecord
             from trips
             inner join points on points.trip_id = trips.id
             where state = 'confirmed'
-            and departure_date = '%s'
+            and departure_date >= '%s'
             and
               ST_Dwithin(
                 ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
