@@ -10,7 +10,7 @@
         =l trip.departure_date, format: :long
         =l trip.departure_time, format: :short
       .details
-        = display_steps(trip)
+        = trip_steps_breadcrumb(trip)
     .price
       %p= "#{trip.price} €"
       .seats
