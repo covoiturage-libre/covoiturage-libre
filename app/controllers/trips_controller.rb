@@ -3,7 +3,7 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find_by_confirmation_token(params[:id])
     unless @trip.confirmed?
-      flash[:notice] = 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
+      flash[:notice] << 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
     end
   end
 
@@ -78,6 +78,14 @@ class TripsController < ApplicationController
   def points
     @trip = Trip.find_by_confirmation_token(params[:id])
     render json: @trip.points
+  end
+
+  def resend_email
+    @trip = Trip.find_by_confirmation_token(params[:id])
+    if @trip
+      @trip.send_information_email
+    end
+    redirect_to @trip, notice: "Nous vous avons renvoyé le mail de gestion de l'annonce à l´annonce."
   end
 
   private

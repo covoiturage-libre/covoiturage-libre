@@ -61,6 +61,10 @@ class Trip < ApplicationRecord
     state == 'confirmed'
   end
 
+  def send_information_email
+    UserMailer.trip_information(self).deliver_later
+  end
+
   class << self
 
     def search(search)
@@ -111,10 +115,6 @@ class Trip < ApplicationRecord
       if points.empty? or point_from.nil? or point_to.nil?
         errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires")
       end
-    end
-
-    def send_information_email
-      UserMailer.trip_information(self).deliver_later
     end
 
 end

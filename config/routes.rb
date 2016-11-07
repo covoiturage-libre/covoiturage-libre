@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       member do
         get 'confirm'
         get 'delete'
+        get 'resend_email'
         get 'points'
       end
       resources :messages

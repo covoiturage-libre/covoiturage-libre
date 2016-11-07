@@ -5,6 +5,11 @@
 
 %h3="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city}"
 
+.trip-ownership.pull-right
+  C'est votre annonce ?
+  = link_to 'Cliquez ici', resend_email_trip_path(@trip)
+  pour recevoir le mail de gestion de l'annonce
+
 .row
   .col-md-6
     .panel.panel-default
