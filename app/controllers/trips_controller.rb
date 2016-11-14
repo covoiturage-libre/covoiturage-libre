@@ -94,6 +94,7 @@ class TripsController < ApplicationController
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip
       @trip = @trip.clone_without_date
+      build_points
       render :new
     else
       render :not_found # let's give no information on this error to the internet
@@ -104,6 +105,7 @@ class TripsController < ApplicationController
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip
       @trip = @trip.clone_as_back_trip
+      build_points
       render :new
     else
       render :not_found # let's give no information on this error to the internet

@@ -65,6 +65,22 @@ class Trip < ApplicationRecord
     UserMailer.trip_information(self).deliver_later
   end
 
+  def clone_without_date
+    new_trip = self.dup
+    new_trip.departure_date = new_trip.departure_time = nil
+    new_trip.points = self.points.map { |p| p.dup }
+    new_trip
+  end
+
+  def clone_as_back_trip
+    new_trip = self.dup
+    new_trip.departure_date = new_trip.departure_time = nil
+    new_trip.points = self.points.reverse.map { |p| p.dup }
+    new_trip.points.first.kind = 'From'
+    new_trip.points.last.kind = 'To'
+    new_trip
+  end
+
   class << self
 
     def search(search)

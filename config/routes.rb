@@ -10,7 +10,6 @@ Rails.application.routes.draw do
         get 'resend_email'
         get 'new_from_copy'
         get 'new_for_back'
-        get 'clone'
         get 'points'
       end
       resources :messages
