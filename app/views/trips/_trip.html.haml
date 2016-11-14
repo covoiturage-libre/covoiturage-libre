@@ -8,7 +8,7 @@
     .trip-info
       .title
         =l trip.departure_date, format: :long
-        =l trip.departure_time, format: :short
+        = trip.departure_time.try(:strftime, "%k:%m")
       .details
         = trip_steps_breadcrumb(trip)
     .price
