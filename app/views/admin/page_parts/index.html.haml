@@ -1,0 +1,18 @@
+%h1.pull-left Liste des "Page Parts"
+
+= link_to 'Nouveau "Page part"', new_admin_page_part_path, class: 'btn btn-primary pull-right top-list-button'
+
+%table.table
+  %tr
+    %th Id
+    %th Nom
+    %th Titre
+    %th Corps
+    %th{ colspan: 2 }
+  - @page_parts.each do |page_part|
+    %tr
+      %td= page_part.id
+      %td= page_part.name
+      %td= page_part.title
+      %td= page_part.body
+      %td= link_to 'Edit', edit_admin_page_part_path(page_part), class: 'btn btn-default btn-sm'

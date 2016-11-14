@@ -21,6 +21,7 @@
   %body
     -#= render 'layouts/google_tag_manager'
     = render 'layouts/navbar'
+    = yield :page_part_1
     = yield :search_zone
     .container
       = yield

@@ -1,3 +1,9 @@
+- content_for :page_part_1 do
+  .container
+    .row
+      .col-md-12
+        = @page_part_1.try(:body)
+
 - content_for :search_zone do
   .jumbotron
     .container
