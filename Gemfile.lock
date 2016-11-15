@@ -53,6 +53,7 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
+    cocoon (1.2.8)
     concurrent-ruby (1.0.2)
     daemons (1.2.4)
     debug_inspector (0.0.2)
@@ -252,6 +253,7 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-sass
   byebug (~> 9.0)
+  cocoon
   daemons
   delayed_job_active_record
   haml

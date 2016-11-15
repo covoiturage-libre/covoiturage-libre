@@ -23,16 +23,11 @@
         .panel-heading
           %h3.panel-title Optionnel : faites-vous des étapes ?
         .panel-body
-          - i = 0
-          = f.simple_fields_for :points, @optional_points do |p|
-            - i += 1
-            .form-inputs.row
-              = p.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}", required: false
-              = p.input :price, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-3' }, placeholder: 'Prix', label: false
-              = p.input :lon, as: :hidden
-              = p.input :lat, as: :hidden
-              = p.input :kind, as: :hidden
-              = p.input :rank, as: :hidden
+          #steps
+            = f.simple_fields_for :points, @optional_points do |point|
+              = render 'point_fields', f: point
+            .links
+              = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, class: 'btn btn-default pull-right'
 
     .col-md-6
 
@@ -64,5 +59,6 @@
 
 - content_for :javascript_footer do
   :javascript
-    initAutocomplete()
+    $('.geoname').geonameAutocomplete()
     initDatepicker()
+    $('#steps').sortable();

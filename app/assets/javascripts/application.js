@@ -13,11 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/autocomplete
+//= require jquery-ui/sortable
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 //= require leaflet.js.erb
 //= require leaflet-routing-machine
+//= require cocoon
 //= require _init_datepicker.js
 //= require _init_autocomplete.js
 //= require turbolinks
