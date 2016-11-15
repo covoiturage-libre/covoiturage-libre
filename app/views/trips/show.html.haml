@@ -51,11 +51,6 @@
             = number_to_currency @trip.price
         .row
           .col-md-4
-            Sexe
-          .col-md-8
-            =t :"activerecord.attributes.trip.title_#{@trip.title}"
-        .row
-          .col-md-4
             Fumeur
           .col-md-8
             =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
@@ -79,6 +74,7 @@
               .info
                 .name= @trip.name
                 .age= "#{@trip.age} ans" if @trip.age.present?
+                .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
                 .email= @trip.email
                 .phone= @trip.phone
           .col-md-4
