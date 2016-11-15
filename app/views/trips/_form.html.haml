@@ -27,7 +27,7 @@
           = f.simple_fields_for :points, @optional_points do |p|
             - i += 1
             .form-inputs.row
-              = p.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}"
+              = p.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place') + " #{i}", required: false
               = p.input :price, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-3' }, placeholder: 'Prix', label: false
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
