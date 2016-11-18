@@ -17,6 +17,8 @@ jQuery.fn.extend({
         });
     },
       select: function (event, ui) {
+        // by default the change event is not triggered on hidden input fields
+        // we need it to update the map instantly
         $('#' + this.id.replace(/city/, 'lat')).val(ui.item.lat).trigger('change');
         $('#' + this.id.replace(/city/, 'lon')).val(ui.item.lon).trigger('change');
       },
