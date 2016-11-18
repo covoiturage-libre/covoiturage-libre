@@ -7,29 +7,31 @@
 
       .panel.panel-default
         .panel-heading
-          %h3.panel-title Votre trajet
+          %h3.panel-title Itinéraire
         .panel-body
-          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: {value: date_value, class: 'datepicker' }, placeholder: 'Date'
-          = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
           = f.simple_fields_for :points, @required_points do |p|
-            = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
-            = p.input :lon, as: :hidden
-            = p.input :lat, as: :hidden
-            = p.input :kind, as: :hidden
-          = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
-          = f.input :description, wrapper: :horizontal_form
-
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Optionnel : faites-vous des étapes ?
-        .panel-body
+            .form-inputs
+              = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
+              = p.input :lon, as: :hidden
+              = p.input :lat, as: :hidden
+              = p.input :kind, as: :hidden
+          %br
+          %h5 Optionnel : faites-vous des étapes ?
           #steps
             = f.simple_fields_for :points, @optional_points do |point|
               = render 'point_fields', f: point
             .links
               = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, class: 'btn btn-default pull-right'
 
-    .col-md-6
+
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Date, horaire et prix global du trajet
+        .panel-body
+          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: {value: date_value, class: 'datepicker' }, placeholder: 'Date'
+          = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
+          = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
+          = f.input :description, wrapper: :horizontal_form
 
       .panel.panel-default
         .panel-heading
@@ -57,8 +59,39 @@
         .col-md-6
           = f.button :submit, class: 'btn btn-primary btn-lg pull-right'
 
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          #route-wrapper
+            #route
+
+
 - content_for :javascript_footer do
   :javascript
+
     $('.geoname').geonameAutocomplete()
     initDatepicker()
-    $('#steps').sortable();
+
+    var tripPoints = [];
+
+    var map = L.map('route').setView([46.227638, 2.213749], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var routing = L.Routing.control({
+      waypoints: tripPoints,
+      routeWhileDragging: true,
+      show: false // setting show to false hides the directions text block
+    }).addTo(map);
+
+    $('.trip_points_lon input').change(function(){
+      var lon = $(this).val();
+      var lat = $(this).parent().siblings('.trip_points_lat').find('input').val();
+      var point = [parseFloat(lat), parseFloat(lon)];
+      console.log(point);
+      tripPoints.push(point);
+      routing.setWaypoints(tripPoints);
+      routing.route();
+    });
