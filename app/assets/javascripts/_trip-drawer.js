@@ -33,15 +33,11 @@ var TripPoints = function() {
   }
 
   self.addPoint = function(point) {
-    console.log(point);
     if ((point.rank === 99) && (self.points.length > 2)) {
-      console.log('update the last "To" point');
       self.points[self.points.length-1] = point.arrayValue();
     } else if (point.rank === (self.points.length-1) && ('To' != point.kind)) {
-      console.log('insert before To point');
       self.points.splice(self.points.length-1, 0, point.arrayValue());
     } else {
-      console.log('simple rank position');
       self.points[point.rank] = point.arrayValue();
     }
     self.renderRouting();
@@ -77,13 +73,12 @@ var TripPoints = function() {
 
       })
       .on("cocoon:after-remove", function(e, step) {
-        console.log('removing step');
         self.currentRank -= 1;
         var deletedRank = parseInt($(step).find('.trip_points_rank input').val());
         self.removePointAtIndex(deletedRank);
         $('.nested-fields').each(function(index) {
-          $(step).find('.trip_points_rank input').val(index+1);
-          $(step).find('.trip_points_lon input').trigger('change');
+          $(this).find('.trip_points_rank input').val(index+1);
+          $(this).find('.trip_points_lon input').trigger('change');
         });
       });
   }
