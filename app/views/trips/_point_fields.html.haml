@@ -1,11 +1,8 @@
 .nested-fields.form-inputs.row
-  = f.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: 'Ville', label: "Étape #{f.object.rank}", required: false
+  = f.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: 'Ville', label: 'Etape', required: false
   = f.input :price, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-3' }, placeholder: 'Prix', label: false
   = f.input :lon, as: :hidden
   = f.input :lat, as: :hidden
-  = f.input :kind, as: :hidden, value: 'Step'
+  = f.input :kind, as: :hidden, input_html: { value: f.object.kind || 'Step' }
   = f.input :rank, as: :hidden
   = link_to_remove_association '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, f, class: 'btn btn-default'
-
-:javascript
-  $('.geoname').geonameAutocomplete()

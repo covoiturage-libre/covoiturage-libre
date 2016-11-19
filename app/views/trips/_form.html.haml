@@ -15,13 +15,15 @@
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
               = p.input :kind, as: :hidden
+              = p.input :rank, as: :hidden
           %br
           %h5 Optionnel : faites-vous des étapes ?
           #steps
+            - index = 0
             = f.simple_fields_for :points, @optional_points do |point|
               = render 'point_fields', f: point
             .links
-              = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, class: 'btn btn-default pull-right'
+              = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, { class: 'btn btn-default pull-right', render_options: {locals: { rank: index }}}
 
 
       .panel.panel-default
@@ -65,33 +67,23 @@
           #route-wrapper
             #route
 
-
 - content_for :javascript_footer do
   :javascript
 
     $('.geoname').geonameAutocomplete();
     initDatepicker();
 
-    var tripPoints = [];
-
-    var map = L.map('route').setView([46.227638, 2.213749], 5);
+    var myMap = L.map('route').setView([46.227638, 2.213749], 5);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(myMap);
 
-    var routing = L.Routing.control({
-      waypoints: tripPoints,
+    var myRouting = L.Routing.control({
+      waypoints: [],
       routeWhileDragging: true,
       show: false // setting show to false hides the directions text block
-    }).addTo(map);
+    }).addTo(myMap);
 
-    $('.trip_points_lon input').change(function(){
-      var lon = $(this).val();
-      var lat = $(this).parent().siblings('.trip_points_lat').find('input').val();
-      var point = [parseFloat(lat), parseFloat(lon)];
-      console.log(point);
-      tripPoints.push(point);
-      routing.setWaypoints(tripPoints);
-      routing.route();
-    });
+    var initialTripPoints = #{raw @trip.points.map { |point| [point.lat.to_f, point.lon.to_f]}};
+    window.myTripPoints = new TripPoints().init(myRouting, initialTripPoints);

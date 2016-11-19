@@ -136,8 +136,8 @@ class TripsController < ApplicationController
 
     def build_points
       return nil if @trip.nil?
-      point_from = @trip.point_from || @trip.points.build({ kind: 'From' })
-      point_to = @trip.point_to || @trip.points.build({ kind: 'To' })
+      point_from = @trip.point_from || @trip.points.build({ kind: 'From', rank: 0 })
+      point_to = @trip.point_to || @trip.points.build({ kind: 'To', rank: 99 })
       @required_points = [point_from, point_to]
       @optional_points = @trip.step_points.empty? ? build_three_step_points : @trip.step_points
     end
@@ -145,7 +145,7 @@ class TripsController < ApplicationController
     def build_three_step_points
       return nil if @trip.nil?
       three_step_points = []
-      3.times do |i|
+      0.times do |i|
         three_step_points << @trip.points.build({ kind: 'Step', rank: (i + 1) })
       end
       three_step_points

@@ -20,6 +20,7 @@
 //= require leaflet.js.erb
 //= require leaflet-routing-machine
 //= require cocoon
-//= require _init_datepicker.js
-//= require _init_autocomplete.js
+//= require _init-datepicker.js
+//= require _init-autocomplete.js
+//= require _trip-drawer.js
 //= require turbolinks
