@@ -33,16 +33,23 @@ var TripPoints = function() {
   }
 
   self.addPoint = function(point) {
-    self.points[point.rank] = point.arrayValue();
+    console.log(point);
+    if ((point.rank === 99) && (self.points.length > 2)) {
+      console.log('update the last "To" point');
+      self.points[self.points.length-1] = point.arrayValue();
+    } else if (point.rank === (self.points.length-1) && ('To' != point.kind)) {
+      console.log('insert before To point');
+      self.points.splice(self.points.length-1, 0, point.arrayValue());
+    } else {
+      console.log('simple rank position');
+      self.points[point.rank] = point.arrayValue();
+    }
     self.renderRouting();
   }
 
-  self.removePoint = function(point) {
-
-  }
-
-  self.changePoint = function(point) {
-
+  self.removePointAtIndex = function(index) {
+    self.points.splice(index, 1);
+    self.renderRouting();
   }
 
   self.observeGeonameChanges = function() {
@@ -67,10 +74,17 @@ var TripPoints = function() {
         $(step).find('.trip_points_lon input').change(self.grabPointFields);
       })
       .on("cocoon:before-remove", function(e, step) {
-        // do nothing
+
       })
       .on("cocoon:after-remove", function(e, step) {
-        // do nothing
+        console.log('removing step');
+        self.currentRank -= 1;
+        var deletedRank = parseInt($(step).find('.trip_points_rank input').val());
+        self.removePointAtIndex(deletedRank);
+        $('.nested-fields').each(function(index) {
+          $(step).find('.trip_points_rank input').val(index+1);
+          $(step).find('.trip_points_lon input').trigger('change');
+        });
       });
   }
 
@@ -78,7 +92,7 @@ var TripPoints = function() {
     var lon = $(this).val();
     var lat = $(this).parent().siblings('.trip_points_lat').find('input').val();
     var kind = $(this).parent().siblings('.trip_points_kind').find('input').val();
-    var rank = $(this).parent().siblings('.trip_points_rank').find('input').val();
+    var rank = parseInt($(this).parent().siblings('.trip_points_rank').find('input').val());
     var point = new Point(lat, lon, rank, kind);
     self.addPoint(point);
   }
