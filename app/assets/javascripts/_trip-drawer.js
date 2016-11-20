@@ -1,20 +1,23 @@
+function isFloat(n){
+  return Number(n) === n && n % 1 !== 0;
+}
+
 var Point = function(lat, lon, rank, kind) {
   this.lat = lat;
   this.lon = lon;
   this.rank = rank;
   this.kind = kind;
   this.arrayValue = function() {
-    return [parseFloat(this.lat), parseFloat(this.lon)];
+    return [this.lat, this.lon];
   }
 }
 
-var TripPoints = function() {
+var TripDrawing = function() {
   var self = this;
 
   self.init = function(aRouting, aPointArray) {
-    self.currentRank = 0;
+    self.points = [];
     self.routing = aRouting;
-    self.points = new Array(2); // should contain only arrayValues of the points
     if (self.hasAFirstLatLon(aPointArray)) {
       self.points = aPointArray;
       self.renderRouting();
@@ -23,24 +26,34 @@ var TripPoints = function() {
     self.manageCocoonEvents();
   }
 
-  self.cleanPointsArray = function() {
-    for (var i = 0; i < self.points.length; i++) {
-      if (self.points[i] == undefined) {
-        self.points.splice(i, 1);
-        i--;
-      }
-    };
+  self.observeGeonameChanges = function() {
+    $('.trip_points_lon input').change(self.updateOrCreatePoint);
   }
 
-  self.addPoint = function(point) {
-    if ((point.rank === 99) && (self.points.length > 2)) {
-      self.points[self.points.length-1] = point.arrayValue();
-    } else if (point.rank === (self.points.length-1) && ('To' != point.kind)) {
-      self.points.splice(self.points.length-1, 0, point.arrayValue());
-    } else {
+  self.manageCocoonEvents = function() {
+    $('#steps')
+      .on('cocoon:after-insert', function(e, el) {
+        self.reorderSteps();
+        $(el).find('.trip_points_lon input:first').change(self.updateOrCreatePoint);
+      })
+      .on("cocoon:after-remove", function(e, el) {
+        var deletedRank = parseInt($(el).find('.trip_points_rank input:first').val());
+        self.removePointAtIndex(deletedRank);
+        self.reorderSteps();
+      });
+  }
+
+  self.updateOrCreatePoint = function() {
+    var lon = parseFloat($(this).val());
+    console.log(lon);
+    if (isFloat(lon)) {
+      var lat = parseFloat($(this).parent().siblings('.trip_points_lat:first').find('input:first').val());
+      var kind = $(this).parent().siblings('.trip_points_kind:first').find('input:first').val();
+      var rank = parseInt($(this).parent().siblings('.trip_points_rank:first').find('input:first').val());
+      var point = new Point(lat, lon, rank, kind);
       self.points[point.rank] = point.arrayValue();
+      self.renderRouting();
     }
-    self.renderRouting();
   }
 
   self.removePointAtIndex = function(index) {
@@ -48,48 +61,24 @@ var TripPoints = function() {
     self.renderRouting();
   }
 
-  self.observeGeonameChanges = function() {
-    $('.trip_points_lon input').change(self.grabPointFields);
-  }
-
   self.renderRouting = function() {
-    self.cleanPointsArray();
-    self.routing.setWaypoints(self.points);
+    self.routing.setWaypoints(self.cloneAndTrimArray());
     self.routing.route();
   }
 
-  self.manageCocoonEvents = function() {
-    $('#steps')
-      .on('cocoon:before-insert', function(e, step) {
-
-      })
-      .on('cocoon:after-insert', function(e, step) {
-        self.currentRank += 1;
-        $(step).find('.trip_points_rank input').val(self.currentRank);
-        $(step).find('.geoname').geonameAutocomplete();
-        $(step).find('.trip_points_lon input').change(self.grabPointFields);
-      })
-      .on("cocoon:before-remove", function(e, step) {
-
-      })
-      .on("cocoon:after-remove", function(e, step) {
-        self.currentRank -= 1;
-        var deletedRank = parseInt($(step).find('.trip_points_rank input').val());
-        self.removePointAtIndex(deletedRank);
-        $('.nested-fields').each(function(index) {
-          $(this).find('.trip_points_rank input').val(index+1);
-          $(this).find('.trip_points_lon input').trigger('change');
-        });
-      });
+  self.reorderSteps = function() {
+    $('#steps .nested-fields').each(function(index, value) {
+      var newIndex = parseInt(index) + 1;
+      $(this).find('.trip_points_city label:first').text('Étape '+ newIndex);
+      $(this).find('.trip_points_rank input:first').val(newIndex);
+    });
   }
 
-  self.grabPointFields = function() {
-    var lon = $(this).val();
-    var lat = $(this).parent().siblings('.trip_points_lat').find('input').val();
-    var kind = $(this).parent().siblings('.trip_points_kind').find('input').val();
-    var rank = parseInt($(this).parent().siblings('.trip_points_rank').find('input').val());
-    var point = new Point(lat, lon, rank, kind);
-    self.addPoint(point);
+  // more or less "private" methods
+
+  self.cloneAndTrimArray = function() {
+    var copiedArray = self.points.slice(0);
+    return copiedArray.filter(function(val) { return val !== null; })
   }
 
   self.hasAFirstLatLon = function(anArray) {
