@@ -45,7 +45,6 @@ var TripDrawing = function() {
 
   self.updateOrCreatePoint = function() {
     var lon = parseFloat($(this).val());
-    console.log(lon);
     if (isFloat(lon)) {
       var lat = parseFloat($(this).parent().siblings('.trip_points_lat:first').find('input:first').val());
       var kind = $(this).parent().siblings('.trip_points_kind:first').find('input:first').val();
@@ -57,7 +56,7 @@ var TripDrawing = function() {
   }
 
   self.removePointAtIndex = function(index) {
-    self.points.splice(index, 1);
+    self.points[index] = null;
     self.renderRouting();
   }
 
