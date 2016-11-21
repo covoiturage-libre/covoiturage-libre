@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+  add_template_helper(ApplicationHelper)
 
   def trip_information(trip)
     @trip = trip
