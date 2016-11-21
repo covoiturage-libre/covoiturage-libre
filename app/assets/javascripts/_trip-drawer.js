@@ -36,9 +36,11 @@ var TripDrawing = function() {
         self.reorderSteps();
         $(el).find('.trip_points_lon input:first').change(self.updateOrCreatePoint);
       })
+      .on("cocoon:before-remove", function(e, el) {
+        self.deletedRank = parseInt($(el).find('.trip_points_rank input:first').val());
+      })
       .on("cocoon:after-remove", function(e, el) {
-        var deletedRank = parseInt($(el).find('.trip_points_rank input:first').val());
-        self.removePointAtIndex(deletedRank);
+        self.removePointAtIndex(self.deletedRank);
         self.reorderSteps();
       });
   }
@@ -56,13 +58,12 @@ var TripDrawing = function() {
   }
 
   self.removePointAtIndex = function(index) {
-    self.points[index] = null;
+    if (index == 99 ) {
+      self.points[index] = null;
+    } else {
+      self.points.splice(index, 1);
+    }
     self.renderRouting();
-  }
-
-  self.renderRouting = function() {
-    self.routing.setWaypoints(self.cloneAndTrimArray());
-    self.routing.route();
   }
 
   self.reorderSteps = function() {
@@ -71,6 +72,17 @@ var TripDrawing = function() {
       $(this).find('.trip_points_city label:first').text('Étape '+ newIndex);
       $(this).find('.trip_points_rank input:first').val(newIndex);
     });
+  }
+
+  // rendering and routing methods
+
+  self.renderRouting = function() {
+    self.routing.setWaypoints(self.cloneAndTrimArray());
+    self.routing.route();
+  }
+
+  self.getRouteInfo = function() {
+
   }
 
   // more or less "private" methods
