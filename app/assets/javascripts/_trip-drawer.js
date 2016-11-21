@@ -16,6 +16,7 @@ var TripDrawing = function() {
   var self = this;
 
   self.init = function(aRouting, aPointArray) {
+    self.maxRank = 99;
     self.points = [];
     self.routing = aRouting;
     if (self.hasAFirstLatLon(aPointArray)) {
@@ -33,8 +34,8 @@ var TripDrawing = function() {
   self.manageCocoonEvents = function() {
     $('#steps')
       .on('cocoon:after-insert', function(e, el) {
-        self.reorderSteps();
         $(el).find('.trip_points_lon input:first').change(self.updateOrCreatePoint);
+        self.reorderSteps();
       })
       .on("cocoon:before-remove", function(e, el) {
         self.deletedRank = parseInt($(el).find('.trip_points_rank input:first').val());
@@ -58,7 +59,7 @@ var TripDrawing = function() {
   }
 
   self.removePointAtIndex = function(index) {
-    if (index == 99 ) {
+    if (index === self.maxRank ) {
       self.points[index] = null;
     } else {
       self.points.splice(index, 1);
