@@ -128,6 +128,8 @@ class TripsController < ApplicationController
                                    :comfort,
                                    :smoking,
                                    :terms_of_service,
+                                   :total_distance,
+                                   :total_time,
                                    points_attributes: [
                                        :id, :kind, :rank, :city, :lon, :lat, :price, :_destroy
                                    ]

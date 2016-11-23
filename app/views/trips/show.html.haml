@@ -3,9 +3,14 @@
 
 = flash_messages
 
-%h3="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city}"
+.page-header
+  %h1
+    ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city}"
+    %small
+      = distance_of_time_in_words(@trip.total_time)
+      = "- #{(@trip.total_distance / 1000).round} km"
 
-.trip-ownership.pull-right
+.trip-ownership
   C'est votre annonce ?
   = link_to 'Cliquez ici', resend_email_trip_path(@trip)
   pour recevoir le mail de gestion de l'annonce
