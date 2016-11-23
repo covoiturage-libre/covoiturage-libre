@@ -7,8 +7,8 @@
   %h1
     ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city}"
     %small
-      = distance_of_time_in_words(@trip.total_time)
-      = "- #{(@trip.total_distance / 1000).round} km"
+      = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
+      = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
 
 .trip-ownership
   C'est votre annonce ?
