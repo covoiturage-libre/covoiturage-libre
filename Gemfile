@@ -52,6 +52,9 @@ gem 'route_translator'
 gem 'mailjet'
 gem 'appsignal'
 
+### Image manipularion
+gem 'dragonfly'
+
 ### Other Gems
 
 # gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production

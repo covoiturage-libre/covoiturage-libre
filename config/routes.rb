@@ -11,6 +11,7 @@ Rails.application.routes.draw do
         get 'new_from_copy'
         get 'new_for_back'
         get 'points'
+        get 'phone_number_image'
       end
       resources :messages
     end
@@ -36,6 +37,10 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
+
+  get "text/:text" => Dragonfly.app.endpoint { |params, app|
+    app.generate(:text, params[:text], 'font-size': 14)
+  }
 
   root to: 'home#index'
 end

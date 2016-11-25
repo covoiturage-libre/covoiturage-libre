@@ -80,8 +80,7 @@
                 .name= @trip.name
                 .age= "#{@trip.age} ans" if @trip.age.present?
                 .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
-                .email= @trip.email
-                .phone= @trip.phone
+                .phone#image_phone= image_tag('')
           .col-md-4
             .price
               %p= "#{@trip.price} €"
@@ -105,6 +104,15 @@
 
 - content_for :javascript_footer do
   :javascript
+
+    var img = $("<img />").attr('src', "/text/#{@trip.phone}")
+      .on('load', function() {
+        if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+            alert('broken image!');
+        } else {
+            $("#image_phone").append(img);
+        }
+    });
 
     var tripPoints = [];
 
