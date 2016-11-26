@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
     resources :trips, except: [:destroy] do
       member do
+        get 'ready_to_confirm'
         get 'confirm'
         get 'delete'
         get 'resend_email'

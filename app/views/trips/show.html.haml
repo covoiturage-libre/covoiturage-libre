@@ -98,10 +98,6 @@
           .message#message-wrapper
             = render 'messages/form'
 
-.duplicate
-  = link_to 'Copier le trajet', new_from_copy_trip_path(@trip), class: 'btn btn-default'
-  = link_to 'Créer le trajet retour', new_for_back_trip_path(@trip), class: 'btn btn-default'
-
 - content_for :javascript_footer do
   :javascript
 
