@@ -98,6 +98,8 @@
           .message#message-wrapper
             = render 'messages/form'
 
+= link_to 'Modifier', edit_trip_path(@trip.edition_token)
+
 - content_for :javascript_footer do
   :javascript
 

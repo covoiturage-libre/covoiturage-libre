@@ -1,0 +1,20 @@
+%br
+= flash_messages
+.row
+  .col-md-8
+    %h1 Merci !
+    %p
+      Votre annonce a bien été enregistrée.
+    %p
+      Cependant, pour valider définitivement votre annonce (et votre adresse email), veuillez cliquer sur le lien fourni
+      dans l'email de confirmation qui vient de vous être envoyé.
+    %p
+      Sans réponse de votre part dans un délai de 24 heures, votre annonce sera automatiquement supprimée.
+
+    %br
+    %p
+      Vous n'avez pas reçu le mail de validation ?
+      = link_to 'Cliquez ici', resend_email_trip_path(@trip)
+      pour le recevoir à nouveau.
+  .col-md-4
+    = render 'shortcuts'

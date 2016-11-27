@@ -3,7 +3,7 @@ class TripsController < ApplicationController
   def show
     @trip = Trip.find_by_confirmation_token(params[:id])
     unless @trip.confirmed?
-      flash[:notice] = 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
+      render :not_found
     end
   end
 
@@ -20,23 +20,19 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
-      redirect_to ready_to_confirm_trip_url(@trip), notice: 'Votre annonce est enregistrée mais pas encore publiée. Nous vous avons envoyé un mail de confirmation pour valider votre annonce.'
+      # do nothing, render create page
     else
       build_points
       render :new
     end
   end
 
-  def ready_to_confirm
-    @trip = Trip.find_by_confirmation_token(params[:id])
-  end
-
   # caution, this is a modifying action reached by a GET method
   def confirm
-    @trip = Trip.find_by(confirmation_token: params[:token])
+    @trip = Trip.find_by(confirmation_token: params[:id])
     if @trip
       if @trip.confirm!
-        redirect_to @trip, notice: 'Votre annonce est publiée! Merci pour votre contribution à la communauté!'
+        # do nothing, render confirm page
       else
         render :not_found # let's give no information on this error to the internet
       end
@@ -46,11 +42,9 @@ class TripsController < ApplicationController
   end
 
   def edit
-    flash[:notice] = "Vous pouvez modifier votre annonce en mettant à jour le formulaire ci-dessous."
-    @trip = Trip.find_by(edition_token: params[:token])
+    @trip = Trip.find_by(edition_token: params[:id])
     if @trip
       build_points
-      render :edit
     else
       render :not_found # let's give no information on this error to the internet
     end
@@ -59,7 +53,7 @@ class TripsController < ApplicationController
   def update
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip.update_attributes(trip_params)
-      redirect_to @trip, notice: 'Votre annonce est mise à jour. Merci pour votre contribution à la communauté!'
+      # do nothing, render update page
     else
       build_points
     end
@@ -67,10 +61,10 @@ class TripsController < ApplicationController
 
   # caution, this is a destructive action reached by a GET method
   def delete
-    @trip = Trip.find_by(deletion_token: params[:token])
+    @trip = Trip.find_by(deletion_token: params[:id])
     if @trip
       if @trip.soft_delete!
-        render :show, notice: "Votre annonce est supprimée. Pour annuler cliquez ici: <a href='/trips/@trip.id/confirm?confirmation_token: #{@trip.confirmation_token}'>Annuler</a>"
+        # do nothing, render update page
       else
         render :not_found # let's give no information on this error to the internet
       end
@@ -82,15 +76,15 @@ class TripsController < ApplicationController
   def resend_email
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip
-      @trip.send_information_email
-      redirect_to @trip, notice: "Nous vous avons renvoyé le mail de gestion de l'annonce à l´annonce."
+      @trip.send_confirmation_email
+      redirect_to :back, notice: "Nous vous avons renvoyé le mail de validation de l'annonce."
     else
       render :not_found # let's give no information on this error to the internet
     end
   end
 
   def new_from_copy
-    @trip = Trip.find_by_confirmation_token(params[:id])
+    @trip = Trip.find_by_edition_token(params[:id])
     if @trip
       @trip = @trip.clone_without_date
       build_points
@@ -101,7 +95,7 @@ class TripsController < ApplicationController
   end
 
   def new_for_back
-    @trip = Trip.find_by_confirmation_token(params[:id])
+    @trip = Trip.find_by_edition_token(params[:id])
     if @trip
       @trip = @trip.clone_as_back_trip
       build_points
