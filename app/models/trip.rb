@@ -11,7 +11,7 @@ class Trip < ApplicationRecord
   has_secure_token :edition_token
   has_secure_token :deletion_token
 
-  accepts_nested_attributes_for :points, reject_if: proc {|attrs| attrs[:city].blank? && attrs[:kind]=='Step' }
+  accepts_nested_attributes_for :points, allow_destroy: true, reject_if: proc {|attrs| attrs[:city].blank? && attrs[:kind]=='Step' }
 
   validates_presence_of :departure_date, :departure_time, :price, :title, :name, :email, :seats, :comfort, :state
   validates_inclusion_of :smoking, in: [true, false]
