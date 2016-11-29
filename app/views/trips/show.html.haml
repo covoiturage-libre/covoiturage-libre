@@ -10,11 +10,6 @@
       = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
       = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
 
-.trip-ownership
-  C'est votre annonce ?
-  = link_to 'Cliquez ici', resend_email_trip_path(@trip)
-  pour recevoir le mail de gestion de l'annonce
-
 .row
   .col-md-6
     .panel.panel-default
@@ -97,6 +92,14 @@
         #message_zone
           .message#message-wrapper
             = render 'messages/form'
+    .panel.panel-default
+      .panel-body
+        .trip-ownership
+          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de confirmation que vous avez reçu lors de la création de l'annonce.
+          %p
+            Vous avez perdu le courriel de confirmation ?
+            = link_to 'Cliquez ici', resend_email_trip_path(@trip)
+            pour le recevoir à nouveau.
 
 = link_to 'Modifier', edit_trip_path(@trip.edition_token)
 
