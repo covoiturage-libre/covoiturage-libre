@@ -8,10 +8,19 @@
   .jumbotron
     .container
       .row
-        .col-md-12
+        .col-md-9
           %h2 Trouvez votre covoiturage
           %p Le covoiturage gratuit, communautaire et libre.
           = render partial: 'search/form', locals: { 'large_inputs': true }
+        .col-md-3.home-publish-cta
+          %p
+            Vous avez une voiture ?
+          = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-warning'
+          %p
+            %br
+            le site ne prend aucune commission
+            %br
+            association loi 1901
 
 .row
   .col-md-4

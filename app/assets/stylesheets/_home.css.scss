@@ -6,3 +6,21 @@ $bgFeatureBlock      : #fffbf2;
   margin: 0 5px;
   padding: 7px 14px;
 }
+
+.home-publish-cta {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
+  p {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: $screen-sm-max) {
+  .home-publish-cta {
+    margin-top: -50px;
+  }
+}

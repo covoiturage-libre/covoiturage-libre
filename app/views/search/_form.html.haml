@@ -9,7 +9,8 @@
   = f.input :to_lon, as: :hidden
   = f.input :to_lat, as: :hidden
   = f.input :date, as: :string, input_html: { class: "datepicker #{input_class}" }, label: false, placeholder: 'Date'
-  %button.btn.btn-default.btn-primary{class: btn_class, type: 'submit'} Rechercher
+  .form-group
+    = f.button :submit, 'Rechercher', class: "btn btn-primary #{btn_class}"
 
 - content_for :javascript_footer do
   :javascript
