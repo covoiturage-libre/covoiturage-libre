@@ -9,7 +9,7 @@ describe UserMailer  do
 
         mail = described_class.invite(user)
 
-        expect(mail.subject).to eq I18n.t("user_mailer.invite.subject")
+        expect(mail.subject).to eq I18n.t("message_sent_notification.txt.erb.invite.subject")
       end
 
       it "sends to the right email" do

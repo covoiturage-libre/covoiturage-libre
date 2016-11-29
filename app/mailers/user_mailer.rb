@@ -11,10 +11,16 @@ class UserMailer < ApplicationMailer
     mail(to: @trip.email, subject: '[Covoiturage-libre.fr] Gestion de votre annonce')
   end
 
-  def message_notification(message)
+  def message_received_notification(message)
     @message = message
     @trip = message.trip
-    mail(to: @trip.email, subject: '[Covoiturage Libre] Vous avez reçu un message pour votre annonce')
+    mail(to: @trip.email, subject: '[Covoiturage-libre.fr] Vous avez reçu un message')
+  end
+
+  def message_sent_notification(message)
+    @message = message
+    @trip = message.trip
+    mail(to: @message.sender_email, subject: '[Covoiturage Libre] Vous avez envoyé un message')
   end
 
 end

@@ -1,0 +1,15 @@
+Validation de votre annonce
+
+Bonjour,
+
+Vous venez de déposer une proposition de trajet sur covoiturage-libre.fr. Votre annonce a bien été enregistrée mais elle doit être validée pour être publiée sur le site.
+
+Votre annonce : <%= trip_steps_breadcrumb(@trip) %>, le <%= l @trip.departure_date, format: :long %> à <%= @trip.departure_time.try(:strftime, "%k:%m") %>
+
+Validez votre annonce : visitez <%= url_for(confirm_trip_url(@trip)) %>
+
+Vous recevrez ensuite un message permettant de gérer votre annonce (modifier, créer le trajet retour, supprimer...)
+
+Bien cordialement
+
+L'équipe

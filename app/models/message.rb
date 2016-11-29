@@ -9,7 +9,8 @@ class Message < ApplicationRecord
   private
 
     def send_notification_email
-      UserMailer.message_notification(self).deliver_later
+      UserMailer.message_received_notification(self).deliver_later
+      UserMailer.message_sent_notification(self).deliver_later
     end
 
 end
