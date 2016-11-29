@@ -4,7 +4,7 @@ class Point < ApplicationRecord
 
   belongs_to :trip, inverse_of: :points
 
-  validates_presence_of :kind, :rank, :trip, :lat, :lon, :city
+  validates_presence_of :kind, :rank, :trip, :lat, :lon, :city, :price
   validates_inclusion_of :kind, in: KINDS
   validates_numericality_of :rank
   validate :lat_lon_must_be_set

@@ -1,5 +1,8 @@
 - date_value = @trip.departure_date.present? ? @trip.departure_date.strftime('%d/%m/%Y') : ''
 
+%p
+  %em Les champs précédés d'un astérisque sont obligatoires
+
 = simple_form_for @trip, html: { class: 'form-horizontal', autocomplete: :off } do |f|
   = f.error_notification
   .row
@@ -33,7 +36,7 @@
           = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: {value: date_value, class: 'datepicker' }, placeholder: 'Date'
           = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
           = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
-          = f.input :description, wrapper: :horizontal_form
+          = f.input :description, wrapper: :horizontal_form, hint: 'Important, les annonces avec commentaires sont plus efficaces : détails sur votre parcours, sur le lieu précis du départ, sur vos attentes, si vous acceptez les animaux de compagnie, etc.'
           = f.input :total_distance, as: :hidden
           = f.input :total_time, as: :hidden
 
@@ -44,14 +47,14 @@
           = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes'
           = f.input :name, as: :string, wrapper: :horizontal_form
           = f.input :age, as: :string, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
-          = f.input :phone, as: :string, wrapper: :horizontal_form
-          = f.input :email, as: :string, wrapper: :horizontal_form
+          = f.input :phone, as: :string, wrapper: :horizontal_form, hint: 'Votre numéro de téléphone sera affiché sous forme d’image mais en clair. Si vous ne souhaitez pas laisser votre numéro sur le site, ne remplissez pas ce champ'
+          = f.input :email, as: :string, wrapper: :horizontal_form, hint: 'Obligatoire et valide. Un message de confirmation vous y sera envoyé.'
 
       .panel.panel-default
         .panel-heading
           %h3.panel-title Votre véhicule
         .panel-body
-          = f.input :seats, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
+          = f.input :seats, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }, collection: 1..8
           = f.input :comfort, wrapper: :horizontal_form, collection: Trip::CAR_RATINGS.map(&:to_sym)
           = f.input :smoking, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline'
 
