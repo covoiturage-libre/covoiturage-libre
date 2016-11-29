@@ -27,7 +27,8 @@
               = render 'point_fields', f: point
             .links
               = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, { class: 'btn btn-default pull-right', render_options: {locals: { rank: index }}}
-
+          %p
+            %em (prix à partir de la ville de départ)
 
       .panel.panel-default
         .panel-heading
