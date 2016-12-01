@@ -42,6 +42,14 @@ gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'cocoon'
+gem 'active_link_to'
+
+### Authentication
+gem 'devise'
+gem 'domp'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-google'
 
 ### i18n
 
@@ -53,7 +61,15 @@ gem 'mailjet'
 gem 'appsignal'
 
 ### Image manipularion
+
 gem 'dragonfly'
+
+### Markdown Rendering
+
+gem 'redcarpet' # Require the Markdown converter gem
+
+### Database data initializtion
+gem 'seedbank'
 
 ### Other Gems
 

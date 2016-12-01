@@ -1,0 +1,6 @@
+- content_for :meta do
+  %title= @page.title
+  %meta{content: @page.meta_desc, name: 'description'}
+  %meta{content: 'Association Covoiturage Libre', name: 'author'}
+
+= @text

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+
   # translated routes by the route_translator gem
   localized do
 
@@ -17,10 +19,6 @@ Rails.application.routes.draw do
     end
     get 'search', to: 'search#index'
 
-    PagesController::STATIC_PAGES.each do |page|
-      get page, to: "pages##{page}"
-    end
-
   end
 
   resources :geonames do
@@ -31,7 +29,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :page_parts
-    root to: 'page_parts#index'
+    resources :pages
+    root to: 'pages#index'
   end
 
   if Rails.env.development?
@@ -44,6 +43,8 @@ Rails.application.routes.draw do
 
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
+
+  get "/:id", to: 'pages#show'
 
   root to: 'home#index'
 end

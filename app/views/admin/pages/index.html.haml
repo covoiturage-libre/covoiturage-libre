@@ -1,0 +1,18 @@
+%h1.pull-left Liste des Pages
+
+= link_to 'Nouvelle page', new_admin_page_path, class: 'btn btn-primary pull-right top-list-button'
+
+%table.table
+  %tr
+    %th Id
+    %th Nom
+    %th Titre
+    %th Desc
+    %th{ colspan: 2 }
+  - @pages.each do |page|
+    %tr
+      %td= page.id
+      %td= page.name
+      %td= page.title
+      %td= page.meta_desc
+      %td= link_to 'Edit', edit_admin_page_path(page), class: 'btn btn-default btn-sm'

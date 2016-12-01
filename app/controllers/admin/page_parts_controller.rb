@@ -45,7 +45,7 @@ class Admin::PagePartsController < AdminController
     end
 
     def page_part_params
-      params.require(:page_part).permit(:name, :title, :body)
+      params.require(:page_part).permit(:id, :name, :title, :body)
     end
 
 end
