@@ -43,13 +43,16 @@ gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'cocoon'
 gem 'active_link_to'
+gem 'font-awesome-sass'
 
 ### Authentication
 gem 'devise'
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 gem 'domp'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-google'
+gem 'omniauth-google-oauth2'
 
 ### i18n
 
