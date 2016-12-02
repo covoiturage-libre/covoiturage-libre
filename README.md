@@ -64,7 +64,9 @@ So for each fil you want to import, you have to run :
 Geonames come with a lot of duplicates. For instance, there is about 100 records for Pris only, because of the number of "arrondissements" and different postcodes in the French administrative system for its capital. Other countries have the same issue. So to remove duplicates, you can run these requests in the Postgresql console.
 
 ```
-DELETE FROM GEONAMES WHERE place_name SIMILAR TO '% ([0-9][0-9])';
+DELETE FROM geonames WHERE postal_code LIKE '%CEDEX%';
+
+DELETE FROM geonames WHERE place_name SIMILAR TO '% ([0-9][0-9])';
 
 DELETE FROM geonames g1 USING geonames g2
   WHERE g1.place_name = g2.place_name
