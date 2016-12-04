@@ -1,3 +1,25 @@
+- content_for :meta do
+  %title Covoiturage-libre.fr, le covoiturage gratuit et collaboratif
+  %meta{ content: '1ère plateforme de covoiturage gratuite et collaborative. Aucune commission sur les trajets. Association à but non lucratif. Depuis 2011.', name: 'description' }
+  %meta{ content: 'Association Covoiturage Libre', name: 'author' }
+  %meta{ content: 'covoiturage,covoiturage libre,blablacar,carpool,covoiturage sans commission' }
+
+  // Facebook Opengraph
+  %meta{:content => "Covoiturage-libre.fr, le covoiturage gratuit et collaboratif", :property => "og:title"}/
+  %meta{:content => "website", :property => "og:type"}/
+  %meta{:content => "http://www.covoiturage-libre.fr", :property => "og:url"}/
+  %meta{:content => "http://www.covoiturage-libre.fr/images/covoiturage-libre.png", :property => "og:image"}/
+  %meta{:content => " 1ère plateforme de covoiturage gratuite et collaborative. Aucune commission sur les trajets. Association à but non lucratif. Depuis 2011.", :property => "og:description"}/
+  %meta{:content => "Covoiturage-libre.fr", :property => "og:site_name"}/
+
+  // Twitter
+  %meta{:content => "summary_large_image", :name => "twitter:card"}/
+  %meta{:content => "Covoiturage-libre.fr", :name => "twitter:domain"}/
+  %meta{:content => "@covoitlib", :name => "twitter:site"}/
+  %meta{:content => "Covoiturage-libre.fr, le covoiturage gratuit et collaboratif", :name => "twitter:title"}/
+  %meta{:content => "1ère plateforme de covoiturage gratuite et collaborative. Aucune commission sur les trajets. Association à but non lucratif. Depuis 2011.", :name => "twitter:description"}/
+  %meta{:content => "http://www.covoiturage-libre.fr/images/covoiturage-libre.png", :name => "twitter:image"}/
+
 - content_for :page_part_1 do
   .container
     .row
