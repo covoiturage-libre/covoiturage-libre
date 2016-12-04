@@ -43,7 +43,9 @@
     = yield :page_part_1
     = yield :search_zone
     .container
-      = render 'layouts/admin_menu' if user_signed_in? && current_user.admin?
+      %br
+      = flash_messages
+      = render 'layouts/admin_menu' if admin_page?
       = yield
 
       %footer

@@ -35,4 +35,8 @@ module ApplicationHelper
     breadcrumbs.html_safe
   end
 
+  def admin_page?
+    /admin/.match(params[:controller])
+  end
+
 end
