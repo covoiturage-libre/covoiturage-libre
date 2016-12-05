@@ -1,34 +1,57 @@
 !!!
-%html{:lang => "fr"}
+%html{lang: 'fr'}
   %head
-    / fixed meta tags
+    / technical meta tags
     %meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}
+    %meta{'http-equiv': 'content-language', content: 'fr' }
     %meta{charset: 'utf-8'}
     %meta{content: 'IE=edge', 'http-equiv': 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}
 
+    / main meta tags
+    %title= @meta[:title]
+    %meta{name: 'description',         content: @meta[:description] }
+    %meta{name: 'author',              content: @meta[:author] }
+    %meta{name: 'keywords',            content: @meta[:keywords] }
+
+    / Open Graph data
+    %meta{property: 'og:title',        content: @meta[:title] }
+    %meta{property: 'og:description',  content: @meta[:description] }
+    %meta{property: 'og:type',         content: 'website'}
+    %meta{property: 'og:site_name',    content: 'Covoiturage-libre.fr'}
+    %meta{property: 'og:image',        content: @meta[:image_url]}
+    %meta{property: 'og:url',          content: @meta[:url]}
+
+    / Twitter Card data
+    %meta{name: 'twitter:title',       content: @meta[:title]}
+    %meta{name: 'twitter:description', content: @meta[:description]}
+    %meta{name: 'twitter:card',        content: 'summary_large_image'}
+    %meta{name: 'twitter:domain',      content: 'covoiturage-libre.fr'}
+    %meta{name: 'twitter:site',        content: '@covoitlib'}
+    %meta{name: 'twitter:image',       content: @meta[:image_url]}
+
     / favicon
-    %link{href: '/apple-icon-57x57.png', rel: 'apple-touch-icon', sizes: '57x57'}
-    %link{href: '/apple-icon-60x60.png', rel: 'apple-touch-icon', sizes: '60x60'}
-    %link{href: '/apple-icon-72x72.png', rel: 'apple-touch-icon', sizes: '72x72'}
-    %link{href: '/apple-icon-76x76.png', rel: 'apple-touch-icon', sizes: '76x76'}
-    %link{href: '/apple-icon-114x114.png', rel: 'apple-touch-icon', sizes: '114x114'}
-    %link{href: '/apple-icon-120x120.png', rel: 'apple-touch-icon', sizes: '120x120'}
-    %link{href: '/apple-icon-144x144.png', rel: 'apple-touch-icon', sizes: '144x144'}
-    %link{href: '/apple-icon-152x152.png', rel: 'apple-touch-icon', sizes: '152x152'}
-    %link{href: '/apple-icon-180x180.png', rel: 'apple-touch-icon', sizes: '180x180'}
-    %link{href: '/android-icon-192x192.png', rel: 'icon', sizes: '192x192', type: 'image/png'}
-    %link{href: '/favicon-32x32.png', rel: 'icon', sizes: '32x32', type: 'image/png'}
-    %link{href: '/favicon-96x96.png', rel: 'icon', sizes: '96x96', type: 'image/png'}
-    %link{href: '/favicon-16x16.png', rel: 'icon', sizes: '16x16', type: 'image/png'}
-    %link{href: '/manifest.json', rel: 'manifest'}
-    %meta{content: '#ffffff', name: 'msapplication-TileColor'}
-    %meta{content: '/ms-icon-144x144.png', name: 'msapplication-TileImage'}
-    %meta{content: '#ffffff', name: 'theme-color'}
+    %link{href: '/apple-icon-57x57.png',     rel: 'apple-touch-icon', sizes: '57x57'}
+    %link{href: '/apple-icon-60x60.png',     rel: 'apple-touch-icon', sizes: '60x60'}
+    %link{href: '/apple-icon-72x72.png',     rel: 'apple-touch-icon', sizes: '72x72'}
+    %link{href: '/apple-icon-76x76.png',     rel: 'apple-touch-icon', sizes: '76x76'}
+    %link{href: '/apple-icon-114x114.png',   rel: 'apple-touch-icon', sizes: '114x114'}
+    %link{href: '/apple-icon-120x120.png',   rel: 'apple-touch-icon', sizes: '120x120'}
+    %link{href: '/apple-icon-144x144.png',   rel: 'apple-touch-icon', sizes: '144x144'}
+    %link{href: '/apple-icon-152x152.png',   rel: 'apple-touch-icon', sizes: '152x152'}
+    %link{href: '/apple-icon-180x180.png',   rel: 'apple-touch-icon', sizes: '180x180'}
+    %link{href: '/android-icon-192x192.png', rel: 'icon',             sizes: '192x192', type: 'image/png'}
+    %link{href: '/favicon-32x32.png',        rel: 'icon',             sizes: '32x32',   type: 'image/png'}
+    %link{href: '/favicon-96x96.png',        rel: 'icon',             sizes: '96x96',   type: 'image/png'}
+    %link{href: '/favicon-16x16.png',        rel: 'icon',             sizes: '16x16',   type: 'image/png'}
+    %link{href: '/manifest.json',            rel: 'manifest'}
+    %link{href: @meta[:image_url],           rel: 'image_src'}
 
-    = yield :meta_tags
+    %meta{name: 'msapplication-TileColor', content: '#ffffff'}
+    %meta{name: 'msapplication-TileImage', content: '/ms-icon-144x144.png'}
+    %meta{name: 'theme-color',             content: '#ffffff'}
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    / HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

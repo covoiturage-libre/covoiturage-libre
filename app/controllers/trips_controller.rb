@@ -1,9 +1,14 @@
 class TripsController < ApplicationController
+  include ApplicationHelper
 
   def show
     @trip = Trip.find_by_confirmation_token(params[:id])
+
+    load_show_meta_data
+
     unless @trip.confirmed?
       render :not_found
+      return
     end
   end
 
@@ -147,10 +152,17 @@ class TripsController < ApplicationController
     def build_three_step_points
       return nil if @trip.nil?
       three_step_points = []
+      # user this to build n points on a new record
       0.times do |i|
         three_step_points << @trip.points.build({ kind: 'Step', rank: (i + 1) })
       end
       three_step_points
+    end
+
+    def load_show_meta_data
+      # meta data
+      @meta[:title] = trip_title(@trip)
+      @meta[:description] = trip_title(@trip)
     end
 
 end
