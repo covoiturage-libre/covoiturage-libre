@@ -11,6 +11,8 @@ gem 'pg', '~> 0.18' # Use postgresql + postgis as the database for Active Record
 gem 'kaminari' # for pagination
 gem 'delayed_job_active_record'
 gem 'searchkick'
+gem 'seedbank'
+gem 'seed_dump'
 
 ### for ETL job only > delete after platform migration
 
@@ -70,9 +72,6 @@ gem 'dragonfly'
 ### Markdown Rendering
 
 gem 'redcarpet' # Require the Markdown converter gem
-
-### Database data initializtion
-gem 'seedbank'
 
 ### Other Gems
 
