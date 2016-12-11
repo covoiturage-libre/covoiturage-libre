@@ -30,7 +30,7 @@
           .col-md-4
             Heure de départ
           .col-md-8
-            %strong= @trip.departure_time.try(:strftime, "%k:%m")
+            %strong=l @trip.departure_time, format: :short
         .row
           .col-md-4
             Nombre de places
@@ -97,8 +97,6 @@
             Vous avez perdu le courriel de confirmation ?
             = link_to 'Cliquez ici', resend_email_trip_path(@trip)
             pour le recevoir à nouveau.
-
-= link_to 'Modifier', edit_trip_path(@trip.edition_token)
 
 - content_for :javascript_footer do
   :javascript
