@@ -1,6 +1,6 @@
 .nested-fields.form-inputs.row
-  = f.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-9' }, input_html: { class: 'geoname' }, placeholder: 'Ville', label: "Etape #{f.object.rank}", required: false
-  = f.input :price, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-3' }, placeholder: 'Prix', label: false
+  = f.input :city, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-8' }, input_html: { class: 'geoname' }, placeholder: 'Ville', label: "Etape #{f.object.rank}", required: false
+  = f.input :price, as: :string, wrapper: :horizontal_form, wrapper_html: { class: 'col-sm-4' }, label: false, placeholder: '* Prix'.html_safe
   = f.input :lon, as: :hidden
   = f.input :lat, as: :hidden
   = f.input :kind, as: :hidden, input_html: { value: f.object.kind || 'Step' }

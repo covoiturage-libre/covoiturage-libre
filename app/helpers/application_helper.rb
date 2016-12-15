@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   def trip_title(trip)
-    "Covoiturage gratuit #{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+    "Covoiturage #{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def admin_page?
