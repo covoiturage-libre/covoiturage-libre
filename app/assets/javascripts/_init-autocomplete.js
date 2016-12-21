@@ -3,7 +3,7 @@ jQuery.fn.extend({
     return this.autocomplete({
       minLength: 2,
       source: function (request, response) {
-        $.getJSON("/geonames/autocomplete?term=" + request.term, function (data) {
+        $.getJSON("/cities/autocomplete?term=" + request.term, function (data) {
           response($.map(data, function (el) {
             return {
               value: el.city,

@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   end
 
-  resources :geonames do
+  resources :cities do
     collection do
       get 'autocomplete'
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201155308) do
+ActiveRecord::Schema.define(version: 20161221152226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(version: 20161201155308) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_name_on_authentication_providers", using: :btree
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string   "name",         limit: 50
+    t.string   "postal_code",  limit: 10
+    t.string   "department",   limit: 2
+    t.string   "region",       limit: 10
+    t.string   "country_code", limit: 2
+    t.decimal  "lat",                     precision: 9, scale: 6
+    t.decimal  "lon",                     precision: 9, scale: 6
+    t.decimal  "distance",                precision: 4, scale: 2
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.index ["name"], name: "index_cities_on_name", using: :btree
   end
 
   create_table "cms_page_parts", force: :cascade do |t|
