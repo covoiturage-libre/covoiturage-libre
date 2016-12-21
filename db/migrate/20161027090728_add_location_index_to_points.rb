@@ -1,5 +1,5 @@
 class AddLocationIndexToPoints < ActiveRecord::Migration[5.0]
-  def change
+  def up
     execute %{
       create index index_on_points_location ON points using gist (
         ST_GeographyFromText(
