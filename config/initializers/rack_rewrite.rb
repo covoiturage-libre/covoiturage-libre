@@ -1,7 +1,7 @@
 Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
 
   # Redirect all http traffic to https
-  r301 %r{.*}, 'https://www.example.tld$&', :scheme => 'http'
+  r301 %r{.*}, 'https://covoiturage-libre.fr$&', scheme: 'http'
 
   r301 '/association_descriptif.php', '/association'
   r301 '/recherche.php', '/rechercher'
