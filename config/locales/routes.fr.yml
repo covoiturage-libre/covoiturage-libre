@@ -1,10 +1,14 @@
 fr:
   routes:
     trips: trajets
+
     new: nouveau
     edit: editer
     confirm: confirmer
     confirm_delete: supprimer
+    new_from_copy: dupliquer
+    new_for_back: creer_retour
+
     search: recherche
     press: presse
     terms_of_service: cgus

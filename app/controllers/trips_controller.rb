@@ -91,6 +91,10 @@ class TripsController < ApplicationController
 
   def new_from_copy
     @trip = Trip.find_by_edition_token(params[:id])
+    # DEPRECATED try to find it by confirmation token, used only to make legacy php code email links work
+    if @trip.nil?
+      @trip = Trip.find_by_confirmation_token(params[:id])
+    end
     if @trip
       @trip = @trip.clone_without_date
       build_points
@@ -102,6 +106,10 @@ class TripsController < ApplicationController
 
   def new_for_back
     @trip = Trip.find_by_edition_token(params[:id])
+    # DEPRECATED try to find it by confirmation token, used only to make legacy php code email links work
+    if @trip.nil?
+      @trip = Trip.find_by_confirmation_token(params[:id])
+    end
     if @trip
       @trip = @trip.clone_as_back_trip
       build_points

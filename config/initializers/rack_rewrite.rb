@@ -14,4 +14,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 %r{/modification\.php\?m=(\w+).*}, '/trajets/$1/editer'
   r301 %r{/suppression\.php\?supp=(\w+).*}, '/trajets/$1/supprimer'
 
+  r301 %r{/nouveau\.php\?c=(\w+)\&a\=r\&c2\=.+}, '/trajets/$1/creer_retour'
+  r301 %r{/nouveau\.php\?c=(\w+)\&a\=d\&c2\=.+}, '/trajets/$1/dupliquer'
+
 end
