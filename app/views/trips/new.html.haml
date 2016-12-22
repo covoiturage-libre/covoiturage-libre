@@ -2,9 +2,9 @@
 - @meta[:description] = 'Proposez vos places libres pour trouver des passagers, sur un site libre, gratuit et ouvert à tous.'
 
 %h3
-  - if current_page?(action: 'new_for_back')
+  - if back_trip_page?
     Créer le trajet retour
-  - elsif current_page?(action: 'new_from_copy')
+  - elsif trip_copy_page?
     Dupliquer le trajet
   - else
     Publier une annonce

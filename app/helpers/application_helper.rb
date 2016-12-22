@@ -43,4 +43,12 @@ module ApplicationHelper
     /admin/.match(params[:controller])
   end
 
+  def back_trip_page?
+    /new_for_back/.match(params[:action])
+  end
+
+  def trip_copy_page?
+    /new_from_copy/.match(params[:action])
+  end
+
 end
