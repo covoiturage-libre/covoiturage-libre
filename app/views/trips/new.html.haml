@@ -1,6 +1,12 @@
 - @meta[:title] = 'Publier une annonce de covoiturage'
 - @meta[:description] = 'Proposez vos places libres pour trouver des passagers, sur un site libre, gratuit et ouvert à tous.'
 
-%h3 Publier une annonce
+%h3
+  - if current_page?(action: 'new_for_back')
+    Créer le trajet retour
+  - elsif current_page?(action: 'new_from_copy')
+    Dupliquer le trajet
+  - else
+    Publier une annonce
 
 = render 'form'
