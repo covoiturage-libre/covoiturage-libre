@@ -24,7 +24,7 @@ class TripDestination
         row[:age],
         row[:email],
         row[:phone],
-        row[:creation_token],
+        row[:confirmation_token],
         row[:edition_token],
         row[:deletion_token],
         row[:state],
