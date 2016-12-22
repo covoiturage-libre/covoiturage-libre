@@ -21,7 +21,7 @@ class PagesController < ApplicationController
       end
 
     else
-      render(status: 404)
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
