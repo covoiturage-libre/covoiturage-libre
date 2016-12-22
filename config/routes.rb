@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         get 'new_for_back'
         get 'points'
         get 'phone_number_image'
+        get 'confirm_delete'
       end
       resources :messages
     end

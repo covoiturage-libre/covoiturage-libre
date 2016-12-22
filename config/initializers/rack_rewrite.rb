@@ -10,8 +10,8 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 '/nouveau.php', '/trajets/nouveau'
 
   r301 %r{/detail\.php\?c=(\w+).*}, '/trajets/$1'
-  r301 %r{/validation\.php\?c=(\w+).*}, '/trajets/$1/confirm'
-  r301 %r{/modification\.php\?m=(\w+).*}, '/trajets/$1/edit'
-  r301 %r{/suppression\.php\?supp=(\w+).*}, '/trajets/$1/edit'
+  r301 %r{/validation\.php\?c=(\w+).*}, '/trajets/$1/confirmer'
+  r301 %r{/modification\.php\?m=(\w+).*}, '/trajets/$1/editer'
+  r301 %r{/suppression\.php\?supp=(\w+).*}, '/trajets/$1/supprimer'
 
 end

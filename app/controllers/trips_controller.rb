@@ -61,6 +61,10 @@ class TripsController < ApplicationController
     end
   end
 
+  def confirm_delete
+    @trip = Trip.find_by(deletion_token: params[:id])
+  end
+
   # caution, this is a destructive action reached by a GET method
   def delete
     @trip = Trip.find_by(deletion_token: params[:id])

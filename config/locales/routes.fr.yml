@@ -3,6 +3,8 @@ fr:
     trips: trajets
     new: nouveau
     edit: editer
+    confirm: confirmer
+    confirm_delete: supprimer
     search: recherche
     press: presse
     terms_of_service: cgus
