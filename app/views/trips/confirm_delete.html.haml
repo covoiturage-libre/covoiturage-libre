@@ -9,7 +9,7 @@
     %center
       = link_to 'Annuler', @trip, class: 'btn btn-bg btn-default'
 
-      = link_to 'Supprimer', trip_path(@trip.deletion_token), method: :delete, class: 'btn btn-bg btn-danger'
+      = link_to 'Supprimer', delete_trip_path(@trip.deletion_token), class: 'btn btn-bg btn-danger'
 
   .col-md-4
     = render 'shortcuts'
