@@ -70,7 +70,7 @@ class TripsController < ApplicationController
     @trip = Trip.find_by(deletion_token: params[:id])
     if @trip
       if @trip.soft_delete!
-        # do nothing, render update page
+        # do nothing, render delete page
       else
         render :not_found # let's give no information on this error to the internet
       end
