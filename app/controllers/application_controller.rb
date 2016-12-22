@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   # without a URL locale param for now
   skip_around_action :set_locale_from_url
 
-  before_filter :init_meta_tags
+  before_action :init_meta_tags
 
   private
 
