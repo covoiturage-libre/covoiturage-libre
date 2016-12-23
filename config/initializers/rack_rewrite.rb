@@ -1,7 +1,7 @@
 Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
 
   # Redirect all http traffic to https
-  if ENV['REAL_PRODUCTION_WEBSITE'].present?
+  if ENV['REDIRECT_ALL_TRAFFIC'].present?
     r301 %r{.*}, 'https://covoiturage-libre.fr$&', scheme: 'http'
   end
 

@@ -60,8 +60,11 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+    / GTM
+    = render 'layouts/gtm' if ENV['GTM_ENABLED'].present?
+
   %body
-    -#= render 'layouts/google_tag_manager'
     = render 'layouts/navbar'
     = yield :page_part_1
     = yield :search_zone
