@@ -24,3 +24,4 @@
 //= require _init-autocomplete.js
 //= require _trip-drawer.js
 //= require turbolinks
+//= require ga.js
