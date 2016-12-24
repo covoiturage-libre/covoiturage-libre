@@ -6,9 +6,9 @@ namespace :cleanup do
       trip.description = trip.name.encode("iso-8859-1").force_encoding("utf-8")
       trip.points.each do |point|
         point.city = point.city.encode("iso-8859-1").force_encoding("utf-8")
-        point.save!
+        point.save!(validate: false)
       end
-      trip.save!
+      trip.save!(validate: false)
     end
   end
 
