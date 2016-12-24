@@ -5,11 +5,7 @@ module ApplicationHelper
   end
 
   def encode_decode(string)
-    if string && string.encoding == Encoding::ISO_8859_1
-      string.encode("iso-8859-1").force_encoding("utf-8")
-    else
-      string
-    end
+    string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
   end
   alias :ed :encode_decode
 
@@ -40,7 +36,7 @@ module ApplicationHelper
   end
 
   def trip_title(trip)
-    "Covoiturage #{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+    "Covoiturage gratuit #{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def admin_page?

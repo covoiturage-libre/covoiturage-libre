@@ -1,12 +1,14 @@
-- @meta[:title] = 'Publier une annonce de covoiturage'
-- @meta[:description] = 'Proposez vos places libres pour trouver des passagers, sur un site libre, gratuit et ouvert à tous.'
+- page_title = ''
+- if back_trip_page?
+  - page_title = 'Créer le trajet retour'
+- elsif trip_copy_page?
+  - page_title =  'Dupliquer le trajet'
+- else
+  - page_title = 'Publier une annonce'
 
-%h3
-  - if back_trip_page?
-    Créer le trajet retour
-  - elsif trip_copy_page?
-    Dupliquer le trajet
-  - else
-    Publier une annonce
+- @meta[:title] = "Covoiturage-libre.fr | #{page_title} de covoiturage gratuit"
+- @meta[:description] = 'Proposez vos places libres pour trouver des passagers, sur la première plateforme collaborative de covoiturage : un site libre, gratuit et ouvert à tous.'
+
+%h1= page_title
 
 = render 'form'
