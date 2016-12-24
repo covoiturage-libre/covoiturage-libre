@@ -5,14 +5,23 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
     r301 %r{.*}, 'https://covoiturage-libre.fr$&', scheme: 'http'
   end
 
+  # static pages
   r301 '/association_descriptif.php', '/association'
-  r301 '/recherche.php', '/rechercher'
-  r301 '/stickers.php', '/stickers'
+  r301 '/infos.php', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil'
   r301 '/presse.php', '/presse'
-  r301 '/faq.php', '/faq'
-  r301 '/contact.php', '/contact'
   r301 '/mentions-legales.php', '/mentions-legales'
+  r301 '/association.php', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/'
+  r301 '/missions.php', 'missions-benevoles'
+  r301 '/contact.php', '/contact'
+  r301 '/bug.php', 'bug'
+  r301 '/manif_14juin.php', 'manif_14juin'
+  r301 '/stickers.php', '/stickers'
+  r301 '/pourquoi.php', 'http://wiki.covoiturage-libre.fr/index.php?title=Le_covoiturage_est_un_bien_commun'
+  r301 '/faq.php', '/faq'
+  r301 '/metamoteur.php', '/metamoteur' # TODO transfer this page on the wiki ?
 
+  # dynamic pages
+  r301 '/recherche.php', '/rechercher'
   r301 '/nouveau.php', '/trajets/nouveau'
 
   r301 %r{/detail\.php\?c=(\w+).*}, '/trajets/$1'
