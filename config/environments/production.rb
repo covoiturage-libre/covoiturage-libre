@@ -86,6 +86,10 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  # Add this line to config/application.rb. This tells Rails to serve error pages from the Rails app itself
+  # (i.e. the routes we just set up), rather than using static error pages in public/.
+  config.exceptions_app = self.routes
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 end

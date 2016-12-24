@@ -21,9 +21,5 @@ module CovoiturageLibreRails5
       g.test_framework :rspec
     end
 
-    # Add this line to config/application.rb. This tells Rails to serve error pages from the Rails app itself
-    # (i.e. the routes we just set up), rather than using static error pages in public/.
-    config.exceptions_app = self.routes
-
   end
 end

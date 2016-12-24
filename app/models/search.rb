@@ -11,9 +11,14 @@ class Search
       :date
   )
 
-  validates_presence_of :from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date
-
   validate :dont_search_the_past
+
+  def complete_missing_params
+    if date.blank?
+      self.date = Date.today.strftime('%d/%m/%Y')
+    end
+    self
+  end
 
   def date_value
     if date.present?
