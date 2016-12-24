@@ -19,6 +19,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 '/pourquoi.php', 'http://wiki.covoiturage-libre.fr/index.php?title=Le_covoiturage_est_un_bien_commun'
   r301 '/faq.php', '/faq'
   r301 '/metamoteur.php', '/metamoteur' # TODO transfer this page on the wiki ?
+  r301 '/fonctionnement-etapes.html', '/fonctionnement-etapes'
 
   # dynamic pages
   r301 '/recherche.php', '/rechercher'
