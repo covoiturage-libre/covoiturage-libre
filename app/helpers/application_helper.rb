@@ -5,7 +5,11 @@ module ApplicationHelper
   end
 
   def encode_decode(string)
-    string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
+    if string && string.encoding == Encoding::ISO_8859_1
+      string.encode("iso-8859-1").force_encoding("utf-8")
+    else
+      string
+    end
   end
   alias :ed :encode_decode
 
