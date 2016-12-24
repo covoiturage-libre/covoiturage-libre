@@ -12,4 +12,9 @@ namespace :cleanup do
     end
   end
 
+  desc "TODO"
+  task trips: :environment do
+    Trip.delete_all
+  end
+
 end
