@@ -2,8 +2,8 @@ class TripsController < ApplicationController
   include ApplicationHelper
 
   def show
-    @trip = Trip.find_by_confirmation_token(params[:id])
-    unless @trip.confirmed?
+    @trip = Trip.find_by(confirmation_token: params[:id])
+    if @trip.blank || !@trip.confirmed?
       render :not_found
       return
     end
