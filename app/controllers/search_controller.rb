@@ -3,7 +3,7 @@ class SearchController < ApplicationController
   def index
     load_index_meta_data
 
-    @search = Search.new(search_params)
+    @search = params[:search].present? ? Search.new(search_params) : Search.new
     @trips ||= []
     if @search.valid?
       found_trips = Trip.search(@search)
