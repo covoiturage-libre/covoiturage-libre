@@ -3,7 +3,7 @@ class TripsController < ApplicationController
 
   def show
     @trip = Trip.find_by(confirmation_token: params[:id])
-    if @trip.blank || !@trip.confirmed?
+    if @trip.blank? || !@trip.confirmed?
       render :not_found
       return
     end
