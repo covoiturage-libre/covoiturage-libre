@@ -22,7 +22,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 '/fonctionnement-etapes.html', '/fonctionnement-etapes'
 
   # dynamic pages
-  r301 '/recherche.php', '/rechercher'
+  r301 '/recherche.php', '/recherche'
   r301 '/nouveau.php', '/trajets/nouveau'
 
   r301 %r{/detail\.php\?c=(\w+).*}, '/trajets/$1'
