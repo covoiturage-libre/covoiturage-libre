@@ -20,7 +20,7 @@ namespace :cleanup do
   desc "TODO"
   task fixlon: :environment do
     Point.where(lon: nil).each do |point|
-      city = City.search(point.city, limit: 1, fields: [{name: :exact}]).first
+      city = City.where(postal_code: point.zipcode, country_code: point.country_iso_code).first
       if city.present?
         point.lon = city.lon
         point.name = city.name
