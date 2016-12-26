@@ -109,7 +109,7 @@ class Trip < ApplicationRecord
               ST_Dwithin(
                 ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
                 ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
-                10000
+                25000
               )
           ) as trip_point_a
           inner join points on points.trip_id = trip_point_a.id
@@ -117,7 +117,7 @@ class Trip < ApplicationRecord
             ST_Dwithin(
               ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
               ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
-              10000
+              25000
             )
           and point_a_rank < points.rank
           order by departure_date asc
