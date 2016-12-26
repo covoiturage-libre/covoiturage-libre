@@ -27,6 +27,14 @@ namespace :cleanup do
         point.save(validate: false)
       end
     end
+    Point.where("city like '%�%'").each do |point|
+      city = City.where(postal_code: point.zipcode, country_code: point.country_iso_code).first
+      if city.present?
+        point.lon = city.lon
+        point.city = city.name
+        point.save(validate: false)
+      end
+    end
   end
 
 end
