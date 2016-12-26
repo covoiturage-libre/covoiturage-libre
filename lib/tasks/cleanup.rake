@@ -17,4 +17,16 @@ namespace :cleanup do
     Trip.destroy_all
   end
 
+  desc "TODO"
+  task fixlon: :environment do
+    Point.where(lon: nil).each do |point|
+      city = City.search(point.city, limit: 1, fields: [{name: :exact}]).first
+      if city.present?
+        point.lon = city.lon
+        point.name = city.name
+        point.save
+      end
+    end
+  end
+
 end
