@@ -23,7 +23,7 @@ namespace :cleanup do
       city = City.where(postal_code: point.zipcode, country_code: point.country_iso_code).first
       if city.present?
         point.lon = city.lon
-        point.name = city.name
+        point.city = city.name
         point.save
       end
     end
