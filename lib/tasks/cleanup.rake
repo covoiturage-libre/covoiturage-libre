@@ -19,12 +19,12 @@ namespace :cleanup do
 
   desc "TODO"
   task fixlon: :environment do
-    Point.where(lon: nil).each do |point|
+    Point.where(lon: nil).order(id: :desc).each do |point|
       city = City.where(postal_code: point.zipcode, country_code: point.country_iso_code).first
       if city.present?
         point.lon = city.lon
         point.city = city.name
-        point.save
+        point.save(validate: false)
       end
     end
   end
