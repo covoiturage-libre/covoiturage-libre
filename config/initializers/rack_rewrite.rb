@@ -20,6 +20,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 '/faq.php', '/faq'
   r301 '/metamoteur.php', '/metamoteur' # TODO transfer this page on the wiki ?
   r301 '/fonctionnement-etapes.html', '/fonctionnement-etapes'
+  r301 '/infos-assurance.php', '/calculer'
 
   # dynamic pages
   r301 '/recherche.php', '/recherche'
