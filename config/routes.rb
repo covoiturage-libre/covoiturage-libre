@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         get 'phone_number_image'
         get 'confirm_delete'
       end
+      resource :phone, only: :show, controller: 'trips/phones'
       resources :messages
     end
     get 'search', to: 'search#index'
@@ -37,10 +38,6 @@ Rails.application.routes.draw do
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
-
-  get "text/:text" => Dragonfly.app.endpoint { |params, app|
-    app.generate(:text, params[:text], 'font-size': 14)
-  }
 
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all

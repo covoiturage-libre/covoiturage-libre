@@ -66,7 +66,7 @@ gem 'appsignal'
 
 ### Image manipularion
 
-gem 'dragonfly'
+gem 'dragonfly' # TODO remove if not in use
 
 ### Markdown Rendering
 
