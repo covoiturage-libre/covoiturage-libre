@@ -1,3 +1,9 @@
 %h3 Modifier une annonce
 
 = render 'form'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'edit', '#{@trip.points.map {|p| p.city }.join(', ') }' );
+    }

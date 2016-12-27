@@ -12,3 +12,9 @@
 %h1= page_title
 
 = render 'form'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'new', '#{@trip.points.map {|p| p.city }.join(', ') }' );
+    }

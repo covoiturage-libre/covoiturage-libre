@@ -2,7 +2,7 @@ Bonjour <%= @trip.name %>
 
 
 Information sur votre annonce :
-<%= trip_steps_breadcrumb(@trip) %>, le <%= l @trip.departure_date, format: :long %> à <%= @trip.departure_time.try(:strftime, "%k:%m") %>
+<%= trip_title(@trip) %>
 
 Lien de confirmation : <%= url_for confirm_trip_url(@trip.confirmation_token) %>
 

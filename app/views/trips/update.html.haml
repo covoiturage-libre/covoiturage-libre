@@ -8,3 +8,9 @@
       = link_to 'cliquant ici.', @trip
   .col-md-4
     = render 'shortcuts'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'update', '#{@trip.points.map {|p| p.city }.join(', ') }' );
+    }

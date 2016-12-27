@@ -15,3 +15,9 @@
           %h3.panel-title
             ="#{pluralize(@trips.count, 'covoiturage', plural: 'covoiturages')} de #{@search.from_city} à #{@search.to_city}"
         .panel-body{ style: 'padding: 0' }= render @trips
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'search', '#{[@search.from_city, @search.to_city].join(', ')}', '#{@trips.count}' );
+    }

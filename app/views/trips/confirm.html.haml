@@ -14,3 +14,9 @@
 
   .col-md-4
     = render 'shortcuts'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'confirm', '#{@trip.points.map {|p| p.city }.join(', ') }' );
+    }

@@ -21,6 +21,9 @@ jQuery.fn.extend({
         // we need it to update the map instantly
         $('#' + this.id.replace(/city/, 'lat')).val(ui.item.lat).trigger('change');
         $('#' + this.id.replace(/city/, 'lon')).val(ui.item.lon).trigger('change');
+        if (typeof ga === "function") {
+          ga('send', 'event', 'Ville', 'select', ui.item.city );
+        }
       },
       create: function () {
         $(this).data('ui-autocomplete')._renderItem = function (ul, item) {

@@ -1,6 +1,6 @@
 Vous avez reçu un message
 
-Concernant votre annonce <%= trip_steps_breadcrumb(@trip) %>, le <%= l @trip.departure_date, format: :long %> à <%= @trip.departure_time.try(:strftime, "%k:%m") %>
+Concernant votre annonce <%= trip_title(@trip) %>
 
 <%= message.sender_name %> vous a envoyé le message suivant :
 
