@@ -53,6 +53,7 @@ class TripsController < ApplicationController
       # do nothing, render update page
     else
       build_points
+      render :edit
     end
   end
 
