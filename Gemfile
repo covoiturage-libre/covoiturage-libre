@@ -13,6 +13,7 @@ gem 'delayed_job_active_record'
 gem 'searchkick'
 gem 'seedbank'
 gem 'seed_dump'
+gem 'groupdate'
 
 ### for ETL job only > delete after platform migration
 
@@ -45,6 +46,7 @@ gem 'jquery-ui-rails'
 gem 'cocoon'
 gem 'active_link_to'
 gem 'font-awesome-sass'
+gem 'chartkick'
 
 ### Authentication
 gem 'devise'

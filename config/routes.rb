@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :page_parts
     resources :pages
+    resources :stats
     root to: 'pages#index'
   end
 
