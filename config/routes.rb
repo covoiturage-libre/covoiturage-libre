@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # translated routes by the route_translator gem
   localized do
 
-    resources :trips, except: [:destroy] do
+    resources :trips, except: [:index, :destroy] do
       member do
         get 'confirm'
         get 'delete'

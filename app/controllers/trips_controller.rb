@@ -9,11 +9,6 @@ class TripsController < ApplicationController
     end
   end
 
-  def index
-    params.permit!
-    @trips = Trip.all.order(created_at: :desc).page(params[:page]).per(5)
-  end
-
   def new
     @trip = Trip.new(departure_time: Time.parse('12:00'))
     build_points
