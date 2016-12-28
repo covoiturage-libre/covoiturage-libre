@@ -69,10 +69,10 @@ def get_comfort(confort)
 end
 
 def encode_decode(string)
-  begin
-    string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
-  rescue
+  #begin
+  #  string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
+  #rescue
     string
-  end
+  #end
 end
 alias :ed :encode_decode

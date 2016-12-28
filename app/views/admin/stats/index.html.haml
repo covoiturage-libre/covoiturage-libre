@@ -1,1 +1,3 @@
-= bar_chart Trip.unscoped.group_by_day(:created_at).count, height: "4000px"
+- t1 = Time.now - 6.months
+- t2 = Time.now
+= bar_chart Trip.unscoped.where(created_at: t1..t2).group_by_day(:created_at).count, height: "4000px"

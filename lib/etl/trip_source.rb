@@ -9,7 +9,7 @@ class TripSource
   end
 
   def each
-    results = @mysql.query('SELECT * FROM trajets ORDER BY ID DESC', as: :hash, symbolize_keys: true)
+    results = @mysql.query('SELECT * FROM trajets ORDER BY ID ASC', as: :hash, symbolize_keys: true)
     results.each do |row|
       yield(row)
     end
