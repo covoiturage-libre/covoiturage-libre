@@ -77,7 +77,7 @@
                 .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
                 .phone#phone
                   - if @trip.phone.present?
-                    = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true
+                    = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
           .col-md-4
             .price
               %p= "#{@trip.price} €"
