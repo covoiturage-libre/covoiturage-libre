@@ -13,6 +13,7 @@ gem 'delayed_job_active_record'
 gem 'searchkick'
 gem 'seedbank'
 gem 'seed_dump'
+gem 'groupdate'
 
 ### for ETL job only > delete after platform migration
 
@@ -42,10 +43,10 @@ gem 'haml'
 gem 'simple_form'
 gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
 gem 'cocoon'
 gem 'active_link_to'
 gem 'font-awesome-sass'
+gem 'chartkick'
 
 ### Authentication
 gem 'devise'
@@ -67,7 +68,7 @@ gem 'appsignal'
 
 ### Image manipularion
 
-gem 'dragonfly'
+gem 'dragonfly' # TODO remove if not in use
 
 ### Markdown Rendering
 

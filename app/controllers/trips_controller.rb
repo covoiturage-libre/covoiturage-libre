@@ -2,16 +2,11 @@ class TripsController < ApplicationController
   include ApplicationHelper
 
   def show
-    @trip = Trip.find_by_confirmation_token(params[:id])
-    unless @trip.confirmed?
+    @trip = Trip.find_by(confirmation_token: params[:id])
+    if @trip.blank? || !@trip.confirmed?
       render :not_found
       return
     end
-  end
-
-  def index
-    params.permit!
-    @trips = Trip.all.order(created_at: :desc).page(params[:page]).per(5)
   end
 
   def new
@@ -58,6 +53,7 @@ class TripsController < ApplicationController
       # do nothing, render update page
     else
       build_points
+      render :edit
     end
   end
 

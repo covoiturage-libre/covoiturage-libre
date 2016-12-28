@@ -32,7 +32,7 @@ fr:
     options:
       trip:
         comfort:
-          standard: Basic
+          standard: Basique
           comfort: Normal
           first_class: Confortable
           luxury: Luxe

@@ -1,3 +1,8 @@
+- # meta data
+- @meta[:title] = 'Covoiturage-libre.fr, le covoiturage gratuit et collaboratif'
+- @meta[:description] = '1ère plateforme de covoiturage gratuite et collaborative. Aucune commission sur les trajets. Association à but non lucratif. Depuis 2011.'
+
+
 - content_for :page_part_1 do
   .container
     .row
@@ -27,23 +32,29 @@
     .feature-block
       %h3 Sans commission
       %p
-        Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers.
-        Les prix sont fixés par les conducteurs, le site ne se prend aucune commission sur les trajets, nous ne
-        vivons que de dons.
+        Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers. Les prix sont fixés par les conducteurs, le site ne prélève aucune commission sur les trajets, nous ne vivons que de dons.
+      %p
+        = link_to 'Faire un don »', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', class: 'btn btn-default'
+      %p
+        = link_to 'Nous soutenir via Lilo »', 'http://www.lilo.org/fr/covoiturage-libre-fr/?utm_source=covoiturage-libre-fr', target: '_blank', class: 'btn btn-default'
+
   .col-md-4
     .feature-block
-      %h3 Libre
-      %p
-        Nous garantissons que :
+      %h3 Libre 
+      %p  Nous avons pris cinq engagements :
       %ul
-        %li la plateforme est un bien commun : nous ne serons jamais achetés ou côtés en bourse ;
-        %li la gouvernance de la plateforme est fondée sur la communauté ;
-        %li notre communauté contribue à la protection de l'environnement ;
-        %li la plateforme contribue au lien social entre covoitureurs.
+        %li la plateforme est un bien commun : nous ne serons jamais achetés ou cotés en bourse ; 
+        %li nous ne vivons que de dons : il n'y a pas de commission sur les trajets ; 
+        %li la gouvernance de la plateforme est fondée sur la communauté ; 
+        %li notre communauté contribue à la protection de l'environnement ; 
+        %li la plateforme contribue au lien social entre covoitureurs. 
+      %p
+        = link_to 'Pour en savoir plus »', '/association', class: 'btn btn-default'
   .col-md-4
     .feature-block
       %h3 Communautaire
       %p
-        Le service Covoiturage Libre est maintenu et géré par une communauté de bénévoles dévloppeurs, designers, communiquants
-        qui croient que le covoiturage est une magnifique invention mais qu'elle doit rester dans les mains
-        des citoyens et pas controllé par une entreprise privée côtée en bourse.
+        Covoiturage-libre.fr est une plateforme maintenue et gérée par une communauté de bénévoles
+        (développeurs, designers, communiquants...) qui croient que le covoiturage est une magnifique
+        invention mais qu'elle doit rester dans les mains des citoyens. Le covoiturage est un bien commun
+        dont la valeur doit appartenir aux utilisateurs.

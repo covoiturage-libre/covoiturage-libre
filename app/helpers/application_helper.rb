@@ -24,19 +24,12 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def trip_steps_breadcrumb(trip)
-    breadcrumbs = ''
-    trip.points.each_with_index do |step|
-      breadcrumbs << step.city
-      unless step == trip.points.last
-        breadcrumbs << ' &rarr; '
-      end
-    end
-    breadcrumbs.html_safe
+  def trip_steps_breadcrumb(trip, separator = '&rarr;')
+    trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
   end
 
   def trip_title(trip)
-    "Covoiturage #{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+    "#{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def admin_page?

@@ -1,4 +1,4 @@
-Concernant l'annonce pour aller de <%= trip_steps_breadcrumb(@trip) %>, le <%= l @trip.departure_date, format: :long %> à <%= @trip.departure_time.try(:strftime, "%k:%m") %>,
+Concernant l'annonce pour aller de <%= trip_title(@trip) %>,
 
 vous avez envoyé le message suivant à <%= @trip.name %> :
 
