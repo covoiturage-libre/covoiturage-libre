@@ -1,1 +1,1 @@
-= bar_chart Trip.group_by_day(:created_at).count
+= bar_chart Trip.unscoped.group_by_day(:created_at).count, height: "4000px"
