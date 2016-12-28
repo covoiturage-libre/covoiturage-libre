@@ -1,0 +1,6 @@
+<script type="text/javascript">
+  $('#phone').replaceWith(<%= @trip.phone %>);
+  if (typeof ga === "function") {
+    ga('send', 'event', 'Trajet', 'show_phone');
+  }
+</script>
