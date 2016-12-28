@@ -28,8 +28,8 @@ module ApplicationHelper
     trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
   end
 
-  def trip_title(trip)
-    "#{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+  def trip_title(trip, separator = nil)
+    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def admin_page?
