@@ -11,27 +11,18 @@ class Search
       :date
   )
 
+
   validate :dont_search_the_past
 
-  def complete_missing_params
-    if date.blank?
-      self.date = Date.today.strftime('%d/%m/%Y')
-    end
-    self
-  end
-
   def date_value
-    if date.present?
-      Date.strptime(self.date, '%d/%m/%Y')
-    else
-      nil
-    end
+    Date.strptime(self.date, '%d/%m/%Y')
   end
 
   private
 
     def dont_search_the_past
-      if date.present? && date_value < Date.today
+      @date = Date.today.strftime('%d/%m/%Y') if @date.blank?
+      if self.date_value < Date.today
         errors.add(:date, "Cherchez une date future")
       end
     end

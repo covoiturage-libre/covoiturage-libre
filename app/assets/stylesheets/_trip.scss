@@ -30,18 +30,18 @@ a.trip-item:hover {
   }
 
   .driver {
-    width: 30%;
+    width: 35%;
   }
 
   .price {
-    width: 20%;
+    width: 15%;
   }
 }
 
 .driver {
   display: block;
   float: left;
-  padding: 8px;
+  padding: 8px 0 8px 8px;
   .avatar {
     text-align: center;
     display: block;

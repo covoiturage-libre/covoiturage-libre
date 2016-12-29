@@ -28,6 +28,20 @@ module ApplicationHelper
     trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
   end
 
+  def trip_steps_breadcrumb_with_emphasis(trip, point_a_id = nil, point_b_id = nil, separator = '&rarr;')
+    trip.points.map do |p|
+      if p.id == point_a_id || p.id == point_b_id
+        "<b>#{p.city}</b>"
+      else
+        p.city
+      end
+    end.join(" #{separator} ").html_safe
+  end
+
+  def trip_price(trip, point_a_price, point_b_price)
+    (point_b_price || trip.price) - (point_a_price || 0)
+  end
+
   def trip_title(trip)
     "#{trip_steps_breadcrumb(trip)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end

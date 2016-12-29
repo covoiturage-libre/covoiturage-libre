@@ -7,14 +7,18 @@
 
 %br
 
-- if @search.valid?
+- if @trips.empty?
+  Pas de trajets associés
+- else
   .row
     .col-md-7.col-md-offset-1
       .panel.panel-default
         .panel-heading
           %h3.panel-title
-            ="#{pluralize(@trips.count, 'covoiturage', plural: 'covoiturages')} de #{@search.from_city} à #{@search.to_city}"
+            = page_entries_info @trips
         .panel-body{ style: 'padding: 0' }= render @trips
+
+      = paginate(@trips)
 
 - content_for :javascript_footer do
   :javascript
