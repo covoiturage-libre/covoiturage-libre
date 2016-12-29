@@ -49,8 +49,6 @@ GEM
       execjs
     awesome_print (1.7.0)
     bcrypt (3.1.11)
-    bootstrap-datepicker-rails (1.6.4.1)
-      railties (>= 3.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -300,7 +298,6 @@ DEPENDENCIES
   active_link_to
   appsignal
   awesome_print
-  bootstrap-datepicker-rails
   bootstrap-sass
   byebug (~> 9.0)
   chartkick

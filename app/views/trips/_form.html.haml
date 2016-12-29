@@ -78,7 +78,11 @@
   :javascript
 
     $('.geoname').geonameAutocomplete();
-    initDatepicker();
+
+    $('.datepicker').datepicker({
+      dateFormat: "dd/mm/yy",
+      minDate: 0
+    })
 
     $('#steps').on('cocoon:after-insert', function(e, step) {
       $(step).find('.geoname').geonameAutocomplete();

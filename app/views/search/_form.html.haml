@@ -15,4 +15,7 @@
 - content_for :javascript_footer do
   :javascript
     $('.geoname').geonameAutocomplete();
-    initDatepicker();
+    $('.datepicker').datepicker({
+      dateFormat: "dd/mm/yy",
+      minDate: 0
+    })

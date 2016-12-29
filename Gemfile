@@ -41,7 +41,6 @@ gem 'turbolinks', '~> 5.0' # Turbolinks makes navigating your web application fa
 gem 'jbuilder', '~> 2.6' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'haml'
 gem 'simple_form'
-gem 'bootstrap-datepicker-rails'
 gem 'jquery-ui-rails'
 gem 'cocoon'
 gem 'active_link_to'
