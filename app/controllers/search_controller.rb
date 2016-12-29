@@ -3,8 +3,9 @@ class SearchController < ApplicationController
   def index
     load_index_meta_data
     params.permit!
+    params[:search] ||= {}
 
-    @search = Search.new(search_params)
+    @search = Search.new(params[:search])
     if @search.valid?
       if @search.from_lon.present? && @search.to_lon.present?
         @trips = Trip
@@ -45,7 +46,7 @@ class SearchController < ApplicationController
   private
 
     def search_params
-      params.require(:search).permit(:from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date)
+      #params.require(:search).permit(:from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date)
     end
 
     def load_index_meta_data
