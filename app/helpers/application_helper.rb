@@ -43,6 +43,7 @@ module ApplicationHelper
   end
 
   def trip_price(trip, point_a_price, point_b_price)
+    return 0 if trip.price.nil?
     (point_b_price || trip.price) - (point_a_price || 0)
   end
 
