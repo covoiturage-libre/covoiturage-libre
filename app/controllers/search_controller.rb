@@ -5,6 +5,7 @@ class SearchController < ApplicationController
     params.permit!
     params[:search] ||= {}
 
+    @trips ||= []
     @search = Search.new(params[:search])
     if @search.valid?
       if @search.from_lon.present? && @search.to_lon.present?
@@ -37,8 +38,6 @@ class SearchController < ApplicationController
                    .where(state: 'confirmed')
                    .where('departure_date >= ?', @search.date_value)
                    .page(params[:page]).per(10)
-      else
-        @trips = []
       end
     end
   end
