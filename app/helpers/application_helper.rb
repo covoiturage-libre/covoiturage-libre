@@ -28,7 +28,7 @@ module ApplicationHelper
     trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
   end
 
-  def trip_title(trip, separator = nil)
+  def trip_title(trip, separator = '&rarr;')
     "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
