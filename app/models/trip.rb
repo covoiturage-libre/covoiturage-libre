@@ -25,11 +25,49 @@ class Trip < ApplicationRecord
   validates_acceptance_of :terms_of_service
   validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-
   after_create :send_confirmation_email
+  after_save :set_last_point_price
 
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
+
+  scope :from_to, -> (from_lon, from_lat, to_lon, to_lat) {
+    select('trips.*,
+      point_a.id as point_a_id, point_a.price as point_a_price,
+      point_b.id as point_b_id, point_b.price as point_b_price,
+      trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
+    joins('INNER JOIN points AS point_a ON trips.id = point_a.trip_id').
+    joins('INNER JOIN points AS point_b ON trips.id = point_b.trip_id').
+    where("ST_Dwithin(
+           ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
+           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
+           25000)", from_lon.to_f, from_lat.to_f).
+    where("ST_Dwithin(
+           ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
+           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
+           25000)", to_lon.to_f, to_lat.to_f).
+    where('point_a.rank < point_b.rank')
+  }
+
+  scope :from_only, -> (from_lon, from_lat) {
+    select('trips.*, point_a.id as point_a_id, trips.id').
+    joins('INNER JOIN points AS point_a ON trips.id = point_a.trip_id').
+    where("ST_Dwithin(
+           ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
+           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
+           25000)", from_lon.to_f, from_lat.to_f).
+    where("point_a.kind <> 'To'")
+  }
+
+  scope :to_only, -> (to_lon, to_lat) {
+    select('trips.*, point_b.id as point_b_id, trips.id').
+    joins('INNER JOIN points AS point_b ON trips.id = point_b.trip_id').
+    where("ST_Dwithin(
+           ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
+           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
+           25000)", to_lon.to_f, to_lat.to_f).
+    where("point_b.kind <> 'From'")
+  }
 
   def to_param
     confirmation_token
@@ -91,56 +129,16 @@ class Trip < ApplicationRecord
     new_trip
   end
 
-  class << self
-
-    def search(search)
-      # empty search not allowed
-      return nil if search.blank? || !search.valid?
-
-      sql_query_string = <<-SQL
-          select trip_point_a.id, departure_date, point_a_rank as from_rank, rank as to_rank
-          from (
-            select trips.id, departure_date, points.rank as point_a_rank
-            from trips
-            inner join points on points.trip_id = trips.id
-            where state = 'confirmed'
-            and departure_date >= '%s'
-            and
-              ST_Dwithin(
-                ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
-                ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
-                25000
-              )
-          ) as trip_point_a
-          inner join points on points.trip_id = trip_point_a.id
-          where
-            ST_Dwithin(
-              ST_GeographyFromText('SRID=4326;POINT(' || points.lon || ' ' || points.lat || ')'),
-              ST_GeographyFromText('SRID=4326;POINT(%f %f)'),
-              25000
-            )
-          and point_a_rank < points.rank
-          order by departure_date asc
-      SQL
-
-      Trip.find_by_sql([
-          sql_query_string,
-          search.date_value,
-          search.from_lon,
-          search.from_lat,
-          search.to_lon,
-          search.to_lat
-        ])
-    end
-
-  end
-
   private
 
     def must_have_from_and_to_points
       if points.empty? or point_from.nil? or point_to.nil?
         errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires")
       end
+    end
+
+    def set_last_point_price
+      self.point_to.update_attribute(:price, self.price)
     end
 
 end

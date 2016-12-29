@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     end
     get 'search', to: 'search#index'
 
+    get "/covoits/:from-:to", to: 'landing#index'
+    #get "/covoits/:from", to: 'landing#index'
+
   end
 
   resources :cities do

@@ -32,6 +32,10 @@ jQuery.fn.extend({
             .appendTo(ul);
         }
       }
+    }).blur(function () {
+      if ($(this).val() == "") {
+        $(this).parent().next(2).find("input").val('');
+      }
     });
   }
 });

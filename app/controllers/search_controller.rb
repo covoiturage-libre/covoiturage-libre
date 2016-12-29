@@ -2,12 +2,43 @@ class SearchController < ApplicationController
   
   def index
     load_index_meta_data
+    params.permit!
 
-    @search = params[:search].present? ? Search.new(search_params) : Search.new
-    @trips ||= []
+    @search = Search.new(search_params)
     if @search.valid?
-      found_trips = Trip.search(@search)
-      @trips = Trip.includes(:points).find(found_trips.map &:id)
+      if @search.from_lon.present? && @search.to_lon.present?
+        @trips = Trip
+                   .unscoped
+                   .includes(:points)
+                   .from_to(@search.from_lon, @search.from_lat, @search.to_lon, @search.to_lat)
+                   .order(departure_date: :asc)
+                   .order(departure_time: :asc)
+                   .where(state: 'confirmed')
+                   .where('departure_date >= ?', @search.date_value)
+                   .page(params[:page]).per(10)
+      elsif @search.from_lon.present?
+        @trips = Trip
+                   .unscoped
+                   .includes(:points)
+                   .from_only(@search.from_lon, @search.from_lat)
+                   .order(departure_date: :asc)
+                   .order(departure_time: :asc)
+                   .where(state: 'confirmed')
+                   .where('departure_date >= ?', @search.date_value)
+                   .page(params[:page]).per(10)
+      elsif @search.to_lon.present?
+        @trips = Trip
+                   .unscoped
+                   .includes(:points)
+                   .to_only(@search.to_lon, @search.to_lat)
+                   .order(departure_date: :asc)
+                   .order(departure_time: :asc)
+                   .where(state: 'confirmed')
+                   .where('departure_date >= ?', @search.date_value)
+                   .page(params[:page]).per(10)
+      else
+        @trips = []
+      end
     end
   end
 
@@ -25,5 +56,4 @@ class SearchController < ApplicationController
       #@meta[:description] << " à #{search_params[:to_city]}"    if search_params[:to_city].present?
       #@meta[:description] << " le #{search_params[:date]}"      if search_params[:date].present?
     end
-
 end

@@ -10,9 +10,9 @@
         =l trip.departure_date, format: :long
         =l trip.departure_time, format: :short
       .details
-        = trip_steps_breadcrumb(trip)
+        = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
     .price
-      %p= "#{trip.price} €"
+      %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
       .seats
         = "#{trip.seats} places"
     .clearfix
