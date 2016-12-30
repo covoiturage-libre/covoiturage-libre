@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
       @meta ||= {
         title: 'Covoiturage libre',
         description: 'Covoiturage Libre : faites de la vraie économie du partage, covoiturez gratuitement et librement',
-        image_url: "https://covoiturage-libre.fr/covoiturage-libre-RS-noel.png",
+        image_url: "https://covoiturage-libre.fr/covoiturage-libre-RS.png",
         author: 'Association Covoiturage libre',
         keywords: 'covoiturage, gratuit, libre, associatif',
         url: request.original_url
