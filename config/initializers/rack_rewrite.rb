@@ -21,6 +21,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 '/metamoteur.php', '/metamoteur' # TODO transfer this page on the wiki ?
   r301 '/fonctionnement-etapes.html', '/fonctionnement-etapes'
   r301 '/infos-assurance.php', '/calculer'
+  r301 '/PDFs/cp_cvl_2016-04-21.pdf', 'http://blog.covoiturage-libre.fr/2016/04/21/la-seconde-plateforme-francaise-de-covoiturage-devient-un-bien-commun/'
 
   # dynamic pages
   r301 '/recherche.php', '/recherche'
