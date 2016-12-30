@@ -4,6 +4,10 @@ CovoiturageLibre is a Carpooling Open Source platform, originally created for th
 
 It aims at providing a free, non-profit carpooling service for the shared economy, with no for-profit company controlling the service.
 
+## Licence
+
+ GNU GENERAL PUBLIC LICENSE v3.0, see LICENCE.
+
 ## Install
 
 * Ruby and Rails version
