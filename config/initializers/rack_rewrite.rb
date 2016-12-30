@@ -35,4 +35,10 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 %r{/nouveau\.php\?c=(\w+)\&a\=r\&c2\=.+}, '/trajets/$1/creer_retour'
   r301 %r{/nouveau\.php\?c=(\w+)\&a\=d\&c2\=.+}, '/trajets/$1/dupliquer'
 
+  # bad pages
+  r301 '/index_css.css', '/'
+  r301 '/telephone.php', '/'
+  r301 '/wp-login.php', '/'
+  r301 '/index.php', '/'
+
 end
