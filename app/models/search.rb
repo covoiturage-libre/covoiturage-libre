@@ -15,7 +15,11 @@ class Search
   validate :dont_search_the_past
 
   def date_value
-    Date.strptime(self.date, '%d/%m/%Y')
+    begin
+      Date.strptime(self.date, '%d/%m/%Y')
+    rescue
+      Date.today
+    end
   end
 
   private
