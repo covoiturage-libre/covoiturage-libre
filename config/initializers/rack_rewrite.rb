@@ -7,6 +7,7 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
 
   # static pages
   r301 '/association_descriptif.php', '/association'
+  r301 '/association-descriptif.php', '/association'
   r301 '/infos.php', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil'
   r301 '/presse.php', '/presse'
   r301 '/mentions-legales.php', '/mentions-legales'
