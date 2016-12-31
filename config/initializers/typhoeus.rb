@@ -1,0 +1,1 @@
+Ethon.logger = Logger.new("/dev/null")
