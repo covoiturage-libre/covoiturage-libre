@@ -37,7 +37,6 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
   r301 %r{/nouveau\.php\?c=(\w+)\&a\=d\&c2\=.+}, '/trajets/$1/dupliquer'
 
   # bad pages
-  r301 '/trajets', '/recherche'
   r301 %r{/trajets\?c=(\w+).*}, '/trajets/$1'
   r301 '/index_css.css', '/'
   r301 '/telephone.php', '/'
