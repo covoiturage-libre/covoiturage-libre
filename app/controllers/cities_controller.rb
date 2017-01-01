@@ -7,8 +7,7 @@ class CitiesController < ApplicationController
       boost_where: {country_code: {value: 'FR', factor: 5}},
       fields: [:name, :postal_code],
       match: params[:term].to_i > 0 ? :word : :word_start,
-      highlight: true,
-      track: {user_id: 1}
+      highlight: true
     )
   end
 

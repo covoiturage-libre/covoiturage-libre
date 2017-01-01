@@ -18,7 +18,6 @@ gem 'groupdate'
 ### Searchkick Tools
 gem 'oj' # Significantly increase performance with faster JSON generation
 gem 'typhoeus' # Significantly increase performance with persistent HTTP connections
-gem 'searchjoy'
 
 ### for ETL job only > delete after platform migration
 
