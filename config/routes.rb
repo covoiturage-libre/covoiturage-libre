@@ -38,7 +38,6 @@ Rails.application.routes.draw do
     resources :stats
     root to: 'pages#index'
   end
-  mount Searchjoy::Engine, at: "admin/searchjoy"
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
