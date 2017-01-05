@@ -2,7 +2,15 @@ Rails.application.config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) 
 
   # Redirect all http traffic to https
   if ENV['REDIRECT_ALL_TRAFFIC'].present?
+    # redirect http to https
     r301 %r{.*}, 'https://covoiturage-libre.fr$&', scheme: 'http'
+    # redirect all subdomains except from 'dons'
+    r301 %r{.*}, 'https://covoiturage-libre.fr$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] != 'covoiturage-libre.fr' && rack_env['SERVER_NAME'] != 'dons.covoiturage-libre.fr'
+    }
+    r301 %r{.*}, 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/$&', :if => Proc.new {|rack_env|
+      rack_env['SERVER_NAME'] == 'dons.covoiturage-libre.fr'
+    }
   end
 
   # static pages
