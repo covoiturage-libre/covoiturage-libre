@@ -79,4 +79,6 @@
       %footer
         = render 'layouts/footer'
 
+    = render 'layouts/slaask' if ENV['SLAASK_WIDGET_KEY'].present?
+
     = yield :javascript_footer
