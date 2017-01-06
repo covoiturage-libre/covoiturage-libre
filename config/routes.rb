@@ -9,7 +9,8 @@ Rails.application.routes.draw do
       member do
         get 'confirm'
         get 'delete'
-        get 'resend_email'
+        get 'resend_confirmation_email'
+        get 'resend_information_email'
         get 'new_from_copy'
         get 'new_for_back'
         get 'points'

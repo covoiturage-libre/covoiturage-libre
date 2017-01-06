@@ -12,7 +12,7 @@
     %br
     %p
       Vous n'avez pas reçu le mail de validation ?
-      = link_to 'Cliquez ici', resend_email_trip_path(@trip)
+      = link_to 'Cliquez ici', resend_confirmation_email_trip_path(@trip)
       pour le recevoir à nouveau.
   .col-md-4
     = render 'shortcuts'

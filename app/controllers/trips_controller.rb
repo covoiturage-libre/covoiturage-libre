@@ -77,11 +77,21 @@ class TripsController < ApplicationController
     end
   end
 
-  def resend_email
+  def resend_confirmation_email
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip
-      @trip.send_information_email
+      @trip.send_confirmation_email
       redirect_to @trip, notice: "Nous vous avons renvoyé le mail de validation de l'annonce."
+    else
+      render :not_found # let's give no information on this error to the internet
+    end
+  end
+
+  def resend_information_email
+    @trip = Trip.find_by_edition_token(params[:id])
+    if @trip
+      @trip.send_information_email
+      redirect_to @trip, notice: "Nous vous avons renvoyé le mail de gestion de l'annonce."
     else
       render :not_found # let's give no information on this error to the internet
     end

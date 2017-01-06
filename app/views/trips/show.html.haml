@@ -97,10 +97,10 @@
     .panel.panel-default
       .panel-body
         .trip-ownership
-          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de confirmation que vous avez reçu lors de la création de l'annonce.
+          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
           %p
-            Vous avez perdu le courriel de confirmation ?
-            = link_to 'Cliquez ici', resend_email_trip_path(@trip)
+            Vous avez perdu le courriel de gestion de l'annonce ?
+            = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
             pour le recevoir à nouveau.
 
 - content_for :javascript_footer do
