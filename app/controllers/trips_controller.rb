@@ -81,7 +81,8 @@ class TripsController < ApplicationController
     @trip = Trip.find_by_confirmation_token(params[:id])
     if @trip
       @trip.send_confirmation_email
-      redirect_to @trip, notice: "Nous vous avons renvoyé le mail de validation de l'annonce."
+      flash.now[:notice] = "Nous vous avons renvoyé le mail de gestion de l'annonce."
+      render :create
     else
       render :not_found # let's give no information on this error to the internet
     end
