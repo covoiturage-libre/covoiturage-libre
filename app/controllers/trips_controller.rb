@@ -79,7 +79,7 @@ class TripsController < ApplicationController
 
   def resend_confirmation_email
     @trip = Trip.find_by_confirmation_token(params[:id])
-    if @trip
+    if @trip && !@trip.deleted?
       @trip.send_confirmation_email
       flash.now[:notice] = "Nous vous avons renvoyé le mail de gestion de l'annonce."
       render :create
@@ -90,7 +90,7 @@ class TripsController < ApplicationController
 
   def resend_information_email
     @trip = Trip.find_by_edition_token(params[:id])
-    if @trip
+    if @trip && @trip.confirmed?
       @trip.send_information_email
       redirect_to @trip, notice: "Nous vous avons renvoyé le mail de gestion de l'annonce."
     else
