@@ -1,0 +1,5 @@
+.row
+  .col-md-3
+    = render 'stats_menu'
+  .col-md-9
+    = bar_chart Trip.unscoped.where(created_at: @t1..@t2).group_by_day(:created_at).count.reverse_each, height: "2000px"

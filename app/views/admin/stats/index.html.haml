@@ -1,3 +1,4 @@
-- t1 = Date.today - 3.months
-- t2 = Time.now
-= bar_chart Trip.unscoped.where(created_at: t1..t2).group_by_day(:created_at).count.reverse_each, height: "2000px"
+.row
+  .col-md-3
+    = render 'stats_menu'
+  .col-md-9

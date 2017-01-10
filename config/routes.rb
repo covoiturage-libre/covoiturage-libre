@@ -36,7 +36,12 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :page_parts
     resources :pages
-    resources :stats
+    resources :stats, only: :index do
+      collection do
+        get 'trips_count'
+        get 'trips_tab'
+      end
+    end
     root to: 'pages#index'
   end
 
