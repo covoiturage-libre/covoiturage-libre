@@ -1,7 +1,3 @@
-// how to customize the navbar : http://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3
-
-$bgDefault      : #fff;
-
 @media (min-width: $screen-sm-min) {
   .navbar {
     height: 80px;
@@ -32,13 +28,11 @@ $bgDefault      : #fff;
   }
 }
 
-
 .navbar {
-  background-color: $bgDefault;
+  background-color: white;
   margin-bottom: 0;
 
   .navbar-brand {
     padding: 0;
   }
-
 }
