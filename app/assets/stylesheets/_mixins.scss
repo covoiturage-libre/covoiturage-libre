@@ -10,3 +10,25 @@
   list-style-type: none;
   padding-left: 0;
 }
+
+/// Scaffolds a media query using a known breakpoint, or not
+@mixin mq($mq) {
+  $breakpoint-found: false;
+
+  @each $breakpoint in $breakpoints {
+    $alias:     nth($breakpoint, 1);
+    $condition: nth($breakpoint, 2);
+    @if $mq == $alias and $condition {
+      $breakpoint-found: true;
+      @media (min-width: #{$condition}) {
+        @content;
+      }
+    }
+  }
+
+  @if $breakpoint-found == false {
+    @media (min-width: #{$mq}) {
+      @content;
+    }
+  }
+}

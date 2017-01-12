@@ -1,1 +1,19 @@
 $spacing-unit: 16px;
+
+$orange: #ff6600;
+$blue: #1060ad;
+$blue-dark: #0c2a60;
+$blue-shade: #2f6099;
+
+$color-brand: $orange;
+$color-secondary: $blue;
+$color-link: $blue;
+
+// Breakpoints size for responsive,
+// used width the "mq" mixin
+$breakpoints: (
+  "mobile"        480px,
+  "tablet"        768px,
+  "medium"        980px,
+  "large"        1200px,
+);

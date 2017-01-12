@@ -7,7 +7,9 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{href: root_url}
-        = image_tag 'covoiturage-libre-logo.png', height: '80', alt: 'Logo Covoiturage Libre'
+        = image_tag 'covoiturage-libre-logo.svg', height: '50', alt: 'Logo Covoiturage Libre', class: 'g-navbar__logos g-navbar__logo-entire'
+        = image_tag 'covoiturage-baseline-logo.svg', height: '35', alt: 'Logo Covoiturage Libre baseline', class: 'g-navbar__logos g-navbar__logo-baseline'
+
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
         %li= link_to 'Blog', 'http://blog.covoiturage-libre.fr', target: '_blank'

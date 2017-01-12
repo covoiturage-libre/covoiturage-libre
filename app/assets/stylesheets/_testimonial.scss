@@ -1,7 +1,30 @@
+$avatar-size: 80px;
+
 .c-testimonials {
   @include reset-ul;
+  margin-top: ($spacing-unit * 2);
 }
 
 .c-testimonial {
+  margin-bottom: ($spacing-unit * 2);
+}
 
+.c-testimonial__author,
+.c-testimonial__meta {
+  color: $color-brand;
+  font-weight: bold;
+  margin: 0;
+}
+
+.c-testimonial__body {
+  padding-top: ($spacing-unit / 2);
+}
+
+.c-testimonial__image {
+  height: $avatar-size;
+  width: $avatar-size;
+}
+
+.c-testimonial__link-more {
+  margin-left: calc(#{$avatar-size} + #{$spacing-unit});
 }

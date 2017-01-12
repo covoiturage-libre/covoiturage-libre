@@ -1,4 +1,4 @@
-$bgFeatureBlock      : #fffbf2 !default;
+$bgFeatureBlock: #fffbf2 !default;
 
 .feature-block {
   background-color: $bgFeatureBlock;
@@ -56,7 +56,8 @@ $bgFeatureBlock      : #fffbf2 !default;
 }
 
 .p-home__features {
-  background-color: #ffcf49;
+  background-color: $blue-shade;
+  color: transparentize(#fff, .25);
 }
 
 .p-home__cities {

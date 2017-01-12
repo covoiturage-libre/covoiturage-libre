@@ -66,8 +66,8 @@
           %ul.p-home__cities
             - @cities.each do |city|
               %li.p-home__city
-                %a{href: '#'}= city
-          %a.p-home__all-trips Tous les trajets en cours »
+                = link_to city, '#', class: 'c-link'
+          = link_to 'Tous les trajets en cours »', '#', class: 'p-home__all-trips c-link'
 
   %section.p-home__testimonials
     .container
@@ -77,5 +77,7 @@
           %ul.c-testimonials
             - @testimonials.each do |testimonial|
               = render 'shared/testimonial', testimonial: testimonial
+          = link_to 'Lire plus de commentaires >', '#', class: 'c-link c-testimonial__link-more'
+
         .col-md-4
           %h3 Recevez notre fameux sticker
