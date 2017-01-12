@@ -1,5 +1,4 @@
-
-$bgFeatureBlock      : #fffbf2;
+$bgFeatureBlock      : #fffbf2 !default;
 
 .feature-block {
   background-color: $bgFeatureBlock;
@@ -9,18 +8,84 @@ $bgFeatureBlock      : #fffbf2;
 
 .home-publish-cta {
   background-color: white;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  padding: $spacing-unit;
+  border-radius: 4px;
   text-align: center;
+  color: #333;
+
   p {
     font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 }
 
-@media (min-width: $screen-sm-max) {
-  .home-publish-cta {
-    margin-top: -50px;
+.home-publish-cta__title.home-publish-cta__title {
+  color: #1060ad;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+// .home-publish-cta__btn {
+//   background-color: #1060ad;
+//   color: #fff;
+//   padding-top: 8px;
+//   padding-bottom: 8px;
+// }
+
+.p-home__title {
+  &,
+  .jumbotron & {
+    font-size: 30px;
   }
+}
+
+.p-home__subtitle {
+  font-size: 21px;
+}
+
+.p-home__heading {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #1060ad;
+
+  .p-home__features & {
+    color: #fff;
+  }
+}
+
+.p-home__features {
+  background-color: #ffcf49;
+}
+
+.p-home__cities {
+  background-color: $bgDefault;
+}
+
+.p-home__cities {
+  @include reset-ul;
+}
+
+.p-home__city {
+  display: inline-block;
+
+  &:after {
+    content: '-';
+  }
+
+  > a {
+    display: inline-block;
+    font-style: italic;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  &:last-child:after {
+    display: none;
+  }
+}
+
+.p-home__all-trips {
+  float: right;
 }

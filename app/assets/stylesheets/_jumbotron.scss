@@ -4,7 +4,12 @@ $orangeStrong     : #ff6f00;
 $bgDefault        : #e9f1ff;
 
 .jumbotron {
-  background-color: $bgDefault;
+  background-image: image_url('jumbotron-home.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 0;
+  color: #fff;
 
   &.small-jumbotron {
     padding: 15px 0 15px 0;

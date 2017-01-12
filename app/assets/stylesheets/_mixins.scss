@@ -1,0 +1,12 @@
+@mixin clearfix() {
+  &:after {
+    content: "" !important;
+    display: block !important;
+    clear: both !important;
+  }
+}
+
+@mixin reset-ul() {
+  list-style-type: none;
+  padding-left: 0;
+}

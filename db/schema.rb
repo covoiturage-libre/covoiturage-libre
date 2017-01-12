@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231173241) do
+ActiveRecord::Schema.define(version: 20161221152226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,8 +90,7 @@ ActiveRecord::Schema.define(version: 20161231173241) do
     t.integer  "trip_id"
     t.string   "sender_name"
     t.string   "sender_email"
-    t.string   "body"
-    t.text     "message"
+    t.text     "body"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "sender_phone"
@@ -114,22 +113,6 @@ ActiveRecord::Schema.define(version: 20161231173241) do
     t.datetime "updated_at",                               null: false
     t.index "st_geographyfromtext((((('SRID=4326;POINT('::text || lon) || ' '::text) || lat) || ')'::text))", name: "index_on_points_location", using: :gist
     t.index ["trip_id"], name: "index_points_on_trip_id", using: :btree
-  end
-
-  create_table "searchjoy_searches", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "search_type"
-    t.string   "query"
-    t.string   "normalized_query"
-    t.integer  "results_count"
-    t.datetime "created_at"
-    t.integer  "convertable_id"
-    t.string   "convertable_type"
-    t.datetime "converted_at"
-    t.index ["convertable_id", "convertable_type"], name: "index_searchjoy_searches_on_convertable_id_and_convertable_type", using: :btree
-    t.index ["created_at"], name: "index_searchjoy_searches_on_created_at", using: :btree
-    t.index ["search_type", "created_at"], name: "index_searchjoy_searches_on_search_type_and_created_at", using: :btree
-    t.index ["search_type", "normalized_query", "created_at"], name: "index_searchjoy_searches_on_search_type_and_normalized_query_an", using: :btree
   end
 
   create_table "spatial_ref_sys", primary_key: "srid", id: :integer, force: :cascade do |t|
