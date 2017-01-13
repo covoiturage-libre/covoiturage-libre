@@ -70,3 +70,14 @@ $bgDefault: #fff;
     display: none !important;
   }
 }
+
+.navbar-default .navbar-nav > li > a {
+  @media (min-width: $screen-sm-min) {
+    font-weight: bold;
+    color: #000;
+
+    &:hover {
+      color: #444;
+    }
+  }
+}

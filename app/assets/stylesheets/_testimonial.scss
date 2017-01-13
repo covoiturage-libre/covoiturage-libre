@@ -1,4 +1,5 @@
-$avatar-size: 80px;
+$avatar-size: 48px;
+$avatar-size--medium: 80px;
 
 .c-testimonials {
   @include reset-ul;
@@ -23,8 +24,15 @@ $avatar-size: 80px;
 .c-testimonial__image {
   height: $avatar-size;
   width: $avatar-size;
+
+  @media screen and (min-width: 640px) {
+    height: $avatar-size--medium;
+    width: $avatar-size--medium;
+  }
 }
 
 .c-testimonial__link-more {
-  margin-left: calc(#{$avatar-size} + #{$spacing-unit});
+  @media screen and (min-width: 640px) {
+    margin-left: calc(#{$avatar-size--medium} + #{$spacing-unit});
+  }
 }

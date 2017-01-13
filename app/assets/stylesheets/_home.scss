@@ -12,11 +12,25 @@ $bgFeatureBlock: #fffbf2 !default;
   border-radius: 4px;
   text-align: center;
   color: #333;
+  width: 20em;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 
   p {
     font-size: 14px;
     margin-top: 4px;
     margin-bottom: 4px;
+  }
+
+  .btn-primary {
+    @media screen and (min-width: 992px) {
+      font-size: 16px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 18px;
+    }
   }
 }
 
@@ -42,6 +56,7 @@ $bgFeatureBlock: #fffbf2 !default;
 
 .p-home__subtitle {
   font-size: 21px;
+  margin-bottom: 0;
 }
 
 .p-home__heading {
@@ -58,18 +73,30 @@ $bgFeatureBlock: #fffbf2 !default;
 .p-home__features {
   background-color: $blue-shade;
   color: transparentize(#fff, .25);
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
+
+  .p-home__heading {
+    margin-top: 0;
+  }
+
+  ul {
+    padding-left: $spacing-unit / 4;
+  }
 }
 
 .p-home__cities {
   background-color: $bgDefault;
+  padding-bottom: $spacing-unit;
 }
 
-.p-home__cities {
+.l-home__cities {
   @include reset-ul;
 }
 
-.p-home__city {
+.l-home__city {
   display: inline-block;
+  margin-bottom: $spacing-unit / 8;
 
   &:after {
     content: '-';
@@ -78,8 +105,14 @@ $bgFeatureBlock: #fffbf2 !default;
   > a {
     display: inline-block;
     font-style: italic;
-    font-weight: 600;
-    text-decoration: underline;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    border-bottom: 1px solid currentColor;
+
+    &:hover {
+      color: #444;
+    }
   }
 
   &:last-child:after {
@@ -89,4 +122,14 @@ $bgFeatureBlock: #fffbf2 !default;
 
 .p-home__all-trips {
   float: right;
+}
+
+.btn-search {
+  background-color: #ed7233;
+  border: 1px solid #ed7233;
+
+  &:hover {
+    background-color: lighten(#ed7233, 5%);
+    border-color: lighten(#ed7233, 5%);
+  }
 }

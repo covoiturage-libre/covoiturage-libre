@@ -78,8 +78,7 @@
       = render 'layouts/admin_menu' if admin_page?
       = yield
 
-      %footer
-        = render 'layouts/footer'
+    = render 'layouts/footer'
 
     = render 'layouts/slaask' if ENV['SLAASK_WIDGET_KEY'].present?
 

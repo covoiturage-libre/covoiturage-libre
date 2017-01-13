@@ -10,7 +10,7 @@
   = f.input :to_lat, as: :hidden
   = f.input :date, as: :string, input_html: { class: "datepicker #{input_class}" }, label: false, placeholder: 'Date'
   .form-group
-    = f.button :submit, 'Rechercher', class: "btn btn-primary #{btn_class}"
+    = f.button :submit, 'Partez !', class: "btn btn-primary #{btn_class} btn-search"
 
 - content_for :javascript_footer do
   :javascript

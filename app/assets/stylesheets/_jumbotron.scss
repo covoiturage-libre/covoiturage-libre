@@ -15,6 +15,10 @@ $bgDefault        : #e9f1ff;
     padding: 15px 0 15px 0;
     margin-bottom: 0px;
   }
+
+  .form-group {
+    margin-top: $spacing-unit / 2;
+  }
 }
 
 .publish {
