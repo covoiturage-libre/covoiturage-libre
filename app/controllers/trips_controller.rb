@@ -19,6 +19,7 @@ class TripsController < ApplicationController
   def create
     @trip = Trip.new(trip_params)
     if @trip.save
+      session[:trip_id] = @trip.confirmation_token
       # do nothing, render create page
     else
       build_points

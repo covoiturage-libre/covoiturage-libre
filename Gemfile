@@ -85,6 +85,12 @@ gem 'redcarpet' # Require the Markdown converter gem
 group :development, :test do
   gem 'byebug', '~> 9.0', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec', '~> 3.5'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'email_spec'
 end
 
 group :development do
