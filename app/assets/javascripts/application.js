@@ -27,7 +27,7 @@
 //= require turbolinks
 //= require ga
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   var activeStickerIndex = 0;
   var stickersLength = $('.c-stickers-carousel__item').length;
 

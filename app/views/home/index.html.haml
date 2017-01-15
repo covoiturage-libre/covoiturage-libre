@@ -80,16 +80,16 @@
           = link_to 'Lire plus de commentaires >', '#', class: 'c-link c-testimonial__link-more'
 
         .col-sm-4
-          %h3 Recevez notre fameux sticker
+          %h3 Recevez notre fameux stickers
           .c-stickers-carousel
             = link_to 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', { target: '_blank', rel: 'noopener', class: 'c-stickers-carousel__slides' } do
               - 3.times do |index|
                 .c-stickers-carousel__item
-                  = image_tag "sticker-#{index + 1}"
+                  = image_tag "sticker-#{index + 1}.png"
             .c-stickers-carousel__controls
               %button.c-stickers-carousel__control.js-carousel-left
-                = image_tag 'carousel-arrow'
+                = image_tag 'carousel-arrow.png'
               %span{id: 'active-sticker'}
               \/ 3
               %button.c-stickers-carousel__control.js-carousel-right
-                = image_tag 'carousel-arrow'
+                = image_tag 'carousel-arrow.png'
