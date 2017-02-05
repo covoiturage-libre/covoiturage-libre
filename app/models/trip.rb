@@ -128,11 +128,9 @@ class Trip < ApplicationRecord
     new_trip.points.last.kind = 'To'
 
     index=1
-    new_trip.points.map do |p|
-      if p.kind == 'Step'
-      	p.rank = index
-      	index += 1
-      end
+    new_trip.step_points.map do |sp|
+    	sp.rank = index
+    	index += 1
     end
 
     new_trip
