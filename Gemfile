@@ -82,6 +82,8 @@ gem 'redcarpet' # Require the Markdown converter gem
 # gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production
 # gem 'bcrypt', '~> 3.1.7' # Use ActiveModel has_secure_password
 
+gem 'activerecord-postgis-adapter'
+
 group :development, :test do
   gem 'byebug', '~> 9.0', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec', '~> 3.5'

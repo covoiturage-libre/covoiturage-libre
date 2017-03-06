@@ -6,7 +6,7 @@
 - content_for :page_part_1 do
   .container
     .row
-      .col-md-12
+      .col-sm-12
         = @page_part_1.try(:body)
 
 - content_for :search_zone do
@@ -14,46 +14,82 @@
     .container
       .row
         .col-md-9
-          %h2 Trouvez votre covoiturage
-          %p Le covoiturage gratuit, collaboratif et libre.
+          %h1.p-home__title Le covoiturage gratuit, collaboratif et libre.
+          %h2.p-home__subtitle Trouvez votre covoiturage
           = render partial: 'search/form', locals: { 'large_inputs': true }
-        .col-md-3.home-publish-cta
-          %p
-            Vous avez une voiture ?
-          = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-warning'
-          %p
-            %br
-            Le site ne prend aucune commission
-            %br
-            Association loi 1901
+        .col-md-3
+          .home-publish-cta
+            %p.home-publish-cta__title
+              Vous avez une voiture ?
+            = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-primary', id: 'new_trip_button'
+            %p
+              Le site ne prend aucune commission
+              %br
+              Association loi 1901
 
-.row
-  .col-md-4
-    .feature-block
-      %h3 Sans commission
-      %p
-        Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers. Les prix sont fixés par les conducteurs, le site ne prélève aucune commission sur les trajets, nous ne vivons que de dons.
-      %p
-        = link_to 'Faire un don »', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', class: 'btn btn-default'
-      %p
-        = link_to 'Nous soutenir via Lilo »', 'http://www.lilo.org/fr/covoiturage-libre-fr/?utm_source=covoiturage-libre-fr', target: '_blank', class: 'btn btn-default'
-  .col-md-4
-    .feature-block
-      %h3 Libre 
-      %p  Nous avons pris cinq engagements :
-      %ul
-        %li la plateforme est un bien commun : nous ne serons jamais achetés ou cotés en bourse ; 
-        %li nous ne vivons que de dons : il n'y a pas de commission sur les trajets ; 
-        %li la gouvernance de la plateforme est fondée sur la communauté ; 
-        %li notre communauté contribue à la protection de l'environnement ; 
-        %li la plateforme contribue au lien social entre covoitureurs. 
-      %p
-        = link_to 'Pour en savoir plus »', '/association', class: 'btn btn-default'
-  .col-md-4
-    .feature-block
-      %h3 Un bien commun
-      %p
-        Le covoiturage est un bien commun : la valeur créée par les utilisateurs en covoiturant, comme conducteurs ou comme passagers, doit revenir aux utilisateurs.
-        La plateforme est animée et développée par des bénévoles. Pour améliorer la plateforme, la faire mieux connaître, bref, contribuer activement, c'est ici.
-      %p
-        = link_to 'Contribuer »', '/missions-benevoles', class: 'btn btn-default'
+- content_for :home_content do
+  %section.p-home__features
+    .container
+      .row
+        .col-sm-4
+          %h3.p-home__heading Sans commission
+          %p
+            Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers. Les prix sont fixés par les conducteurs, le site ne prélève aucune commission sur les trajets, nous ne vivons que de dons.
+          %p
+            = link_to 'Faire un don »', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener', class: 'btn btn-default'
+          %p
+            = link_to 'Nous soutenir via Lilo »', 'http://www.lilo.org/fr/covoiturage-libre-fr/?utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
+        .col-sm-4
+          %h3.p-home__heading Libre 
+          %p  Nous avons pris cinq engagements :
+          %ul
+            %li la plateforme est un bien commun : nous ne serons jamais achetés ou cotés en bourse ; 
+            %li nous ne vivons que de dons : il n'y a pas de commission sur les trajets ; 
+            %li la gouvernance de la plateforme est fondée sur la communauté ; 
+            %li notre communauté contribue à la protection de l'environnement ; 
+            %li la plateforme contribue au lien social entre covoitureurs. 
+          %p
+            = link_to 'Pour en savoir plus »', '/association', class: 'btn btn-default'
+        .col-sm-4
+          %h3.p-home__heading Un bien commun
+          %p
+            Le covoiturage est un bien commun : la valeur créée par les utilisateurs en covoiturant, comme conducteurs ou comme passagers, doit revenir aux utilisateurs.
+            La plateforme est animée et développée par des bénévoles. Pour améliorer la plateforme, la faire mieux connaître, bref, contribuer activement, c'est ici.
+          %p
+            = link_to 'Contribuer »', '/missions-benevoles', class: 'btn btn-default'
+
+  %section.p-home__cities
+    .container
+      .row
+        .col-sm-12
+          %h3.p-home__heading Trajets au départ de :
+          %ul.l-home__cities
+            - @cities.each do |city|
+              %li.l-home__city
+                = link_to city, '#', class: 'c-link'
+          = link_to 'Tous les trajets en cours »', '#', class: 'p-home__all-trips c-link'
+
+  %section.p-home__testimonials
+    .container
+      .row
+        .col-sm-8
+          %h3.p-home__heading Les usagers en parlent
+          %ul.c-testimonials
+            - @testimonials.each do |testimonial|
+              = render 'shared/testimonial', testimonial: testimonial
+          = link_to 'Lire plus de commentaires >', '#', class: 'c-link c-testimonial__link-more'
+
+        .col-sm-4
+          %h3 Recevez notre fameux stickers
+          .c-stickers-carousel
+            = link_to 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', { target: '_blank', rel: 'noopener', class: 'c-stickers-carousel__slides' } do
+              - 3.times do |index|
+                .c-stickers-carousel__item
+                  = image_tag "sticker-#{index + 1}.jpg"
+            .c-stickers-carousel__controls
+              %button.c-stickers-carousel__control.js-carousel-left
+                = image_tag 'carousel-arrow.png'
+              %span{id: 'active-sticker'}
+              \/ 3
+              %button.c-stickers-carousel__control.js-carousel-right
+                = image_tag 'carousel-arrow.png'

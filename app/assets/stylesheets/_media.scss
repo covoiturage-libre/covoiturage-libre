@@ -1,0 +1,23 @@
+.o-media {
+  @include clearfix;
+  display: block;
+}
+
+.o-media__image {
+  float: left;
+  margin-right: $spacing-unit;
+
+  > img {
+    display: block;
+  }
+}
+
+.o-media__body {
+  overflow: hidden;
+  display: block;
+
+  &,
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

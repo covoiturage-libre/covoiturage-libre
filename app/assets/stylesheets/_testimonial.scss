@@ -1,0 +1,38 @@
+$avatar-size: 48px;
+$avatar-size--medium: 80px;
+
+.c-testimonials {
+  @include reset-ul;
+  margin-top: ($spacing-unit * 2);
+}
+
+.c-testimonial {
+  margin-bottom: ($spacing-unit * 2);
+}
+
+.c-testimonial__author,
+.c-testimonial__meta {
+  color: $color-brand;
+  font-weight: bold;
+  margin: 0;
+}
+
+.c-testimonial__body {
+  padding-top: ($spacing-unit / 2);
+}
+
+.c-testimonial__image {
+  height: $avatar-size;
+  width: $avatar-size;
+
+  @media screen and (min-width: 640px) {
+    height: $avatar-size--medium;
+    width: $avatar-size--medium;
+  }
+}
+
+.c-testimonial__link-more {
+  @media screen and (min-width: 640px) {
+    margin-left: calc(#{$avatar-size--medium} + #{$spacing-unit});
+  }
+}

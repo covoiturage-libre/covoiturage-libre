@@ -1,5 +1,4 @@
-
-$bgFeatureBlock      : #fffbf2;
+$bgFeatureBlock: #fffbf2 !default;
 
 .feature-block {
   background-color: $bgFeatureBlock;
@@ -9,18 +8,128 @@ $bgFeatureBlock      : #fffbf2;
 
 .home-publish-cta {
   background-color: white;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-bottom-left-radius: 15px;
-  border-bottom-right-radius: 15px;
+  padding: $spacing-unit;
+  border-radius: 4px;
   text-align: center;
+  color: #333;
+  width: 20em;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
   p {
     font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  .btn-primary {
+    @media screen and (min-width: 992px) {
+      font-size: 16px;
+    }
+
+    @media screen and (min-width: 1200px) {
+      font-size: 18px;
+    }
   }
 }
 
-@media (min-width: $screen-sm-max) {
-  .home-publish-cta {
-    margin-top: -50px;
+.home-publish-cta__title.home-publish-cta__title {
+  color: #1060ad;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+// .home-publish-cta__btn {
+//   background-color: #1060ad;
+//   color: #fff;
+//   padding-top: 8px;
+//   padding-bottom: 8px;
+// }
+
+.p-home__title {
+  &,
+  .jumbotron & {
+    font-size: 30px;
+  }
+}
+
+.p-home__subtitle {
+  font-size: 21px;
+  margin-bottom: 0;
+}
+
+.p-home__heading {
+  text-transform: uppercase;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #1060ad;
+
+  .p-home__features & {
+    color: #fff;
+  }
+}
+
+.p-home__features {
+  background-color: $blue-shade;
+  color: transparentize(#fff, .25);
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
+
+  .p-home__heading {
+    margin-top: 0;
+  }
+
+  ul {
+    padding-left: $spacing-unit / 4;
+  }
+}
+
+.p-home__cities {
+  background-color: $bgDefault;
+  padding-bottom: $spacing-unit;
+}
+
+.l-home__cities {
+  @include reset-ul;
+}
+
+.l-home__city {
+  display: inline-block;
+  margin-bottom: $spacing-unit / 8;
+
+  &:after {
+    content: '-';
+  }
+
+  > a {
+    display: inline-block;
+    font-style: italic;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    border-bottom: 1px solid currentColor;
+
+    &:hover {
+      color: #444;
+    }
+  }
+
+  &:last-child:after {
+    display: none;
+  }
+}
+
+.p-home__all-trips {
+  float: right;
+}
+
+.btn-search {
+  background-color: #ed7233;
+  border: 1px solid #ed7233;
+
+  &:hover {
+    background-color: lighten(#ed7233, 5%);
+    border-color: lighten(#ed7233, 5%);
   }
 }

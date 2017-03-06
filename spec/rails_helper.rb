@@ -17,8 +17,6 @@ Capybara.app_host = 'http://example.com'
 
 Rails.application.routes.default_url_options[:host] = 'www.example.com'
 
-PublicActivity.enabled = false
-
 RSpec.configure do |config|
 
   config.include Capybara::DSL
@@ -30,7 +28,7 @@ RSpec.configure do |config|
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
 
-  config.include Paperclip::Shoulda::Matchers
+  #config.include Paperclip::Shoulda::Matchers
 
   config.order = "random"
 
@@ -46,8 +44,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
-    Apartment::Tenant.reset
-    drop_schemas
+#    drop_schemas
     Capybara.app_host = 'http://example.com'
     reset_mailer
   end

@@ -4,9 +4,9 @@ describe 'create a trip' do
   let(:user) { build(:user) }
 
   it 'allows to create a valid trip without user sign in' do
-    # visit homepage
-    # clic button 'Publier une annonce'
-    # fill in the trip form
+    visit root_url
+    click_link 'new_trip_button'
+    fill_autocomplete 'trip_points_attributes_0_city', with: 'lille'
     # clic on 'Créer votre annonce'
     # I receive the trip confirmation email
     # I clic on confirm this trip

@@ -13,11 +13,7 @@ describe User do
   describe 'validations' do
     it { should validate_presence_of :email }
     it { should validate_presence_of :password }
-    it { should validate_confirmation_of :password }
+    it { should validate_inclusion_of(:role).in_array(%w(admin)) }
   end
-
-  # describe 'associations' do
-  #   it { should have_many :trips }
-  # end
 
 end

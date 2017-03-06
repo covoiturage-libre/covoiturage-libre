@@ -1,0 +1,7 @@
+%li.c-testimonial.o-media
+  .o-media__image
+    = image_tag(testimonial[:author][:avatar_url], class: "c-testimonial__image")
+  %div.o-media__body.c-testimonial__body
+    %p.c-testimonial__author= testimonial[:author][:name]
+    %p.c-testimonial__meta= testimonial[:published_at]
+    %p.c-testimonial__body= testimonial[:body]
