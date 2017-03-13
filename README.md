@@ -54,6 +54,8 @@ Then you can run the migrations
 ## Config via ENV
 
 - `BUNDLE_GEMFILE`
+- `DATABASE_URL`
+- `ELASTICSEARCH_URL`
 - `FACEBOOK_CLIENT_ID`
 - `FACEBOOK_CLIENT_SECRET`
 - `GA_TRACKING_ID`
