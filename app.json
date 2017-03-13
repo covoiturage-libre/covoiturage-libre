@@ -12,7 +12,52 @@
   "env": {
     "SECRET_KEY_BASE": {
       "description": "A secret key for verifying the integrity of signed cookies.",
-      "generator": "secret"
+      "generator": "secret",
+      "required": true
+    },
+    "MAILER_HOST": {
+      "description": "Host for URL in mails.",
+      "required": true
+    },
+    "MAILER_HOST": {
+      "description": "Host for URL in mails.",
+      "required": true
+    },
+    "MAILJET_API_KEY": {
+      "description": "For mails.",
+      "required": true
+    },
+    "MAILJET_API_SECRET": {
+      "description": "For mails.",
+      "required": true
+    },
+    "FACEBOOK_CLIENT_ID": {
+      "description": "For Meta data and Facebook login.",
+      "required": false
+    },
+    "FACEBOOK_CLIENT_SECRET": {
+      "description": "For Facebook login.",
+      "required": false
+    },
+    "GOOGLE_CLIENT_ID": {
+      "description": "For Google login.",
+      "required": false
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "description": "For Google login.",
+      "required": false
+    },
+    "GEONAMES_URL": {
+      "description": "For import only",
+      "required": false
+    },
+    "GA_TRACKING_ID": {
+      "description": "Google Analytics",
+      "required": false
+    },
+    "SLAASK_WIDGET_KEY": {
+      "description": "For visitors chat with you.",
+      "required": false
     }
   },
   "scripts": {

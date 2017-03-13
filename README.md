@@ -55,26 +55,25 @@ Then you can run the migrations
 
 - `BUNDLE_GEMFILE`
 - `DATABASE_URL`
-- `ELASTICSEARCH_URL`
-- `FACEBOOK_CLIENT_ID`
-- `FACEBOOK_CLIENT_SECRET`
-- `GA_TRACKING_ID`
-- `GEONAMES_URL`
-- `GOOGLE_CLIENT_ID`
-- `GOOGLE_CLIENT_SECRET`
+- `ELASTICSEARCH_URL` : required
+- `FACEBOOK_CLIENT_ID` : optional, for Meta data and Facebook login
+- `FACEBOOK_CLIENT_SECRET` : optional
+- `GA_TRACKING_ID` : optional, Google Analytics
+- `GEONAMES_URL` : optional, for import only
+- `GOOGLE_CLIENT_ID` : optional
+- `GOOGLE_CLIENT_SECRET` : optional
 - `MAILER_HOST`
 - `MAILJET_API_KEY`
 - `MAILJET_API_SECRET`
-- `MYSQL_URL`
-- `omniauth.auth`
-- `PG_URL`
+- `MYSQL_URL` : optional, for import only
+- `PG_URL` : optional, for import only
 - `RAILS_ENV`
 - `RAILS_LOG_TO_STDOUT`
 - `RAILS_SERVE_STATIC_FILES`
-- `REDIRECT_ALL_TRAFFIC`
-- `SECRET_KEY_BASE`
-- `SERVER_NAME`
-- `SLAASK_WIDGET_KEY`
+- `REDIRECT_ALL_TRAFFIC` : optional
+- `SECRET_KEY_BASE` : required
+- `SERVER_NAME` : optional, for redirects only
+- `SLAASK_WIDGET_KEY` : optional, for visitors chat with you
 
 ## Static pages
 
