@@ -51,6 +51,29 @@ Then you can run the migrations
 
 `bundle exec rake db:migrate`
 
+## Config via ENV
+
+- `BUNDLE_GEMFILE`
+- `FACEBOOK_CLIENT_ID`
+- `FACEBOOK_CLIENT_SECRET`
+- `GA_TRACKING_ID`
+- `GEONAMES_URL`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `MAILER_HOST`
+- `MAILJET_API_KEY`
+- `MAILJET_API_SECRET`
+- `MYSQL_URL`
+- `omniauth.auth`
+- `PG_URL`
+- `RAILS_ENV`
+- `RAILS_LOG_TO_STDOUT`
+- `RAILS_SERVE_STATIC_FILES`
+- `REDIRECT_ALL_TRAFFIC`
+- `SECRET_KEY_BASE`
+- `SERVER_NAME`
+- `SLAASK_WIDGET_KEY`
+
 ## Static pages
 
 Some static pages are needed, normally created in the built-in CMS. The seedbank gem is used to import them (https://github.com/james2m/seedbank)
