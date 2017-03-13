@@ -16,6 +16,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages"
+    "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
   }
 }
