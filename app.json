@@ -1,0 +1,21 @@
+{
+  "name": "CovoiturageLibre",
+  "description": "CovoiturageLibre is a Carpooling Open Source platform",
+  "website": "https://covoiturage-libre.fr/",
+  "repository": "https://github.com/covoiturage-libre/covoiturage-libre",
+  "image": "heroku/ruby",
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev",
+    "searchbox:starter"
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    }
+  },
+  "scripts": {
+    "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages"
+  }
+}

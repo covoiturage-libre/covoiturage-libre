@@ -4,6 +4,8 @@ CovoiturageLibre is a Carpooling Open Source platform, originally created for th
 
 It aims at providing a free, non-profit carpooling service for the shared economy, with no for-profit company controlling the service.
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre)
+
 ## Licence
 
  GNU GENERAL PUBLIC LICENSE v3.0, see LICENCE.
