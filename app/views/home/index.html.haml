@@ -21,7 +21,7 @@
           .home-publish-cta
             %p.home-publish-cta__title
               Vous avez une voiture ?
-            = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-primary'
+            = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-primary', id: 'new_trip_button'
             %p
               Le site ne prend aucune commission
               %br
@@ -40,14 +40,14 @@
           %p
             = link_to 'Nous soutenir via Lilo »', 'http://www.lilo.org/fr/covoiturage-libre-fr/?utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
         .col-sm-4
-          %h3.p-home__heading Libre 
-          %p  Nous avons pris cinq engagements :
+          %h3.p-home__heading Libre
+          %p Nous avons pris cinq engagements :
           %ul
-            %li la plateforme est un bien commun : nous ne serons jamais achetés ou cotés en bourse ; 
-            %li nous ne vivons que de dons : il n'y a pas de commission sur les trajets ; 
-            %li la gouvernance de la plateforme est fondée sur la communauté ; 
-            %li notre communauté contribue à la protection de l'environnement ; 
-            %li la plateforme contribue au lien social entre covoitureurs. 
+            %li la plateforme est un bien commun : nous ne serons jamais achetés ou cotés en bourse ;
+            %li nous ne vivons que de dons : il n'y a pas de commission sur les trajets ;
+            %li la gouvernance de la plateforme est fondée sur la communauté ;
+            %li notre communauté contribue à la protection de l'environnement ;
+            %li la plateforme contribue au lien social entre covoitureurs.
           %p
             = link_to 'Pour en savoir plus »', '/association', class: 'btn btn-default'
         .col-sm-4

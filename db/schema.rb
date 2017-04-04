@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221152226) do
+ActiveRecord::Schema.define(version: 20170112160152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,13 +115,6 @@ ActiveRecord::Schema.define(version: 20161221152226) do
     t.index ["trip_id"], name: "index_points_on_trip_id", using: :btree
   end
 
-  create_table "spatial_ref_sys", primary_key: "srid", id: :integer, force: :cascade do |t|
-    t.string  "auth_name", limit: 256
-    t.integer "auth_srid"
-    t.string  "srtext",    limit: 2048
-    t.string  "proj4text", limit: 2048
-  end
-
   create_table "trips", force: :cascade do |t|
     t.date     "departure_date"
     t.time     "departure_time"
@@ -146,6 +139,8 @@ ActiveRecord::Schema.define(version: 20161221152226) do
     t.boolean  "terms_of_service"
     t.float    "total_distance"
     t.float    "total_time"
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_trips_on_user_id", using: :btree
   end
 
   create_table "user_authentications", force: :cascade do |t|
@@ -175,10 +170,16 @@ ActiveRecord::Schema.define(version: 20161221152226) do
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
     t.string   "role",                   limit: 10
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
   add_foreign_key "messages", "trips"
   add_foreign_key "points", "trips"
+  add_foreign_key "trips", "users"
 end

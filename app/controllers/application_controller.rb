@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
 
   before_action :init_meta_tags
 
+  def current_trip
+    @current_trip ||= Trip.find_by_confirmation_token(session[:trip_id])
+  end
+
   private
 
     def init_meta_tags
