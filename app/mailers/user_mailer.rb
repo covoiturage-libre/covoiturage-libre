@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     @trip = trip
     mail(
       to: @trip.email,
-      subject: prefix_subject('Validation de votre annonce'))
+      subject: prefix_subject('Validation de votre annonce')
      )
   end
 
@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
     @trip = trip
     mail(
       to: @trip.email,
-      subject: prefix_subject('Gestion de votre annonce'))
+      subject: prefix_subject('Gestion de votre annonce')
      )
   end
 
@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
     mail(
       to: @trip.email,
       reply_to: @message.sender_email,
-      subject: prefix_subject('Vous avez reçu un message'))
+      subject: prefix_subject('Vous avez reçu un message')
     )
   end
 
@@ -35,7 +35,7 @@ class UserMailer < ApplicationMailer
     mail(
       to: @message.sender_email,
       reply_to: @trip.email,
-      subject: prefix_subject('Vous avez envoyé un message'))
+      subject: prefix_subject('Vous avez envoyé un message')
     )
   end
   
