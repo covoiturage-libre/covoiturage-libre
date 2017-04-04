@@ -4,11 +4,15 @@ CovoiturageLibre is a Carpooling Open Source platform, originally created for th
 
 It aims at providing a free, non-profit carpooling service for the shared economy, with no for-profit company controlling the service.
 
+You can find the repository for the Android app just [here](https://github.com/serelion/covoiturage-libre-android).
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre)
 
 ## Licence
 
- GNU GENERAL PUBLIC LICENSE v3.0, see LICENCE.
+ We are currently discussing under which license we want to publish the covoiturage-libre code. Any reuse of the code must go through a strong speech with the staff members, do not hesitate to open an "Issue" to discuss it. We want the widest federated Project as possible, avoiding forks that do not COMMUNICATE WITH US. (Thus, the proposed car-sharing will be better)
+
+ The currently licence is the GNU GENERAL PUBLIC LICENSE v3.0, see LICENCE.
 
 ## Install
 
