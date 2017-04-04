@@ -87,7 +87,7 @@
           .col-md-9.col-md-offset-1
             %br
             = "Commentaire de #{@trip.name} :"
-            .well= @trip.description
+            .well= @trip.description.gsub(/\n/, '<br/>').html_safe
 
     .panel.panel-default
       .panel-body
