@@ -75,6 +75,10 @@ Then you can run the migrations
 - `SERVER_NAME` : optional, for redirects only
 - `SLAASK_WIDGET_KEY` : optional, for visitors chat with you
 
+## Enable Postgis on PostgreSQL
+
+`rake db:enable_postgis`
+
 ## Static pages
 
 Some static pages are needed, normally created in the built-in CMS. The seedbank gem is used to import them (https://github.com/james2m/seedbank)
