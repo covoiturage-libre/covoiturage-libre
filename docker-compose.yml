@@ -29,7 +29,7 @@ services:
     restart: always
     build:
       context: .
-    command: bash -c "bundle exec rake db:migrate && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
+    command: bash -c "bundle exec rake db:migrate && bundle exec rake searchkick:reindex CLASS=City && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
     ports:
       - "3000:3000"
     depends_on:
