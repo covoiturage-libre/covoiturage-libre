@@ -45,15 +45,9 @@ NB : a simple postgresql config file does the jobs. The adapter is `postgis` but
 
 * Database initialization
 
-Install postgis extension on your database :
+Enable PostGIS extension on your database via `bundle exec rake db:enable_postgis`.
 
-```
-user=> CREATE extension postgis;
-CREATE EXTENSION
-```
-Then you can run the migrations
-
-`bundle exec rake db:migrate`
+Then you can run the migrations with `bundle exec rake db:migrate`
 
 ## Config via ENV
 
@@ -78,10 +72,6 @@ Then you can run the migrations
 - `SECRET_KEY_BASE` : required
 - `SERVER_NAME` : optional, for redirects only
 - `SLAASK_WIDGET_KEY` : optional, for visitors chat with you
-
-## Enable Postgis on PostgreSQL
-
-`rake db:enable_postgis`
 
 ## Static pages
 
