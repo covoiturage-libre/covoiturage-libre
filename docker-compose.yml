@@ -40,7 +40,7 @@ services:
       - .:/covoiturage-libre
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
-      - ELASTICSEARCH_URL=http://elastic:changeme@localhost:9200
+      - ELASTICSEARCH_URL=http://elastic:changeme@elasticsearch:9200
       - REDIS_URL=redis://redis:6379
 
   delayedjob:
@@ -57,5 +57,5 @@ services:
       - .:/covoiturage-libre
     environment:
       - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
-      - ELASTICSEARCH_URL=http://elastic:changeme@localhost:9200
+      - ELASTICSEARCH_URL=http://elastic:changeme@elasticsearch:9200
       - REDIS_URL=redis://redis:6379
