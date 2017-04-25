@@ -5,11 +5,11 @@ city_list = [
       [ 'Lille', '59000', '59', 'xxx', 'fr', 50.637222, 3.063333, 1 ],
       [ 'Toulouse', '31000', '31', 'xxx', 'fr', 43.604482, 1.443962, 1 ],
       [ 'Marseille', '13001', '13', 'xxx', 'fr', 43.296346, 5.369889, 1 ]
-    ]
+]
 
-    city_list.each do |name, postal_code, department, region, country_code, \
-        lat, lon, distance|
-      City.create( name: name, postal_code: postal_code, \
-        department: department, region: region, country_code: country_code, \
-        lat: lat, lon: lon, distance: distance )
-    end
+city_list.each do |name, postal_code, department, region, country_code, \
+    lat, lon, distance|
+  City.create( name: name, postal_code: postal_code, \
+  department: department, region: region, country_code: country_code, \
+  lat: lat, lon: lon, distance: distance )
+end
