@@ -29,6 +29,11 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Set mailer host and port
+  ENV['MAILER_HOST'] = 'localhost:3000'
+  config.action_mailer.default_url_options = { :host => ENV['MAILER_HOST'] }
+  Rails.application.routes.default_url_options[:host] = ENV['MAILER_HOST']
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
