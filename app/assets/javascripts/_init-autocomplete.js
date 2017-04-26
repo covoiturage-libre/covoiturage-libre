@@ -31,7 +31,9 @@ jQuery.fn.extend({
             .append("<div><b>" + item.city + "</b><br />" + item.city + ', ' + item.country + ', ' + item.postcode + "</div>")
             .appendTo(ul);
         }
-      }
+      },
+      // automatically select first item from autocomplete menu
+      autoFocus: true
     }).blur(function () {
       if ($(this).val() == "") {
         $(this).parent().next(2).find("input").val('');
