@@ -78,3 +78,18 @@ a.trip-item:hover {
     font-size: 12px;
   }
 }
+
+.small_price {
+  color: $priceColor;
+  font-weight: bold;
+}
+
+.main_seats {
+  display: block;
+  float: left;
+  padding: 8px;
+  text-align: center;
+  color: $priceColor;
+  font-size: 24px;
+  font-weight: bold;
+}
