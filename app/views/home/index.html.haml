@@ -58,16 +58,16 @@
           %p
             = link_to 'Contribuer »', '/missions-benevoles', class: 'btn btn-default'
 
-  %section.p-home__cities
-    .container
-      .row
-        .col-sm-12
-          %h3.p-home__heading Trajets au départ de :
-          %ul.l-home__cities
-            - @cities.each do |city|
-              %li.l-home__city
-                = link_to city, '#', class: 'c-link'
-          = link_to 'Tous les trajets en cours »', '#', class: 'p-home__all-trips c-link'
+  -#%section.p-home__cities
+  -#  .container
+  -#    .row
+  -#      .col-sm-12
+  -#        %h3.p-home__heading Trajets au départ de :
+  -#        %ul.l-home__cities
+  -#          - @cities.each do |city|
+  -#            %li.l-home__city
+  -#              = link_to city, '#', class: 'c-link'
+  -#        = link_to 'Tous les trajets en cours »', '#', class: 'p-home__all-trips c-link'
 
   %section.p-home__testimonials
     .container
