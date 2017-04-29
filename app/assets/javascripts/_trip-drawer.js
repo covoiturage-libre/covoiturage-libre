@@ -1,3 +1,32 @@
+// Util functions
+
+function isFloat(n){
+  return Number(n) === n && n % 1 !== 0;
+}
+
+function secondsToStringFR(seconds)
+{
+  var sentence = "";
+  var numyears = Math.floor(seconds / 31536000);
+  var numdays = Math.floor((seconds % 31536000) / 86400);
+  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+  var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+  if (numyears > 0)
+    var sentence = sentence + numyears + " ans ";
+  if (numdays > 0)
+    var sentence = sentence + numdays + " jours ";
+  if (numhours > 0)
+    var sentence = sentence + numhours + " heures ";
+  if (numminutes > 0)
+    var sentence = sentence + numminutes + " minutes ";
+  return sentence;
+}
+
+function metersToKmString(meters) {
+  return Math.round( (meters / 1000) * 10 ) / 10;
+}
+
 var Point = function(lat, lon, rank, kind) {
   this.lat = lat;
   this.lon = lon;
@@ -85,7 +114,7 @@ var TripDrawing = function() {
       self.totalTime = e.routes[0].summary.totalTime;
       $("#trip_total_distance").val(self.totalDistance);
       $("#trip_total_time").val(self.totalTime);
-      $("#distance_and_time").text(metersToKmString(self.totalDistance) + " km - " + secondsToStringFR(self.totalTime))
+      $("#distance_and_time").text(metersToKmString(self.totalDistance) + " km - " + secondsToStringFR(self.totalTime));
     });
   }
 
@@ -104,33 +133,3 @@ var TripDrawing = function() {
   }
 
 }
-
-// Util functions
-
-function isFloat(n){
-  return Number(n) === n && n % 1 !== 0;
-}
-
-function secondsToStringFR(seconds)
-{
-  var sentence = "";
-  var numyears = Math.floor(seconds / 31536000);
-  var numdays = Math.floor((seconds % 31536000) / 86400);
-  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-  var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-  if (numyears > 0)
-    var sentence = sentence + numyears + " ans ";
-  if (numdays > 0)
-    var sentence = sentence + numdays + " jours ";
-  if (numhours > 0)
-    var sentence = sentence + numhours + " heures ";
-  if (numminutes > 0)
-    var sentence = sentence + numminutes + " minutes ";
-  return sentence;
-}
-
-function metersToKmString(meters) {
-  return Math.round( (meters / 1000) * 10 ) / 10;
-}
-
