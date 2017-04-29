@@ -40,7 +40,7 @@ var Point = function(lat, lon, rank, kind) {
   this.arrayValue = function() {
     return [this.lat, this.lon];
   };
-}
+};
 
 var TripDrawing = function() {
   var self = this;
@@ -137,4 +137,4 @@ var TripDrawing = function() {
     return result;
   }
 
-}
+};
