@@ -50,29 +50,9 @@ Enable PostGIS extension on your database via `bundle exec rake db:enable_postgi
 
 Then you can run the migrations with `bundle exec rake db:migrate`
 
-## Config via ENV
+## Configuration
 
-- `BUNDLE_GEMFILE`
-- `DATABASE_URL`
-- `ELASTICSEARCH_URL` : required
-- `FACEBOOK_CLIENT_ID` : optional, for Meta data and Facebook login
-- `FACEBOOK_CLIENT_SECRET` : optional
-- `GA_TRACKING_ID` : optional, Google Analytics
-- `GEONAMES_URL` : optional, for import only
-- `GOOGLE_CLIENT_ID` : optional
-- `GOOGLE_CLIENT_SECRET` : optional
-- `MAILER_HOST`
-- `MAILJET_API_KEY`
-- `MAILJET_API_SECRET`
-- `MYSQL_URL` : optional, for import only
-- `PG_URL` : optional, for import only
-- `RAILS_ENV`
-- `RAILS_LOG_TO_STDOUT`
-- `RAILS_SERVE_STATIC_FILES`
-- `REDIRECT_ALL_TRAFFIC` : optional
-- `SECRET_KEY_BASE` : required
-- `SERVER_NAME` : optional, for redirects only
-- `SLAASK_WIDGET_KEY` : optional, for visitors chat with you
+[Configuration ENV variables](https://github.com/covoiturage-libre/covoiturage-libre/wiki/Configuration-ENV-variables)
 
 ## Static pages
 
