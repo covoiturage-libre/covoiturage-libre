@@ -12,7 +12,7 @@ function secondsToStringFR(seconds)
   var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
   var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
   var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-  var sentence = "";
+
   if (numyears > 0) {
     sentence = sentence + numyears + " ans ";
   }
@@ -39,7 +39,7 @@ var Point = function(lat, lon, rank, kind) {
   this.kind = kind;
   this.arrayValue = function() {
     return [this.lat, this.lon];
-  }
+  };
 }
 
 var TripDrawing = function() {
