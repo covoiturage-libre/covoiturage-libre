@@ -38,14 +38,13 @@ var TripDrawing = function() {
 
   self.updateOrCreatePoint = function() {
     var lon = parseFloat($(this).val());
-    if (isFloat(lon)) {
-      var lat = parseFloat($(this).parent().siblings('.trip_points_lat:first').find('input:first').val());
-      var kind = $(this).parent().siblings('.trip_points_kind:first').find('input:first').val();
-      var rank = parseInt($(this).parent().siblings('.trip_points_rank:first').find('input:first').val());
-      var point = new Point(lat, lon, rank, kind);
-      self.points[point.rank] = point.arrayValue();
-      self.renderRouting();
-    }
+    var lat = parseFloat($(this).parent().siblings('.trip_points_lat:first').find('input:first').val());
+    var kind = $(this).parent().siblings('.trip_points_kind:first').find('input:first').val();
+    var rank = parseInt($(this).parent().siblings('.trip_points_rank:first').find('input:first').val());
+    var point = new Point(lat, lon, rank, kind);
+    self.points[point.rank] = point.arrayValue();
+    console.log(self.points);
+    self.renderRouting();
   }
 
   self.removePointAtIndex = function(index) {
