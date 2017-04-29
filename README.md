@@ -6,6 +6,8 @@ It aims at providing a free, non-profit carpooling service for the shared econom
 
 You can find the repository for the Android app just [here](https://github.com/serelion/covoiturage-libre-android).
 
+There is a guide to install a [dev setup on Ubuntu](https://github.com/covoiturage-libre/covoiturage-libre/wiki/Dev-setup-on-Ubuntu).
+
 ## Licence
 
  We are currently discussing under which license we want to publish the covoiturage-libre code. Any reuse of the code must go through a strong speech with the staff members, do not hesitate to open an "Issue" to discuss it. We want the widest federated Project as possible, avoiding forks that do not COMMUNICATE WITH US. (Thus, the proposed car-sharing will be better)
