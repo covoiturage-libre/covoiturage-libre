@@ -1,3 +1,12 @@
+var Point = function(lat, lon, rank, kind) {
+  this.lat = lat;
+  this.lon = lon;
+  this.rank = rank;
+  this.kind = kind;
+  this.arrayValue = function() {
+    return [this.lat, this.lon];
+  }
+}
 
 var TripDrawing = function() {
   var self = this;
@@ -43,7 +52,6 @@ var TripDrawing = function() {
     var rank = parseInt($(this).parent().siblings('.trip_points_rank:first').find('input:first').val());
     var point = new Point(lat, lon, rank, kind);
     self.points[point.rank] = point.arrayValue();
-    console.log(self.points);
     self.renderRouting();
   }
 
@@ -95,17 +103,6 @@ var TripDrawing = function() {
     return result;
   }
 
-}
-
-
-var Point = function(lat, lon, rank, kind) {
-  this.lat = lat;
-  this.lon = lon;
-  this.rank = rank;
-  this.kind = kind;
-  this.arrayValue = function() {
-    return [this.lat, this.lon];
-  }
 }
 
 // Util functions
