@@ -1,103 +1,50 @@
+// Util functions
 
-var TripDrawing = function() {
-  var self = this;
-
-  self.init = function(aRouting, aPointArray) {
-    self.totalDistance = 0.0;
-    self.totalTime = 0.0;
-    self.maxRank = 99;
-    self.points = [];
-    self.routing = aRouting;
-    if (self.hasAFirstLatLon(aPointArray)) {
-      self.points = aPointArray;
-      self.renderRouting();
-    }
-    self.observeGeonameChanges();
-    self.manageCocoonEvents();
-    self.observeAndGetRouteInfo();
-  }
-
-  self.observeGeonameChanges = function() {
-    $('.trip_points_lon input').change(self.updateOrCreatePoint);
-  }
-
-  self.manageCocoonEvents = function() {
-    $('#steps')
-      .on('cocoon:after-insert', function(e, el) {
-        $(el).find('.trip_points_lon input:first').change(self.updateOrCreatePoint);
-        self.reorderSteps();
-      })
-      .on("cocoon:before-remove", function(e, el) {
-        self.deletedRank = parseInt($(el).find('.trip_points_rank input:first').val());
-      })
-      .on("cocoon:after-remove", function(e, el) {
-        self.removePointAtIndex(self.deletedRank);
-        self.reorderSteps();
-      });
-  }
-
-  self.updateOrCreatePoint = function() {
-    var lon = parseFloat($(this).val());
-    if (isFloat(lon)) {
-      var lat = parseFloat($(this).parent().siblings('.trip_points_lat:first').find('input:first').val());
-      var kind = $(this).parent().siblings('.trip_points_kind:first').find('input:first').val();
-      var rank = parseInt($(this).parent().siblings('.trip_points_rank:first').find('input:first').val());
-      var point = new Point(lat, lon, rank, kind);
-      self.points[point.rank] = point.arrayValue();
-      self.renderRouting();
+function equalPointArray(a1, a2) {
+  // Compare sparse coordinates arrays
+  if (a1 == null || a2 == null) return false;
+  if (a1.length !== a2.length) return false;
+  var i = a1.length;
+  while (i--) {
+    if ((typeof a1[i] !== "undefined" &&
+         typeof a2[i] === "undefined") ||
+        (typeof a1[i] === "undefined" &&
+         typeof a2[i] !== "undefined")) {
+      return false;
+    } else if (typeof a1[i] !== "undefined" &&
+               typeof a2[i] !== "undefined") {
+      if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) return false;
     }
   }
-
-  self.removePointAtIndex = function(index) {
-    if (index === self.maxRank ) {
-      self.points[index] = null;
-    } else {
-      self.points.splice(index, 1);
-    }
-    self.renderRouting();
-  }
-
-  self.reorderSteps = function() {
-    $('#steps .nested-fields').each(function(index, value) {
-      var newIndex = parseInt(index) + 1;
-      $(this).find('.trip_points_city label:first').text('Étape '+ newIndex);
-      $(this).find('.trip_points_rank input:first').val(newIndex);
-    });
-  }
-
-  // rendering and routing methods
-
-  self.renderRouting = function() {
-    self.routing.setWaypoints(self.cloneAndTrimArray());
-    self.routing.route();
-  }
-
-  self.observeAndGetRouteInfo = function() {
-    self.routing.on('routesfound', function (e) {
-      self.totalDistance = e.routes[0].summary.totalDistance;
-      self.totalTime = e.routes[0].summary.totalTime;
-      $("#trip_total_distance").val(self.totalDistance);
-      $("#trip_total_time").val(self.totalTime);
-      $("#distance_and_time").text(metersToKmString(self.totalDistance) + " km - " + secondsToStringFR(self.totalTime))
-    });
-  }
-
-  // more or less "private" methods
-
-  self.cloneAndTrimArray = function() {
-    var copiedArray = self.points.slice(0);
-    return copiedArray.filter(function(val) { return val !== null; })
-  }
-
-  self.hasAFirstLatLon = function(anArray) {
-    var result = true;
-    if (anArray[0][0] == 0) { result = false; }
-    if (anArray[0][1] == 0) { result = false; }
-    return result;
-  }
-
+  return true;
 }
 
+function numberAppendString(num, string) {
+  if (num > 0) {
+    return num + string;
+  }
+  return "";
+}
+
+function secondsToStringFR(seconds) {
+  var numyears = Math.floor(seconds / 31536000);
+  var numdays = Math.floor((seconds % 31536000) / 86400);
+  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+  var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+  
+  var sentence = "";
+  sentence = sentence + numberAppendString(numyears, " ans ");
+  sentence = sentence + numberAppendString(numdays, " jours ");
+  sentence = sentence + numberAppendString(numhours, " heures ");
+  sentence = sentence + numberAppendString(numminutes, " minutes ");
+  
+  return sentence;
+}
+
+function metersToKmString(meters) {
+  return Math.round( (meters / 1000) * 10 ) / 10;
+}
 
 var Point = function(lat, lon, rank, kind) {
   this.lat = lat;
@@ -106,35 +53,116 @@ var Point = function(lat, lon, rank, kind) {
   this.kind = kind;
   this.arrayValue = function() {
     return [this.lat, this.lon];
-  }
-}
+  };
+};
 
-// Util functions
+var TripDrawing = function() {
+  var self = this;
 
-function isFloat(n){
-  return Number(n) === n && n % 1 !== 0;
-}
+  self.init = function(aRouting, aPointArray) {
+    self.totalDistance = 0.0;
+    self.totalTime = 0.0;
+    // this is also defined in the model
+    self.maxRank = 99;
+    self.points = [];
+    // to check for changes
+    self.last_points = null;
+    self.routing = aRouting;
+    if (self.hasAFirstLatLon(aPointArray)) {
+      self.points = aPointArray;
+      self.renderRouting();
+    }
+    self.observeGeonameChanges();
+    self.manageCocoonEvents();
+    self.observeAndGetRouteInfo();
+  };
 
-function secondsToStringFR(seconds)
-{
-  var sentence = "";
-  var numyears = Math.floor(seconds / 31536000);
-  var numdays = Math.floor((seconds % 31536000) / 86400);
-  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-  var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-  if (numyears > 0)
-    var sentence = sentence + numyears + " ans ";
-  if (numdays > 0)
-    var sentence = sentence + numdays + " jours ";
-  if (numhours > 0)
-    var sentence = sentence + numhours + " heures ";
-  if (numminutes > 0)
-    var sentence = sentence + numminutes + " minutes ";
-  return sentence;
-}
+  self.observeGeonameChanges = function() {
+    $(".trip_points_lon input").change(self.reorderSteps);
+  };
 
-function metersToKmString(meters) {
-  return Math.round( (meters / 1000) * 10 ) / 10;
-}
+  self.manageCocoonEvents = function() {
+    $("#steps")
+      .on("cocoon:after-insert", function(e, el) {
+        $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
+      })
+      .on("cocoon:after-remove", function(e, el) {
+        self.reorderSteps();
+      })
+      .on("sortupdate", function(e, el) {
+        self.reorderSteps();
+      });
+  };
 
+  self.updateOrCreatePoint = function() {
+    var lon = parseFloat($(this).val());
+    var lat = parseFloat($(this).parent().siblings(
+      ".trip_points_lat:first").find("input:first").val());
+    if (!isNaN(lon) && !isNaN(lat)) {
+      var kind = $(this).parent().siblings(
+        ".trip_points_kind:first").find("input:first").val();
+      var rank = parseInt($(this).parent().siblings(
+        ".trip_points_rank:first").find("input:first").val());
+      var point = new Point(lat, lon, rank, kind);
+      self.points[point.rank] = point.arrayValue();
+    }
+  };
+
+  self.reorderSteps = function() {
+    // Reset coordinates array
+    self.points = []
+    // Explore start/end DOM and get coordinates
+    $("#city_from").find(".trip_points_lon input:first").each(
+      self.updateOrCreatePoint);
+    $("#city_to").find(".trip_points_lon input:first").each(
+      self.updateOrCreatePoint);
+    // Explore DOM steps
+    $("#steps .nested-fields").each(function(index, value) {
+      var newIndex = parseInt(index) + 1;
+      // Rename labels, update rank
+      $(this).find(".trip_points_city label:first").text("Étape "+ newIndex);
+      $(this).find(".trip_points_rank input:first").val(newIndex);
+      // Make coordinates list
+      $(this).find(".trip_points_lon input:first").each(self.updateOrCreatePoint);
+    });
+    self.renderRouting();
+  };
+
+  // rendering and routing methods
+
+  self.renderRouting = function() {
+    // Check for changes before contacting osrm
+    if (!equalPointArray(self.points, self.last_points)) {
+      // Keep copy of waypoints
+      self.last_points = self.points.slice(0);
+      self.routing.setWaypoints(self.cloneAndTrimArray());
+      self.routing.route();
+    }
+  };
+
+  self.observeAndGetRouteInfo = function() {
+    self.routing.on("routesfound", function (e) {
+      self.totalDistance = e.routes[0].summary.totalDistance;
+      self.totalTime = e.routes[0].summary.totalTime;
+      $("#trip_total_distance").val(self.totalDistance);
+      $("#trip_total_time").val(self.totalTime);
+      $("#distance_and_time").text(metersToKmString(self.totalDistance)
+        + " km - " + secondsToStringFR(self.totalTime));
+    });
+  };
+
+  // more or less "private" methods
+
+  self.cloneAndTrimArray = function() {
+    var copiedArray = self.points.slice(0);
+    return copiedArray.filter(function(val) { return val !== null; });
+  };
+
+  self.hasAFirstLatLon = function(anArray) {
+    var result = true;
+    if (anArray[0][0] === 0) { result = false; }
+    if (anArray[0][1] === 0) { result = false; }
+    return result;
+  };
+
+};

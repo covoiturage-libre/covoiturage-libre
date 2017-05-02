@@ -13,7 +13,7 @@
           %h3.panel-title Itinéraire
         .panel-body
           = f.simple_fields_for :points, @required_points do |p|
-            .form-inputs
+            .form-inputs{:id => "city_#{p.object.kind.downcase}"}
               = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
@@ -76,7 +76,7 @@
 
 - content_for :javascript_footer do
   :javascript
-
+    // City name autocomplete, calendar popup and routing map
     $('.geoname').geonameAutocomplete();
 
     $('.datepicker').datepicker({
@@ -103,3 +103,15 @@
     var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
     window.myTripDrawing = new TripDrawing().init(myRouting, initialTripPoints);
     window.myRouting = myRouting;
+    
+    // Sortabe steps
+    
+    $( function() {
+      $( "#steps" ).sortable({
+        handle: ".handle",
+        placeholder: "form-control"
+      });
+      $( "#steps" ).disableSelection();
+      
+    } ); 
+
