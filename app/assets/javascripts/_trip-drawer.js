@@ -85,6 +85,7 @@ var TripDrawing = function() {
     $("#steps")
       .on("cocoon:after-insert", function(e, el) {
         $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
+        self.reorderSteps();
       })
       .on("cocoon:after-remove", function(e, el) {
         self.reorderSteps();
@@ -120,7 +121,7 @@ var TripDrawing = function() {
     $("#steps .nested-fields").each(function(index, value) {
       var newIndex = parseInt(index) + 1;
       // Rename labels, update rank
-      $(this).find(".trip_points_city label:first").text("Étape "+ newIndex);
+      $(this).find(".step-nb:first").text(newIndex);
       $(this).find(".trip_points_rank input:first").val(newIndex);
       // Make coordinates list
       $(this).find(".trip_points_lon input:first").each(self.updateOrCreatePoint);
