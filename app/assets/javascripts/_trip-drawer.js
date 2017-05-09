@@ -1,29 +1,17 @@
 // Util functions
 
 function equalPointArray(a1, a2) {
-  var equal = true;
-  // Compare sparse coordinates arrays
-  if (a1 == null || a2 == null) {
-    equal = false;
-  }
+  // check n x 2 arrays for equality
   if (a1.length !== a2.length) {
-    equal =  false;
+    return false;
   }
   var i = a1.length;
   while (i--) {
-    if ((typeof a1[i] !== "undefined" &&
-         typeof a2[i] === "undefined") ||
-        (typeof a1[i] === "undefined" &&
-         typeof a2[i] !== "undefined")) {
-      equal = false;
-    } else if (typeof a1[i] !== "undefined" &&
-               typeof a2[i] !== "undefined") {
-      if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) {
-        equal = false;
-      }
+    if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) {
+      return false;
     }
   }
-  return equal;
+  return true;
 }
 
 function numberAppendString(num, string) {
@@ -71,9 +59,10 @@ var TripDrawing = function() {
     self.totalTime = 0.0;
     // this is also defined in the model
     self.maxRank = 99;
+    // trip is passing by those points
     self.points = [];
     // to check for changes
-    self.lastPoints = null;
+    self.lastPoints = [];
     self.routing = aRouting;
     if (self.hasAFirstLatLon(aPointArray)) {
       self.points = aPointArray;
@@ -140,7 +129,7 @@ var TripDrawing = function() {
 
   self.renderRouting = function() {
     // Check for changes before contacting osrm
-    if (!equalPointArray(self.points, self.lastPoints)) {
+    if (!self.equalArrays()) {
       // Keep copy of waypoints
       self.lastPoints = self.points.slice(0);
       self.routing.setWaypoints(self.cloneAndTrimArray());
@@ -165,6 +154,17 @@ var TripDrawing = function() {
     var copiedArray = self.points.slice(0);
     return copiedArray.filter(function(val) { return val !== null; });
   };
+  
+  self.equalArrays = function() {
+    // make copies
+    var a1 = self.points.slice(0);
+    var a2 = self.lastPoints.slice(0);
+    // trim copied sparse arrays
+    a1 = a1.filter(function(val) { return val !== null; });
+    a2 = a2.filter(function(val) { return val !== null; });
+    // compare values
+    return equalPointArray(a1, a2);
+  }
 
   self.hasAFirstLatLon = function(anArray) {
     var result = true;
