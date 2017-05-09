@@ -1,17 +1,22 @@
 // Util functions
 
+function equalDouble(d1, d2) {
+  // cheeck equality between two (1 x 2) arrays
+  return (d1[0] === d2[0] && d1[1] === d2[1]);
+}
+
 function equalPointArray(a1, a2) {
   // check n x 2 arrays for equality
-  if (a1.length !== a2.length) {
-    return false;
-  }
-  var i = a1.length;
-  while (i--) {
-    if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) {
-      return false;
+  if (a1.length == a2.length) {
+    var i = a1.length;
+    while (i--) {
+      if (!equalDouble(a1[i], a2[i])) {
+        return false;
+      }
     }
+    return true;
   }
-  return true;
+  return false;
 }
 
 function numberAppendString(num, string) {
