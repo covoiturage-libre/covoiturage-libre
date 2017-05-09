@@ -7,7 +7,7 @@ function equalDouble(d1, d2) {
 
 function equalPointArray(a1, a2) {
   // check n x 2 arrays for equality
-  if (a1.length == a2.length) {
+  if (a1.length === a2.length) {
     var i = a1.length;
     while (i--) {
       if (!equalDouble(a1[i], a2[i])) {
