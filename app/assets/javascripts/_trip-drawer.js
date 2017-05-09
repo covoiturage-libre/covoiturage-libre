@@ -164,7 +164,7 @@ var TripDrawing = function() {
     a2 = a2.filter(function(val) { return val !== null; });
     // compare values
     return equalPointArray(a1, a2);
-  }
+  };
 
   self.hasAFirstLatLon = function(anArray) {
     var result = true;
