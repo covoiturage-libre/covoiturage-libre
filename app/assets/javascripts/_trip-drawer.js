@@ -1,22 +1,29 @@
 // Util functions
 
 function equalPointArray(a1, a2) {
+  var equal = true;
   // Compare sparse coordinates arrays
-  if (a1 == null || a2 == null) return false;
-  if (a1.length !== a2.length) return false;
+  if (a1 == null || a2 == null) {
+    equal = false;
+  }
+  if (a1.length !== a2.length) {
+    equal =  false;
+  }
   var i = a1.length;
   while (i--) {
     if ((typeof a1[i] !== "undefined" &&
          typeof a2[i] === "undefined") ||
         (typeof a1[i] === "undefined" &&
          typeof a2[i] !== "undefined")) {
-      return false;
+      equal = false;
     } else if (typeof a1[i] !== "undefined" &&
                typeof a2[i] !== "undefined") {
-      if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) return false;
+      if (a1[i][0] !== a2[i][0] || a1[i][1] !== a2[i][1]) {
+        equal = false;
+      }
     }
   }
-  return true;
+  return equal;
 }
 
 function numberAppendString(num, string) {
@@ -66,7 +73,7 @@ var TripDrawing = function() {
     self.maxRank = 99;
     self.points = [];
     // to check for changes
-    self.last_points = null;
+    self.lastPoints = null;
     self.routing = aRouting;
     if (self.hasAFirstLatLon(aPointArray)) {
       self.points = aPointArray;
@@ -111,7 +118,7 @@ var TripDrawing = function() {
 
   self.reorderSteps = function() {
     // Reset coordinates array
-    self.points = []
+    self.points = [];
     // Explore start/end DOM and get coordinates
     $("#city_from").find(".trip_points_lon input:first").each(
       self.updateOrCreatePoint);
@@ -133,9 +140,9 @@ var TripDrawing = function() {
 
   self.renderRouting = function() {
     // Check for changes before contacting osrm
-    if (!equalPointArray(self.points, self.last_points)) {
+    if (!equalPointArray(self.points, self.lastPoints)) {
       // Keep copy of waypoints
-      self.last_points = self.points.slice(0);
+      self.lastPoints = self.points.slice(0);
       self.routing.setWaypoints(self.cloneAndTrimArray());
       self.routing.route();
     }
