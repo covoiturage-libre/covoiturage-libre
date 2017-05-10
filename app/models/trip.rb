@@ -126,6 +126,10 @@ class Trip < ApplicationRecord
     new_trip.points = self.points.reverse.map { |p| p.dup }
     new_trip.points.first.kind = 'From'
     new_trip.points.last.kind = 'To'
+    # reverse ranks
+    new_trip.points.last.rank = new_trip.points.first.rank
+    new_trip.points.first.rank = 0
+    
     new_trip
   end
 
