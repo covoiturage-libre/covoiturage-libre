@@ -129,6 +129,12 @@ class Trip < ApplicationRecord
     # reverse ranks
     new_trip.points.last.rank = new_trip.points.first.rank
     new_trip.points.first.rank = 0
+
+    index=1
+    new_trip.step_points.map do |sp|
+      sp.rank = index
+      index += 1
+    end
     
     new_trip
   end
