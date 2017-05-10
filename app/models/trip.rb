@@ -135,7 +135,7 @@ class Trip < ApplicationRecord
       sp.rank = index
       index += 1
     end
-    
+
     new_trip
   end
 
