@@ -6,6 +6,9 @@ It aims at providing a free, non-profit carpooling service for the shared econom
 
 You can find the repository for the Android app just [here](https://github.com/serelion/covoiturage-libre-android).
 
+
+There is a guide to install a [dev setup on Ubuntu](https://github.com/covoiturage-libre/covoiturage-libre/wiki/Dev-setup-on-Ubuntu).
+
 [![Deploy on Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre)
 [![Deploy on Scalingo](https://cdn.scalingo.com/deploy/button.svg)](https://my.scalingo.com/deploy?source=https://github.com/covoiturage-libre/covoiturage-libre)
 
