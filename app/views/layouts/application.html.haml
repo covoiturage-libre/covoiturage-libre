@@ -21,8 +21,10 @@
     %meta{property: 'og:site_name',    content: 'Covoiturage-libre.fr'}
     %meta{property: 'og:image',        content: @meta[:image_url]}
     %meta{property: 'og:url',          content: @meta[:url]}
-    / facebook app id
-    %meta{property: 'fb:app_id',       content: ENV['FACEBOOK_CLIENT_ID']}
+
+    - if ENV['FACEBOOK_CLIENT_ID']
+      / facebook app id
+      %meta{property: 'fb:app_id',       content: ENV['FACEBOOK_CLIENT_ID']}
 
     / Twitter Card data
     %meta{name: 'twitter:title',       content: @meta[:title]}
