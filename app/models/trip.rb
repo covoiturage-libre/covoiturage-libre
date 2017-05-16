@@ -23,7 +23,7 @@ class Trip < ApplicationRecord
   validates_numericality_of :age, allow_blank: true
   validate :must_have_from_and_to_points
   validates_acceptance_of :terms_of_service
-  validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, email: true
 
   after_create :send_confirmation_email
   after_save :set_last_point_price
@@ -126,6 +126,13 @@ class Trip < ApplicationRecord
     new_trip.points = self.points.reverse.map { |p| p.dup }
     new_trip.points.first.kind = 'From'
     new_trip.points.last.kind = 'To'
+
+    index=1
+    new_trip.step_points.map do |sp|
+    	sp.rank = index
+    	index += 1
+    end
+
     new_trip
   end
 
