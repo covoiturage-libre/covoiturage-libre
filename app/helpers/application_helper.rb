@@ -1,3 +1,4 @@
+# coding: utf-8
 module ApplicationHelper
 
   def number_to_age(age)
@@ -29,7 +30,7 @@ module ApplicationHelper
   end
 
   def trip_title(trip, separator = '&rarr;')
-    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :long} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def trip_steps_breadcrumb_with_emphasis(trip, point_a_id = nil, point_b_id = nil, separator = '&rarr;')
