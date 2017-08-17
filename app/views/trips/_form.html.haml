@@ -103,7 +103,7 @@
     var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
     window.myTripDrawing = new TripDrawing().init(myRouting, initialTripPoints);
     window.myRouting = myRouting;
-    
+
     // Sortabe steps
     
     $( '#steps' ).sortable({
@@ -112,4 +112,3 @@
     });
     
     $( '#steps' ).disableSelection();
-

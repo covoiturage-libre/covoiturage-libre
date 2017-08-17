@@ -27,23 +27,26 @@
 //= require turbolinks
 //= require ga
 
-$(document).on('turbolinks:load', function() {
+$(document).on("turbolinks:load", function() {
   var activeStickerIndex = 0;
-  var stickersLength = $('.c-stickers-carousel__item').length;
+  var stickersLength = $(".c-stickers-carousel__item").length;
 
   function showActiveCarousel() {
-    $('.c-stickers-carousel__item').hide();
-    var index = (activeStickerIndex % stickersLength) + 1;
-    $('.c-stickers-carousel__item:nth-child(' + index + ')').show();
-    $('#active-sticker').html(index);
+    // Try to show carousel only if it's present in page
+    if ($(".c-stickers-carousel__item").length > 0) {
+      $(".c-stickers-carousel__item").hide();
+      var index = (activeStickerIndex % stickersLength) + 1;
+      $(".c-stickers-carousel__item:nth-child(" + index + ")").show();
+      $("#active-sticker").html(index);
+    }
   }
 
-  $('.js-carousel-left').on('click', function() {
+  $(".js-carousel-left").on("click", function() {
     activeStickerIndex = activeStickerIndex > 0 ? activeStickerIndex - 1 : stickersLength - 1;
     showActiveCarousel();
   });
 
-  $('.js-carousel-right').on('click', function() {
+  $(".js-carousel-right").on("click", function() {
     activeStickerIndex += 1;
     showActiveCarousel();
   });
