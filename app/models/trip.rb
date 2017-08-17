@@ -17,13 +17,14 @@ class Trip < ApplicationRecord
   validates_inclusion_of :smoking, in: [true, false]
   validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_inclusion_of :state, in: STATES
-  validates_inclusion_of :departure_date, in: Date.today..Date.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an"
+  validates_inclusion_of :departure_date, in: Date.today..Date.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an."
   validates_numericality_of :seats, { greater_than_or_equal_to: 1 }
   validates_numericality_of :price, { greater_than_or_equal_to: 0 }
   validates_numericality_of :age, allow_blank: true
   validate :must_have_from_and_to_points
   validates_acceptance_of :terms_of_service
   validates :email, email: true
+  validates_with PricesValidator
 
   after_create :send_confirmation_email
   after_save :set_last_point_price
@@ -140,7 +141,7 @@ class Trip < ApplicationRecord
 
     def must_have_from_and_to_points
       if points.empty? or point_from.nil? or point_to.nil?
-        errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires")
+        errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires.")
       end
     end
 
