@@ -13,7 +13,7 @@
           %h3.panel-title Itinéraire et prix global du trajet
         .panel-body
           = f.simple_fields_for :points, @required_points do |p|
-            .form-inputs{:id => "city_#{p.object.kind.downcase}"}
+            .form-inputs{ id: "city_#{p.object.kind.downcase}" }
               = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
@@ -106,12 +106,10 @@
     
     // Sortabe steps
     
-    $( function() {
-      $( "#steps" ).sortable({
-        handle: ".handle",
-        placeholder: "step-placeholder"
-      });
-      $( "#steps" ).disableSelection();
-      
-    } ); 
+    $( '#steps' ).sortable({
+      handle: '.handle',
+      placeholder: 'step-placeholder'
+    });
+    
+    $( '#steps' ).disableSelection();
 

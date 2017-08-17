@@ -27,23 +27,25 @@ function numberAppendString(num, string) {
 }
 
 function secondsToStringFR(seconds) {
-  var numyears = Math.floor(seconds / 31536000);
-  var numdays = Math.floor((seconds % 31536000) / 86400);
-  var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
-  var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
-  var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+  var numYears = Math.floor(seconds / 31536000);
+  var numDays = Math.floor((seconds % 31536000) / 86400);
+  var numHours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+  var numMinutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+  var numSeconds = (((seconds % 31536000) % 86400) % 3600) % 60;
   
-  var sentence = "";
-  sentence = sentence + numberAppendString(numyears, " ans ");
-  sentence = sentence + numberAppendString(numdays, " jours ");
-  sentence = sentence + numberAppendString(numhours, " heures ");
-  sentence = sentence + numberAppendString(numminutes, " minutes ");
+  var sentence = [];
+  sentence.push(numberAppendString(numYears, " ans "));
+  sentence.push(numberAppendString(numDays, " jours "));
+  sentence.push(numberAppendString(numHours, " heures "));
+  sentence.push(numberAppendString(numMinutes, " minutes "));
   
-  return sentence;
+  return sentence.join("");
 }
 
 function metersToKmString(meters) {
-  return Math.round( (meters / 1000) * 10 ) / 10;
+  // Rounded to 1 decimal (decimeters)
+  // metersToKmString(6789) = 6.8
+  return String(Math.round( (meters / 1000) * 10 ) / 10);
 }
 
 var Point = function(lat, lon, rank, kind) {
@@ -122,10 +124,11 @@ var TripDrawing = function() {
     $("#steps .nested-fields").each(function(index, value) {
       var newIndex = parseInt(index) + 1;
       // Rename labels, update rank
-      $(this).find(".step-nb:first").text(newIndex);
-      $(this).find(".trip_points_rank input:first").val(newIndex);
+      var field = $(this);
+      field.find(".step-nb:first").text(newIndex);
+      field.find(".trip_points_rank input:first").val(newIndex);
       // Make coordinates list
-      $(this).find(".trip_points_lon input:first").each(self.updateOrCreatePoint);
+      field.find(".trip_points_lon input:first").each(self.updateOrCreatePoint);
     });
     self.renderRouting();
   };
