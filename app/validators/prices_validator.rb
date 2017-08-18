@@ -1,7 +1,11 @@
 class PricesValidator < ActiveModel::Validator
   def validate(record)
-    if record.points != "Evil"
-      record.errors[:price] << "Les prix doivent être indiqués dans l\'ordre croissant."
+    puts "#############################################"
+    record.points.each do |p|
+      puts p["price"]
+      if p != "Evil"
+        record.errors[:price] << "Les prix doivent être indiqués dans l\'ordre croissant."
+      end
     end
   end
 end
