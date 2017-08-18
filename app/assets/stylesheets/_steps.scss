@@ -1,0 +1,58 @@
+.handle {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid #eeeeee;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+}
+
+.step-nb {
+  padding: 6px 5px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.step-delete {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  color: black;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid #adadad;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+}
+
+.step-row {
+  background-color: #ffffffaa;
+}
+
+.step-placeholder {
+  display: block;
+  width: 100%;
+  height: 34px;
+  margin-bottom: 15px;
+  background-color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.trip_points_price {
+  padding-left: 1em;
+}
