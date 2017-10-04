@@ -9,14 +9,14 @@
 
 - if @trips.empty?
   - if @search.errors.empty?
-    - if @search.from_city.empty? && @search.to_city.empty?
+    - if @search.from_city.blank? && @search.to_city.blank?
       %p Écrivez puis sélectionnez dans la liste : une ville de départ et une ville d'arrivée, ou seulement une ville de départ, ou seulement une ville d'arrivée
     - else
-      - if @search.from_city.empty?
+      - if @search.from_city.blank?
         %p Pas de trajets ayant pour arrivée "#{@search.to_city}" à partir du "#{@search.date}" (et ce malgré la recherche sur plusieurs jours après cette date)
-      - if @search.to_city.empty?
+      - if @search.to_city.blank?
         %p Pas de trajets ayant pour départ "#{@search.from_city}" à partir du "#{@search.date}" (et ce malgré la recherche sur plusieurs jours après cette date)
-      - if !(@search.from_city.empty?) && !(@search.to_city.empty?)
+      - if !(@search.from_city.blank?) && !(@search.to_city.blank?)
         %p Pas de trajets entre "#{@search.from_city}" et "#{@search.to_city}" à partir du "#{@search.date}" (et ce malgré la recherche sur plusieurs jours après cette date)
 - else
   .row
