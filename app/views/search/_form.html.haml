@@ -32,11 +32,7 @@
     $('.geoname').focus(function() {
       $(this).autocomplete('search', $(this).val());
     });
-    $('#search_from_city').click(function() {
-      $('#search_from_lon').val('');
-      $('#search_from_lat').val('');
-    });
-    $('#search_from_city').focus(function() {
+    $('#search_from_city').on('click focus', function() {
       $('#search_from_lon').val('');
       $('#search_from_lat').val('');
     });
