@@ -14,6 +14,7 @@ class Search
 
 
   validate :dont_search_the_past
+  validate :do_select_a_city_in_the_list
 
   def date_value
     # dans le @search : '%d/%m/%Y'
@@ -40,10 +41,13 @@ class Search
         #errors.add(:date, "Cherchez une date future")
         @date = I18n.localize(Date.today, :format => '%A %d %B %Y')
       end
-      if (not @from_city.blank?) and @from_lon.blank?
+    end
+
+    def do_select_a_city_in_the_list
+      if @from_city.present? && @from_lon.blank?
         errors.add(:from_city, "Selectionnez une ville *dans* la liste")
       end
-      if (not @to_city.blank?) and @to_lon.blank?
+      if @to_city.present? && @to_lon.blank?
         errors.add(:to_city, "Selectionnez une ville *dans* la liste")
       end
     end
