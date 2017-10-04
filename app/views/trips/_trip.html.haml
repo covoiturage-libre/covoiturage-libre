@@ -7,7 +7,7 @@
         .age= "#{trip.age} ans" if trip.age.present?
     .trip-info
       .title
-        =l trip.departure_date, format: :long
+        =l trip.departure_date, format: :trip_date
         =l trip.departure_time, format: :short
         %p= "(le covoit' est déjà parti !)" if ((trip.departure_date == Date.today && trip.before_actual_time)) 
         %p= "/!\\ départ dans #{Integer(trip.departure_date - @search.date_value)} jour(s)" if (trip.departure_date < @search.date_value) 
