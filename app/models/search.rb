@@ -22,11 +22,10 @@ class Search
     #begin
     #Date.strptime(self.date, '%d/%m/%Y')
     begin
-      the_match_object = /([A-Za-z]+)[ ]+([0-9]{1,2})[ ]+([A-Za-z]+)[ ]+([0-9]{4})/.match(self.date)
-      the_day_in_digits = Integer(the_match_object[2])
-      the_month_in_text = the_match_object[3].downcase
-      the_year_in_digits = Integer(the_match_object[4])
-      the_month_in_digits = I18n.t('date.month_names').index(the_month_in_text)
+      the_day_name_in_text, the_day_number_in_text, the_month_in_text, the_year_in_text = self.date.split(/ +/)
+      the_day_in_digits = Integer(the_day_number_in_text)
+      the_year_in_digits = Integer(the_year_in_text)
+      the_month_in_digits = I18n.t('date.month_names').index(the_month_in_text.downcase)
       Date.new(the_year_in_digits, the_month_in_digits, the_day_in_digits)
     rescue
       Date.today
