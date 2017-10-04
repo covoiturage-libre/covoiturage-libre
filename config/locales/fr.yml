@@ -41,7 +41,8 @@ fr:
     formats:
       default: "%d/%m/%Y"
       short: "%e %b"
-      long: "%A %e %B %Y"
+      long: "%A %B %Y"
+      trip_date: "%A %e %B %Y"
     month_names:
     -
     - janvier

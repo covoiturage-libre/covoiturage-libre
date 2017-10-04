@@ -50,7 +50,6 @@ GEM
     arel (7.1.1)
     autoprefixer-rails (6.4.0)
       execjs
-    awesome_print (1.7.0)
     bcrypt (3.1.11)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -141,7 +140,6 @@ GEM
     kaminari-bootstrap (3.0.1)
       kaminari (>= 0.13.0)
       rails
-    kiba (0.6.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.4.1)
@@ -170,7 +168,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    mysql2 (0.4.4)
     netrc (0.11.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
@@ -337,7 +334,6 @@ DEPENDENCIES
   active_link_to
   activerecord-postgis-adapter
   appsignal
-  awesome_print
   bootstrap-sass
   byebug (~> 9.0)
   capybara
@@ -361,12 +357,10 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   kaminari-bootstrap
-  kiba
   letter_opener
   letter_opener_web
   listen (~> 3.0)
   mailjet
-  mysql2 (~> 0.4)
   oj
   omniauth
   omniauth-facebook
@@ -398,4 +392,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.6
+   1.15.1
