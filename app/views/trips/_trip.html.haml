@@ -1,5 +1,5 @@
 .trip
-  = link_to trip, class: [('trip-item-before' if ((trip.departure_date == Date.today && trip.before_actual_time) || trip.departure_date < @search.date_value)), ('trip-item-after' if trip.departure_date > @search.date_value), ('trip-item')] do
+  = link_to trip, class: [('trip-item-before' if (trip.is_before_today? || trip.is_strictly_before(@search.date_value))), ('trip-item-after' if trip.is_strictly_after(@search.date_value)), ('trip-item')] do
     .driver
       .avatar= image_tag('covoiturage-avatar-default2.png')
       .info
@@ -9,9 +9,9 @@
       .title
         =l trip.departure_date, format: :trip_date
         =l trip.departure_time, format: :short
-        %p= "(le covoit' est déjà parti !)" if ((trip.departure_date == Date.today && trip.before_actual_time)) 
-        %p= "/!\\ départ dans #{Integer(trip.departure_date - @search.date_value)} jour(s)" if (trip.departure_date < @search.date_value) 
-        %p= "/!\\ départ dans +#{Integer(trip.departure_date - @search.date_value)} jour(s)" if (trip.departure_date > @search.date_value) 
+        %p= "(le covoit' est déjà parti !)" if (trip.is_before_today?) 
+        %p= "/!\\ départ dans #{Integer(trip.departure_date - @search.date_value)} jour(s)" if (trip.is_strictly_before(@search.date_value)) 
+        %p= "/!\\ départ dans +#{Integer(trip.departure_date - @search.date_value)} jour(s)" if (trip.is_strictly_after(@search.date_value)) 
       .details
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
     .price
