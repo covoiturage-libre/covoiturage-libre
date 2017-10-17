@@ -12,3 +12,14 @@
     .col-sm-12
       = link_to 'Découvrir le moteur de recherche Lilo', 'https://www.lilo.org/?utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
       = link_to 'Déjà sur Lilo ? Donnez-nous vos gouttes !', 'https://www.lilo.org/?p=9680&utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
+
+- content_for :javascript_footer do
+  :javascript
+    // Close button for banner
+    $(".home__banner_close").on("click", function() {
+      $(".home__banner_close").hide();
+      $(".p-home__banner").animate({height: 0}, 500, function() {
+        // Animation complete.
+        $(".p-home__banner").hide();
+      });
+    });

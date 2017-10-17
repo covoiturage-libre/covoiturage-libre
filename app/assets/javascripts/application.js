@@ -52,13 +52,4 @@ $(document).on("turbolinks:load", function() {
   });
 
   showActiveCarousel();
-
-  // Close button for banner
-  $(".home__banner_close").on("click", function() {
-    $(".home__banner_close").hide();
-    $(".p-home__banner").animate({height: 0}, 500, function() {
-      // Animation complete.
-      $(".p-home__banner").hide();
-    });
-  });
 });
