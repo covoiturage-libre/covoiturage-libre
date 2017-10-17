@@ -3,6 +3,7 @@ class Trip < ApplicationRecord
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
   CAR_RATINGS = %w(standard comfort first_class luxury).freeze
   STATES = %w(pending confirmed deleted).freeze
+  SEARCH_DISTANCE_IN_METERS = 25_000
 
   has_many :points, -> { order('rank asc') }, inverse_of: :trip, dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -50,31 +51,35 @@ class Trip < ApplicationRecord
     where("ST_Dwithin(
            ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
            ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", from_lon.to_f, from_lat.to_f).
+           #{SEARCH_DISTANCE_IN_METERS})", from_lon.to_f, from_lat.to_f).
     where("ST_Dwithin(
            ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
            ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", to_lon.to_f, to_lat.to_f).
+           #{SEARCH_DISTANCE_IN_METERS})", to_lon.to_f, to_lat.to_f).
     where('point_a.rank < point_b.rank')
   }
 
   scope :from_only, -> (from_lon, from_lat) {
-    select('trips.*, point_a.id as point_a_id, trips.id').
+    select('trips.*,
+      point_a.id as point_a_id, point_a.price as point_a_price,
+      trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
     joins('INNER JOIN points AS point_a ON trips.id = point_a.trip_id').
     where("ST_Dwithin(
            ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
            ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", from_lon.to_f, from_lat.to_f).
+           #{SEARCH_DISTANCE_IN_METERS})", from_lon.to_f, from_lat.to_f).
     where("point_a.kind <> 'To'")
   }
 
   scope :to_only, -> (to_lon, to_lat) {
-    select('trips.*, point_b.id as point_b_id, trips.id').
+    select('trips.*,
+      point_b.id as point_b_id, point_b.price as point_b_price,
+      trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
     joins('INNER JOIN points AS point_b ON trips.id = point_b.trip_id').
     where("ST_Dwithin(
            ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
            ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", to_lon.to_f, to_lat.to_f).
+           #{SEARCH_DISTANCE_IN_METERS})", to_lon.to_f, to_lat.to_f).
     where("point_b.kind <> 'From'")
   }
 
