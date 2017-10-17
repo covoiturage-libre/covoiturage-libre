@@ -97,6 +97,10 @@ $bgFeatureBlock: #fffbf2 !default;
     color: #fff;
     margin-bottom: $spacing-unit;
   }
+  .home__banner_close {
+    float: right;
+    font-size: 2em;
+  }
 }
 
 .p-home__cities {
