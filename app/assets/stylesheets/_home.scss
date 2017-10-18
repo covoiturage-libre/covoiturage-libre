@@ -106,6 +106,10 @@ $bgFeatureBlock: #fffbf2 !default;
   .home__banner_close:hover {
     color: $blue-shade;
   }
+  .home__banner_logo {
+    float: left;
+    margin-right: 1em;
+  }
 }
 
 .p-home__cities {
