@@ -64,8 +64,9 @@ var TripDrawing = function() {
   self.init = function(aRouting, aPointArray) {
     self.totalDistance = 0.0;
     self.totalTime = 0.0;
-    // this is also defined in the model
-    self.maxRank = 99;
+    // this is also defined in the model point.rb
+    self.maxRank = 2;
+    self.max_reached = false;
     // trip is passing by those points
     self.points = [];
     // to check for changes
@@ -86,9 +87,20 @@ var TripDrawing = function() {
 
   self.manageCocoonEvents = function() {
     $("#steps")
+      .on("cocoon:before-insert", function(e, el) {
+        if ($("#steps .nested-fields").length > self.maxRank - 1) {
+          self.max_reached = true;
+        } else {
+          self.max_reached = false;
+        }
+      })
       .on("cocoon:after-insert", function(e, el) {
-        $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
-        self.reorderSteps();
+        if (!self.max_reached) {
+          $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
+          self.reorderSteps();
+        } else {
+          $("#steps .nested-fields").last().remove();
+        }
       })
       .on("cocoon:after-remove", function(e, el) {
         self.reorderSteps();
