@@ -66,7 +66,7 @@ var TripDrawing = function() {
     self.totalTime = 0.0;
     // depends on server side model point.rb
     // max nb of steps = maxRank - 1
-    self.maxRank = 2;
+    self.maxRank = 16;
     self.max_reached = false;
     // trip is passing by those points
     self.points = [];
