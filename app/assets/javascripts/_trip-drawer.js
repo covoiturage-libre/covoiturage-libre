@@ -64,7 +64,8 @@ var TripDrawing = function() {
   self.init = function(aRouting, aPointArray) {
     self.totalDistance = 0.0;
     self.totalTime = 0.0;
-    // this is also defined in the model point.rb
+    // depends on server side model point.rb
+    // max nb of steps = maxRank - 1
     self.maxRank = 2;
     self.max_reached = false;
     // trip is passing by those points
@@ -88,7 +89,7 @@ var TripDrawing = function() {
   self.manageCocoonEvents = function() {
     $("#steps")
       .on("cocoon:before-insert", function(e, el) {
-        if ($("#steps .nested-fields").length > self.maxRank - 1) {
+        if ($("#steps .nested-fields").length > self.maxRank - 2) {
           self.max_reached = true;
         } else {
           self.max_reached = false;
