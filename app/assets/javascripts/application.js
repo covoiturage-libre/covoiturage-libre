@@ -16,6 +16,7 @@
 //= require jquery-ui/sortable
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-fr
+//= require jquery.ui.touch-punch.min.js
 //= require bootstrap-sprockets
 //= require leaflet.js.erb
 //= require leaflet-routing-machine
