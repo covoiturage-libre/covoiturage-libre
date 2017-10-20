@@ -21,24 +21,7 @@
       minDate: 0
     });
     var geo = $('.geoname')
-    geo.geonameAutocomplete();
-    // force autoselect
-    //~ geo.click(function() {
-      //~ console.log('click');
-     //~ $(this).autocomplete('search', $(this).val());
-    //~ });
-    //~ geo.focusout(function() {
-      //~ console.log('focus out');
-      //~ window.globalgeo = $(this);
-      //~ $(this).autocomplete('search', $(this).val());
-      //~ $(this).data('ui-autocomplete')._trigger('selectFirst');
-    //~ });
-    //~ geo.on('click focus', function() {
-      //~ console.log('clickfocus');
-      //~ $('#search_from_lon').val('');
-      //~ $('#search_from_lat').val('');
-    //~ });
-    
+    geo.geonameAutocomplete();    
     $('.btn-search-inverse-cities').click(function() {
       ['city', 'lon', 'lat'].forEach(function(fieldName) {
         var $fromInput = $('#search_from_' + fieldName);
