@@ -4,7 +4,7 @@ jQuery.fn.extend({
       minLength: 2,
       // automatically focus first item from autocomplete menu
       autoFocus: true,
-      source: function (request, response) {
+      source(request, response) {
         $.getJSON("/cities/autocomplete?term=" + request.term, function (data) {
           response($.map(data, function (el) {
             return {
@@ -18,7 +18,7 @@ jQuery.fn.extend({
           }));
         });
       },
-      select: function (event, ui) {
+      select(event, ui) {
         // by default the change event is not triggered on hidden input fields
         // we need it to update the map instantly
         $("#" + this.id.replace(/city/, "lat")).val(ui.item.lat).trigger("change");
@@ -27,14 +27,14 @@ jQuery.fn.extend({
           ga("send", "event", "Ville", "select", ui.item.city );
         }
       },
-      create: function () {
+      create() {
         $(this).data("ui-autocomplete")._renderItem = function (ul, item) {
           return $("<li>")
             .append("<div><b>" + item.city + "</b><br />" + item.city + ", " + item.country + ", " + item.postcode + "</div>")
             .appendTo(ul);
         }
       },
-      focus: function (event, ui) {
+      focus(event, ui) {
         // memorize latest focused item for selection upon focusout
         this.latestFocus = ui.item;
       }
