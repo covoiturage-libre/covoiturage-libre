@@ -16,12 +16,11 @@
 
 - content_for :javascript_footer do
   :javascript
+    $('.geoname').geonameAutocomplete();    
     $('.datepicker').datepicker({
       dateFormat: "dd/mm/yy",
       minDate: 0
     });
-    var geo = $('.geoname')
-    geo.geonameAutocomplete();    
     $('.btn-search-inverse-cities').click(function() {
       ['city', 'lon', 'lat'].forEach(function(fieldName) {
         var $fromInput = $('#search_from_' + fieldName);
