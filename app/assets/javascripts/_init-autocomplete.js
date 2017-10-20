@@ -2,6 +2,8 @@ jQuery.fn.extend({
   geonameAutocomplete: function () {
     return this.autocomplete({
       minLength: 2,
+      // automatically focus first item from autocomplete menu
+      autoFocus: true,
       source: function (request, response) {
         $.getJSON("/cities/autocomplete?term=" + request.term, function (data) {
           response($.map(data, function (el) {
@@ -15,7 +17,7 @@ jQuery.fn.extend({
             }
           }))
         });
-    },
+      },
       select: function (event, ui) {
         // by default the change event is not triggered on hidden input fields
         // we need it to update the map instantly
@@ -32,11 +34,23 @@ jQuery.fn.extend({
             .appendTo(ul);
         }
       },
-      // automatically select first item from autocomplete menu
-      autoFocus: true
+      focus: function (event, ui) {
+        // memorize latest focused item for selection upon focusout
+        this.latest_focus = ui.item;
+      }
     }).blur(function () {
       if ($(this).val() == "") {
         $(this).parent().next(2).find("input").val('');
+      }
+      // populate with last focused element if different from current
+      // ie force autocomplete
+      if (typeof this.latest_focus !== 'undefined'
+      && this.latest_focus.value != this.value) {
+        this.value = this.latest_focus.value;
+        var lat = $('#' + this.id.replace(/city/, 'lat'));
+        var lon = $('#' + this.id.replace(/city/, 'lon'));
+        lat.val(this.latest_focus.lat).trigger('change');
+        lon.val(this.latest_focus.lon).trigger('change');
       }
     });
   }
