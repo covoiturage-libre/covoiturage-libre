@@ -21,10 +21,13 @@ jQuery.fn.extend({
       select(event, ui) {
         // by default the change event is not triggered on hidden input fields
         // we need it to update the map instantly
-        $("#" + this.id.replace(/city/, "lat")).val(ui.item.lat).trigger("change");
-        $("#" + this.id.replace(/city/, "lon")).val(ui.item.lon).trigger("change");
+        var lat = $("#" + this.id.replace(/city/, "lat"));
+        var lon = $("#" + this.id.replace(/city/, "lon"));
+        lat.val(ui.item.lat).trigger("change");
+        lon.val(ui.item.lon).trigger("change");
+
         if (typeof ga === "function") {
-          ga("send", "event", "Ville", "select", ui.item.city );
+          ga("send", "event", "Ville", "select", ui.item.city);
         }
       },
       create() {
@@ -42,6 +45,7 @@ jQuery.fn.extend({
       if ($(this).val() === "") {
         $(this).parent().next(2).find("input").val("");
       }
+
       // populate with last focused element if different from current
       // ie force autocomplete
       if (typeof this.latestFocus !== "undefined"
@@ -51,6 +55,10 @@ jQuery.fn.extend({
         var lon = $("#" + this.id.replace(/city/, "lon"));
         lat.val(this.latestFocus.lat).trigger("change");
         lon.val(this.latestFocus.lon).trigger("change");
+
+        if (typeof ga === "function") {
+          ga('send', 'event', 'Ville', 'select', this.latestFocus.city);
+        }
       }
     }).focus(function () {
       // reopen completion menu on focus
