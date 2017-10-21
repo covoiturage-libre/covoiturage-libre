@@ -25,6 +25,14 @@ class Trip < ApplicationRecord
   validates_acceptance_of :terms_of_service
   validates :email, email: true
   validates_with PricesValidator
+  # strip whitespaces before validation and save
+  before_validation :strip_whitespace
+  def strip_whitespace
+    self.email = self.email.strip unless self.email.nil?
+    self.name = self.name.strip unless self.name.nil?
+    self.phone = self.phone.strip unless self.phone.nil?
+    self.description = self.description.strip unless self.description.nil?
+  end
 
   after_create :send_confirmation_email
   after_save :set_last_point_price
