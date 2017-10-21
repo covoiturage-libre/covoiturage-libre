@@ -8,6 +8,10 @@ class PricesValidator < ActiveModel::Validator
     # check for growing values of points prices
     i = 0
     sorted_points.each do |p|
+      if p["price"] == nil
+        record.errors[:price] << "Les prix doivent être indiqués."
+        break
+      end
       if p["price"] < i
         record.errors[:price] << "Les prix des étapes doivent être indiqués dans l\'ordre croissant."
         break
