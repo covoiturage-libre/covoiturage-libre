@@ -8,7 +8,7 @@ class PricesValidator < ActiveModel::Validator
     # check for growing values of points prices
     i = 0
     sorted_points.each do |p|
-      if p["price"] == nil
+      if p["price"].nil?
         record.errors[:price] << "Les prix doivent être indiqués."
         break
       end
