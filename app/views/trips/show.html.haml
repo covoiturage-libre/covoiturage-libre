@@ -12,45 +12,45 @@
     .panel.panel-default
       .panel-body
         .row
-          .col-md-4
+          .col-xs-4
             Départ
-          .col-md-8
+          .col-xs-8
             %strong= @trip.point_from.city
         - @trip.step_points.each do |point|
           .row
-            .col-md-4
+            .col-xs-4
               Étape
-            .col-md-4
+            .col-xs-4
               %strong= point.city
-            .col-md-4
+            .col-xs-4
               .small_price= number_to_currency point.price
         .row
-          .col-md-4
+          .col-xs-4
             Arrivée
-          .col-md-4
+          .col-xs-4
             %strong= @trip.point_to.city
-          .col-md-4
+          .col-xs-4
             .small_price= number_to_currency @trip.price
         %hr
         .row
-          .col-md-4
+          .col-xs-4
             Heure de départ
-          .col-md-8
+          .col-xs-8
             %strong=l @trip.departure_time, format: :short
         .row
-          .col-md-4
+          .col-xs-4
             =t Trip.human_attribute_name(:comfort)
-          .col-md-8
+          .col-xs-8
             %strong=t :"activerecord.attributes.trip.comfort_#{@trip.comfort}"
         .row
-          .col-md-4
+          .col-xs-4
             Fumeur
-          .col-md-8
+          .col-xs-8
             =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
         .row
-          .col-md-4
+          .col-xs-4
             Estimations
-          .col-md-8
+          .col-xs-8
             %strong
               = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
               = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?

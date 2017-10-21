@@ -12,6 +12,6 @@ fr:
         display_entries:
           zero: "Aucun %{entry_name} trouvé"
           one: "Affichage de <b>1</b> %{entry_name}"
-          other: "Affichage de <b>all %{count}</b> %{entry_name}"
+          other: "Affichage de <b>%{count}</b> %{entry_name}"
       more_pages:
         display_entries: "Affichage de %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> sur un total de <b>%{total}</b>"

@@ -16,6 +16,7 @@ $bgFeatureBlock: #fffbf2 !default;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 1em;
 
   p {
     font-size: 14px;
@@ -132,4 +133,10 @@ $bgFeatureBlock: #fffbf2 !default;
     background-color: lighten(#ed7233, 5%);
     border-color: lighten(#ed7233, 5%);
   }
+}
+
+.btn-search-inverse-cities {
+  line-height: 100%;
+  width: 3em;
+  margin: auto;
 }
