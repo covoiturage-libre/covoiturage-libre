@@ -42,22 +42,25 @@ jQuery.fn.extend({
         this.latestFocus = ui.item;
       }
     }).blur(function () {
-      if ($(this).val() === "") {
-        $(this).parent().next(2).find("input").val("");
+      var lat = $("#" + this.id.replace(/city/, "lat"));
+      var lon = $("#" + this.id.replace(/city/, "lon"));
+
+      if ($(this).val() === "") { // Reset
+        lat.val('');
+        lon.val('');
       }
+      else {
+        // populate with last focused element if different from current
+        // ie force autocomplete
+        if (typeof this.latestFocus !== "undefined"
+        && this.latestFocus.value !== this.value) {
+          this.value = this.latestFocus.value;
+          lat.val(this.latestFocus.lat).trigger("change");
+          lon.val(this.latestFocus.lon).trigger("change");
 
-      // populate with last focused element if different from current
-      // ie force autocomplete
-      if (typeof this.latestFocus !== "undefined"
-      && this.latestFocus.value !== this.value) {
-        this.value = this.latestFocus.value;
-        var lat = $("#" + this.id.replace(/city/, "lat"));
-        var lon = $("#" + this.id.replace(/city/, "lon"));
-        lat.val(this.latestFocus.lat).trigger("change");
-        lon.val(this.latestFocus.lon).trigger("change");
-
-        if (typeof ga === "function") {
-          ga('send', 'event', 'Ville', 'select', this.latestFocus.city);
+          if (typeof ga === "function") {
+            ga('send', 'event', 'Ville', 'select', this.latestFocus.city);
+          }
         }
       }
     }).focus(function () {
