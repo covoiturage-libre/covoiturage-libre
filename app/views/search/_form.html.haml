@@ -2,7 +2,7 @@
 - btn_class = large_inputs ? 'btn-lg' : ''
 
 %p Écrivez puis sélectionnez dans la liste :
-%ul 
+%ul
   %li une ville de départ et une ville d'arrivée
   %li ou seulement une ville de départ
   %li ou seulement une ville d'arrivée
@@ -24,20 +24,10 @@
 - content_for :javascript_footer do
   :javascript
     $('.geoname').geonameAutocomplete();
+
     $('.datepicker').datepicker({
       dateFormat: "DD dd MM yy",
       minDate: 0
-    });
-
-    $('.geoname').click(function() {
-      $(this).autocomplete('search', $(this).val());
-    });
-    $('.geoname').focus(function() {
-      $(this).autocomplete('search', $(this).val());
-    });
-    $('#search_from_city').on('click focus', function() {
-      $('#search_from_lon').val('');
-      $('#search_from_lat').val('');
     });
 
     $('.btn-search-inverse-cities').click(function() {
