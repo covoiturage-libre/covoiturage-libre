@@ -1,11 +1,18 @@
 jQuery.fn.extend({
   geonameAutocomplete: function () {
     return this.autocomplete({
-      minLength: 2,
+      minLength: 0,
       // automatically focus first item from autocomplete menu
       autoFocus: true,
       source: function(request, response) {
-        $.getJSON("/cities/autocomplete?term=" + request.term, function (data) {
+        var listUri;
+        if (request.term.length < 2) {
+          listUri = "/cities/main";
+        } else {
+          listUri = "/cities/autocomplete?term=" + request.term;
+        }
+
+        $.getJSON(listUri, function (data) {
           response($.map(data, function (el) {
             return {
               value: el.city,
