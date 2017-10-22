@@ -23,17 +23,17 @@
 
 - content_for :javascript_footer do
   :javascript
-    $('.geoname').geonameAutocomplete();
+    $(".geoname").geonameAutocomplete();
 
-    $('.datepicker').datepicker({
+    $(".datepicker").datepicker({
       dateFormat: "DD dd MM yy",
       minDate: 0
     });
 
-    $('.btn-search-inverse-cities').click(function() {
-      ['city', 'lon', 'lat'].forEach(function(fieldName) {
-        var $fromInput = $('#search_from_' + fieldName);
-        var $toInput = $('#search_to_' + fieldName);
+    $(".btn-search-inverse-cities").click(function() {
+      ["city", "lon", "lat"].forEach(function(fieldName) {
+        var $fromInput = $("#search_from_" + fieldName);
+        var $toInput = $("#search_to_" + fieldName);
 
         var fromValue = $fromInput.val();
         $fromInput.val($toInput.val());
@@ -43,25 +43,25 @@
       return false;
     });
 
-    $('#new_search').submit(function() {
+    $("#new_search").submit(function() {
       var emptyCityGeoCount = 4;
-      $(this).find('input.hidden').each(function() {
+      $(this).find("input.hidden").each(function() {
         var value = $(this).val();
-        if (value && value !== '') {
+        if (value && value !== ") {
           emptyCityGeoCount -= 1;
         }
       });
       if (emptyCityGeoCount > 2) { // No city fully selected with geo
-        var input = $('#search_to_city');
+        var input = $("#search_to_city");
 
         // Display error
-        input.parent().addClass('has-error');
-        var inputHelpBlock = input.next('.help-block');
+        input.parent().addClass("has-error");
+        var inputHelpBlock = input.next(".help-block");
         if (inputHelpBlock.length > 0) {
           inputHelpBlock.show();
         } else { // Create it
           $("<span>", {
-            class: 'help-block',
+            class: "help-block",
             text: "Selectionnez une ville *dans* la liste"
           }).insertAfter(input);
         }

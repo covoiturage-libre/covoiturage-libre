@@ -32,8 +32,8 @@ jQuery.fn.extend({
         var lon = $("#" + this.id.replace(/city/, "lon"));
         lat.val(ui.item.lat).trigger("change");
         lon.val(ui.item.lon).trigger("change");
-        $(this).parent().removeClass('has-error');
-        $(this).next('.help-block').hide();
+        $(this).parent().removeClass("has-error");
+        $(this).next(".help-block").hide();
 
         if (typeof ga === "function") {
           ga("send", "event", "Ville", "select", ui.item.city);
@@ -55,8 +55,8 @@ jQuery.fn.extend({
       var lon = $("#" + this.id.replace(/city/, "lon"));
 
       if ($(this).val() === "") { // Reset
-        lat.val('');
-        lon.val('');
+        lat.val("");
+        lon.val("");
       }
       else {
         // populate with last focused element if different from current
@@ -66,11 +66,11 @@ jQuery.fn.extend({
           this.value = this.latestFocus.value;
           lat.val(this.latestFocus.lat).trigger("change");
           lon.val(this.latestFocus.lon).trigger("change");
-          $(this).parent().removeClass('has-error');
-          $(this).next('.help-block').hide();
+          $(this).parent().removeClass("has-error");
+          $(this).next(".help-block").hide();
 
           if (typeof ga === "function") {
-            ga('send', 'event', 'Ville', 'select', this.latestFocus.city);
+            ga("send", "event", "Ville", "select", this.latestFocus.city);
           }
         }
       }
