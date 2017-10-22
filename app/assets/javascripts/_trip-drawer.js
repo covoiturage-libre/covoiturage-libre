@@ -67,7 +67,7 @@ var TripDrawing = function() {
     // depends on server side model point.rb
     // max nb of steps = maxRank - 1
     self.maxRank = 16;
-    self.max_reached = false;
+    self.maxReached = false;
     // trip is passing by those points
     self.points = [];
     // to check for changes
@@ -90,13 +90,13 @@ var TripDrawing = function() {
     $("#steps")
       .on("cocoon:before-insert", function(e, el) {
         if ($("#steps .nested-fields").length > self.maxRank - 2) {
-          self.max_reached = true;
+          self.maxReached = true;
         } else {
-          self.max_reached = false;
+          self.maxReached = false;
         }
       })
       .on("cocoon:after-insert", function(e, el) {
-        if (!self.max_reached) {
+        if (!self.maxReached) {
           $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
           self.reorderSteps();
         } else {
