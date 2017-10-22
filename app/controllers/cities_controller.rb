@@ -5,6 +5,7 @@ class CitiesController < ApplicationController
   MAIN_CITIES = %w(
     Paris
     Marseille
+    Bruxelles
     Lyon
     Toulouse
     Nice
