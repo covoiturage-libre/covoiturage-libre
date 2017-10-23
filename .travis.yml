@@ -6,6 +6,7 @@ env:
   - DATABASE_URL=postgres://postgres@localhost/postgres
 before_script:
   - bundle exec rake db:enable_postgis
+  - bin/rails db:migrate RAILS_ENV=test
 cache: bundler
 services:
   - elasticsearch
