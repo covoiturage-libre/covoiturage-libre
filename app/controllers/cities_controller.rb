@@ -95,7 +95,7 @@ class CitiesController < ApplicationController
 
   def main
     @results = City.where(name: MAIN_CITIES)
-                   .sort_by{ |city| MAIN_CITIES.index city.name }
+                   .sort_by{ |city| MAIN_CITIES.index city.name }[0, 5]
     render 'autocomplete'
   end
 
