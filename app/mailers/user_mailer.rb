@@ -1,8 +1,9 @@
 class UserMailer < ApplicationMailer
   add_template_helper(ApplicationHelper)
 
-  SUBJECT_PREFIX = ENV['MAILER_SUBJECT_PREFIX'] || '[Covoiturage-libre.fr]'
-  
+  SUBJECT_PREFIX = ENV['MAILER_SUBJECT_PREFIX'] ||
+                    Rails.application.config.app_name
+
   def trip_confirmation(trip)
     @trip = trip
     mail(
@@ -38,9 +39,9 @@ class UserMailer < ApplicationMailer
       subject: prefix_subject('Vous avez envoyé un message')
     )
   end
-  
+
   private
-  
+
   def prefix_subject(subject)
     "#{SUBJECT_PREFIX} #{subject}"
   end

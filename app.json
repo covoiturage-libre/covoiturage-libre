@@ -10,6 +10,11 @@
     "searchbox:starter"
   ],
   "env": {
+    "APP_NAME": {
+      "description": "Name of the platform.",
+      "value": "Covoiturage-Libre.fr",
+      "required": true
+    },
     "SECRET_KEY_BASE": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret",

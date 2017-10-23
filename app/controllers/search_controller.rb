@@ -1,5 +1,5 @@
 class SearchController < ApplicationController
-  
+
   def index
     load_index_meta_data
     params.permit!
@@ -50,7 +50,7 @@ class SearchController < ApplicationController
 
     def load_index_meta_data
       # meta data
-      @meta[:title] = 'Covoiturage-libre.fr, rechercher une annonce de covoiturage'
+      @meta[:title] = "#{Rails.application.config.app_name}, rechercher une annonce de covoiturage"
       @meta[:description] = 'Recherchez une annonce de covoiturage parmis toutes les annonces sans frais et faites de la vraie économie du partage, covoiturez gratuitement et librement'
       #@meta[:description] << " de #{search_params[:from_city]}" if search_params[:from_city].present?
       #@meta[:description] << " à #{search_params[:to_city]}"    if search_params[:to_city].present?

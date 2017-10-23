@@ -9,6 +9,10 @@
     "scalingo-elasticsearch"
   ],
   "env": {
+    "APP_NAME": {
+      "description": "Name of the platform.",
+      "value": "Covoiturage-Libre.fr"
+    },
     "SECRET_KEY_BASE": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
@@ -26,25 +30,32 @@
       "description": "For mails. Required."
     },
     "FACEBOOK_CLIENT_ID": {
-      "description": "For Meta data and Facebook login."
+      "description": "For Meta data and Facebook login.",
+      "value": ""
     },
     "FACEBOOK_CLIENT_SECRET": {
-      "description": "For Facebook login."
+      "description": "For Facebook login.",
+      "value": ""
     },
     "GOOGLE_CLIENT_ID": {
-      "description": "For Google login."
+      "description": "For Google login.",
+      "value": ""
     },
     "GOOGLE_CLIENT_SECRET": {
-      "description": "For Google login."
+      "description": "For Google login.",
+      "value": ""
     },
     "GEONAMES_URL": {
-      "description": "For import only"
+      "description": "For import only",
+      "value": ""
     },
     "GA_TRACKING_ID": {
-      "description": "Google Analytics"
+      "description": "Google Analytics",
+      "value": ""
     },
     "SLAASK_WIDGET_KEY": {
-      "description": "For visitors chat with you."
+      "description": "For visitors chat with you.",
+      "value": ""
     }
   },
   "scripts": {

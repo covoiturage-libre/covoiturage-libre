@@ -16,7 +16,7 @@
     %meta{property: 'og:title',        content: @meta[:title] }
     %meta{property: 'og:description',  content: @meta[:description] }
     %meta{property: 'og:type',         content: 'website'}
-    %meta{property: 'og:site_name',    content: 'Covoiturage-libre.fr'}
+    %meta{property: 'og:site_name',    content: Rails.application.config.app_name}
     %meta{property: 'og:image',        content: @meta[:image_url]}
     %meta{property: 'og:url',          content: @meta[:url]}
 
@@ -28,7 +28,9 @@
     %meta{name: 'twitter:title',       content: @meta[:title]}
     %meta{name: 'twitter:description', content: @meta[:description]}
     %meta{name: 'twitter:card',        content: 'summary_large_image'}
-    %meta{name: 'twitter:domain',      content: 'covoiturage-libre.fr'}
+    - mail_host = Rails.application.config.action_mailer.default_url_options[:host]
+    - domain = URI.parse(mail_host).domain rescue 'covoiturage-libre.fr'
+    %meta{name: 'twitter:domain',      content: domain}
     %meta{name: 'twitter:site',        content: '@covoitlib'}
     %meta{name: 'twitter:image',       content: @meta[:image_url]}
 

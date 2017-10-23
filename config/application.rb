@@ -12,6 +12,8 @@ module CovoiturageLibreRails5
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.app_name = ENV['APP_NAME'] || "Covoiturage-Libre.fr"
+
     config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
 
     config.assets.paths << Rails.root.join("vendor", "assets", "images")
