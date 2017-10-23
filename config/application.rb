@@ -12,7 +12,9 @@ module CovoiturageLibreRails5
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
+    host = ENV['MAILER_HOST'] || 'localhost:3000'
+    config.action_mailer.default_url_options = { :host => host }
+    Rails.application.routes.default_url_options[:host] = host
 
     config.assets.paths << Rails.root.join("vendor", "assets", "images")
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg)
