@@ -8,20 +8,12 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'capybara/rspec'
 require 'email_spec'
-require 'shoulda/matchers'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
 Capybara.app_host = 'http://example.com'
-
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-    with.library :rails
-  end
-end
 
 Rails.application.routes.default_url_options[:host] = 'www.example.com'
 
@@ -31,6 +23,7 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
   config.include FactoryGirl::Syntax::Methods
+  config.include Shoulda::Matchers::ActiveModel, type: :model
   config.include Devise::TestHelpers, type: :controller
 
   config.include EmailSpec::Helpers
