@@ -35,8 +35,8 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.strategy = :deletion, { except: %w[spatial_ref_sys] }
+    DatabaseCleaner.clean_with :truncation, { except: %w[spatial_ref_sys] }
     Rails.application.load_seed # loading seeds
   end
 
@@ -45,8 +45,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    DatabaseCleaner.clean
-#    drop_schemas
+    DatabaseCleaner.clean # drop_schemas
     Capybara.app_host = 'http://example.com'
     reset_mailer
   end
