@@ -3,8 +3,7 @@ install: bundle install
 rvm:
   - 2.4.2
 env:
-  - DB=test_db
-  - DATABASE_URL=postgres://postgres@localhost/test_db
+  - DB=test_db DATABASE_URL=postgres://postgres@localhost/test_db
 before_script:
   - bundle exec rake db:enable_postgis
 cache: bundler
