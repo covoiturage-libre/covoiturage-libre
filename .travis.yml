@@ -1,0 +1,11 @@
+language: ruby
+install: bundle install
+rvm:
+  - 2.4.2
+before_script:
+  - bundle exec rake db:enable_postgis
+cache: bundler
+services:
+  - elasticsearch
+  - postgresql
+  - redis-server
