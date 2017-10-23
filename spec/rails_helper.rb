@@ -23,12 +23,13 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers
 
   config.include FactoryGirl::Syntax::Methods
-  config.include Shoulda::Matchers::ActiveModel, type: :model
   config.include Devise::TestHelpers, type: :controller
 
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
 
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+  config.include Shoulda::Matchers::ActiveRecord, type: :model
   # config.include Paperclip::Shoulda::Matchers
 
   config.order = "random"
