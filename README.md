@@ -13,9 +13,11 @@ You can help us without knowing how to code, click on the buttons below ;)
 
 You can find the repository for the Android App of Covoiturage Libre just [here](https://github.com/covoiturage-libre/covoiturage-libre-android).
 
+[![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre)
+
 ## Licence
 
-![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png) 
+![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png)
 GNU AFFERO GENERAL PUBLIC LICENSE v3.0, see [LICENCE](LICENSE)
 
 Any reuse of the code must go through a strong speech with the staff members, do not hesitate to open an "Issue" to discuss it. We want the widest federated Project as possible, avoiding forks that do not COMMUNICATE WITH US. (Thus, the proposed car-sharing will be better)
