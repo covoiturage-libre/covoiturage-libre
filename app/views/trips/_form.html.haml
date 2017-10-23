@@ -95,20 +95,26 @@
     }).addTo(myMap);
 
     var myRouting = L.Routing.control({
-      waypoints: [],
+      plan: L.Routing.plan([], {
+        draggableWaypoints: false, // disable live edit on map
+        addWaypoints: false,
+      }),
       routeWhileDragging: true,
-      show: false // setting show to false hides the directions text block
+      show: false, // setting show to false hides the directions text block
+      // disable live edit on map
+      lineOptions : {
+        addWaypoints: false
+      }
     }).addTo(myMap);
 
     var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
-    window.myTripDrawing = new TripDrawing().init(myRouting, initialTripPoints);
-    window.myRouting = myRouting;
+    var myTripDrawing = (new TripDrawing());
+    myTripDrawing.init(myRouting, initialTripPoints);
 
     // Sortabe steps
-    
+
     $( '#steps' ).sortable({
       handle: '.handle',
       placeholder: 'step-placeholder'
     });
-    
     $( '#steps' ).disableSelection();
