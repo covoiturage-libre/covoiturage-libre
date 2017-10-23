@@ -5,8 +5,7 @@ rvm:
 env:
   - DATABASE_URL=postgres://postgres@localhost/postgres
 before_script:
-  - bundle exec rake db:enable_postgis
-  - bin/rails db:migrate RAILS_ENV=test
+  - RAILS_ENV=test bundle exec rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City 
 cache: bundler
 services:
   - elasticsearch
