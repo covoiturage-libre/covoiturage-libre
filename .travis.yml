@@ -1,0 +1,19 @@
+language: ruby
+install: bundle install
+rvm:
+  - 2.4.2
+env:
+  - DATABASE_URL=postgres://postgres@localhost/postgres
+before_script:
+  - bundle exec rake db:enable_postgis
+  - bin/rails db:migrate RAILS_ENV=test
+cache: bundler
+services:
+  - elasticsearch
+  - postgresql
+  - redis-server
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+    - postgresql-9.6-postgis-2.3

@@ -28,7 +28,9 @@ RSpec.configure do |config|
   config.include EmailSpec::Helpers
   config.include EmailSpec::Matchers
 
-  #config.include Paperclip::Shoulda::Matchers
+  config.include Shoulda::Matchers::ActiveModel, type: :model
+  config.include Shoulda::Matchers::ActiveRecord, type: :model
+  # config.include Paperclip::Shoulda::Matchers
 
   config.order = "random"
 
