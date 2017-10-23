@@ -76,10 +76,8 @@ class CitiesController < ApplicationController
     ["Bourges", "18000"]
   ]
   # Separate names and postal codes
-  MAIN_NAMES = []
-  MAIN_CITIES.each{ |city| MAIN_NAMES.push(city[0]) }
-  MAIN_POSTAL_CODES = []
-  MAIN_CITIES.each{ |city| MAIN_POSTAL_CODES.push(city[1]) }
+  MAIN_NAMES = MAIN_CITIES.map(&:first)
+  MAIN_POSTAL_CODES = MAIN_CITIES.map(&:last)
 
   def autocomplete
     @results = City.search(
@@ -94,7 +92,7 @@ class CitiesController < ApplicationController
   end
 
   def main
-    @results = City.where(name: MAIN_NAMES)
+    @results = City.where(postal_code: MAIN_POSTAL_CODES)
                    .sort_by{ |city| MAIN_NAMES.index city.name }[0, 5]
     render 'autocomplete'
   end
