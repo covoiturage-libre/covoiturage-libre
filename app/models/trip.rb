@@ -46,10 +46,14 @@ class Trip < ApplicationRecord
     matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
       point_a.id as point_a_id, point_a.price as point_a_price,
       point_b.id as point_b_id, point_b.price as point_b_price,
-      ST_Distance(
+
+      (ST_Distance(
         ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
-        ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')')
-      ) AS point_distance").
+        ST_GeographyFromText('SRID=4326;POINT(#{from_lon.to_f} #{from_lat.to_f})')
+      ) + ST_Distance(
+        ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
+        ST_GeographyFromText('SRID=4326;POINT(#{to_lon.to_f} #{to_lat.to_f})')
+      )) AS point_ab_distance").
     from('points AS point_a').
     joins('INNER JOIN points AS point_b ON point_b.trip_id = point_a.trip_id').
     where("ST_Dwithin(
@@ -61,7 +65,7 @@ class Trip < ApplicationRecord
            ST_GeographyFromText('SRID=4326;POINT(? ?)'),
            #{SEARCH_DISTANCE_IN_METERS})", to_lon.to_f, to_lat.to_f).
     where('point_a.rank < point_b.rank').
-    order('point_a.trip_id ASC, point_distance ASC')
+    order('point_a.trip_id ASC, point_ab_distance ASC')
 
     select('trips.*,
       point_a_id, point_a_price,

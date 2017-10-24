@@ -39,10 +39,10 @@ describe Trip, type: :model do
       }).to eq [{
         'id' => @trip.id,
         'price' => @trip.price,
-        'point_a_id' => @trip.points[1].id,
-        'point_a_price' => @trip.points[1].price,
-        'point_b_id' => @trip.points[2].id,
-        'point_b_price' => @trip.points[2].price
+        'point_a_id' => @trip.points[0].id,
+        'point_a_price' => @trip.points[0].price,
+        'point_b_id' => @trip.points[1].id,
+        'point_b_price' => @trip.points[1].price
       }]
     end
   end
