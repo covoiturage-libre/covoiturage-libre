@@ -2,11 +2,11 @@ require 'rails_helper'
 
 describe Trip, type: :model do
 
-  before(:all) do
+  before(:each) do
     city = City.create!
 
     @trip = Trip.create!(
-      departure_date: Date.today,
+      departure_date: Time.zone.today,
       departure_time: Time.now,
       price: 12,
       title: 'M',
