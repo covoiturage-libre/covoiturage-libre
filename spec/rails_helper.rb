@@ -35,12 +35,12 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :deletion, { except: %w[spatial_ref_sys] }
-    DatabaseCleaner.clean_with :truncation, { except: %w[spatial_ref_sys] }
     Rails.application.load_seed # loading seeds
   end
 
   config.before(:each) do
+    DatabaseCleaner.strategy = :deletion, { except: %w[spatial_ref_sys] }
+    DatabaseCleaner.clean_with :truncation, { except: %w[spatial_ref_sys] }
     DatabaseCleaner.start
   end
 
