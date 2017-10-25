@@ -13,6 +13,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
+DatabaseCleaner.strategy = :deletion, { except: ['spatial_ref_sys'] }
+DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
+
 Capybara.app_host = 'http://example.com'
 
 Rails.application.routes.default_url_options[:host] = 'www.example.com'
@@ -34,19 +37,22 @@ RSpec.configure do |config|
 
   config.order = "random"
 
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-    Rails.application.load_seed # loading seeds
-  end
-
   config.before(:each) do
     DatabaseCleaner.start
   end
 
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :deletion, { except: ['spatial_ref_sys'] }
+    DatabaseCleaner.clean_with :truncation, { except: ['spatial_ref_sys'] }
+
+    Rails.application.load_seed # loading seeds
+  end
+
   config.after(:each) do
     DatabaseCleaner.clean
-#    drop_schemas
+  end
+
+  config.after(:all) do
     Capybara.app_host = 'http://example.com'
     reset_mailer
   end
