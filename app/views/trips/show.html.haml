@@ -80,7 +80,10 @@
                     = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
           .col-md-4
             .main_seats
-              = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
+              - if @trip.seats == 0
+                Complet
+              - else
+                = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
         .row
           .col-md-9.col-md-offset-1
             %br
