@@ -1,8 +1,6 @@
 $borderColor      : #eeeeee;
 $mainLinkColor    : #e9f1ff;
 $priceColor       : #ff6f00;
-$beforeColor      : #F9DDFF;
-$afterColor       : #FAFFDD;
 
 hr.trip-list {
   margin-bottom: 0;
@@ -12,16 +10,9 @@ hr.trip-list {
 a.trip-item {
   display: block;
   color: black;
-  background-color: white;
 }
 a.trip-item:hover {
   background-color: $mainLinkColor;
-}
-a.trip-item-before {
-  background-color: $beforeColor;
-}
-a.trip-item-after {
-  background-color: $afterColor;
 }
 
 .trip {
@@ -35,13 +26,6 @@ a.trip-item-after {
     .title {
       font-weight: 400;
       font-size: 18px;
-
-      .grey_background {
-	  color: grey;
-      }
-      .blue_background {
-	  color: blue;
-      }
     }
   }
 
