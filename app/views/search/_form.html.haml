@@ -1,13 +1,6 @@
 - input_class = large_inputs ? 'input-lg' : ''
 - btn_class = large_inputs ? 'btn-lg' : ''
 
-%p Écrivez puis sélectionnez dans la liste :
-%ul
-  %li une ville de départ et une ville d'arrivée
-  %li ou seulement une ville de départ
-  %li ou seulement une ville d'arrivée
-%p Le moteur va rechercher à 25km près
-
 = simple_form_for @search, url: search_url, method: :get, html: { class: 'form-inline' } do |f|
   = f.input :from_city, as: :string, input_html: { class: "#{input_class} geoname" }, label: false, placeholder: 'De'
   = f.input :from_lon, as: :hidden
@@ -23,17 +16,15 @@
 
 - content_for :javascript_footer do
   :javascript
-    $(".geoname").geonameAutocomplete();
-
-    $(".datepicker").datepicker({
-      dateFormat: "DD dd MM yy",
+    $('.geoname').geonameAutocomplete();
+    $('.datepicker').datepicker({
+      dateFormat: "dd/mm/yy",
       minDate: 0
     });
-
-    $(".btn-search-inverse-cities").click(function() {
-      ["city", "lon", "lat"].forEach(function(fieldName) {
-        var $fromInput = $("#search_from_" + fieldName);
-        var $toInput = $("#search_to_" + fieldName);
+    $('.btn-search-inverse-cities').click(function() {
+      ['city', 'lon', 'lat'].forEach(function(fieldName) {
+        var $fromInput = $('#search_from_' + fieldName);
+        var $toInput = $('#search_to_' + fieldName);
 
         var fromValue = $fromInput.val();
         $fromInput.val($toInput.val());
@@ -41,33 +32,4 @@
       });
 
       return false;
-    });
-
-    $("#new_search").submit(function() {
-      var emptyCityGeoCount = 4;
-      $(this).find("input.hidden").each(function() {
-        var value = $(this).val();
-        if (value && value !== "") {
-          emptyCityGeoCount -= 1;
-        }
-      });
-      if (emptyCityGeoCount > 2) { // No city fully selected with geo
-        var input = $("#search_to_city");
-
-        // Display error
-        input.parent().addClass("has-error");
-        var inputHelpBlock = input.next(".help-block");
-        if (inputHelpBlock.length > 0) {
-          inputHelpBlock.show();
-        } else { // Create it
-          $("<span>", {
-            class: "help-block",
-            text: "Selectionnez une ville *dans* la liste"
-          }).insertAfter(input);
-        }
-
-        return false; // Prevent submission
-      }
-
-      return true;
     });
