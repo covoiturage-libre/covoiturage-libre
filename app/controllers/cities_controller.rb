@@ -5,7 +5,6 @@ class CitiesController < ApplicationController
   MAIN_CITIES = [
     ["Paris", "75000"],
     ["Marseille", "13000"],
-    ["Bruxelles", "1000"],
     ["Lyon", "69000"],
     ["Toulouse", "31000"],
     ["Nice", "06000"],
@@ -14,6 +13,7 @@ class CitiesController < ApplicationController
     ["Montpellier", "34000"],
     ["Bordeaux", "33000"],
     ["Lille", "59000"],
+    ["Bruxelles", "1000"],
     ["Rennes", "35000"],
     ["Reims", "51100"],
     ["Le Havre", "76620"],
