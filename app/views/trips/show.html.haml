@@ -80,7 +80,10 @@
                     = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
           .col-md-4
             .main_seats
-              = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
+              - if @trip.seats == 0
+                Complet
+              - else
+                = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
         .row
           .col-md-9.col-md-offset-1
             %br
@@ -118,8 +121,15 @@
       }).addTo(map);
 
       L.Routing.control({
-        waypoints: tripPoints,
+        plan: L.Routing.plan(tripPoints, {
+          draggableWaypoints: false, // disable live edit on map
+          addWaypoints: false,
+        }),
         routeWhileDragging: true,
-        show: false // setting show to false hides the directions text block
+        show: false, // setting show to false hides the directions text block
+        // disable live edit on map
+        lineOptions : {
+          addWaypoints: false
+        }
       }).addTo(map);
     });
