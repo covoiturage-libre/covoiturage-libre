@@ -1,4 +1,4 @@
-# Covoiturage Libre
+# Covoiturage Libre [![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre)
 
 Covoiturage Libre is a Carpooling Open Source platform, originally created for the French website https://covoiturage-libre.fr. Click on the button below to access it :
 
@@ -12,8 +12,6 @@ You can help us without knowing how to code, click on the buttons below ;)
 <a href="https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante" target="_blank"><img src="https://www.helloasso.com/Areas/HelloAsso/docs/helloasso-logo-couleurs-2015.png" height="90"/></a>
 
 You can find the repository for the Android App of Covoiturage Libre just [here](https://github.com/covoiturage-libre/covoiturage-libre-android).
-
-[![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre)
 
 ## Licence
 
@@ -33,4 +31,4 @@ We have [General Informations](https://github.com/covoiturage-libre/covoiturage-
 We use this two platforms to test new features and resolve bugs, before pushing to the real platform, you can try them by clicking the buttons below :
 
 <a href="https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" height="60"/></a>
-<a href="https://my.scalingo.com/deploy?source=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
+<a href="https://covoli-dev.scalingo.io/" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
