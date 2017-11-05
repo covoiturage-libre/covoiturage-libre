@@ -1,6 +1,13 @@
 - input_class = large_inputs ? 'input-lg' : ''
 - btn_class = large_inputs ? 'btn-lg' : ''
 
+%p Écrivez puis sélectionnez dans la liste :
+%ul 
+  %li une ville de départ et une ville d'arrivée
+  %li ou seulement une ville de départ
+  %li ou seulement une ville d'arrivée
+%p Le moteur va rechercher à 25km près
+
 = simple_form_for @search, url: search_url, method: :get, html: { class: 'form-inline' } do |f|
   = f.input :from_city, as: :string, input_html: { class: "#{input_class} geoname" }, label: false, placeholder: 'De'
   = f.input :from_lon, as: :hidden
@@ -18,9 +25,21 @@
   :javascript
     $('.geoname').geonameAutocomplete();
     $('.datepicker').datepicker({
-      dateFormat: "dd/mm/yy",
+      dateFormat: "DD dd MM yy",
       minDate: 0
     });
+
+    $('.geoname').click(function() {
+      $(this).autocomplete('search', $(this).val());
+    });
+    $('.geoname').focus(function() {
+      $(this).autocomplete('search', $(this).val());
+    });
+    $('#search_from_city').on('click focus', function() {
+      $('#search_from_lon').val('');
+      $('#search_from_lat').val('');
+    });
+
     $('.btn-search-inverse-cities').click(function() {
       ['city', 'lon', 'lat'].forEach(function(fieldName) {
         var $fromInput = $('#search_from_' + fieldName);
