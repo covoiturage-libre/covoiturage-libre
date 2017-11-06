@@ -31,4 +31,4 @@ We have [General Informations](https://github.com/covoiturage-libre/covoiturage-
 We use this two platforms to test new features and resolve bugs, before pushing to the real platform, you can try them by clicking the buttons below :
 
 <a href="https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" height="60"/></a>
-<a href="https://covoli-dev.scalingo.io/" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
+<a href="https://my.scalingo.com/deploy?source=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
