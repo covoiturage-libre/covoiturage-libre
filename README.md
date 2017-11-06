@@ -1,4 +1,4 @@
-# Covoiturage Libre
+# Covoiturage Libre [![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre)
 
 Covoiturage Libre is a Carpooling Open Source platform, originally created for the French website https://covoiturage-libre.fr. Click on the button below to access it :
 
@@ -15,7 +15,7 @@ You can find the repository for the Android App of Covoiturage Libre just [here]
 
 ## Licence
 
-![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png) 
+![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png)
 GNU AFFERO GENERAL PUBLIC LICENSE v3.0, see [LICENCE](LICENSE)
 
 Any reuse of the code must go through a strong speech with the staff members, do not hesitate to open an "Issue" to discuss it. We want the widest federated Project as possible, avoiding forks that do not COMMUNICATE WITH US. (Thus, the proposed car-sharing will be better)
@@ -31,4 +31,4 @@ We have [General Informations](https://github.com/covoiturage-libre/covoiturage-
 We use this two platforms to test new features and resolve bugs, before pushing to the real platform, you can try them by clicking the buttons below :
 
 <a href="https://heroku.com/deploy?template=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://www.herokucdn.com/deploy/button.svg" height="60"/></a>
-<a href="https://my.scalingo.com/deploy?source=https://github.com/covoiturage-libre/covoiturage-libre" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
+<a href="https://covoli-dev.scalingo.io/" target="_blank"><img src="https://cdn.scalingo.com/deploy/button.svg" height="60"/></a>
