@@ -89,11 +89,7 @@ var TripDrawing = function() {
   self.manageCocoonEvents = function() {
     $("#steps")
       .on("cocoon:before-insert", function(e, el) {
-        if ($("#steps .nested-fields").length > self.maxRank - 2) {
-          self.maxReached = true;
-        } else {
-          self.maxReached = false;
-        }
+        self.maxReached = $("#steps .nested-fields").length > self.maxRank - 2;
       })
       .on("cocoon:after-insert", function(e, el) {
         if (!self.maxReached) {
