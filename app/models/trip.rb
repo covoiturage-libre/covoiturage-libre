@@ -5,10 +5,7 @@ class Trip < ApplicationRecord
   STATES = %w(pending confirmed deleted).freeze
 
   # maximum nb of steps = max rank - 1
-  @@steps_max_rank = 16
-  def self.steps_max_rank
-    @@steps_max_rank
-  end
+  STEPS_MAX_RANK = 16
 
   SEARCH_DISTANCE_IN_METERS = 25_000
 

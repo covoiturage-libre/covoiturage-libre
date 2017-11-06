@@ -109,7 +109,7 @@
 
     var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
     var myTripDrawing = (new TripDrawing());
-    myTripDrawing.init(myRouting, initialTripPoints, #{Trip.steps_max_rank});
+    myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
 
     // Sortabe steps
 
