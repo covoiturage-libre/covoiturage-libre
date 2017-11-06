@@ -82,8 +82,10 @@ class CitiesController < ApplicationController
     @results = City.search(
       params[:term],
       limit: 5,
-      boost_where: { postal_code: MAIN_POSTAL_CODES,
-        country_code: { value: 'FR', factor: 5 } },
+      boost_where: {
+        postal_code: { value: MAIN_POSTAL_CODES, factor: 8 },
+        country_code: { value: 'FR', factor: 5 }
+      },
       fields: [:name, :postal_code],
       match: params[:term].to_i > 0 ? :word : :word_start,
       highlight: true
