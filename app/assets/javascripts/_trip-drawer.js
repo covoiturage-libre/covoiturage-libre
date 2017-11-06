@@ -61,12 +61,12 @@ var Point = function(lat, lon, rank, kind) {
 var TripDrawing = function() {
   var self = this;
 
-  self.init = function(aRouting, aPointArray) {
+  self.init = function(aRouting, aPointArray, maxRank) {
     self.totalDistance = 0.0;
     self.totalTime = 0.0;
     // depends on server side model point.rb
     // max nb of steps = maxRank - 1
-    self.maxRank = 16;
+    self.maxRank = maxRank;
     self.maxReached = false;
     // trip is passing by those points
     self.points = [];
