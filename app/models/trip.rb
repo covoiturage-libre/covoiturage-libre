@@ -1,3 +1,4 @@
+# coding: utf-8
 class Trip < ApplicationRecord
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
@@ -185,6 +186,22 @@ class Trip < ApplicationRecord
     new_trip
   end
 
+  def before_actual_time
+    self.departure_time.hour < Time.now.hour || (self.departure_time.hour == Time.now.hour && self.departure_time.min <= Time.now.min)
+  end
+  
+  def is_before_today?
+    self.departure_date == Date.today && self.before_actual_time
+  end
+  
+  def is_strictly_before(the_date)
+    self.departure_date < the_date
+  end
+  
+  def is_strictly_after(the_date)
+    self.departure_date > the_date
+  end
+  
   private
 
     def must_have_from_and_to_points

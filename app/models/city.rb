@@ -6,7 +6,7 @@ class City < ApplicationRecord
              highlight: [:name, :postal_code]
 
   def search_data
-    attributes.merge location: {lat: lat, lon: lon}
+    attributes.merge location: { lat: lat, lon: lon }
   end
 
 end
