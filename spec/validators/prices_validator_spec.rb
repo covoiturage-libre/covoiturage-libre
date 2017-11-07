@@ -23,23 +23,23 @@ describe PricesValidator, type: :model do
         Point.new,
         Point.new(price: 20),
         Point.new(price: 30)
-      ], price: 10.7) # will override 30
+      ], price: 10) # will override 30
       expect(PricesValidator.new.validate(trip)).to be false
       expect(trip.errors[:price].any?).to be true
-      expect(trip.price).to eq 10.7
+      expect(trip.price).to eq 10
     end
 
     it "should do nothing with object with well ordered prices" do
       trip = Trip.new(points: [
         Point.new,
-        Point.new(price: 2.7),
-        Point.new(price: 10.3),
-        Point.new(price: 10.3),
+        Point.new(price: 27),
+        Point.new(price: 103),
+        Point.new(price: 103),
         Point.new
-      ], price: 10.8)
+      ], price: 108)
       expect(PricesValidator.new.validate(trip)).to be true
       expect(trip.errors[:price].empty?).to be true
-      expect(trip.price).to eq 10.8
+      expect(trip.price).to eq 108
     end
 
   end
