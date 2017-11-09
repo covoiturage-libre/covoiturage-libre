@@ -17,5 +17,8 @@
     .price
       %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
       .seats
-        = "#{trip.seats} places"
+        - if trip.seats == 0
+          Complet
+        - else
+          = "#{trip.seats} place#{'s' if trip.seats > 1}"
     .clearfix

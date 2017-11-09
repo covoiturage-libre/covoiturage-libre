@@ -62,5 +62,15 @@
   },
   "scripts": {
     "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    },
+    "delayedjob": {
+      "quantity": 1,
+      "size": "free"
+    }
   }
 }
