@@ -67,7 +67,7 @@ gem 'route_translator'
 ### Services
 
 gem 'mailjet'
-gem 'appsignal'
+gem 'sentry-raven' # Errors tracking
 
 ### Image manipularion
 
