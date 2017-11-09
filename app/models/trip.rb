@@ -4,6 +4,10 @@ class Trip < ApplicationRecord
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
   CAR_RATINGS = %w(standard comfort first_class luxury).freeze
   STATES = %w(pending confirmed deleted).freeze
+
+  # maximum nb of steps = max rank - 1
+  STEPS_MAX_RANK = 16
+
   SEARCH_DISTANCE_IN_METERS = 25_000
 
   has_many :points, -> { order('rank asc') }, inverse_of: :trip, dependent: :destroy

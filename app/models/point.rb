@@ -28,7 +28,7 @@ class Point < ApplicationRecord
     end
 
     def set_to_rank
-      self.rank = 99 if self.kind == 'To'
+      self.rank = Trip::STEPS_MAX_RANK if self.kind == 'To'
     end
 
 end

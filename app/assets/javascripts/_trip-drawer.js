@@ -61,11 +61,11 @@ var Point = function(lat, lon, rank, kind) {
 var TripDrawing = function() {
   var self = this;
 
-  self.init = function(aRouting, aPointArray) {
+  self.init = function(aRouting, aPointArray, maxRank) {
     self.totalDistance = 0.0;
     self.totalTime = 0.0;
-    // this is also defined in the model
-    self.maxRank = 99;
+    self.maxRank = maxRank;
+    self.maxReached = false;
     // trip is passing by those points
     self.points = [];
     // to check for changes
@@ -86,9 +86,16 @@ var TripDrawing = function() {
 
   self.manageCocoonEvents = function() {
     $("#steps")
+      .on("cocoon:before-insert", function(e, el) {
+        self.maxReached = $("#steps .nested-fields").length > self.maxRank - 2;
+      })
       .on("cocoon:after-insert", function(e, el) {
-        $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
-        self.reorderSteps();
+        if (!self.maxReached) {
+          $(el).find(".trip_points_lon input:first").change(self.reorderSteps);
+          self.reorderSteps();
+        } else {
+          $("#steps .nested-fields").last().remove();
+        }
       })
       .on("cocoon:after-remove", function(e, el) {
         self.reorderSteps();

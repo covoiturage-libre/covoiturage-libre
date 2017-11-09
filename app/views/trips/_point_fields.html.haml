@@ -8,7 +8,6 @@
     = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
   .col-xs-3
     = f.input :price, wrapper: :step_horizontal_form, input_html: { min: '0', step: '1' }, placeholder: '* Prix'.html_safe
-
   = f.input :lon, as: :hidden
   = f.input :lat, as: :hidden
   = f.input :kind, as: :hidden, input_html: { value: f.object.kind || 'Step' }
