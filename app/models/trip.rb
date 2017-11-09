@@ -1,3 +1,4 @@
+# coding: utf-8
 class Trip < ApplicationRecord
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
@@ -24,14 +25,16 @@ class Trip < ApplicationRecord
   validates_inclusion_of :state, in: STATES
   validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an."
   validates_numericality_of :seats, only_integer: true, greater_than_or_equal_to: 0
-  validates_numericality_of :price, greater_than_or_equal_to: 0
+  validates_numericality_of :price, only_integer: true, greater_than_or_equal_to: 0
   validates_numericality_of :age, only_integer: true, allow_blank: true, greater_than: 0, less_than: 100
+
   validate :must_have_from_and_to_points
   validates_acceptance_of :terms_of_service
   validates :email, email: true
   validates_with PricesValidator
-  # strip whitespaces before validation and save
+
   before_validation :strip_whitespace
+
   def strip_whitespace
     self.email = self.email.strip unless self.email.nil?
     self.name = self.name.strip unless self.name.nil?
@@ -189,6 +192,22 @@ class Trip < ApplicationRecord
     new_trip
   end
 
+  def before_actual_time
+    self.departure_time.hour < Time.now.hour || (self.departure_time.hour == Time.now.hour && self.departure_time.min <= Time.now.min)
+  end
+  
+  def is_before_today?
+    self.departure_date == Date.today && self.before_actual_time
+  end
+  
+  def is_strictly_before(the_date)
+    self.departure_date < the_date
+  end
+  
+  def is_strictly_after(the_date)
+    self.departure_date > the_date
+  end
+  
   private
 
     def must_have_from_and_to_points

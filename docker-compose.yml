@@ -3,7 +3,7 @@ version: '2.1'
 services:
 
   db:
-    image: mdillon/postgis
+    image: mdillon/postgis:9.6
     environment:
       - POSTGRES_PASSWORD=password
 ### Uncomment to enable DB persistance
@@ -11,13 +11,13 @@ services:
 #      - ./postgres:/var/lib/postgresql/data
 
   redis:
-    image: redis
+    image: redis:3.2.9
 ### Uncomment to enable REDIS persistance
 #    volumes:
 #      - ./redis:/data
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.3
 ### Uncomment to enable ELASTICSEARCH persistance
 #    volumes:
 #      - ./elasticsearch:/var/lib/elasticsearch/data

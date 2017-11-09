@@ -8,8 +8,9 @@ class Point < ApplicationRecord
   validates_inclusion_of :kind, in: KINDS
   validates_numericality_of :rank
   validate :lat_lon_must_be_set
-  validates :price, presence: true, if: Proc.new { |p| p.kind == 'Step' },
-                    numericality: { greater_than_or_equal_to: 0 }
+
+  validates :price, presence: true, if: Proc.new { |p| !p.price.nil? || p.kind == 'Step' },
+                    numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_validation :set_from_rank, :set_to_rank
 
