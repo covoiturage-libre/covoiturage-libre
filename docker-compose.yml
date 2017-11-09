@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.3'
 
 services:
 
@@ -25,7 +25,7 @@ services:
   web:
     build:
       context: .
-    command: bash -c "bundle exec rake db:migrate && bundle exec rake searchkick:reindex CLASS=City && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
+    command: bash -c "./wait-for-it.sh db:5432 elasticsearch:9200 redis:6379 -- bundle exec rake db:migrate && bundle exec rake searchkick:reindex CLASS=City && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
     ports:
       - "3000:3000"
     depends_on:
@@ -42,13 +42,14 @@ services:
   delayedjob:
     build:
       context: .
-    command: bash -c "bin/delayed_job run"
+    command: bash -c "./wait-for-it.sh web:3000 bin/delayed_job run"
     ports:
       - "3001:3000"
     depends_on:
       - db
       - elasticsearch
       - redis
+      - web # For Database migrations
     volumes:
       - .:/covoiturage-libre
     environment:
