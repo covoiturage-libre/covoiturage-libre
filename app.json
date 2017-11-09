@@ -55,6 +55,10 @@
       "description": "Google Analytics",
       "required": false
     },
+    "SENTRY_RAVEN_DSN": {
+      "description": "To report occurring errors.",
+      "required": false
+    },
     "SLAASK_WIDGET_KEY": {
       "description": "For visitors chat with you.",
       "required": false

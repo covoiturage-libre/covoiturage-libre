@@ -43,6 +43,9 @@
     "GA_TRACKING_ID": {
       "description": "Google Analytics"
     },
+    "SENTRY_RAVEN_DSN": {
+      "description": "To report occurring errors."
+    },
     "SLAASK_WIDGET_KEY": {
       "description": "For visitors chat with you."
     }
