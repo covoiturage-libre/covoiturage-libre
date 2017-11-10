@@ -66,7 +66,7 @@
 
     / GTM
     = render 'layouts/ga' if ENV['GA_TRACKING_ID'].present?
-    = render 'layouts/sentry_raven' if ENV['SENTRY_RAVEN_DSN'].present?
+    = render 'layouts/sentry_raven' if ENV['SENTRY_DSN'].present?
 
   %body
     = render 'layouts/navbar'
