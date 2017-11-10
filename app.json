@@ -55,7 +55,7 @@
       "description": "Google Analytics",
       "required": false
     },
-    "SENTRY_RAVEN_DSN": {
+    "SENTRY_DSN": {
       "description": "To report occurring errors.",
       "required": false
     },
