@@ -23,7 +23,7 @@ class Trip < ApplicationRecord
   validates_inclusion_of :smoking, in: [true, false]
   validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_inclusion_of :state, in: STATES
-  validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an."
+  validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date située entre aujourd'hui et dans 1 an."
   validates_numericality_of :seats, only_integer: true, greater_than_or_equal_to: 0
   validates_numericality_of :price, only_integer: true, greater_than_or_equal_to: 0
   validates_numericality_of :age, only_integer: true, allow_blank: true, greater_than: 0, less_than: 100
@@ -195,19 +195,19 @@ class Trip < ApplicationRecord
   def before_actual_time
     self.departure_time.hour < Time.now.hour || (self.departure_time.hour == Time.now.hour && self.departure_time.min <= Time.now.min)
   end
-  
+
   def is_before_today?
     self.departure_date == Date.today && self.before_actual_time
   end
-  
+
   def is_strictly_before(the_date)
     self.departure_date < the_date
   end
-  
+
   def is_strictly_after(the_date)
     self.departure_date > the_date
   end
-  
+
   private
 
     def must_have_from_and_to_points
