@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112160152) do
+ActiveRecord::Schema.define(version: 20171112112549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 20170112160152) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.index "st_geographyfromtext((((('SRID=4326;POINT('::text || lon) || ' '::text) || lat) || ')'::text))", name: "index_on_points_location", using: :gist
+    t.index ["kind"], name: "index_points_on_kind", using: :btree
+    t.index ["rank"], name: "index_points_on_rank", using: :btree
     t.index ["trip_id"], name: "index_points_on_trip_id", using: :btree
   end
 
@@ -140,6 +142,12 @@ ActiveRecord::Schema.define(version: 20170112160152) do
     t.float    "total_distance"
     t.float    "total_time"
     t.integer  "user_id"
+    t.index ["confirmation_token"], name: "index_trips_on_confirmation_token", using: :btree
+    t.index ["created_at"], name: "index_trips_on_created_at", using: :btree
+    t.index ["departure_date"], name: "index_trips_on_departure_date", using: :btree
+    t.index ["departure_time"], name: "index_trips_on_departure_time", using: :btree
+    t.index ["edition_token"], name: "index_trips_on_edition_token", using: :btree
+    t.index ["state"], name: "index_trips_on_state", using: :btree
     t.index ["user_id"], name: "index_trips_on_user_id", using: :btree
   end
 
