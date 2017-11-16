@@ -7,7 +7,7 @@ describe UserMailer  do
     it "should not resend trip_information during TRIP_INFORMATION_TIME_LIMIT" do
       trip = create(:trip)
       previous_env = ENV['TRIP_INFORMATION_TIME_LIMIT']
-      ENV['TRIP_INFORMATION_TIME_LIMIT'] = 0
+      ENV['TRIP_INFORMATION_TIME_LIMIT'] = '0'
 
       expect(described_class.new.trip_information(trip)).to_not be_nil
       sleep 1
