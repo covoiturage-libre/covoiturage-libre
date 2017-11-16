@@ -88,8 +88,6 @@ describe Trip, type: :model do
         results = Trip.to_only(1.26, 1.25)
                       .where(id: @trip.id)
 
-        puts results.map(&:to_json)
-        puts results.map(&:attributes)
         expect(results).to be_a ActiveRecord::Relation
         expect(results.map { |result|
           result.attributes.slice(
