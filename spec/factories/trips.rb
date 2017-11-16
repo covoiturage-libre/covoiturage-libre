@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :trip do
     points { build_list(:point, 4) }
-    users { create_list(:user, 1) }
+    # users { create_list(:user, 1) }
   end
 end
