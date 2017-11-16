@@ -2,6 +2,21 @@
 require "rails_helper"
 
 describe UserMailer  do
+
+  describe "trip_information" do
+    it "should not resend trip_information during TRIP_INFORMATION_TIME_LIMIT" do
+      trip = create(:trip)
+      previous_env = ENV['TRIP_INFORMATION_TIME_LIMIT']
+      ENV['TRIP_INFORMATION_TIME_LIMIT'] = 0
+
+      expect(described_class.new.trip_information(trip)).to_not be_nil
+      sleep 1
+      expect(described_class.new.trip_information(trip)).to be_nil
+
+      ENV['TRIP_INFORMATION_TIME_LIMIT'] = previous_env
+    end
+  end
+
   describe "invite" do
     skip "DEPRECATED" do
       context "headers" do

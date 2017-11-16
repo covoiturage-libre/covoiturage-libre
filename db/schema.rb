@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112112549) do
+ActiveRecord::Schema.define(version: 20171115235603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 20171112112549) do
     t.float    "total_distance"
     t.float    "total_time"
     t.integer  "user_id"
+    t.datetime "last_trip_information_at"
     t.index ["confirmation_token"], name: "index_trips_on_confirmation_token", using: :btree
     t.index ["created_at"], name: "index_trips_on_created_at", using: :btree
     t.index ["departure_date"], name: "index_trips_on_departure_date", using: :btree
