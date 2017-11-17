@@ -6,7 +6,7 @@ FactoryGirl.define do
     city
 
     lat 12
-    lng 2
+    lon 2
 
     kind { Point::KINDS.sample }
     rank { rand(0..99) }
