@@ -1,0 +1,27 @@
+.container.p-home__banner
+  .row
+    .col-sm-12
+      %button.home__banner_close.glyphicon.glyphicon-remove-circle
+      = image_tag 'lilo-blue.png', alt: 'Lilo', class: 'home__banner_logo'
+      %h3.p-home__heading Chères utilisatrices et chers utilisateurs,
+      %p
+        Covoiturage-libre.fr est un service gratuit porté par une association à but non lucratif. <strong>Grâce au moteur de recherche Lilo, vous pouvez nous financer sans bourse délier</strong> en nous donnant les <em>gouttes d'eau</em> que vous gagnez à chaque recherche.
+      %p
+        Merci pour votre soutien&nbsp;!
+  .row
+    .col-sm-12
+      = link_to 'Découvrir le moteur de recherche Lilo', 'https://www.lilo.org/?utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
+      = link_to 'Déjà sur Lilo ? Donnez-nous vos gouttes !', 'https://www.lilo.org/?p=9680&utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
+
+- content_for :javascript_footer do
+  :javascript
+    // Close button for banner
+    var banner = $(".p-home__banner");
+    var banner_close = $(".home__banner_close");
+    banner_close.on("click", function() {
+      banner_close.hide();
+      banner.animate({height: 0}, 500, function() {
+        // Animation complete.
+        banner.hide();
+      });
+    });

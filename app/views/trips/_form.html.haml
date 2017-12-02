@@ -65,7 +65,7 @@
           -if @trip.new_record?
             %div{style: "padding-left: 15px;"}= f.input :terms_of_service, label: "Je valide les #{link_to('CGUs', '/cgus', target: '_blank')}".html_safe
         .col-md-6
-          = f.button :submit, class: 'btn btn-primary btn-lg pull-right'
+          = f.button :submit, class: 'btn btn-primary btn-lg pull-right', style: 'margin-bottom: 1em;'
 
     .col-md-6
       .panel.panel-default

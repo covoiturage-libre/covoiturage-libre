@@ -86,6 +86,32 @@ $bgFeatureBlock: #fffbf2 !default;
   }
 }
 
+.p-home__banner {
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
+  .btn {
+      @media screen and (max-width: 992px) {
+        font-size: 14px;
+      }
+    background-color: $blue-shade;
+    color: #fff;
+    margin-bottom: $spacing-unit;
+  }
+  .home__banner_close {
+    float: right;
+    font-size: 2em;
+    background-color: #fff;
+    border: 0;
+  }
+  .home__banner_close:hover {
+    color: $blue-shade;
+  }
+  .home__banner_logo {
+    float: left;
+    margin-right: 1em;
+  }
+}
+
 .p-home__cities {
   background-color: $bgDefault;
   padding-bottom: $spacing-unit;
