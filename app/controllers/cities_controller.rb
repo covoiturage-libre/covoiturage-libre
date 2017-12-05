@@ -79,13 +79,18 @@ class CitiesController < ApplicationController
   MAIN_POSTAL_CODES = MAIN_CITIES.map(&:last)
 
   def autocomplete
+    term = params[:term]
+
     @results = City.search(
-      params[:term],
+      term,
       limit: 5,
-      boost_where: { postal_code: MAIN_POSTAL_CODES,
-        country_code: { value: 'FR', factor: 5 } },
+      boost_where: {
+       "name.word_start" => { value: term, factor: 20, operator: 'and', analyzer: 'searchkick_word_search' },
+       in: { postal_code: MAIN_POSTAL_CODES, factor: 10 },
+       country_code: { value: 'FR', factor: 5 }
+      },
       fields: [:name, :postal_code],
-      match: params[:term].to_i > 0 ? :word : :word_start,
+      match: term.to_i > 0 ? :word : :word_start,
       highlight: true
     )
   end
