@@ -85,7 +85,8 @@ class CitiesController < ApplicationController
       term,
       limit: 5,
       boost_where: {
-       "name.word_start" => { value: term, factor: 20, operator: 'and', analyzer: 'searchkick_word_search' },
+       "name.text_start" => { value: term, factor: 20 },
+       "name.word_start" => { value: term, factor: 15 },
        in: { postal_code: MAIN_POSTAL_CODES, factor: 10 },
        country_code: { value: 'FR', factor: 5 }
       },
