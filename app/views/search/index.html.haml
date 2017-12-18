@@ -1,5 +1,5 @@
 - content_for :search_zone do
-  .jumbotron.small-jumbotron
+  .jumbotron.small-jumbotron{ style: ENV['JUMBOTRON_IMAGE'] ? "background-image: image_url('#{ENV['JUMBOTRON_IMAGE']}')" : '' }
     .container
       .row
         .col-md-9.col-md-offset-1
