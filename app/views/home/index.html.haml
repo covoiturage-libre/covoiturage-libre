@@ -9,7 +9,7 @@
         = @page_part_1.try(:body)
 
 - content_for :search_zone do
-  .jumbotron
+  .jumbotron{ style: ENV['JUMBOTRON_IMAGE'] ? "background-image: url('#{asset_path(ENV['JUMBOTRON_IMAGE'])}')" : '' }
     .container
       .row
         .col-md-9
