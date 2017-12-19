@@ -39,7 +39,7 @@ services:
       - ELASTICSEARCH_URL=http://elastic:changeme@elasticsearch:9200
       - REDIS_URL=redis://redis:6379
 
-  delayedjob:
+  worker:
     build:
       context: .
     command: bash -c "./wait-for-it.sh web:3000 -- bin/delayed_job run"
