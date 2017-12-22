@@ -6,7 +6,7 @@
   .container
     .row
       .col-sm-12
-        = @page_part_1&.body
+        = @page_part_1.try(:body)
 
 - content_for :search_zone do
   .jumbotron{ style: ENV['JUMBOTRON_IMAGE'] ? "background-image: url('#{asset_path(ENV['JUMBOTRON_IMAGE'])}')" : '' }
