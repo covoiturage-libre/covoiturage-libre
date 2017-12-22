@@ -15,7 +15,7 @@
       .details
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
     .price
-      %p= "#{trip_price(trip, trip&.point_a_price, trip&.point_b_price)} €"
+      %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
       .seats
         - if trip.seats == 0
           Complet
