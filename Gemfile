@@ -3,7 +3,7 @@ ruby '~> 2.5.0'
 
 ### Main Gems
 
-gem 'rails', '~> 5.0', '< 5.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1' # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 ### Database
 
@@ -39,7 +39,7 @@ gem 'rack-rewrite'
 gem 'bootstrap-sass'
 gem 'sass-rails', '~> 5.0' # Use SCSS for stylesheets
 gem 'kaminari-bootstrap'
-gem 'uglifier', '~> 3.0' # Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '~> 4.0' # Use Uglifier as compressor for JavaScript assets
 gem 'jquery-rails', '~> 4.2' # Use jquery as the JavaScript library
 gem 'turbolinks', '~> 5.0' # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'jbuilder', '~> 2.6' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -85,8 +85,8 @@ gem 'redcarpet' # Require the Markdown converter gem
 gem 'activerecord-postgis-adapter'
 
 group :development, :test do
-  gem 'byebug', '~> 9.0', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec', '~> 3.5'
+  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec', '~> 3.7'
   gem 'rspec-rails'
   gem 'capybara'
   gem 'factory_bot_rails'
@@ -98,10 +98,10 @@ end
 group :development do
   gem 'letter_opener'
   gem 'letter_opener_web'
-  gem 'web-console', '~> 3.3' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.0'
-  gem 'spring', '~> 1.7' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen', '~> 2.0'
+  gem 'web-console' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'listen'
+  gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring-watcher-listen'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
