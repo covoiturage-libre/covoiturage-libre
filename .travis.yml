@@ -1,12 +1,11 @@
 language: ruby
-install: bundle install
 rvm:
   - 2.5.0
+before_install: gem update --system
+install: bundle install
+cache: bundler
 env:
   - DATABASE_URL=postgres://postgres@localhost/postgres
-before_script:
-  - RAILS_ENV=test bundle exec rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City
-cache: bundler
 services:
   - elasticsearch
   - postgresql
@@ -16,3 +15,5 @@ addons:
   apt:
     packages:
     - postgresql-9.6-postgis-2.3
+before_script:
+  - RAILS_ENV=test bundle exec rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City
