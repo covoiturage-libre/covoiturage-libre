@@ -18,7 +18,7 @@ describe 'account creation' do
     end
 
     it 'allows account followup creation' do
-      subdomain2 = FactoryGirl.generate(:subdomain)
+      subdomain2 = FactoryBot.generate(:subdomain)
       sign_up_when_logged_in(subdomain2)
       expect(page.current_url).to include(subdomain2)
       expect(Account.all.count).to eq(2)
@@ -37,7 +37,7 @@ describe 'account creation' do
     end
 
     def sign_up(subdomain)
-  		owner = FactoryGirl.attributes_for(:user)
+  		owner = FactoryBot.attributes_for(:user)
 
       visit root_path
       click_link 'new_account'
@@ -52,7 +52,7 @@ describe 'account creation' do
     end
 
     def sign_up_when_logged_in(subdomain)
-      #owner = FactoryGirl.attributes_for(:user)
+      #owner = FactoryBot.attributes_for(:user)
 
       visit root_path(subdomain: false)
       click_link 'new_account'

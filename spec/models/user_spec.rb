@@ -3,7 +3,7 @@ require 'rails_helper'
 describe User, type: :model do
 
   before do
-    @user = FactoryGirl.create(:user)
+    @user = FactoryBot.create(:user)
   end
 
   subject { @user }
