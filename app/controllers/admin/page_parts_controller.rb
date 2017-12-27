@@ -1,6 +1,6 @@
 class Admin::PagePartsController < AdminController
 
-  before_filter :load_page_part, only: [:show, :edit, :update, :delete]
+  before_action :load_page_part, only: [:show, :edit, :update, :delete]
 
   def index
     @page_parts = Cms::PagePart.all
