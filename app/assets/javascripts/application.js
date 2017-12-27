@@ -15,7 +15,7 @@
 //= require jquery-ui/widgets/autocomplete
 //= require jquery-ui/widgets/sortable
 //= require jquery-ui/widgets/datepicker
-//= require jquery-ui/widgets/datepicker-fr
+//= require jquery-ui/datepicker-fr
 //= require jquery.ui.touch-punch.min.js
 //= require bootstrap-sprockets
 //= require leaflet.js.erb
