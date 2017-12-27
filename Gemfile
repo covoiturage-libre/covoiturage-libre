@@ -89,7 +89,7 @@ group :development, :test do
   gem 'rspec', '~> 3.5'
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'email_spec'

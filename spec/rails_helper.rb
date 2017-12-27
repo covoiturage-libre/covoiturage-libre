@@ -25,7 +25,7 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.include Rails.application.routes.url_helpers
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
 
   config.include EmailSpec::Helpers
