@@ -51,3 +51,10 @@
 .page-header {
   margin-top: 20px;
 }
+
+// See https://stackoverflow.com/a/13362292
+.ui-helper-hidden-accessible {
+  position: absolute;
+  left:-999em;
+}
+
