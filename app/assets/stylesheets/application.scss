@@ -1,8 +1,12 @@
 /*
  * import nothing from sprockets as it is explained here https://github.com/twbs/bootstrap-sass
+ *
  *= require ie10-viewport-bug-workaround
+
  *= require jquery-ui/autocomplete
  *= require jquery-ui/datepicker
+ *= require jquery-ui/menu
+ *
  *= require leaflet
  *= require leaflet-routing-machine
  */
