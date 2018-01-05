@@ -19,10 +19,6 @@
       "description": "Host for URL in mails.",
       "required": true
     },
-    "MAILER_HOST": {
-      "description": "Host for URL in mails.",
-      "required": true
-    },
     "MAILJET_API_KEY": {
       "description": "For mails.",
       "required": true
