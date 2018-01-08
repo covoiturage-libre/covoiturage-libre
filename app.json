@@ -65,14 +65,14 @@
   },
   "formation": {
     "web": {
+      "type": "web",
       "quantity": 1,
-      "size": "free",
-      "type": "web"
+      "size": "Free"
     },
     "delayedjob": {
+      "type": "worker",
       "quantity": 1,
-      "size": "free",
-      "type": "worker"
+      "size": "Free"
     }
   }
 }
