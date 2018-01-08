@@ -68,7 +68,7 @@
       "quantity": 1,
       "size": "Free"
     },
-    "delayedjob": {
+    "worker": {
       "quantity": 1,
       "size": "Free"
     }
