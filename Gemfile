@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '~> 2.5.0'
+ruby '>= 1.9.3'
 
 ### Main Gems
 
