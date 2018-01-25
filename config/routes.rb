@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   resources :cities do
     collection do
-      get 'autocomplete'
+      get 'autocomplete', defaults: { format: :json }
       get 'main'
     end
   end
