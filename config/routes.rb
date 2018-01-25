@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get 'search', to: 'search#index'
 
     get "/covoits/:from-:to", to: 'landing#index'
-    #get "/covoits/:from", to: 'landing#index'
+    # get "/covoits/:from", to: 'landing#index'
 
   end
 
