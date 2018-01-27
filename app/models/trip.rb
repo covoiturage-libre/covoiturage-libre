@@ -36,10 +36,10 @@ class Trip < ApplicationRecord
   before_validation :strip_whitespace
 
   def strip_whitespace
-    self.email = self.email.strip unless self.email.nil?
-    self.name = self.name.strip unless self.name.nil?
-    self.phone = self.phone.strip unless self.phone.nil?
-    self.description = self.description.strip unless self.description.nil?
+    self.email = strip_value(self.email)
+    self.name = strip_value(self.name)
+    self.phone = strip_value(self.phone)
+    self.description = strip_value(self.description)
   end
 
   after_create :send_confirmation_email
