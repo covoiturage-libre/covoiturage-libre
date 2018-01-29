@@ -332,6 +332,8 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
+    utf8-cleaner (0.2.5)
+      activesupport
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -407,6 +409,7 @@ DEPENDENCIES
   typhoeus
   tzinfo-data
   uglifier (~> 3.0)
+  utf8-cleaner (~> 0.2)
   web-console (~> 3.3)
 
 RUBY VERSION
