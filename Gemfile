@@ -28,6 +28,7 @@ gem 'awesome_print'
 ### App Server
 
 gem 'puma', '~> 3.6' # Use Puma as the app server
+gem 'utf8-cleaner', '~> 0.2'
 gem 'daemons' # for running delayed jobs
 
 ### Middlewares
