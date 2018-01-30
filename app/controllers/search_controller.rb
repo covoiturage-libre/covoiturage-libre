@@ -12,31 +12,31 @@ class SearchController < ApplicationController
         @trips = Trip
                    .unscoped
                    .includes(:points)
+                   .where('departure_date >= ?', @search.date_value)
+                   .where(state: 'confirmed')
                    .from_to(@search.from_lon, @search.from_lat, @search.to_lon, @search.to_lat)
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
-                   .where(state: 'confirmed')
-                   .where('departure_date >= ?', @search.date_value)
                    .page(params[:page]).per(10)
       elsif @search.from_lon.present?
         @trips = Trip
                    .unscoped
                    .includes(:points)
+                   .where('departure_date >= ?', @search.date_value)
+                   .where(state: 'confirmed')
                    .from_only(@search.from_lon, @search.from_lat)
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
-                   .where(state: 'confirmed')
-                   .where('departure_date >= ?', @search.date_value)
                    .page(params[:page]).per(10)
       elsif @search.to_lon.present?
         @trips = Trip
                    .unscoped
                    .includes(:points)
+                   .where('departure_date >= ?', @search.date_value)
+                   .where(state: 'confirmed')
                    .to_only(@search.to_lon, @search.to_lat)
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
-                   .where(state: 'confirmed')
-                   .where('departure_date >= ?', @search.date_value)
                    .page(params[:page]).per(10)
       end
     end

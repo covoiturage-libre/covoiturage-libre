@@ -5,52 +5,52 @@
 
 .page-header
   %h1
-    ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city} le #{l @trip.departure_date}"
+    ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city} le #{l @trip.departure_date, format: :trip_date}"
 
 .row
   .col-md-6
     .panel.panel-default
       .panel-body
         .row
-          .col-md-4
+          .col-xs-4
             Départ
-          .col-md-8
+          .col-xs-8
             %strong= @trip.point_from.city
         - @trip.step_points.each do |point|
           .row
-            .col-md-4
+            .col-xs-4
               Étape
-            .col-md-4
+            .col-xs-4
               %strong= point.city
-            .col-md-4
+            .col-xs-4
               .small_price= number_to_currency point.price
         .row
-          .col-md-4
+          .col-xs-4
             Arrivée
-          .col-md-4
+          .col-xs-4
             %strong= @trip.point_to.city
-          .col-md-4
+          .col-xs-4
             .small_price= number_to_currency @trip.price
         %hr
         .row
-          .col-md-4
+          .col-xs-4
             Heure de départ
-          .col-md-8
+          .col-xs-8
             %strong=l @trip.departure_time, format: :short
         .row
-          .col-md-4
+          .col-xs-4
             =t Trip.human_attribute_name(:comfort)
-          .col-md-8
+          .col-xs-8
             %strong=t :"activerecord.attributes.trip.comfort_#{@trip.comfort}"
         .row
-          .col-md-4
+          .col-xs-4
             Fumeur
-          .col-md-8
+          .col-xs-8
             =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
         .row
-          .col-md-4
+          .col-xs-4
             Estimations
-          .col-md-8
+          .col-xs-8
             %strong
               = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
               = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
@@ -78,14 +78,18 @@
                 .phone#phone
                   - if @trip.phone.present?
                     = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
-          .col-md-4
-            .main_seats
-              = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
+          - if @trip.seats
+            .col-md-4
+              .main_seats
+                - if @trip.seats == 0
+                  Complet
+                - else
+                  = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
         .row
           .col-md-9.col-md-offset-1
             %br
             = "Commentaire de #{@trip.name} :"
-            .well= @trip.description.gsub(/\n/, '<br/>').html_safe
+            .well= @trip.description&.gsub(/\n/, '<br/>')&.html_safe
 
     .panel.panel-default
       .panel-body
@@ -118,8 +122,15 @@
       }).addTo(map);
 
       L.Routing.control({
-        waypoints: tripPoints,
+        plan: L.Routing.plan(tripPoints, {
+          draggableWaypoints: false, // disable live edit on map
+          addWaypoints: false,
+        }),
         routeWhileDragging: true,
-        show: false // setting show to false hides the directions text block
+        show: false, // setting show to false hides the directions text block
+        // disable live edit on map
+        lineOptions : {
+          addWaypoints: false
+        }
       }).addTo(map);
     });

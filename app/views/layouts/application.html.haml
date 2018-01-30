@@ -2,8 +2,6 @@
 %html{lang: 'fr'}
   %head
     / technical meta tags
-    %meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}
-    %meta{'http-equiv': 'content-language', content: 'fr' }
     %meta{charset: 'utf-8'}
     %meta{content: 'IE=edge', 'http-equiv': 'X-UA-Compatible'}
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}
@@ -31,7 +29,7 @@
     %meta{name: 'twitter:description', content: @meta[:description]}
     %meta{name: 'twitter:card',        content: 'summary_large_image'}
     %meta{name: 'twitter:domain',      content: 'covoiturage-libre.fr'}
-    %meta{name: 'twitter:site',        content: '@covoitlib'}
+    %meta{name: 'twitter:site',        content: '@CovoitLibre'}
     %meta{name: 'twitter:image',       content: @meta[:image_url]}
 
     / favicon
@@ -68,6 +66,7 @@
 
     / GTM
     = render 'layouts/ga' if ENV['GA_TRACKING_ID'].present?
+    = render 'layouts/sentry_raven' if ENV['SENTRY_DSN'].present?
 
   %body
     = render 'layouts/navbar'

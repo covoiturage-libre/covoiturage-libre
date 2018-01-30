@@ -1,0 +1,6 @@
+<% if ENV.has_key? 'SENTRY_DSN' %>
+  <script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
+  <script data-turbolinks-eval="false">
+    Raven.config('<%= ENV.fetch('SENTRY_DSN').gsub(/:[^\:]+@/, '@') %>').install();
+  </script>
+<% end %>

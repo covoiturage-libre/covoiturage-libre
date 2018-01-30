@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '>= 2.2.2'
 
 ### Main Gems
 
@@ -28,6 +28,7 @@ gem 'awesome_print'
 ### App Server
 
 gem 'puma', '~> 3.6' # Use Puma as the app server
+gem 'utf8-cleaner', '~> 0.2'
 gem 'daemons' # for running delayed jobs
 
 ### Middlewares
@@ -67,7 +68,7 @@ gem 'route_translator'
 ### Services
 
 gem 'mailjet'
-gem 'appsignal'
+gem 'sentry-raven' # Errors tracking
 
 ### Image manipularion
 
@@ -89,7 +90,7 @@ group :development, :test do
   gem 'rspec', '~> 3.5'
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'email_spec'

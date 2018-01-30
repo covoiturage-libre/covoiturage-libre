@@ -16,6 +16,7 @@ $bgFeatureBlock: #fffbf2 !default;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 1em;
 
   p {
     font-size: 14px;
@@ -56,7 +57,7 @@ $bgFeatureBlock: #fffbf2 !default;
 
 .p-home__subtitle {
   font-size: 21px;
-  margin-bottom: 0;
+  margin-bottom: 30px;
 }
 
 .p-home__heading {
@@ -82,6 +83,32 @@ $bgFeatureBlock: #fffbf2 !default;
 
   ul {
     padding-left: $spacing-unit / 4;
+  }
+}
+
+.p-home__banner {
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
+  .btn {
+      @media screen and (max-width: 992px) {
+        font-size: 14px;
+      }
+    background-color: $blue-shade;
+    color: #fff;
+    margin-bottom: $spacing-unit;
+  }
+  .home__banner_close {
+    float: right;
+    font-size: 2em;
+    background-color: #fff;
+    border: 0;
+  }
+  .home__banner_close:hover {
+    color: $blue-shade;
+  }
+  .home__banner_logo {
+    float: left;
+    margin-right: 1em;
   }
 }
 
@@ -132,4 +159,10 @@ $bgFeatureBlock: #fffbf2 !default;
     background-color: lighten(#ed7233, 5%);
     border-color: lighten(#ed7233, 5%);
   }
+}
+
+.btn-search-inverse-cities {
+  line-height: 100%;
+  width: 3em;
+  margin: auto;
 }

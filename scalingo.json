@@ -43,11 +43,24 @@
     "GA_TRACKING_ID": {
       "description": "Google Analytics"
     },
+    "SENTRY_DSN": {
+      "description": "To report occurring errors."
+    },
     "SLAASK_WIDGET_KEY": {
       "description": "For visitors chat with you."
     }
   },
   "scripts": {
     "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
+  },
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    },
+    "worker": {
+      "amount": 1,
+      "size": "S"
+    }
   }
 }
