@@ -25,7 +25,7 @@ describe TripsController, type: :controller do
           "departure_time(5i)" => "10"
         }
       }.not_to raise_error(ActiveRecord::MultiparameterAssignmentErrors)
-      response.should render_template :new
+      expect(response).to render_template :new
     end
 
   end
