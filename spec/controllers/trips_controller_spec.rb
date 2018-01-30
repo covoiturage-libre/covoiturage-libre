@@ -13,6 +13,7 @@ describe TripsController, type: :controller do
           "departure_time(5i)" => "10"
         )
       }.to change(Trip, :count).by(1)
+      expect(response).to render_template :create
     end
 
     it "should render error when wrong time filled" do
