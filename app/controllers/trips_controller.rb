@@ -25,6 +25,10 @@ class TripsController < ApplicationController
       build_points
       render :new
     end
+
+    rescue ActiveRecord::MultiparameterAssignmentErrors
+      @trip.errors.add :departure_time, :invalid
+      render :new
   end
 
   # caution, this is a modifying action reached by a GET method
