@@ -12,8 +12,7 @@ describe TripsController, type: :controller do
           "departure_time(4i)" => "16",
           "departure_time(5i)" => "10"
         )
-      }.to change(Trip, :count).by(1)
-      expect(response).to render_template :create
+      }.to render_template :create
     end
 
     it "should render error when wrong time filled" do
@@ -25,8 +24,7 @@ describe TripsController, type: :controller do
           "departure_time(4i)" => "42",
           "departure_time(5i)" => "10"
         }
-      }.not_to raise_error(ActiveRecord::MultiparameterAssignmentErrors)
-      expect(response).to render_template :new
+      }.to render_template :new
     end
 
   end
