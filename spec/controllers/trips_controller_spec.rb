@@ -4,7 +4,7 @@ describe TripsController, type: :controller do
   describe "POST #create" do
 
     it "should save new Trip with good time" do
-      expect{
+      expect(
         post :create, trip: FactoryBot.attributes_for(:trip).except(:departure_time).merge(
           "departure_time(1i)" => "2018",
           "departure_time(2i)" => "1",
@@ -12,11 +12,11 @@ describe TripsController, type: :controller do
           "departure_time(4i)" => "16",
           "departure_time(5i)" => "10"
         )
-      }.to render_template :create
+      ).to render_template :create
     end
 
     it "should render error when wrong time filled" do
-      expect{
+      expect(
         post :create, trip: {
           "departure_time(1i)" => "2018",
           "departure_time(2i)" => "1",
@@ -24,7 +24,7 @@ describe TripsController, type: :controller do
           "departure_time(4i)" => "42",
           "departure_time(5i)" => "10"
         }
-      }.to render_template :new
+      ).to render_template :new
     end
 
   end
