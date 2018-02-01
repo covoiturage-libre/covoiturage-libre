@@ -35,3 +35,6 @@ Gemfile.lock.backup
 .DS_Store
 
 .ruby-version
+
+# Logs
+${sys:es.logs}*
