@@ -2,5 +2,6 @@
 
 FactoryBot.define do
   factory :city do
+    name  "Gotham City"
   end
 end
