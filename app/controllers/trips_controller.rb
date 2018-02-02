@@ -25,6 +25,13 @@ class TripsController < ApplicationController
       build_points
       render :new
     end
+
+    rescue ActiveRecord::MultiparameterAssignmentErrors
+      @trip = Trip.new(trip_params.except(*5.times.map { |i|
+        "departure_time(#{i+1}i)"
+      }))
+      @trip.errors.add :departure_time, :invalid
+      render :new
   end
 
   # caution, this is a modifying action reached by a GET method

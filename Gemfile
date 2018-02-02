@@ -94,6 +94,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'email_spec'
+  gem 'rails-controller-testing', '~> 1.0'
 end
 
 group :development do
