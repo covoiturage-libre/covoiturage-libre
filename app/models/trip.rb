@@ -48,7 +48,7 @@ class Trip < ApplicationRecord
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
 
-  scope :from_to, -> (from_lon, from_lat, to_lon, to_lat) {
+  def self.from_to(from_lon, from_lat, to_lon, to_lat)
     # Avoid Trips doublon
     matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
       point_a.id as point_a_id, point_a.price as point_a_price,
@@ -79,9 +79,9 @@ class Trip < ApplicationRecord
       point_b_id, point_b_price,
       trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
     joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
-  }
+  end
 
-  scope :from_only, -> (from_lon, from_lat) {
+  def self.from_only(from_lon, from_lat)
     # Avoid Trips doublon
     matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
       point_a.id AS point_a_id, point_a.price AS point_a_price,
@@ -102,9 +102,9 @@ class Trip < ApplicationRecord
       point_a_id, point_a_price, point_a_distance,
       trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
     joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
-  }
+  end
 
-  scope :to_only, -> (to_lon, to_lat) {
+  def self.to_only(to_lon, to_lat)
     # Avoid Trips doublon
     matching_points = Point.select("DISTINCT ON (point_b.trip_id) point_b.*,
       point_b.id AS point_b_id, point_b.price AS point_b_price,
@@ -125,7 +125,7 @@ class Trip < ApplicationRecord
       point_b_id, point_b_price, point_b_distance,
       trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
     joins("INNER JOIN (#{matching_points.to_sql}) AS point_b ON trips.id = point_b.trip_id")
-  }
+  end
 
   def to_param
     confirmation_token
