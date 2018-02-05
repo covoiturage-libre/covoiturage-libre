@@ -8,7 +8,7 @@ module Trips
 
     class_methods do
 
-      def self.from_to(from_lon, from_lat, to_lon, to_lat)
+      def from_to(from_lon, from_lat, to_lon, to_lat)
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
           point_a.id as point_a_id, point_a.price as point_a_price,
@@ -41,7 +41,7 @@ module Trips
         joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
       end
 
-      def self.from_only(from_lon, from_lat)
+      def from_only(from_lon, from_lat)
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
           point_a.id AS point_a_id, point_a.price AS point_a_price,
@@ -64,7 +64,7 @@ module Trips
         joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
       end
 
-      def self.to_only(to_lon, to_lat)
+      def to_only(to_lon, to_lat)
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_b.trip_id) point_b.*,
           point_b.id AS point_b_id, point_b.price AS point_b_price,
