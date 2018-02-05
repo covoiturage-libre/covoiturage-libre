@@ -6,7 +6,7 @@ module Trips
       SEARCH_DISTANCE_IN_METERS = 25_000
     end
 
-    class_method do
+    class_methods do
 
       def self.from_to(from_lon, from_lat, to_lon, to_lat)
         # Avoid Trips doublon
