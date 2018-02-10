@@ -69,6 +69,9 @@ class TripsController < ApplicationController
 
   def confirm_delete
     @trip = Trip.find_by(deletion_token: params[:id])
+    if @trip.nil?
+      render :not_found # let's give no information on this error to the internet
+    end
   end
 
   # caution, this is a destructive action reached by a GET method

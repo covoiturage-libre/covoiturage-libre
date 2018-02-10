@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def trip_steps_breadcrumb(trip, separator = '&rarr;')
-    trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
+    trip.points.map(&:city).join(" #{separator} ").html_safe
   end
 
   def trip_title(trip, separator = '&rarr;')
