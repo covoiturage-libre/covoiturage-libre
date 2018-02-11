@@ -8,7 +8,17 @@ module Trips
 
     class_methods do
 
-      def from_to(from_lon, from_lat, to_lon, to_lat)
+      def auto_around_distance(from_lon, from_lat, to_lon, to_lat)
+        form_point = RGeo::Geographic.simple_mercator_factory.point(from_lat, from_lon)
+        to_point = RGeo::Geographic.simple_mercator_factory.point(to_lat, to_lon)
+        form_point.distance(to_point).to_f / 6
+      end
+
+      def from_to(from_lon, from_lat, to_lon, to_lat, from_around_distance = nil, to_around_distance = nil)
+        around_distance = auto_around_distance(from_lon, from_lat, to_lon, to_lat)
+        from_around_distance ||= around_distance
+        to_around_distance ||= around_distance
+
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
           point_a.id as point_a_id, point_a.price as point_a_price,
@@ -26,11 +36,11 @@ module Trips
         where("ST_Dwithin(
                ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
                ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-               #{SEARCH_DISTANCE_IN_METERS})", from_lon.to_f, from_lat.to_f).
+               #{from_around_distance})", from_lon.to_f, from_lat.to_f).
         where("ST_Dwithin(
                ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
                ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-               #{SEARCH_DISTANCE_IN_METERS})", to_lon.to_f, to_lat.to_f).
+               #{to_around_distance})", to_lon.to_f, to_lat.to_f).
         where('point_a.rank < point_b.rank').
         order('point_a.trip_id ASC, point_ab_distance ASC')
 
@@ -41,7 +51,7 @@ module Trips
         joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
       end
 
-      def from_only(from_lon, from_lat)
+      def from_only(from_lon, from_lat, from_around_distance = SEARCH_DISTANCE_IN_METERS)
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
           point_a.id AS point_a_id, point_a.price AS point_a_price,
@@ -53,7 +63,7 @@ module Trips
         .where("ST_Dwithin(
           ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-          #{SEARCH_DISTANCE_IN_METERS}
+          #{from_around_distance}
         )", from_lon.to_f, from_lat.to_f)
         .where("point_a.kind <> 'To'")
         .order('point_a.trip_id ASC, point_a_distance ASC')
@@ -64,7 +74,7 @@ module Trips
         joins("INNER JOIN (#{matching_points.to_sql}) AS point_a ON trips.id = point_a.trip_id")
       end
 
-      def to_only(to_lon, to_lat)
+      def to_only(to_lon, to_lat, to_around_distance = SEARCH_DISTANCE_IN_METERS)
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_b.trip_id) point_b.*,
           point_b.id AS point_b_id, point_b.price AS point_b_price,
@@ -76,7 +86,7 @@ module Trips
         .where("ST_Dwithin(
           ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-          #{SEARCH_DISTANCE_IN_METERS}
+          #{to_around_distance}
         )", to_lon.to_f, to_lat.to_f)
         .where("point_b.kind <> 'From'")
         .order('point_b.trip_id ASC, point_b_distance ASC')
