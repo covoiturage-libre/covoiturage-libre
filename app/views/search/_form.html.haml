@@ -51,14 +51,15 @@
 
         // Display error
         input.parent().addClass("has-error");
-        var inputHelpBlock = input.next(".help-block");
+        var inputHelpBlock = input.prev(".help-block");
         if (inputHelpBlock.length > 0) {
           inputHelpBlock.show();
         } else { // Create it
           $("<span>", {
             class: "help-block",
-            text: "Sélectionnez une ville dans la liste"
-          }).insertAfter(input);
+            text: "Sélectionnez une ville dans la liste",
+            style: "margin-top: -36px"
+          }).insertBefore(input);
         }
 
         return false; // Prevent submission
