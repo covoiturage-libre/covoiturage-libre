@@ -5,6 +5,10 @@ module ApplicationHelper
     "#{age} ans".html_safe
   end
 
+  def nl2br(text)
+    sanitize text&.gsub(/\n/, '<br />'), tags: %w(br)
+  end
+
   def encode_decode(string)
     string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
   end
