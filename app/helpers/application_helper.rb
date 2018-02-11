@@ -2,7 +2,7 @@
 module ApplicationHelper
 
   def number_to_age(age)
-    "#{age} ans".html_safe
+    t('helpers.number_to_age', age: age).html_safe
   end
 
   def nl2br(text)
