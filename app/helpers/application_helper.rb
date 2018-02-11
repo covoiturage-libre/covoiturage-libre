@@ -6,7 +6,8 @@ module ApplicationHelper
   end
 
   def nl2br(text)
-    sanitize text&.gsub(/\n/, '<br />'), tags: %w(br)
+    text_ligned = text.gsub(/\n/, '<br />') if text
+    sanitize(text_ligned, tags: %w(br))
   end
 
   def encode_decode(string)
