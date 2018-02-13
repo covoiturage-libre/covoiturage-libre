@@ -6,3 +6,5 @@ en:
       short: "%e %b"
       long: "%A %B %Y"
       trip_date: "%A %e %B %Y"
+  helpers:
+    number_to_age: "%{age} years old"
