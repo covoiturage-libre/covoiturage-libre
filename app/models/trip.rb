@@ -10,6 +10,8 @@ class Trip < ApplicationRecord
 
   SEARCH_DISTANCE_IN_METERS = 25_000
 
+  attr_accessor :the_previous_trip__departure_date
+  
   has_many :points, -> { order('rank asc') }, inverse_of: :trip, dependent: :destroy
   has_many :messages, dependent: :destroy
 
