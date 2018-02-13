@@ -1,12 +1,10 @@
 class SearchController < ApplicationController
-  
+
   def index
     load_index_meta_data
-    params.permit!
-    params[:search] ||= {}
 
     @trips ||= []
-    @search = Search.new(params[:search])
+    @search = Search.new(search_params)
     if @search.valid?
       if @search.from_lon.present? && @search.to_lon.present?
         @trips = Trip
@@ -14,7 +12,11 @@ class SearchController < ApplicationController
                    .includes(:points)
                    .where('departure_date >= ?', @search.date_value)
                    .where(state: 'confirmed')
-                   .from_to(@search.from_lon, @search.from_lat, @search.to_lon, @search.to_lat)
+                   .from_to(
+                      @search.from_lon, @search.from_lat,
+                      @search.to_lon, @search.to_lat,
+                      @search.from_dist, @search.to_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    .page(params[:page]).per(10)
@@ -24,7 +26,10 @@ class SearchController < ApplicationController
                    .includes(:points)
                    .where('departure_date >= ?', @search.date_value)
                    .where(state: 'confirmed')
-                   .from_only(@search.from_lon, @search.from_lat)
+                   .from_only(
+                      @search.from_lon, @search.from_lat,
+                      @search.from_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    .page(params[:page]).per(10)
@@ -34,7 +39,10 @@ class SearchController < ApplicationController
                    .includes(:points)
                    .where('departure_date >= ?', @search.date_value)
                    .where(state: 'confirmed')
-                   .to_only(@search.to_lon, @search.to_lat)
+                   .to_only(
+                      @search.to_lon, @search.to_lat,
+                      @search.to_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    .page(params[:page]).per(10)
@@ -45,7 +53,14 @@ class SearchController < ApplicationController
   private
 
     def search_params
-      #params.require(:search).permit(:from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date)
+      params.permit!
+      params[:search] || {}
+
+      # params.require(:search).permit(
+      #   :from_city, :from_lon, :from_lat, :from_dist,
+      #   :to_city, :to_lon, :to_lat, :to_dist,
+      #   :date
+      # )
     end
 
     def load_index_meta_data
