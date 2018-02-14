@@ -26,8 +26,8 @@
   %div.results_recap 
     %p <strong>#{@the_trips_of_the_selected_day__all.length} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
     %ul.the_list_of_the_days
-      Les trajets à +/- 8 jours : 
-      - @the_days_of_the_previous_and_the_following_months.each do |a_day|
+      Les trajets à +/- #{@the_number_of_days_around_the_requested_day} jours : 
+      - @the_days_around_the_requested_day.each do |a_day|
         - @the_search_parameters_of_the_current_day = {search: {from_city: @search.from_city, from_lon: @search.from_lon, from_lat: @search.from_lat,   to_city: @search.to_city, to_lon: @search.to_lon, to_lat: @search.to_lat,   date: (l a_day, format: :trip_date)}}
         - @the_day_is_on_the_week_end = (a_day.saturday? or a_day.sunday?)
         - @the_day_is_the_selected_day = (a_day == @search.date_value)

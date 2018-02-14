@@ -8,7 +8,7 @@
     .trip-info
       .title
         =l trip.departure_time, format: :short
-        %p= "(le covoit' est sur la route)" if (trip.is_before_today?)
+        %p= "(le covoit' est sur la route)" if trip.is_before_today?
       .details
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
     .price
