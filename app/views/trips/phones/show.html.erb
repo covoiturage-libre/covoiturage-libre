@@ -1,5 +1,5 @@
 <script type="text/javascript">
-  $('#phone').replaceWith('<%= @trip.phone.to_s %>');
+  $('#phone').replaceWith('<%= @trip&.phone&.to_s %>');
   if (typeof ga === "function") {
     ga('send', 'event', 'Trajet', 'show_phone');
   }

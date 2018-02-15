@@ -26,6 +26,13 @@ class TripsController < ApplicationController
       build_points
       render :new
     end
+
+    rescue ActiveRecord::MultiparameterAssignmentErrors
+      @trip = Trip.new(trip_params.except(*5.times.map { |i|
+        "departure_time(#{i+1}i)"
+      }))
+      @trip.errors.add :departure_time, :invalid
+      render :new
   end
 
   # caution, this is a modifying action reached by a GET method
@@ -63,6 +70,9 @@ class TripsController < ApplicationController
 
   def confirm_delete
     @trip = Trip.find_by(deletion_token: params[:id])
+    if @trip.nil?
+      render :not_found # let's give no information on this error to the internet
+    end
   end
 
   # caution, this is a destructive action reached by a GET method

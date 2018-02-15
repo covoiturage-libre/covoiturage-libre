@@ -4,16 +4,15 @@ class SearchController < ApplicationController
   THE_NUMBER_OF_TRIPS_PER_PAGE = 10
   THE_NUMBER_OF_DAYS_IN_A_MONTH = 31
   THE_NUMBER_OF_DAYS_AROUND_THE_REQUESTED_DAY = 8
-  
+
   def index
     load_index_meta_data
-    params.permit!
-    params[:search] ||= {}
 
     @trips ||= []
-    @search = Search.new(params[:search])
+    @search = Search.new(search_params)
     the_first_date = [(@search.date_value) -THE_NUMBER_OF_DAYS_IN_A_MONTH, (Date.today) -THE_NUMBER_OF_DAYS_IN_A_MONTH].min # we need trips of the past month to say "hey there was some trips last month" if no results
     the_last_date =  (@search.date_value) +THE_NUMBER_OF_DAYS_IN_A_MONTH
+
     if @search.valid?
       if @search.from_lon.present? && @search.to_lon.present?
         the_trips_around_the_requested_day = Trip
@@ -22,7 +21,11 @@ class SearchController < ApplicationController
                    .where('departure_date >= ?', the_first_date)
                    .where('departure_date <= ?', the_last_date)
                    .where(state: 'confirmed')
-                   .from_to(@search.from_lon, @search.from_lat, @search.to_lon, @search.to_lat)
+                   .from_to(
+                      @search.from_lon, @search.from_lat,
+                      @search.to_lon, @search.to_lat,
+                      @search.from_dist, @search.to_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    #.page(params[:page]).per(THE_NUMBER_OF_TRIPS_PER_PAGE)
@@ -33,7 +36,10 @@ class SearchController < ApplicationController
                    .where('departure_date >= ?', the_first_date)
                    .where('departure_date <= ?', the_last_date)
                    .where(state: 'confirmed')
-                   .from_only(@search.from_lon, @search.from_lat)
+                   .from_only(
+                      @search.from_lon, @search.from_lat,
+                      @search.from_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    #.page(params[:page]).per(THE_NUMBER_OF_TRIPS_PER_PAGE)
@@ -44,7 +50,10 @@ class SearchController < ApplicationController
                    .where('departure_date >= ?', the_first_date)
                    .where('departure_date <= ?', the_last_date)
                    .where(state: 'confirmed')
-                   .to_only(@search.to_lon, @search.to_lat)
+                   .to_only(
+                      @search.to_lon, @search.to_lat,
+                      @search.to_dist
+                    )
                    .order(departure_date: :asc)
                    .order(departure_time: :asc)
                    #.page(params[:page]).per(THE_NUMBER_OF_TRIPS_PER_PAGE)
@@ -61,7 +70,14 @@ class SearchController < ApplicationController
   private
   
     def search_params
-      #params.require(:search).permit(:from_city, :from_lon, :from_lat, :to_city, :to_lon, :to_lat, :date)
+      params.permit!
+      params[:search] || {}
+
+      # params.require(:search).permit(
+      #   :from_city, :from_lon, :from_lat, :from_dist,
+      #   :to_city, :to_lon, :to_lat, :to_dist,
+      #   :date
+      # )
     end
     
     def load_index_meta_data
@@ -120,5 +136,5 @@ class SearchController < ApplicationController
         @the_departure_times__per_day[a_day] = the_rounded_departure_times.to_set
       end
     end
-    
+
 end

@@ -16,3 +16,5 @@ en:
       long: "%A %B %Y"
       trip_date: "%A %e %B %Y"
       trip_date_without_the_year: "%A %e %B"
+  helpers:
+    number_to_age: "%{age} years old"

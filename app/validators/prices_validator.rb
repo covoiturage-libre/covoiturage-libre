@@ -1,7 +1,13 @@
 class PricesValidator < ActiveModel::Validator
   def validate(record)
     # sort trip points by rank
-    sorted_points = record.points.sort_by { |aoh| aoh[:rank] }
+    sorted_points = record.points.sort do |a, b|
+      if a[:rank].nil? || b[:rank].nil?
+        0
+      else
+        a[:rank] <=> b[:rank]
+      end
+    end
 
     # complete origin and destination prices
     if sorted_points.any?

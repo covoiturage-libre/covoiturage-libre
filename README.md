@@ -1,4 +1,4 @@
-# Covoiturage Libre [![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre)
+# Covoiturage Libre [![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre) [![Dependency Status](https://gemnasium.com/badges/github.com/nicolasleger/covoiturage-libre.svg)](https://gemnasium.com/github.com/nicolasleger/covoiturage-libre)
 
 Covoiturage Libre is a Carpooling Open Source platform, originally created for the French website https://covoiturage-libre.fr. Click on the button below to access it :
 

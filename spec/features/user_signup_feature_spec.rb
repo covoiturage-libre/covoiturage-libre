@@ -8,7 +8,7 @@ describe 'account creation' do
 
     it 'allows user to create account' do
       expect(page.current_url).to include(subdomain)
-      expect(Account.all.count).to eq(1)
+      expect(Account.count).to eq(1)
     end
 
     it 'allows access of subdomain' do
@@ -21,7 +21,7 @@ describe 'account creation' do
       subdomain2 = FactoryBot.generate(:subdomain)
       sign_up_when_logged_in(subdomain2)
       expect(page.current_url).to include(subdomain2)
-      expect(Account.all.count).to eq(2)
+      expect(Account.count).to eq(2)
     end
 
     it 'does not allow account creation on subdomain' do

@@ -20,5 +20,5 @@
 - content_for :javascript_footer do
   :javascript
     if (typeof ga === "function") {
-      ga('send', 'event', 'Trajet', 'create', '#{@trip.points.map {|p| p.city }.join(', ') }' );
+      ga('send', 'event', 'Trajet', 'create', '#{@trip.points.map(&:city).join(', ') }' );
     }
