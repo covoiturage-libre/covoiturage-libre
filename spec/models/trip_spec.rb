@@ -40,6 +40,7 @@ describe Trip, type: :model do
     end
 
     describe '.from_to' do
+
       it "should return each matching Trip only one time and with the nearest points" do
         results = Trip.from_to(1.24, 1.23, 1.25, 1.24)
                       .where(id: @trip.id)
@@ -60,10 +61,42 @@ describe Trip, type: :model do
           'point_b_price' => @trip.points[1].price
         }]
       end
+
+      it "should auto match around 1/6 in-between distance from points" do
+        results = Trip.from_to(1.24, 1.23, 1.90, 1.90)
+        expect(results).to be_a ActiveRecord::Relation
+        expect(results.map { |result|
+          result.attributes.slice(
+            'id', 'price',
+            'point_a_id', 'point_a_price',
+            'point_b_id', 'point_b_price'
+          )
+        }).to eq [{
+          'id' => @trip.id,
+          'price' => @trip.price,
+          'point_a_id' => @trip.points[0].id,
+          'point_a_price' => @trip.points[0].price,
+          'point_b_id' => @trip.points[3].id,
+          'point_b_price' => @trip.points[3].price
+        }]
+
+        results = Trip.from_to(1.24, 1.23, 1.24, 1.28)
+                      .where(id: @trip.id)
+
+        expect(results).to be_a ActiveRecord::Relation
+        expect(results.map { |result|
+          result.attributes.slice(
+            'id', 'price',
+            'point_a_id', 'point_a_price',
+            'point_b_id', 'point_b_price'
+          )
+        }).to eq []
+      end
+
     end
 
     describe '.from_only' do
-      # TODO: only one time and with the nearest from point
+
       it "should return each matching Trip multiple time with different from point" do
         results = Trip.from_only(1.25, 1.24)
                       .where(id: @trip.id)
@@ -81,9 +114,24 @@ describe Trip, type: :model do
           'point_a_price' => @trip.points[1].price
         }]
       end
+
+      it "should allow distance from point matching" do
+        results = Trip.from_only(1.25, 1.25, 0)
+                      .where(id: @trip.id)
+
+        expect(results).to be_a ActiveRecord::Relation
+        expect(results.map { |result|
+          result.attributes.slice(
+            'id', 'price',
+            'point_a_id', 'point_a_price'
+          )
+        }).to eq []
+      end
+
     end
 
     describe '.to_only' do
+
       it "should return each matching Trip only one time with different to point" do
         results = Trip.to_only(1.26, 1.25)
                       .where(id: @trip.id)
@@ -101,6 +149,20 @@ describe Trip, type: :model do
           'point_b_price' => @trip.points[2].price
         }]
       end
+
+      it "should allow distance to point matching" do
+        results = Trip.to_only(1.26, 1.24, 0)
+                      .where(id: @trip.id)
+
+        expect(results).to be_a ActiveRecord::Relation
+        expect(results.map { |result|
+          result.attributes.slice(
+            'id', 'price',
+            'point_b_id', 'point_b_price'
+          )
+        }).to eq []
+      end
+
     end
 
   end

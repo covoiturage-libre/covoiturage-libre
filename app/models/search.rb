@@ -3,13 +3,15 @@ class Search
   include ActiveModel::Model
 
   attr_accessor(
-      :from_city,
-      :from_lon,
-      :from_lat,
-      :to_city,
-      :to_lon,
-      :to_lat,
-      :date
+    :from_city,
+    :from_lon,
+    :from_lat,
+    :from_dist,
+    :to_city,
+    :to_lon,
+    :to_lat,
+    :to_dist,
+    :date
   )
 
 
