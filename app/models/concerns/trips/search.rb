@@ -20,9 +20,15 @@ module Trips
                   to_around_distance = DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS)
         around_distance = auto_around_distance(from_lon, from_lat, to_lon, to_lat)
         from_around_distance ||= around_distance
-        from_around_distance = [from_around_distance, MAX_SEARCH_AROUND_DISTANCE_IN_METERS].min
+        from_around_distance = [
+          from_around_distance || DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+          MAX_SEARCH_AROUND_DISTANCE_IN_METERS
+        ].min
         to_around_distance ||= around_distance
-        to_around_distance = [to_around_distance, MAX_SEARCH_AROUND_DISTANCE_IN_METERS].min
+        to_around_distance = [
+          to_around_distance DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+          MAX_SEARCH_AROUND_DISTANCE_IN_METERS
+        ].min
 
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
@@ -57,7 +63,10 @@ module Trips
       end
 
       def from_only(from_lon, from_lat, from_around_distance = DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS)
-        from_around_distance = [from_around_distance, MAX_SEARCH_AROUND_DISTANCE_IN_METERS].min
+        from_around_distance = [
+          from_around_distance || DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+          MAX_SEARCH_AROUND_DISTANCE_IN_METERS
+        ].min
 
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_a.trip_id) point_a.*,
@@ -82,7 +91,10 @@ module Trips
       end
 
       def to_only(to_lon, to_lat, to_around_distance = DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS)
-        to_around_distance = [to_around_distance, MAX_SEARCH_AROUND_DISTANCE_IN_METERS].min
+        to_around_distance = [
+          to_around_distance || DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+          MAX_SEARCH_AROUND_DISTANCE_IN_METERS
+        ].min
 
         # Avoid Trips doublon
         matching_points = Point.select("DISTINCT ON (point_b.trip_id) point_b.*,
