@@ -42,7 +42,7 @@ describe Trip, type: :model do
     describe '.from_to' do
 
       it "should return each matching Trip only one time and with the nearest points" do
-        results = Trip.from_to(1.24, 1.23, 1.25, 1.24)
+        results = Trip.from_to(1.24, 1.23, 1.25, 1.24, nil, nil)
                       .where(id: @trip.id)
 
         expect(results).to be_a ActiveRecord::Relation
