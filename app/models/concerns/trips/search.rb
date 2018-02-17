@@ -26,7 +26,7 @@ module Trips
         ].min
         to_around_distance ||= around_distance
         to_around_distance = [
-          to_around_distance DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+          to_around_distance || DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
           MAX_SEARCH_AROUND_DISTANCE_IN_METERS
         ].min
 
