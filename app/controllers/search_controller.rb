@@ -88,7 +88,7 @@ class SearchController < ApplicationController
       #@meta[:description] << " à #{search_params[:to_city]}"    if search_params[:to_city].present?
       #@meta[:description] << " le #{search_params[:date]}"      if search_params[:date].present?
     end
-    
+
     def set__the_previous_trip__departure_date__attribute(the_trips_ordered)
       # set .the_previous_trip__departure_date attribute
       if the_trips_ordered.length >= 1
