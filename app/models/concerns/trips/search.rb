@@ -16,7 +16,8 @@ module Trips
       end
 
       def from_to(from_lon, from_lat, to_lon, to_lat,
-                  from_around_distance = nil, to_around_distance = nil)
+                  from_around_distance = DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS,
+                  to_around_distance = DEFAULT_SEARCH_AROUND_DISTANCE_IN_METERS)
         around_distance = auto_around_distance(from_lon, from_lat, to_lon, to_lat)
         from_around_distance ||= around_distance
         from_around_distance = [from_around_distance, MAX_SEARCH_AROUND_DISTANCE_IN_METERS].min
