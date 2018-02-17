@@ -31,7 +31,7 @@ describe TripsController, type: :controller do
         )
 
       expect(
-        post :create, trip: trip_params
+        post :create, params: { trip: trip_params }
       ).to render_template :create
     end
 
@@ -47,7 +47,7 @@ describe TripsController, type: :controller do
         )
 
       expect(
-        post :create, trip: trip_params
+        post :create, params: { trip: trip_params }
       ).to render_template :new
     end
 

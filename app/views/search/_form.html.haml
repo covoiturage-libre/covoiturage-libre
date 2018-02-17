@@ -38,6 +38,14 @@
       return false;
     });
 
+    var lastFocusedInput = $("#search_from_city");
+    $("#search_from_city").focusin(function() {
+      lastFocusedInput = $("#search_from_city");
+    });
+    $("#search_to_city").focusin(function() {
+      lastFocusedInput = $("#search_to_city");
+    });
+
     $("#new_search").submit(function() {
       var emptyCityGeoCount = 4;
       $(this).find("input.hidden").each(function() {
@@ -47,18 +55,19 @@
         }
       });
       if (emptyCityGeoCount > 2) { // No city fully selected with geo
-        var input = $("#search_to_city");
+        var input = lastFocusedInput;
 
         // Display error
         input.parent().addClass("has-error");
-        var inputHelpBlock = input.next(".help-block");
+        var inputHelpBlock = input.prev(".help-block");
         if (inputHelpBlock.length > 0) {
           inputHelpBlock.show();
         } else { // Create it
           $("<span>", {
             class: "help-block",
-            text: "Sélectionnez une ville dans la liste"
-          }).insertAfter(input);
+            text: "Sélectionnez une ville dans la liste",
+            style: "margin-top: -36px"
+          }).insertBefore(input);
         }
 
         return false; // Prevent submission
