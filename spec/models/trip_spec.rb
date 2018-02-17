@@ -80,7 +80,7 @@ describe Trip, type: :model do
           'point_b_price' => @trip.points[3].price
         }]
 
-        results = Trip.from_to(1.24, 1.23, 1.24, 1.28)
+        results = Trip.from_to(1.24, 1.23, 1.25, 2.4)
                       .where(id: @trip.id)
 
         expect(results).to be_a ActiveRecord::Relation
