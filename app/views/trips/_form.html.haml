@@ -21,7 +21,7 @@
               = p.input :rank, as: :hidden
           = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: '1' }
           %br
-          %h5 Optionnel : faites-vous des étapes ?
+          %h5 Indiquez des étapes
           #steps
             - index = 0
             = f.simple_fields_for :points, @optional_points do |point|
