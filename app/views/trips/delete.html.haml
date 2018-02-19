@@ -1,0 +1,11 @@
+.row
+  .col-md-8
+    %h1 Merci !
+    %p
+      Votre annonce a bien été supprimée.
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'delete', '#{@trip.points.map(&:city).join(', ') }' );
+    }

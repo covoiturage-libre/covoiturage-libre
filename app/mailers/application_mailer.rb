@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+
+  default from: ENV['MAILER_FROM'] || 'Covoiturage Libre <noreply@covoiturage-libre.fr>'
   layout 'mailer'
+
 end

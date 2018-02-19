@@ -1,0 +1,11 @@
+.row
+  .col-md-8
+    %h1 Trajet introuvable
+    %p
+      Ce trajet n'existe pas ou n'est pas validé ou a été supprimé.
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'not_found');
+    }

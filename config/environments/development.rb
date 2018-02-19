@@ -9,6 +9,9 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  # Dev Logger
+  config.logger = Logger.new(STDOUT)
+
   # Show full error reports.
   config.consider_all_requests_local = true
 
@@ -31,6 +34,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # config mail delivery method
+  config.action_mailer.delivery_method = :letter_opener_web
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -48,4 +54,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Allow console display for Docker
+  config.web_console.whiny_requests = false
 end

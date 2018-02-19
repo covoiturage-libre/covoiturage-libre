@@ -1,0 +1,58 @@
+version: '3.3'
+
+services:
+
+  db:
+    image: mdillon/postgis:10
+    environment:
+      - POSTGRES_PASSWORD=password
+### Uncomment to enable DB persistance
+#    volumes:
+#      - ./postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:4.0.1
+### Uncomment to enable REDIS persistance
+#    volumes:
+#      - ./redis:/data
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+### Uncomment to enable ELASTICSEARCH persistance
+#    volumes:
+#      - ./elasticsearch:/var/lib/elasticsearch/data
+
+  web:
+    build:
+      context: .
+    command: bash -c "./wait-for-it.sh db:5432 elasticsearch:9200 redis:6379 -- bundle exec rake db:migrate && sleep 5 && bundle exec rake searchkick:reindex CLASS=City && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+    volumes:
+      - .:/covoiturage-libre
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+      - ELASTICSEARCH_URL=http://elastic:changeme@elasticsearch:9200
+      - REDIS_URL=redis://redis:6379
+
+  worker:
+    build:
+      context: .
+    command: bash -c "./wait-for-it.sh web:3000 -- bin/delayed_job run"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+      - web # For Database migrations
+    volumes:
+      - .:/covoiturage-libre
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/postgres
+      - ELASTICSEARCH_URL=http://elastic:changeme@elasticsearch:9200
+      - REDIS_URL=redis://redis:6379

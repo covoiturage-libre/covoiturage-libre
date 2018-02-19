@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require_relative 'common'
+require_relative 'city_source'
+require_relative 'city_destination'
+
+source TripSource, ENV["MYSQL_URL"]
+
+start_time = Time.now
+pre_process do
+  puts "*** START CITY IMPORT #{start_time}***"
+end
+
+transform do |row|
+  puts "OK"
+  newrow = {}
+  time = Time.now
+  # the Trip columns
+  newrow[:id] = row[:ID]
+  newrow[:name] = row[:COMMUNE]
+  newrow[:postal_code] = row[:CPOSTAL]
+  newrow[:department] = row[:DEPARTEMENT]
+  newrow[:region] = row[:REGION]
+  newrow[:country_code] = row[:PAYS]
+  newrow[:lat] = row[:LATITUDE]
+  newrow[:lon] = row[:LONGITUDE]
+  newrow[:distance] = row[:ELOIGNEMENT]
+  newrow[:create_at] = time
+  newrow[:updated_at] = time
+
+  newrow
+end
+
+show_me!
+
+post_process do
+  end_time = Time.now
+  duration_in_minutes = (end_time - start_time)/60
+  puts "*** End CITY IMPORT #{end_time}***"
+  puts "*** Duration (min): #{duration_in_minutes.round(2)}"
+end
+
+destination TripDestination, ENV["PG_URL"]

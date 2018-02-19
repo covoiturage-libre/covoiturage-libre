@@ -1,0 +1,19 @@
+- url = @page.new_record? ? admin_pages_path : admin_page_path(@page)
+- method = @page.new_record? ? :post : :put
+
+
+.well
+  = simple_form_for @page, as: :page, url: url, method: method do |f|
+    .row
+      .col-md-6
+        = f.input :name
+        = f.input :slug
+        = f.input :title
+        = f.input :meta_desc
+      .col-md-6
+        = f.input :body, input_html: { rows: 24, value: f.object.body&.gsub(/\n/, '') }
+
+    .pull-right
+      = link_to 'Annuler', admin_pages_path, class: 'btn btn-default'
+      = f.button :submit, class: 'btn-primary'
+    .clearfix

@@ -1,0 +1,17 @@
+Vous avez reçu un message
+
+Concernant votre annonce <%= trip_title(@trip) %>
+
+<%= message.sender_name %> vous a envoyé le message suivant :
+
+<%= @message.body %>
+
+Vous pouvez lui répondre par courriel : <%= @message.sender_email %>.
+
+<%- if @message.sender_phone.present? %>
+  ou par téléphone : <%= @message.sender_phone %>
+<%- end %>
+
+Bien cordialement,
+
+L'équipe

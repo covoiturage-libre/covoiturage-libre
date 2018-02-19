@@ -1,0 +1,10 @@
+%h4= "Envoyez un message à #{@trip.name}"
+%p
+  %em Les champs précédés d'un astérisque sont obligatoires
+- @message ||= Message.new
+= simple_form_for [@trip, @message], remote: true do |f|
+  = f.input :sender_name
+  = f.input :sender_email
+  = f.input :sender_phone
+  = f.input :body, as: :text
+  = f.submit 'Envoyer', class: 'btn btn-warning btn-lg'

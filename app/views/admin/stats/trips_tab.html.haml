@@ -1,0 +1,12 @@
+.row
+  .col-md-3
+    = render 'stats_menu'
+  .col-md-9
+    %table.table
+      %tr
+        %th Mois
+        %th Total
+      - Trip.unscoped.group_by_month(:created_at).count.reverse_each do |month_data|
+        %tr
+          %td= month_data[0]
+          %td= month_data[1]

@@ -1,0 +1,136 @@
+- @meta[:title] = "Covoiturage libre et gratuit #{trip_title(@trip, '-')}"
+- @meta[:description] = "Détail du trajet covoiturage gratuit et libre #{trip_title(@trip)}"
+
+%p= link_to '&larr; Retour aux résutats'.html_safe, :back
+
+.page-header
+  %h1
+    ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city} le #{l @trip.departure_date, format: :trip_date}"
+
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-xs-4
+            Départ
+          .col-xs-8
+            %strong= @trip.point_from.city
+        - @trip.step_points.each do |point|
+          .row
+            .col-xs-4
+              Étape
+            .col-xs-4
+              %strong= point.city
+            .col-xs-4
+              .small_price= number_to_currency point.price
+        .row
+          .col-xs-4
+            Arrivée
+          .col-xs-4
+            %strong= @trip.point_to.city
+          .col-xs-4
+            .small_price= number_to_currency @trip.price
+        %hr
+        .row
+          .col-xs-4
+            Heure de départ
+          .col-xs-8
+            %strong=l @trip.departure_time, format: :short
+        .row
+          .col-xs-4
+            =t Trip.human_attribute_name(:comfort)
+          .col-xs-8
+            %strong=t :"activerecord.attributes.trip.comfort_#{@trip.comfort}"
+        .row
+          .col-xs-4
+            Fumeur
+          .col-xs-8
+            =t :"activerecord.attributes.trip.smoking_#{@trip.smoking}"
+        .row
+          .col-xs-4
+            Estimations
+          .col-xs-8
+            %strong
+              = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
+              = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
+
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %strong Étapes :
+          = trip_steps_breadcrumb(@trip)
+      .panel-body
+        #route-wrapper
+          #route
+
+  .col-md-6
+    .panel.panel-default
+      .panel-body
+        .row
+          .col-md-8
+            .driver
+              .avatar= image_tag('covoiturage-avatar-default2.png')
+              .info
+                .name= @trip.name
+                .age= "#{@trip.age} ans" if @trip.age.present?
+                .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
+                .phone#phone
+                  - if @trip.phone.present?
+                    = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
+          - if @trip.seats
+            .col-md-4
+              .main_seats
+                - if @trip.seats == 0
+                  Complet
+                - else
+                  = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
+        .row
+          .col-md-9.col-md-offset-1
+            %br
+            = "Commentaire de #{@trip.name} :"
+            .well= nl2br @trip.description
+
+    .panel.panel-default
+      .panel-body
+        #message_zone
+          .message#message-wrapper
+            = render 'messages/form'
+    .panel.panel-default
+      .panel-body
+        .trip-ownership
+          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
+          %p
+            Vous avez perdu le courriel de gestion de l'annonce ?
+            = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
+            pour le recevoir à nouveau.
+
+- content_for :javascript_footer do
+  :javascript
+
+    var tripPoints = [];
+
+    $.getJSON( "#{points_trip_path(@trip)}", function( data ) {
+      $.each( data, function( index, item ) {
+        tripPoints.push([parseFloat(item.lat), parseFloat(item.lon)]);
+      });
+
+      var map = L.map('route').setView(tripPoints[0], 1);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.Routing.control({
+        plan: L.Routing.plan(tripPoints, {
+          draggableWaypoints: false, // disable live edit on map
+          addWaypoints: false,
+        }),
+        routeWhileDragging: true,
+        show: false, // setting show to false hides the directions text block
+        // disable live edit on map
+        lineOptions : {
+          addWaypoints: false
+        }
+      }).addTo(map);
+    });

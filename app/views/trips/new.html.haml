@@ -1,0 +1,20 @@
+- page_title = ''
+- if back_trip_page?
+  - page_title = 'Créer le trajet retour'
+- elsif trip_copy_page?
+  - page_title =  'Dupliquer le trajet'
+- else
+  - page_title = 'Publier une annonce'
+
+- @meta[:title] = "Covoiturage-libre.fr | #{page_title} de covoiturage gratuit"
+- @meta[:description] = 'Proposez vos places libres pour trouver des passagers, sur la première plateforme collaborative de covoiturage : un site libre, gratuit et ouvert à tous.'
+
+%h1= page_title
+
+= render 'form'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'new', '#{@trip.points.map(&:city).join(', ') }' );
+    }

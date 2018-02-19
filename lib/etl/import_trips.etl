@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+
+require_relative 'common'
+require_relative 'trip_source'
+require_relative 'trip_destination'
+
+source TripSource, ENV["MYSQL_URL"]
+
+start_time = Time.now
+pre_process do
+  puts "*** START TRIP IMPORT #{start_time}***"
+end
+
+transform do |row|
+  puts "OK"
+  newrow = {}
+  # the Trip columns
+  newrow[:id] = row[:ID]
+  newrow[:departure_date] = get_departure_date(row[:DATE_PARCOURS])
+  newrow[:departure_time] = get_departure_time(row[:DATE_PARCOURS], row[:HEURE])
+  newrow[:seats] = row[:PLACES]
+  newrow[:comfort] = ed get_comfort(row[:CONFORT])
+  newrow[:description] = ed row[:COMMENTAIRES]
+  newrow[:price] = row[:PRIX]
+  newrow[:title] = get_title(row[:CIVILITE])
+  newrow[:smoking] = !row[:FUMEUR].nil?
+  newrow[:name] = ed row[:NOM]
+  newrow[:age] = row[:AGE]
+  newrow[:email] = row[:EMAIL]
+  newrow[:phone] = row[:TELEPHONE]
+  newrow[:confirmation_token] = row[:CODE_CREATION]
+  newrow[:edition_token] = row[:CODE_MODIFICATION]
+  newrow[:deletion_token] = row[:CODE_SUPPRESSION]
+  newrow[:state] = get_state(row[:STATUT])
+  newrow[:creation_ip] = row[:IP_CREATION]
+  newrow[:deletion_ip] = row[:IP_SUPPRESSION]
+  newrow[:create_at] = row[:DATE_CREATION]
+  newrow[:updated_at] = row[:DATE_CREATION]
+
+  # the Point columns
+  newrow[:points] = []
+  newrow[:points] << {
+          kind: 'From',
+          rank: 0,
+          trip_id: newrow[:id],
+          lon: row[:DEPART_LON],
+          lat: row[:DEPART_LAT],
+          zipcode: (row[:DEPART] || '').match(/\d+/).to_a[0],
+          city: ed((row[:DEPART] || '').partition(' (').first),
+          country_iso_code: (row[:DEPART] || '').partition(' (').last[0..1],
+          created_at: row[:DATE_CREATION],
+          updated_at: row[:DATE_CREATION]
+      }
+  newrow[:points] << {
+          kind: 'To',
+          rank: 99,
+          trip_id: newrow[:id],
+          lon: row[:ARRIVEE_LON],
+          lat: row[:ARRIVEE_LAT],
+          zipcode: (row[:ARRIVEE] || '').match(/\d+/).to_a[0], # because it happened to have empty data for this field
+          city: ed((row[:ARRIVEE] || '').partition(' (').first),
+          country_iso_code: (row[:ARRIVEE] || '').partition(' (').last[0..1],
+          created_at: row[:DATE_CREATION],
+          updated_at: row[:DATE_CREATION]
+  }
+  [1, 2, 3].each do |step|
+    newrow[:points] << {
+            kind: 'Step',
+            rank: step,
+            trip_id: newrow[:id],
+            lon: row["ETAPE#{step}_LON"],
+            lat: row[:"ETAPE#{step}_LAT"],
+            zipcode: row[:"ETAPE#{step}"].match(/\d+/).to_a[0],
+            city: ed(row[:"ETAPE#{step}"].partition(' (').first),
+            country_iso_code: row[:"ETAPE#{step}"].partition(' (').last[0..1],
+            created_at: row[:DATE_CREATION],
+            updated_at: row[:DATE_CREATION],
+            price: row[:"PRIX#{step}"]
+    } unless row[:"ETAPE#{step}"].nil?
+  end
+  newrow
+end
+
+show_me!
+
+post_process do
+  end_time = Time.now
+  duration_in_minutes = (end_time - start_time)/60
+  puts "*** End TRIP IMPORT #{end_time}***"
+  puts "*** Duration (min): #{duration_in_minutes.round(2)}"
+end
+
+destination TripDestination, ENV["PG_URL"]

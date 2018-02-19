@@ -1,0 +1,10 @@
+%h2 Raccourcis pratiques
+%p
+  Pour dupliquer l'annonce que vous venez d'enregistrer, cliquez sur le bouton ci-dessous. Le formulaire sera
+  alors pré-rempli à l'identique, sauf pour la date du trajet.
+%p= link_to 'Copier le trajet', new_from_copy_trip_path(@trip.edition_token), class: 'btn btn-warning'
+%br
+%p
+  Pour proposer le trajet retour de votre annonce, cliquez sur le bouton ci-dessous. Le formulaire sera
+  pré-rempli automatiquement, les villes de départ et d'arrivée seront inversées (ainsi que vos éventuelles étapes).
+%p= link_to 'Créer le trajet retour', new_for_back_trip_path(@trip.edition_token), class: 'btn btn-warning'

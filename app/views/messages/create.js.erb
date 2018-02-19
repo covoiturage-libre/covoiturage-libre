@@ -1,0 +1,4 @@
+$("#message-wrapper").html("<%= escape_javascript(render 'sent') %>")
+if (typeof ga === "function") {
+  ga('send', 'event', 'Trajet', 'send_message');
+}

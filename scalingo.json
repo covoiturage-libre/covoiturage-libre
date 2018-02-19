@@ -1,0 +1,66 @@
+{
+  "name": "CovoiturageLibre",
+  "description": "CovoiturageLibre is a Carpooling Open Source platform",
+  "website": "https://covoiturage-libre.fr/",
+  "repository": "https://github.com/covoiturage-libre/covoiturage-libre",
+  "addons": [
+    "scalingo-postgresql",
+    "scalingo-redis",
+    "scalingo-elasticsearch"
+  ],
+  "env": {
+    "SECRET_KEY_BASE": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "MAILER_HOST": {
+      "description": "Host for URL in mails. Required."
+    },
+    "MAILER_HOST": {
+      "description": "Host for URL in mails. Required."
+    },
+    "MAILJET_API_KEY": {
+      "description": "For mails. Required."
+    },
+    "MAILJET_API_SECRET": {
+      "description": "For mails. Required."
+    },
+    "FACEBOOK_CLIENT_ID": {
+      "description": "For Meta data and Facebook login."
+    },
+    "FACEBOOK_CLIENT_SECRET": {
+      "description": "For Facebook login."
+    },
+    "GOOGLE_CLIENT_ID": {
+      "description": "For Google login."
+    },
+    "GOOGLE_CLIENT_SECRET": {
+      "description": "For Google login."
+    },
+    "GEONAMES_URL": {
+      "description": "For import only"
+    },
+    "GA_TRACKING_ID": {
+      "description": "Google Analytics"
+    },
+    "SENTRY_DSN": {
+      "description": "To report occurring errors."
+    },
+    "SLAASK_WIDGET_KEY": {
+      "description": "For visitors chat with you."
+    }
+  },
+  "scripts": {
+    "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
+  },
+  "formation": {
+    "web": {
+      "amount": 1,
+      "size": "S"
+    },
+    "worker": {
+      "amount": 1,
+      "size": "S"
+    }
+  }
+}

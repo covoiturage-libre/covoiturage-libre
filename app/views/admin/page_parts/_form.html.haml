@@ -1,0 +1,14 @@
+- url = @page_part.new_record? ? admin_page_parts_path : admin_page_part_path(@page_part)
+- method = @page_part.new_record? ? :post : :put
+
+.row
+  .col-md-5.col-md-offset-3.well
+    = simple_form_for @page_part, as: :page_part, url: url, method: method do |f|
+      = f.input :id
+      = f.input :name
+      = f.input :title
+      = f.input :body
+
+      .pull-right
+        = link_to 'Annuler', admin_page_parts_path, class: 'btn btn-default'
+        = f.button :submit, class: 'btn-primary'

@@ -1,0 +1,37 @@
+
+$orangeDefault    : #f5b833;
+$orangeStrong     : #ff6f00;
+$bgDefault        : #e9f1ff;
+
+.jumbotron {
+  background-image: image_url('jumbotron-home.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 0;
+  color: #fff;
+
+  &.small-jumbotron {
+    padding: 15px 0 15px 0;
+    margin-bottom: 0px;
+  }
+
+  .form-group {
+    margin-top: $spacing-unit / 2;
+  }
+}
+
+.publish {
+  margin: 0;
+  margin-top: -48px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #dddddd;
+  border-top: 0;
+  border-radius: 0 0 15px 15px;
+  text-align: center;
+}
+
+.ui-autocomplete-loading {
+  background: #fff image_url('ui-anim_basic_34x34.gif') no-repeat right center;
+}

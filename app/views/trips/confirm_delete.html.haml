@@ -1,0 +1,21 @@
+.row
+  .col-md-8
+    %h1 Suppression de votre annonce
+    %p
+      Êtes-vous sûr de vouloir supprimer votre annonce
+      = trip_title(@trip)
+      ?
+    %br
+    %center
+      = link_to 'Annuler', @trip, class: 'btn btn-bg btn-default'
+
+      = link_to 'Supprimer', delete_trip_path(@trip.deletion_token), class: 'btn btn-bg btn-danger'
+
+  .col-md-4
+    = render 'shortcuts'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'confirm_delete', '#{@trip.points.map(&:city).join(', ') }' );
+    }

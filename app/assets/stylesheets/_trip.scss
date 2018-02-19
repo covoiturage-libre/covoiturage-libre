@@ -1,0 +1,111 @@
+$borderColor      : #eeeeee;
+$mainLinkColor    : #e9f1ff;
+$priceColor       : #ff6f00;
+$beforeColor      : #F9DDFF;
+$afterColor       : #FAFFDD;
+
+hr.trip-list {
+  margin-bottom: 0;
+}
+
+
+a.trip-item {
+  display: block;
+  color: black;
+  background-color: white;
+}
+a.trip-item:hover {
+  background-color: $mainLinkColor;
+}
+a.trip-item-before {
+  background-color: $beforeColor;
+}
+a.trip-item-after {
+  background-color: $afterColor;
+}
+
+.trip {
+  border-bottom: 1px solid $borderColor;
+
+  .trip-info {
+    display: block;
+    float: left;
+    padding: 14px;
+    width: 50%;
+    .title {
+      font-weight: 400;
+      font-size: 18px;
+
+      .grey_background {
+	  color: grey;
+      }
+      .blue_background {
+	  color: blue;
+      }
+    }
+  }
+
+  .driver {
+    width: 35%;
+  }
+
+  .price {
+    width: 15%;
+  }
+}
+
+.driver {
+  display: block;
+  float: left;
+  padding: 8px 0 8px 8px;
+  .avatar {
+    text-align: center;
+    display: block;
+    float: left;
+    width: 65px;
+    height: 65px;
+    background-color: $borderColor;
+    border-radius: 100px;
+    padding: 15px 0 15px 0;
+    img {
+      height: 35px;
+    }
+  }
+  .info {
+    float: left;
+    margin: 10px 0 0 10px;
+    .name {
+      font-weight: bold;
+    }
+  }
+}
+
+.price {
+  display: block;
+  float: left;
+  padding: 8px;
+  text-align: center;
+  color: $priceColor;
+  p {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .seats {
+    font-size: 12px;
+  }
+}
+
+.small_price {
+  color: $priceColor;
+  font-weight: bold;
+}
+
+.main_seats {
+  display: block;
+  float: left;
+  padding: 8px;
+  text-align: center;
+  color: $priceColor;
+  font-size: 24px;
+  font-weight: bold;
+}

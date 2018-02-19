@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'open-uri'
+
+require_relative '../../config/environment'
+require_relative 'common'
+require_relative 'geoname_source'
+require_relative 'geoname_destination'
+
+count = 0
+
+url = ENV['GEONAMES_URL']
+
+source GeonameSource, url
+
+transform do |row|
+  count += 1
+  row
+end
+
+show_me!
+
+destination GeonameDestination, ENV["PG_URL"]

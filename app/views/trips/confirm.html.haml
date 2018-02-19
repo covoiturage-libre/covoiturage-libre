@@ -1,0 +1,22 @@
+.row
+  .col-md-8
+    %h1 Merci !
+    %p
+      Votre annonce a bien été validée.
+    %p
+      Elle est dès à présent disponible sur notre site.
+    %p
+      Vous pouvez la visualiser en
+      = link_to 'cliquant ici.', @trip
+    %br
+    %p
+      Nous vous avons envoyé un mail de gestion de l'annonce pour que vous puissiez la modifier ou la supprimer si besoin.
+
+  .col-md-4
+    = render 'shortcuts'
+
+- content_for :javascript_footer do
+  :javascript
+    if (typeof ga === "function") {
+      ga('send', 'event', 'Trajet', 'confirm', '#{@trip.points.map(&:city).join(', ') }' );
+    }

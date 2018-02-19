@@ -1,0 +1,83 @@
+// how to customize the navbar : http://stackoverflow.com/questions/18529274/change-navbar-color-in-twitter-bootstrap-3
+
+$bgDefault: #fff;
+
+@media (min-width: $screen-sm-min) {
+  .navbar {
+    height: 80px;
+
+    .navbar-nav > li > a {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      line-height: 40px;
+    }
+
+    .navbar-nav > li > .navbar-btn  {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .navbar .navbar-brand img {
+    height: 50px;
+  }
+
+  .btn {
+    width: 97%;
+    display:block;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+    margin: 0 5px 0 5px;
+  }
+}
+
+.navbar {
+  background-color: $bgDefault;
+  margin-bottom: 0;
+
+  .navbar-brand {
+    padding: 0;
+  }
+}
+
+.g-navbar__logos {
+  margin-left: $spacing-unit;
+
+  @include mq(tablet) {
+    margin-left: 0;
+  }
+}
+
+.g-navbar__logo-entire {
+  display: none !important;
+  margin-top: $spacing-unit;
+
+  @include mq(tablet) {
+    display: block !important;
+  }
+}
+
+.g-navbar__logo-baseline {
+  display: block !important;
+  height: 35px !important;
+  margin-top: ($spacing-unit / 2);
+
+  @include mq(tablet) {
+    display: none !important;
+  }
+}
+
+.navbar-default .navbar-nav > li > a {
+  @media (min-width: $screen-sm-min) {
+    font-weight: bold;
+    color: #000;
+
+    &:hover {
+      color: #444;
+    }
+  }
+}

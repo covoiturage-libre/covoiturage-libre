@@ -45,20 +45,34 @@ def get_kind(type)
   end
 end
 
-def get_leave_at(date_parcours, heure)
+def get_departure_date(date_parcours)
+  return nil if date_parcours.nil?
+  Date.new(date_parcours.year, date_parcours.month, date_parcours.day)
+end
+
+def get_departure_time(date_parcours, heure)
   return nil if date_parcours.nil? || heure.nil?
-  dt = DateTime.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec, heure.zone)
+  Time.new(date_parcours.year, date_parcours.month, date_parcours.day, heure.hour, heure.min, heure.sec)
 end
 
 def get_comfort(confort)
   case confort
     when 'Basique'
-      'basic'
+      'standard'
     when 'Normal'
-      'normal'
-    when 'Confortable'
       'comfort'
+    when 'Confortable'
+      'first_class'
     when 'Luxe'
-      'luxe'
+      'luxury'
   end
 end
+
+def encode_decode(string)
+  #begin
+  #  string.encode("iso-8859-1").force_encoding("utf-8") unless string.nil?
+  #rescue
+    string
+  #end
+end
+alias :ed :encode_decode

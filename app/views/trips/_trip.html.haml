@@ -1,0 +1,21 @@
+.trip
+  = link_to trip, class: 'trip-item' do
+    .driver
+      .avatar= image_tag('covoiturage-avatar-default2.png')
+      .info
+        .name= trip.name
+        .age= "#{trip.age} ans" if trip.age.present?
+    .trip-info
+      .title
+        =l trip.departure_time, format: :short
+        %p= "(le covoit' est sur la route)" if trip.is_before_today?
+      .details
+        = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
+    .price
+      %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
+      .seats
+        - if trip.seats == 0
+          Complet
+        - else
+          = "#{trip.seats} place#{'s' if trip.seats > 1}"
+    .clearfix

@@ -63,6 +63,9 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
+  # config mail delivery method and service
+  config.action_mailer.delivery_method = :mailjet
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
@@ -82,6 +85,10 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
+
+  # Add this line to config/application.rb. This tells Rails to serve error pages from the Rails app itself
+  # (i.e. the routes we just set up), rather than using static error pages in public/.
+  config.exceptions_app = self.routes
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
