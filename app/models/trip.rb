@@ -181,13 +181,19 @@ class Trip < ApplicationRecord
   def clone_as_back_trip
     new_trip = self.dup
     new_trip.departure_date = new_trip.departure_time = nil
-    new_trip.points = self.points.reverse.map { |p| p.dup }
-    new_trip.points.first.kind = 'From'
-    new_trip.points.last.kind = 'To'
-    # reverse ranks
-    new_trip.points.last.rank = new_trip.points.first.rank
-    new_trip.points.first.rank = 0
-    new_trip.step_points.each_with_index { |sp, index| sp.rank = index + 1 }
+
+    # reverse ranks, kinds and adjust prices
+    new_trip.points = self.points.reverse.each_with_index.map do |point, new_index|
+      new_point = point.dup
+      new_point.city = point.city
+
+      mirror_point = self.points[-1-new_index]
+      new_point.rank = mirror_point.rank
+      new_point.kind = mirror_point.kind
+      new_point.price = mirror_point.price ? (self.price - mirror_point.price) : nil
+
+      new_point
+    end
 
     new_trip
   end
