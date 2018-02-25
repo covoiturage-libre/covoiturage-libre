@@ -5,6 +5,7 @@
   .col-xs-1.step-nb
     = f.object.rank
   .col-xs-2.step-from-city.trip-from-city-value
+    = f.object.trip.points[0].city if f.object.trip && f.object.trip.points[0]
   .col-xs-3
     = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
   .col-xs-2
