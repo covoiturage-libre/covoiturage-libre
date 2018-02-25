@@ -12,7 +12,7 @@ jQuery.fn.extend({
       // Hide previous error message
       var inputSelector = $(input);
       inputSelector.parent().removeClass("has-error");
-      inputSelector.next(".help-block").hide();
+      inputSelector.prev(".help-block").hide();
 
       if (typeof ga === "function") {
         ga("send", "event", "Ville", "select", cityItem.city);

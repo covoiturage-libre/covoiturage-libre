@@ -1,7 +1,8 @@
+# coding: utf-8
 class TripsController < ApplicationController
   include ApplicationHelper
 
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def show
     @trip = Trip.find_by(confirmation_token: params[:id])
