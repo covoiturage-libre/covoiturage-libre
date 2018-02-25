@@ -1,12 +1,13 @@
 .nested-fields.form-inputs.row.step-row
   .col-xs-2
     %em.handle
-      .glyphicon.glyphicon-sort{aria: {hidden: 'true'}}
+      .glyphicon.glyphicon-sort{ aria: { hidden: 'true' } }
   .col-xs-1.step-nb
     = f.object.rank
-  .col-xs-4
-    = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
+  .col-xs-2.step-from-city.trip-from-city-value
   .col-xs-3
+    = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
+  .col-xs-2
     = f.input :price, wrapper: :step_horizontal_form, input_html: { min: '0', step: '1' }, placeholder: '* Prix'.html_safe
   = f.input :lon, as: :hidden
   = f.input :lat, as: :hidden

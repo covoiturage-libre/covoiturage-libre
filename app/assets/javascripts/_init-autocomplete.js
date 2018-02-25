@@ -17,6 +17,10 @@ jQuery.fn.extend({
       if (typeof ga === "function") {
         ga("send", "event", "Ville", "select", cityItem.city);
       }
+
+      if (inputSelector.hasClass("trip-from-city-input")) {
+        $(".trip-from-city-value").text(cityItem.value);
+      }
     }
 
     return this.autocomplete({

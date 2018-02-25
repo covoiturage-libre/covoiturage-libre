@@ -32,13 +32,13 @@ function secondsToStringFR(seconds) {
   var numHours = Math.floor(((seconds % 31536000) % 86400) / 3600);
   var numMinutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
   var numSeconds = (((seconds % 31536000) % 86400) % 3600) % 60;
-  
+
   var sentence = [];
   sentence.push(numberAppendString(numYears, " ans "));
   sentence.push(numberAppendString(numDays, " jours "));
   sentence.push(numberAppendString(numHours, " heures "));
   sentence.push(numberAppendString(numMinutes, " minutes "));
-  
+
   return sentence.join("");
 }
 
@@ -128,11 +128,13 @@ var TripDrawing = function() {
     $("#city_to").find(".trip_points_lon input:first").each(
       self.updateOrCreatePoint);
     // Explore DOM steps
+    var from_city = $(".trip-from-city-input").val();
     $("#steps .nested-fields").each(function(index, value) {
       var newIndex = parseInt(index) + 1;
       // Rename labels, update rank
       var field = $(this);
       field.find(".step-nb:first").text(newIndex);
+      field.find(".step-from-city:first").text(from_city);
       field.find(".trip_points_rank input:first").val(newIndex);
       // Make coordinates list
       field.find(".trip_points_lon input:first").each(self.updateOrCreatePoint);
@@ -169,7 +171,7 @@ var TripDrawing = function() {
     var copiedArray = self.points.slice(0);
     return copiedArray.filter(function(val) { return val !== null; });
   };
-  
+
   self.equalArrays = function() {
     // make copies
     var a1 = self.points.slice(0);
