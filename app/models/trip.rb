@@ -187,7 +187,7 @@ class Trip < ApplicationRecord
       new_point = point.dup
       new_point.city = point.city
 
-      mirror_point = self.points[-1-new_index]
+      mirror_point = self.points[0-1-new_index]
       new_point.rank = mirror_point.rank
       new_point.kind = mirror_point.kind
       new_point.price = mirror_point.price ? (self.price - mirror_point.price) : nil
