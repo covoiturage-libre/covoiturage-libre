@@ -174,7 +174,13 @@ class Trip < ApplicationRecord
   def clone_without_date
     new_trip = self.dup
     new_trip.departure_date = new_trip.departure_time = nil
-    new_trip.points = self.points.map { |p| p.dup }
+    new_trip.points = self.points.map do |point|
+      new_point = point.dup
+      new_point.city = point.city
+
+      new_point
+    end
+
     new_trip
   end
 
