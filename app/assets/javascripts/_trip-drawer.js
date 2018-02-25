@@ -128,7 +128,7 @@ var TripDrawing = function() {
     $("#city_to").find(".trip_points_lon input:first").each(
       self.updateOrCreatePoint);
     // Explore DOM steps
-    var from_city = $('.trip-from-city-input').val();
+    var from_city = $(".trip-from-city-input").val();
     $("#steps .nested-fields").each(function(index, value) {
       var newIndex = parseInt(index) + 1;
       // Rename labels, update rank

@@ -18,8 +18,8 @@ jQuery.fn.extend({
         ga("send", "event", "Ville", "select", cityItem.city);
       }
 
-      if (inputSelector.hasClass('trip-from-city-input')) {
-        $('.trip-from-city-value').text(cityItem.value);
+      if (inputSelector.hasClass("trip-from-city-input")) {
+        $(".trip-from-city-value").text(cityItem.value);
       }
     }
 
