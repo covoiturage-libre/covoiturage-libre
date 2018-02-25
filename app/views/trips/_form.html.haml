@@ -14,7 +14,7 @@
         .panel-body
           = f.simple_fields_for :points, @required_points do |p|
             .form-inputs{ id: "city_#{p.object.kind.downcase}" }
-              = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
+              = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: "geoname #{'trip-from-city-input' if p.object == @required_points[0]}" }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
               = p.input :kind, as: :hidden
