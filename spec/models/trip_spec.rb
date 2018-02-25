@@ -107,27 +107,26 @@ describe Trip, type: :model do
 
   describe '#clone_as_back_trip' do
     it "should work as expected with steps prices" do
-      cities = create_list(:city, 5)
       trip = Trip.new(price: 100)
-      trip.points.build(rank: 0, city: cities[0], kind: 'From')
-      trip.points.build(rank: 1, city: cities[1], kind: 'Step', price: 10)
-      trip.points.build(rank: 2, city: cities[2], kind: 'Step', price: 40)
-      trip.points.build(rank: 3, city: cities[3], kind: 'Step', price: 65)
-      trip.points.build(rank: 4, city: cities[5], kind: 'To')
+      trip.points.build(rank: 0, city: 'One', kind: 'From')
+      trip.points.build(rank: 1, city: 'Two', kind: 'Step', price: 10)
+      trip.points.build(rank: 2, city: 'Three', kind: 'Step', price: 40)
+      trip.points.build(rank: 3, city: 'Four', kind: 'Step', price: 65)
+      trip.points.build(rank: 4, city: 'Five', kind: 'To')
 
       clone_trip = trip.clone_as_back_trip
 
       expect(clone_trip.price).to eq trip.price
       expect(clone_trip.points[0].attributes).to include(
-        'rank' => 0, 'kind' => 'From', 'city' => cities[4], 'price' => nil)
+        'rank' => 0, 'kind' => 'From', 'city' => 'Five', 'price' => nil)
       expect(clone_trip.points[1].attributes).to include(
-        'rank' => 1, 'kind' => 'Step', 'city' => cities[3], 'price' => 35)
+        'rank' => 1, 'kind' => 'Step', 'city' => 'Four', 'price' => 35)
       expect(clone_trip.points[2].attributes).to include(
-        'rank' => 2, 'kind' => 'Step', 'city' => cities[2], 'price' => 60)
+        'rank' => 2, 'kind' => 'Step', 'city' => 'Three', 'price' => 60)
       expect(clone_trip.points[3].attributes).to include(
-        'rank' => 3, 'kind' => 'Step', 'city' => cities[1], 'price' => 90)
+        'rank' => 3, 'kind' => 'Step', 'city' => 'Two', 'price' => 90)
       expect(clone_trip.points[4].attributes).to include(
-        'rank' => 4, 'kind' => 'To', 'city' => cities[0], 'price' => nil)
+        'rank' => 4, 'kind' => 'To', 'city' => 'One', 'price' => nil)
     end
   end
 
