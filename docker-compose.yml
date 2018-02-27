@@ -25,6 +25,7 @@ services:
   web:
     build:
       context: .
+    buildpack: https://github.com/Scalingo/multi-buildpack.git
     command: bash -c "./wait-for-it.sh db:5432 elasticsearch:9200 redis:6379 -- bundle exec rake db:migrate && sleep 5 && bundle exec rake searchkick:reindex CLASS=City && bundle exec puma -t 5:5 -p 3000 -e ${RACK_ENV:-development}"
     ports:
       - "3000:3000"
