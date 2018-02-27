@@ -28,7 +28,7 @@
 .idea
 
 # environment
-.env
+#.env
 /etl_errors.log
 
 # pessimize gem Gemfile backups
