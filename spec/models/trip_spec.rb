@@ -18,7 +18,7 @@ describe Trip, type: :model do
   describe "scopes" do
 
     before(:each) do
-      city = City.create!
+      cities = create_list(:city, 5)
 
       @trip = Trip.create!(
         departure_date: Time.zone.today,
@@ -31,10 +31,10 @@ describe Trip, type: :model do
         comfort: 'comfort',
 
         points: [
-          Point.new(kind: 'From', lat: 1.23, lon: 1.24, city: city),
-          Point.new(kind: 'Step', lat: 1.24, lon: 1.25, city: city, rank: 1, price: 4),
-          Point.new(kind: 'Step', lat: 1.25, lon: 1.26, city: city, rank: 2, price: 5),
-          Point.new(kind: 'To', lat: 1.83, lon: 1.84, city: city)
+          Point.new(kind: 'From', lat: 1.23, lon: 1.24, city: cities.pop.name),
+          Point.new(kind: 'Step', lat: 1.24, lon: 1.25, city: cities.pop.name, rank: 1, price: 4),
+          Point.new(kind: 'Step', lat: 1.25, lon: 1.26, city: cities.pop.name, rank: 2, price: 5),
+          Point.new(kind: 'To', lat: 1.83, lon: 1.84, city: cities.pop.name)
         ]
       )
     end

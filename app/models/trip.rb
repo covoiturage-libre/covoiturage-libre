@@ -219,8 +219,8 @@ class Trip < ApplicationRecord
 
     def must_have_different_points
       if points.size > 1 &&
-        (points.uniq(&:city).size < points.size ||
-          points.uniq { |p| [p.lat, p.lng] }.size < points.size)
+        (points.to_a.uniq(&:city).size < points.size ||
+          points.to_a.uniq { |p| [p.lat, p.lon] }.size < points.size)
         errors.add(:points, "Des points ou étapes sont identiques.")
       end
     end

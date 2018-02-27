@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :city do
-    name  "Gotham City"
+    name  { "Gotham City #{City.count}" }
+    lat   { City.count }
+    lon   { City.count }
   end
 end
