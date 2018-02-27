@@ -7,8 +7,7 @@ EXPOSE 3000
 
 ENV HOME=/covoiturage-libre \
     PATH=/covoiturage-libre/bin:$PATH \
-    PORT=3000 \
-    BUILDPACK_URL=https://github.com/Scalingo/multi-buildpack.git
+    PORT=3000 
 
 RUN apt-get update -qq && \
     apt-get install -y \
