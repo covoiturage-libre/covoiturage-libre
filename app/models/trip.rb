@@ -32,6 +32,7 @@ class Trip < ApplicationRecord
   validates_acceptance_of :terms_of_service
   validates :email, email: true
   validates_with PricesValidator
+  validate :must_have_different_points
 
   before_validation :strip_whitespace
 
@@ -211,8 +212,16 @@ class Trip < ApplicationRecord
   private
 
     def must_have_from_and_to_points
-      if points.empty? or point_from.nil? or point_to.nil?
+      if points.empty? || point_from.nil? || point_to.nil?
         errors.add(:base, "Le départ et l'arrivée du voyage sont nécessaires.")
+      end
+    end
+
+    def must_have_different_points
+      if points.size > 1 &&
+        (points.uniq(&:city).size < points.size ||
+          points.uniq { |p| [p.lat, p.lng] }.size < points.size)
+        errors.add(:points, "Des points ou étapes sont identiques.")
       end
     end
 

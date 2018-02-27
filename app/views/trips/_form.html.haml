@@ -23,6 +23,9 @@
           %br
           %h5 Optionnel : faites-vous des étapes ?
           #steps
+            - if f.object.errors[:points].any?
+              %div.alert.alert-danger
+                = f.object.errors[:points].join(' ')
             - index = 0
             = f.simple_fields_for :points, @optional_points do |point|
               = render 'point_fields', f: point
