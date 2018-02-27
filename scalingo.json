@@ -9,6 +9,9 @@
     "scalingo-elasticsearch"
   ],
   "env": {
+    "BUILDPACK_URL": {
+      "value" : "https://github.com/Scalingo/multi-buildpack.git"
+    },
     "SECRET_KEY_BASE": {
       "description": "A secret key for verifying the integrity of signed cookies.",
       "generator": "secret"
