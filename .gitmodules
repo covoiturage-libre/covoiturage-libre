@@ -1,4 +1,0 @@
-[submodule "osrm_routing_server/lib"]
-	path = osrm_routing_server/lib
-	url = https://github.com/Project-OSRM/osrm-backend/tree/v5.16.1/profiles/lib
-	branch = master
