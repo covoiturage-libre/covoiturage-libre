@@ -9,8 +9,8 @@ ENV HOME=/covoiturage-libre \
     PATH=/covoiturage-libre/bin:$PATH \
     PORT=3000
 
-RUN apt-get update -qq && \
-    apt-get install -y \
+RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test && apt-get update -qq && \
+    apt-get install -y g++-6 gcc-6 \
       build-essential \
       libpq-dev \
       nodejs
