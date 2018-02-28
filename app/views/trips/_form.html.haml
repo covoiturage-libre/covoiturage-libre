@@ -110,7 +110,7 @@
       }
     }).addTo(myMap);
 
-    var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
+    var initialTripPoints = #{raw @trip.points.sort { |x, y| (x.rank.nil? || y.rank.nil?) ? 0 : x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f] }};
     var myTripDrawing = (new TripDrawing());
     myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
 
