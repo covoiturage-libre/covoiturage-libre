@@ -8,11 +8,6 @@
     "scalingo-redis",
     "scalingo-elasticsearch"
   ],
-  "buildpacks": [
-    {
-      "url": "https://github.com/Scalingo/multi-buildpack.git"
-    }
-  ], 
   "env": {
     "SECRET_KEY_BASE": {
       "description": "A secret key for verifying the integrity of signed cookies.",
