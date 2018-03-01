@@ -14,7 +14,8 @@ describe TripsController, type: :controller do
             'kind',
             'rank', 'price',
             'lat', 'lon',
-          ).merge('city' => City.last.name)
+            'city'
+          )
         ]
       }]
     end
