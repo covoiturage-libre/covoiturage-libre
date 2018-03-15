@@ -24,7 +24,7 @@
   %div#the_trip_start_map
   %div#the_trip_end_map
   %div.results_recap 
-    %p <strong>#{@the_trips_of_the_selected_day__all.length} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
+    %p <strong>#{@the_trips_of_the_selected_day__all.length if @the_trips_of_the_selected_day__all.length > 0}#{'Aucune' if @the_trips_of_the_selected_day__all.length == 0} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
     %ul.the_list_of_the_days
       Les trajets à +/- #{@the_number_of_days_around_the_requested_day} jours : 
       - @the_days_around_the_requested_day.each do |a_day|
