@@ -57,7 +57,7 @@ $bgFeatureBlock: #fffbf2 !default;
 
 .p-home__subtitle {
   font-size: 21px;
-  margin-bottom: 0;
+  margin-bottom: 30px;
 }
 
 .p-home__heading {
@@ -83,6 +83,32 @@ $bgFeatureBlock: #fffbf2 !default;
 
   ul {
     padding-left: $spacing-unit / 4;
+  }
+}
+
+.p-home__banner {
+  padding-top: $spacing-unit;
+  padding-bottom: $spacing-unit;
+  .btn {
+      @media screen and (max-width: 992px) {
+        font-size: 14px;
+      }
+    background-color: $blue-shade;
+    color: #fff;
+    margin-bottom: $spacing-unit;
+  }
+  .home__banner_close {
+    float: right;
+    font-size: 2em;
+    background-color: #fff;
+    border: 0;
+  }
+  .home__banner_close:hover {
+    color: $blue-shade;
+  }
+  .home__banner_logo {
+    float: left;
+    margin-right: 1em;
   }
 }
 
@@ -139,4 +165,92 @@ $bgFeatureBlock: #fffbf2 !default;
   line-height: 100%;
   width: 3em;
   margin: auto;
+}
+
+
+.the_day_in_a_list {
+    display: inline;
+    margin-left: 5px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+.the_day_without_any_departure {
+    color: #AAAAAA;
+}
+.the_day_without_any_departure a { // we have to insist
+    color: #AAAAAA;
+}
+.the_list_of_the_days {
+    margin-left: 5px;
+    padding-left: 0;
+    padding-right: 0;
+}
+.the_list_of_the_departure_times {
+    margin-left: 0;
+    padding-left: 0;
+    display: inline;
+}
+.the_day_is_on_the_week_end {
+    font-weight: bold;
+}
+.the_day_is_the_selected_day {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-style: solid;
+    border-width: 1px;
+}
+.the_departure_time_in_a_list {
+    display: inline;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.results_recap p {
+    color: #AAAAAA;
+}
+.results_recap strong {
+    color: black;
+}
+
+#the_trip_start_map {
+    height: 200px;
+    width: 48%;
+    display: inline-block;
+    z-index: 0; // to be nice with the calendar which is at z-index: 1
+}
+#the_trip_end_map {
+    height: 200px;
+    width: 48%;
+    display: inline-block;
+    z-index: 0; // to be nice with the calendar which is at z-index: 1
+}
+
+
+#no_results__show_some_help li {
+    display: inline-block;
+    width: 48%;
+    margin: 10px;
+}
+#no_results__show_some_help li p {
+    margin: 0;
+}
+.first_help {
+    color: black;
+}
+.second_help {
+    color: #AAAAAA;
+}
+.help_introduction {
+    margin: 0;
+    color: #ed7233;
+}
+.help_introduction em {
+    color: black;
+    font-style: normal;
+}
+.orange_text {
+    color: #ed7233;
+}
+.blue_text {
+    color: #23527c;
 }

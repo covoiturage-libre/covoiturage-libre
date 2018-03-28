@@ -14,28 +14,28 @@
         .panel-body
           = f.simple_fields_for :points, @required_points do |p|
             .form-inputs{ id: "city_#{p.object.kind.downcase}" }
-              = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: 'geoname' }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
+              = p.input :city, as: :string, wrapper: :horizontal_form, input_html: { class: "geoname #{'trip-from-city-input' if p.object == @required_points[0]}" }, placeholder: t(p.object.kind.downcase), label: t(p.object.kind.downcase+'_place'), required: true
               = p.input :lon, as: :hidden
               = p.input :lat, as: :hidden
               = p.input :kind, as: :hidden
               = p.input :rank, as: :hidden
-          = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
+          = f.input :price, wrapper: :horizontal_form, input_html: { min: '0', step: '1' }
           %br
-          %h5 Optionnel : faites-vous des étapes ?
+          %h5 Indiquez des étapes
+          %p
+            %em (prix à partir de la ville de départ)
           #steps
             - index = 0
             = f.simple_fields_for :points, @optional_points do |point|
               = render 'point_fields', f: point
             .links
-              = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, { class: 'btn btn-default pull-right', render_options: {locals: { rank: index }}}
-          %p
-            %em (prix à partir de la ville de départ)
+              = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter une étape'.html_safe, f, :points, { class: 'btn btn-default pull-right', render_options: { locals: { rank: index } } }
 
       .panel.panel-default
         .panel-heading
           %h3.panel-title Date, horaire et détails
         .panel-body
-          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: {value: date_value, class: 'datepicker' }, placeholder: 'Date'
+          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: { value: date_value, class: 'datepicker' }, placeholder: 'Date'
           = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
           = f.input :description, wrapper: :horizontal_form, hint: 'Important, les annonces avec commentaires sont plus efficaces : détails sur votre parcours, sur le lieu précis du départ, sur vos attentes, si vous acceptez les animaux de compagnie, etc.'
           = f.input :total_distance, as: :hidden
@@ -47,7 +47,7 @@
         .panel-body
           = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes'
           = f.input :name, as: :string, wrapper: :horizontal_form
-          = f.input :age, as: :string, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }
+          = f.input :age, as: :integer, wrapper: :horizontal_form, input_html: { min: '0' }
           = f.input :phone, as: :string, wrapper: :horizontal_form, hint: 'Votre numéro de téléphone sera affiché sous forme d’image mais en clair. Si vous ne souhaitez pas laisser votre numéro sur le site, ne remplissez pas ce champ'
           = f.input :email, as: :string, wrapper: :horizontal_form, hint: 'Obligatoire et valide. Un message de confirmation vous y sera envoyé.'
 
@@ -55,7 +55,7 @@
         .panel-heading
           %h3.panel-title Votre véhicule
         .panel-body
-          = f.input :seats, wrapper: :horizontal_form, input_html: { min: '0', step: 'any' }, collection: 1..8
+          = f.input :seats, wrapper: :horizontal_form, input_html: { min: '0' }, collection: 0..8
           = f.input :comfort, wrapper: :horizontal_form, collection: Trip::CAR_RATINGS.map(&:to_sym)
           = f.input :smoking, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline'
 
@@ -65,7 +65,7 @@
           -if @trip.new_record?
             %div{style: "padding-left: 15px;"}= f.input :terms_of_service, label: "Je valide les #{link_to('CGUs', '/cgus', target: '_blank')}".html_safe
         .col-md-6
-          = f.button :submit, class: 'btn btn-primary btn-lg pull-right'
+          = f.button :submit, class: 'btn btn-primary btn-lg pull-right', style: 'margin-bottom: 1em;'
 
     .col-md-6
       .panel.panel-default
@@ -95,20 +95,26 @@
     }).addTo(myMap);
 
     var myRouting = L.Routing.control({
-      waypoints: [],
+      plan: L.Routing.plan([], {
+        draggableWaypoints: false, // disable live edit on map
+        addWaypoints: false,
+      }),
       routeWhileDragging: true,
-      show: false // setting show to false hides the directions text block
+      show: false, // setting show to false hides the directions text block
+      // disable live edit on map
+      lineOptions : {
+        addWaypoints: false
+      }
     }).addTo(myMap);
 
     var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
-    window.myTripDrawing = new TripDrawing().init(myRouting, initialTripPoints);
-    window.myRouting = myRouting;
+    var myTripDrawing = (new TripDrawing());
+    myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
 
     // Sortabe steps
-    
+
     $( '#steps' ).sortable({
       handle: '.handle',
       placeholder: 'step-placeholder'
     });
-    
     $( '#steps' ).disableSelection();

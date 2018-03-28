@@ -2,7 +2,6 @@
 - @meta[:title] = "#{Rails.application.config.app_name}, le covoiturage gratuit et collaboratif"
 - @meta[:description] = '1ère plateforme de covoiturage gratuite et collaborative. Aucune commission sur les trajets. Association à but non lucratif. Depuis 2011.'
 
-
 - content_for :page_part_1 do
   .container
     .row
@@ -10,7 +9,7 @@
         = @page_part_1.try(:body)
 
 - content_for :search_zone do
-  .jumbotron
+  .jumbotron{ style: ENV['JUMBOTRON_IMAGE'] ? "background-image: url('#{asset_path(ENV['JUMBOTRON_IMAGE'])}')" : '' }
     .container
       .row
         .col-md-9
@@ -20,7 +19,7 @@
         .col-md-3
           .home-publish-cta
             %p.home-publish-cta__title
-              Vous avez une voiture ?
+              Vous avez une voiture&nbsp;?
             = link_to 'Publiez une annonce', new_trip_path, class: 'btn btn-lg btn-primary', id: 'new_trip_button'
             %p
               Le site ne prend aucune commission
@@ -28,6 +27,7 @@
               Association loi 1901
 
 - content_for :home_content do
+  = render 'banner'
   %section.p-home__features
     .container
       .row
@@ -37,8 +37,6 @@
             Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers. Les prix sont fixés par les conducteurs, le site ne prélève aucune commission sur les trajets, nous ne vivons que de dons.
           %p
             = link_to 'Faire un don »', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener', class: 'btn btn-default'
-          %p
-            = link_to 'Nous soutenir via Lilo »', 'http://www.lilo.org/fr/covoiturage-libre-fr/?utm_source=covoiturage-libre-fr', target: '_blank', rel: 'noopener', class: 'btn btn-default'
         .col-sm-4
           %h3.p-home__heading Libre
           %p Nous avons pris cinq engagements :

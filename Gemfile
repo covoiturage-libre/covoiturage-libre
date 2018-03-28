@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.4.2'
+ruby '>= 2.2.2'
 
 ### Main Gems
 
@@ -28,6 +28,7 @@ gem 'awesome_print'
 ### App Server
 
 gem 'puma', '~> 3.6' # Use Puma as the app server
+gem 'utf8-cleaner', '~> 0.2'
 gem 'daemons' # for running delayed jobs
 
 ### Middlewares
@@ -67,7 +68,7 @@ gem 'route_translator'
 ### Services
 
 gem 'mailjet'
-gem 'appsignal'
+gem 'sentry-raven' # Errors tracking
 
 ### Image manipularion
 
@@ -85,23 +86,24 @@ gem 'redcarpet' # Require the Markdown converter gem
 gem 'activerecord-postgis-adapter'
 
 group :development, :test do
-  gem 'byebug', '~> 9.0', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rspec', '~> 3.5'
+  gem 'byebug', platform: :mri # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec', '~> 3.7'
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'email_spec'
+  gem 'rails-controller-testing', '~> 1.0'
 end
 
 group :development do
   gem 'letter_opener'
   gem 'letter_opener_web'
-  gem 'web-console', '~> 3.3' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'listen', '~> 3.0'
-  gem 'spring', '~> 1.7' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen', '~> 2.0'
+  gem 'web-console' # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'listen'
+  gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring-watcher-listen'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -9,27 +9,27 @@ fr:
           has_many: "Vous ne pouvez pas supprimer l'enregistrement parce que les %{record} dépendants existent"
   date:
     abbr_day_names:
-    - dim
-    - lun
-    - mar
-    - mer
-    - jeu
-    - ven
-    - sam
+    - D
+    - L
+    - Ma
+    - Me
+    - J
+    - V
+    - S
     abbr_month_names:
     -
-    - jan.
-    - fév.
-    - mar.
-    - avr.
-    - mai
-    - juin
-    - juil.
-    - août
-    - sept.
-    - oct.
-    - nov.
-    - déc.
+    - Jan
+    - F
+    - Mar
+    - Av
+    - Mai
+    - Juin
+    - Juil
+    - Ao
+    - S
+    - O
+    - N
+    - D
     day_names:
     - dimanche
     - lundi
@@ -41,7 +41,10 @@ fr:
     formats:
       default: "%d/%m/%Y"
       short: "%e %b"
-      long: "%e %B %Y"
+      short_with_abbr_day_name: "%a%e%b"
+      long: "%A %B %Y"
+      trip_date: "%A %e %B %Y"
+      trip_date_without_the_year: "%A %e %B"
     month_names:
     -
     - janvier
@@ -150,6 +153,7 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+    number_to_age: "%{age} ans"
   number:
     currency:
       format:

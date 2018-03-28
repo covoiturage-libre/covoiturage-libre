@@ -11,7 +11,7 @@
         = f.input :title
         = f.input :meta_desc
       .col-md-6
-        = f.input :body, input_html: { rows: 24, value: f.object.body.try(:gsub, /\n/, '') }
+        = f.input :body, input_html: { rows: 24, value: f.object.body&.gsub(/\n/, '') }
 
     .pull-right
       = link_to 'Annuler', admin_pages_path, class: 'btn btn-default'

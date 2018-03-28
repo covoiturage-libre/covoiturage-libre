@@ -24,10 +24,6 @@
       "description": "Host for URL in mails.",
       "required": true
     },
-    "MAILER_HOST": {
-      "description": "Host for URL in mails.",
-      "required": true
-    },
     "MAILJET_API_KEY": {
       "description": "For mails.",
       "required": true
@@ -60,22 +56,26 @@
       "description": "Google Analytics",
       "required": false
     },
+    "SENTRY_DSN": {
+      "description": "To report occurring errors.",
+      "required": false
+    },
     "SLAASK_WIDGET_KEY": {
       "description": "For visitors chat with you.",
       "required": false
     }
   },
   "scripts": {
-    "postdeploy": "rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
+    "postdeploy": "bin/rails db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City"
   },
   "formation": {
     "web": {
       "quantity": 1,
-      "size": "free"
+      "size": "Free"
     },
-    "delayedjob": {
+    "worker": {
       "quantity": 1,
-      "size": "free"
+      "size": "Free"
     }
   }
 }

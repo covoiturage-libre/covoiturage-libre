@@ -1,8 +1,15 @@
+# coding: utf-8
 class Trip < ApplicationRecord
+  include Trips::Search
 
   # use of this classification https://en.wikipedia.org/wiki/Hotel_rating
   CAR_RATINGS = %w(standard comfort first_class luxury).freeze
   STATES = %w(pending confirmed deleted).freeze
+
+  STEPS_MAX_RANK = 16 # maximum nb of steps = max rank - 1
+  SEARCH_DISTANCE_IN_METERS = 25_000
+
+  attr_accessor :the_previous_trip__departure_date
 
   has_many :points, -> { order('rank asc') }, inverse_of: :trip, dependent: :destroy
   has_many :messages, dependent: :destroy
@@ -17,21 +24,23 @@ class Trip < ApplicationRecord
   validates_inclusion_of :smoking, in: [true, false]
   validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_inclusion_of :state, in: STATES
-  validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date situé entre aujourd hui et dans 1 an."
-  validates_numericality_of :seats, { greater_than_or_equal_to: 1 }
-  validates_numericality_of :price, { greater_than_or_equal_to: 0 }
-  validates_numericality_of :age, allow_blank: true
+  validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date située entre aujourd'hui et dans 1 an."
+  validates_numericality_of :seats, only_integer: true, greater_than_or_equal_to: 0
+  validates_numericality_of :price, only_integer: true, greater_than_or_equal_to: 0
+  validates_numericality_of :age, only_integer: true, allow_blank: true, greater_than: 0, less_than: 100
+
   validate :must_have_from_and_to_points
   validates_acceptance_of :terms_of_service
   validates :email, email: true
   validates_with PricesValidator
-  # strip whitespaces before validation and save
+
   before_validation :strip_whitespace
+
   def strip_whitespace
-    self.email = self.email.strip unless self.email.nil?
-    self.name = self.name.strip unless self.name.nil?
-    self.phone = self.phone.strip unless self.phone.nil?
-    self.description = self.description.strip unless self.description.nil?
+    self.email = strip_value(self.email)
+    self.name = strip_value(self.name)
+    self.phone = strip_value(self.phone)
+    self.description = strip_value(self.description)
   end
 
   after_create :send_confirmation_email
@@ -39,44 +48,6 @@ class Trip < ApplicationRecord
 
   # eager load points each time a trip is requested
   default_scope { includes(:points).order('created_at ASC') }
-
-  scope :from_to, -> (from_lon, from_lat, to_lon, to_lat) {
-    select('trips.*,
-      point_a.id as point_a_id, point_a.price as point_a_price,
-      point_b.id as point_b_id, point_b.price as point_b_price,
-      trips.id'). # trips.id is necessary here for the COUNT_COLUMN method used by Kaminari counting.
-    joins('INNER JOIN points AS point_a ON trips.id = point_a.trip_id').
-    joins('INNER JOIN points AS point_b ON trips.id = point_b.trip_id').
-    where("ST_Dwithin(
-           ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
-           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", from_lon.to_f, from_lat.to_f).
-    where("ST_Dwithin(
-           ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
-           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", to_lon.to_f, to_lat.to_f).
-    where('point_a.rank < point_b.rank')
-  }
-
-  scope :from_only, -> (from_lon, from_lat) {
-    select('trips.*, point_a.id as point_a_id, trips.id').
-    joins('INNER JOIN points AS point_a ON trips.id = point_a.trip_id').
-    where("ST_Dwithin(
-           ST_GeographyFromText('SRID=4326;POINT(' || point_a.lon || ' ' || point_a.lat || ')'),
-           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", from_lon.to_f, from_lat.to_f).
-    where("point_a.kind <> 'To'")
-  }
-
-  scope :to_only, -> (to_lon, to_lat) {
-    select('trips.*, point_b.id as point_b_id, trips.id').
-    joins('INNER JOIN points AS point_b ON trips.id = point_b.trip_id').
-    where("ST_Dwithin(
-           ST_GeographyFromText('SRID=4326;POINT(' || point_b.lon || ' ' || point_b.lat || ')'),
-           ST_GeographyFromText('SRID=4326;POINT(? ?)'),
-           25000)", to_lon.to_f, to_lat.to_f).
-    where("point_b.kind <> 'From'")
-  }
 
   def to_param
     confirmation_token
@@ -125,22 +96,43 @@ class Trip < ApplicationRecord
   def clone_without_date
     new_trip = self.dup
     new_trip.departure_date = new_trip.departure_time = nil
-    new_trip.points = self.points.map { |p| p.dup }
+    new_trip.points = self.points.map(&:dup)
+
     new_trip
   end
 
   def clone_as_back_trip
     new_trip = self.dup
-    new_trip.departure_date = new_trip.departure_time = nil
-    new_trip.points = self.points.reverse.map { |p| p.dup }
+    # new_trip.departure_date = new_trip.departure_time = nil
+
+    # reverse ranks, kinds and adjust prices
+    new_trip.points = self.points.reverse.each_with_index.map do |point, new_index|
+      new_point = point.dup
+      new_point.rank = new_index
+      new_point.price = point.price ? (self.price - point.price) : nil
+
+      new_point
+    end
     new_trip.points.first.kind = 'From'
     new_trip.points.last.kind = 'To'
-    # reverse ranks
-    new_trip.points.last.rank = new_trip.points.first.rank
-    new_trip.points.first.rank = 0
-    new_trip.step_points.each_with_index { |sp, index| sp.rank = index + 1 }
 
     new_trip
+  end
+
+  def before_actual_time
+    self.departure_time.hour < Time.now.hour || (self.departure_time.hour == Time.now.hour && self.departure_time.min <= Time.now.min)
+  end
+
+  def is_before_today?
+    self.departure_date == Date.today && self.before_actual_time
+  end
+
+  def is_strictly_before(the_date)
+    self.departure_date < the_date
+  end
+
+  def is_strictly_after(the_date)
+    self.departure_date > the_date
   end
 
   private

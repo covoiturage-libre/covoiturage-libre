@@ -1,5 +1,7 @@
 # Covoiturage Libre
 
+[![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre) [![Dependency Status](https://gemnasium.com/badges/github.com/nicolasleger/covoiturage-libre.svg)](https://gemnasium.com/github.com/nicolasleger/covoiturage-libre) [![Maintainability](https://api.codeclimate.com/v1/badges/7e1869bb570315f40bf8/maintainability)](https://codeclimate.com/github/covoiturage-libre/covoiturage-libre/maintainability)
+
 Covoiturage Libre is a Carpooling Open Source platform, originally created for the French website https://covoiturage-libre.fr. Click on the button below to access it :
 
 <a href="https://covoiturage-libre.fr/" target="_blank"><img src="https://covoiturage-libre.fr/assets/covoiturage-libre-logo-cda83dd89e428d656e2b3257d695def8472a6d42463962c2d84b77ff9fd49f31.svg" height="80"/></a>
@@ -15,7 +17,7 @@ You can find the repository for the Android App of Covoiturage Libre just [here]
 
 ## Licence
 
-![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png) 
+![License AGPLV3](https://www.gnu.org/graphics/agplv3-155x51.png)
 GNU AFFERO GENERAL PUBLIC LICENSE v3.0, see [LICENCE](LICENSE)
 
 Any reuse of the code must go through a strong speech with the staff members, do not hesitate to open an "Issue" to discuss it. We want the widest federated Project as possible, avoiding forks that do not COMMUNICATE WITH US. (Thus, the proposed car-sharing will be better)

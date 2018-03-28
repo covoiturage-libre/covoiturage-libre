@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - '2.2'
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
+cache: bundler
+env:
+  - DATABASE_URL=postgres://postgres@localhost/postgres
+services:
+  - elasticsearch
+  - postgresql
+  - redis-server
+addons:
+  postgresql: 9.6
+  apt:
+    packages:
+    - postgresql-9.6-postgis-2.3
+before_script:
+  - RAILS_ENV=test bundle exec rake db:enable_postgis db:migrate db:seed:pages searchkick:reindex CLASS=City

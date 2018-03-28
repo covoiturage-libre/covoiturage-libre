@@ -1,5 +1,5 @@
 - content_for :search_zone do
-  .jumbotron.small-jumbotron
+  .jumbotron.small-jumbotron{ style: ENV['JUMBOTRON_IMAGE'] ? "background-image: url('#{asset_path(ENV['JUMBOTRON_IMAGE'])}')" : '' }
     .container
       .row
         .col-md-9.col-md-offset-1
@@ -7,21 +7,90 @@
 
 %br
 
-- if @trips.empty?
-  Pas de trajets associés
-- else
+
+%div#the_two_maps
+  %div.results_recap 
+    -# results recap / errors
+    - if (! @search.from_city.blank?) && (! @search.to_city.blank?)
+      %p Les trajets <strong>#{@search.from_city} > #{@search.to_city}</strong> (à 25 km près > à 25 km près) : 
+    - if  (!  @search.from_city.blank?) && (  @search.to_city.blank?)
+      %p Les trajets au départ de <strong>#{@search.from_city}</strong> (à 25 km près), toutes destinations : 
+    - if (  @search.from_city.blank?) && (! @search.to_city.blank?)
+      %p Les trajets à destination de <strong>#{@search.to_city}</strong> (à 25 km près), toutes origines : 
+    - if (  @search.from_city.blank?) && (  @search.to_city.blank?)
+      %p Écrivez puis sélectionnez dans la liste : une ville de départ et une ville d'arrivée, ou seulement une ville de départ, ou seulement une ville d'arrivée
+    - if (! @search.errors.empty?)
+      %p Une ou plusieurs erreurs ont été détectées dans les paramètres de la recherche : #{@search.errors}
+  %div#the_trip_start_map
+  %div#the_trip_end_map
+  %div.results_recap 
+    %p <strong>#{@the_trips_of_the_selected_day__all.length} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
+    %ul.the_list_of_the_days
+      Les trajets à +/- #{@the_number_of_days_around_the_requested_day} jours : 
+      - @the_days_around_the_requested_day.each do |a_day|
+        - @the_search_parameters_of_the_current_day = {search: {from_city: @search.from_city, from_lon: @search.from_lon, from_lat: @search.from_lat,   to_city: @search.to_city, to_lon: @search.to_lon, to_lat: @search.to_lat,   date: (l a_day, format: :trip_date)}}
+        - @the_day_is_on_the_week_end = (a_day.saturday? or a_day.sunday?)
+        - @the_day_is_the_selected_day = (a_day == @search.date_value)
+        %li.the_day_in_a_list{ title: "#{l a_day, format: :trip_date_without_the_year}", class: [(:the_day_without_any_departure if @the_departure_times__per_day[a_day].blank?), (:the_day_is_on_the_week_end if @the_day_is_on_the_week_end), (:the_day_is_the_selected_day if @the_day_is_the_selected_day)]}= link_to "#{l a_day, format: :short_with_abbr_day_name}", search_url(@the_search_parameters_of_the_current_day)
+        %ul.the_list_of_the_departure_times
+          - @the_departure_times__per_day[a_day].each do |a_departure_time|
+            %li.the_departure_time_in_a_list= "•#{a_departure_time.hour}h"
+
+- if (@the_trips_of_the_selected_day__all.length) > 0
   .row
     .col-md-7.col-md-offset-1
+      %h3= "Départ#{('s' if @the_trips_of_the_selected_day__all.length >= 2)} le #{l (@search.date_value), format: :trip_date_without_the_year} : " if (@the_trips_of_the_selected_day__paginated.length) == 0 or (@the_trips_of_the_selected_day__paginated[0].the_previous_trip__departure_date == nil or @the_trips_of_the_selected_day__paginated[0].departure_date != @the_trips_of_the_selected_day__paginated[0].the_previous_trip__departure_date) # the trip is the first trip with this departure date
+      %h3= "Départ#{('s' if @the_trips_of_the_selected_day__all.length >= 2)} le #{l (@search.date_value), format: :trip_date_without_the_year} (suite) : " if (@the_trips_of_the_selected_day__paginated.length) > 0 and @the_trips_of_the_selected_day__paginated[0].the_previous_trip__departure_date != nil and @the_trips_of_the_selected_day__paginated[0].departure_date == @the_trips_of_the_selected_day__paginated[0].the_previous_trip__departure_date # the trip is the first of the page and it is not the first trip with this departure date
       .panel.panel-default
-        .panel-heading
-          %h3.panel-title
-            = page_entries_info @trips
-        .panel-body{ style: 'padding: 0' }= render @trips
+        .panel-body{ style: 'padding: 0' }= render @the_trips_of_the_selected_day__paginated
+  
+  .row
+    .col-md-7.col-md-offset-1
+      = paginate(@the_trips_of_the_selected_day__paginated)
 
-      = paginate(@trips)
+
+-# if no results, show what the traveller can do
+- if (@the_trips_of_the_selected_day__all.length) == 0
+  %div#no_results__show_some_help
+    - if @the_trips_of_the_past_month.length >= 1
+      %p.help_introduction Pourtant, <em>#{@the_trips_of_the_past_month.length}</em> trajet#{('s' if @the_trips_of_the_past_month.length >= 2)} sur cet itinéraire ont pris la route sur covoiturage-libre.fr le mois dernier.
+    %p.help_introduction Tout n'est pas perdu ! <strong>Voilà ce que vous pouvez faire : </strong>
+    %ul 
+      %li 
+        %p.first_help <span class='orange_text'><big>➊</big></span> Augmentez le rayon de recherche (fonctionnalité à venir). 
+        %p.second_help Par défaut, le site rabat les trajets passant <span class='orange_text'>25</span> km autour des villes recherchées. 
+      %li 
+        %p.first_help <span class='orange_text'><big>➋</big></span> Déposez une alerte pour ce trajet (fonctionnalité à venir), 
+        %p.second_help vous recevrez un mail dès qu'un conducteur posera l'annonce que vous cherchez. 
+      %li 
+        %p.first_help <span class='blue_text'><big>➌</big></span> Vous avez une voiture ? Publiez une annonce ! 
+        %p.second_help <span class='orange_text'>0</span> passager(s) ont posé une alerte (<- fonctionnalité à venir) et attendent que ce trajet soit proposé. Si vous avez une voiture, proposez ! 
+      %li 
+        %p.first_help <span class='blue_text'><big>➍</big></span> L'intermodalité : multipliez les moyens de transport !
+        %p.second_help En couplant covoiturage avec train ou bus, vous pouvez sûrement trouver une solution. 
 
 - content_for :javascript_footer do
   :javascript
     if (typeof ga === "function") {
       ga('send', 'event', 'Trajet', 'search', '#{[@search.from_city, @search.to_city].join(', ')}', '#{@trips.count}' );
     }
+    
+    var the_start_coordinates = JSON.parse('#{[@search.from_lat, @search.from_lon]}');
+    if (the_start_coordinates[0] != '') {
+      var the_start_map = L.map('the_trip_start_map').setView(the_start_coordinates, 8);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© les contributeurs d\'OpenStreetMap'
+      }).addTo(the_start_map);
+      L.circle(the_start_coordinates, {radius: 25 *1000}).addTo(the_start_map);
+    };
+    
+    var the_end_coordinates = JSON.parse('#{[@search.to_lat, @search.to_lon]}');
+    if (the_end_coordinates[0] != '') {
+      var the_end_map = L.map('the_trip_end_map').setView(the_end_coordinates, 8);
+      
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© les contributeurs d\'OpenStreetMap'
+      }).addTo(the_end_map);
+      L.circle(the_end_coordinates, {radius: 25 *1000}).addTo(the_end_map);
+    };

@@ -1,7 +1,13 @@
+# coding: utf-8
 module ApplicationHelper
 
   def number_to_age(age)
-    "#{age} ans".html_safe
+    t('helpers.number_to_age', age: age).html_safe
+  end
+
+  def nl2br(text)
+    text_ligned = text.gsub(/\n/, '<br />') if text
+    sanitize(text_ligned, tags: %w(br))
   end
 
   def encode_decode(string)
@@ -25,11 +31,11 @@ module ApplicationHelper
   end
 
   def trip_steps_breadcrumb(trip, separator = '&rarr;')
-    trip.points.map {|p| p.city }.join(" #{separator} ").html_safe
+    trip.points.map(&:city).join(" #{separator} ").html_safe
   end
 
   def trip_title(trip, separator = '&rarr;')
-    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date} à #{l trip.departure_time, format: :short}".html_safe
+    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :trip_date} à #{l trip.departure_time, format: :short}".html_safe
   end
 
   def trip_steps_breadcrumb_with_emphasis(trip, point_a_id = nil, point_b_id = nil, separator = '&rarr;')

@@ -14,7 +14,9 @@ module CovoiturageLibreRails5
 
     config.app_name = ENV['APP_NAME'] || "Covoiturage-Libre.fr"
 
-    config.action_mailer.default_url_options = { host: ENV['MAILER_HOST'] }
+    host = ENV['MAILER_HOST'] || 'localhost:3000'
+    config.action_mailer.default_url_options = { host: host }
+    Rails.application.routes.default_url_options[:host] = host
 
     config.assets.paths << Rails.root.join("vendor", "assets", "images")
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.svg)
