@@ -25,6 +25,9 @@
           %p
             %em (prix à partir de la ville de départ)
           #steps
+            - if f.object.errors[:points].any?
+              %div.alert.alert-danger
+                = f.object.errors[:points].join(' ')
             - index = 0
             = f.simple_fields_for :points, @optional_points do |point|
               = render 'point_fields', f: point
@@ -107,7 +110,7 @@
       }
     }).addTo(myMap);
 
-    var initialTripPoints = #{raw @trip.points.sort { |x, y| x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f]}};
+    var initialTripPoints = #{raw @trip.points.sort { |x, y| (x.rank.nil? || y.rank.nil?) ? 0 : x.rank <=> y.rank }.map { |point| [point.lat.to_f, point.lon.to_f] }};
     var myTripDrawing = (new TripDrawing());
     myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
 
