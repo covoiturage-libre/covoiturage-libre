@@ -1,4 +1,4 @@
-FROM ruby:2.5.0
+FROM ruby:2.5
 
 LABEL maintainer="https://github.com/covoiturage-libre/covoiturage-libre" \
       description="Carpooling Open Source platform"
