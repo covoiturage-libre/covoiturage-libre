@@ -51,7 +51,7 @@
           = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes'
           = f.input :name, as: :string, wrapper: :horizontal_form
           = f.input :age, as: :integer, wrapper: :horizontal_form, input_html: { min: '0' }
-          = f.input :phone, as: :string, wrapper: :horizontal_form, hint: 'Votre numéro de téléphone sera affiché sous forme d’image mais en clair. Si vous ne souhaitez pas laisser votre numéro sur le site, ne remplissez pas ce champ'
+          = f.input :phone, as: :string, wrapper: :horizontal_form, hint: 'Votre numéro de téléphone sera affiché avec l\'annonce. Si vous ne souhaitez pas laisser votre numéro sur le site, ne remplissez pas ce champ'
           = f.input :email, as: :string, wrapper: :horizontal_form, hint: 'Obligatoire et valide. Un message de confirmation vous y sera envoyé.'
 
       .panel.panel-default
