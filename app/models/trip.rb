@@ -48,7 +48,7 @@ class Trip < ApplicationRecord
   after_save :set_last_point_price
 
   # eager load points each time a trip is requested
-  default_scope { includes(:points).order('created_at ASC') }
+  default_scope { includes(:points).order(created_at: :asc) }
 
   def to_param
     confirmation_token
