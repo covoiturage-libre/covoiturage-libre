@@ -132,8 +132,8 @@ class SearchController < ApplicationController
       # set of departure time rounded around the clock (13h10 -> 13h, 13h50 -> 13h) of trips of the previous month per day
       @the_departure_times__per_day = {}
       @the_trips__per_day.each do |a_day, some_trips|
-        the_rounded_departure_times = some_trips.map{ |a_trip| a_trip.departure_time.round(60*60*60) }
-        @the_departure_times__per_day[a_day] = the_rounded_departure_times.to_set
+        the_rounded_departure_times = some_trips.map{ |a_trip| a_trip.departure_time.hour }
+        @the_departure_times__per_day[a_day] = the_rounded_departure_times.to_set.to_a.sort
       end
     end
 
