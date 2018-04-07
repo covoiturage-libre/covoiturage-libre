@@ -31,7 +31,7 @@
       - @the_search_parameters_of_the_current_day = {search: {from_city: @search.from_city, from_lon: @search.from_lon, from_lat: @search.from_lat,   to_city: @search.to_city, to_lon: @search.to_lon, to_lat: @search.to_lat,   date: (l a_day, format: :trip_date)}}
       - @the_day_is_on_the_week_end = (a_day.saturday? or a_day.sunday?)
       - @the_day_is_the_selected_day = (a_day == @search.date_value)
-      %li.the_day_in_a_list{ class: [(:the_day_without_any_departure if @the_departure_times__per_day[a_day].blank?), (:the_day_is_on_the_week_end if @the_day_is_on_the_week_end), (:the_day_is_the_selected_day if @the_day_is_the_selected_day)]}
+      %li.the_day_in_a_list{ class: [(:the_day_without_any_departure if @the_departure_times_in_hours__per_day[a_day].blank?), (:the_day_is_on_the_week_end if @the_day_is_on_the_week_end), (:the_day_is_the_selected_day if @the_day_is_the_selected_day)]}
         = link_to "#{l a_day, format: :trip_date_without_the_year}", search_url(@the_search_parameters_of_the_current_day)
         %ul.the_list_of_the_departure_times
           - @the_departure_times_in_hours__per_day[a_day].each do |a_departure_time_in_hours|
