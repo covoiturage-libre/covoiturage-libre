@@ -39,7 +39,7 @@
 
 %div
   %div.results_recap 
-    %p <strong>#{@the_trips_of_the_selected_day__all.length if @the_trips_of_the_selected_day__all.length > 0}#{'Aucune' if @the_trips_of_the_selected_day__all.length == 0} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
+    %p <strong>#{@the_trips_of_the_selected_day__all.length if @the_trips_of_the_selected_day__all.any?}#{'Aucune' if @the_trips_of_the_selected_day__all.empty?} annonce#{('s' if @the_trips_of_the_selected_day__all.length >= 2)}</strong> pour le #{l (@search.date_value), format: :trip_date}
 
 - if (@the_trips_of_the_selected_day__all.length) > 0
   .row
