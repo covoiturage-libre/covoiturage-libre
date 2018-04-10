@@ -1,6 +1,6 @@
 class Admin::PagesController < AdminController
 
-  before_filter :load_page, only: [:show, :edit, :update, :delete]
+  before_action :load_page, only: [:show, :edit, :update, :delete]
 
   def index
     @pages = Cms::Page.all
