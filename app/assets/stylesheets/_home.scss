@@ -168,8 +168,11 @@ $bgFeatureBlock: #fffbf2 !default;
 }
 
 
+#mini_calendar {
+    margin: 20px;
+}
 .the_day_in_a_list {
-    display: inline;
+    display: inline-block;
     margin-left: 5px;
     padding-left: 2px;
     padding-right: 2px;
@@ -181,6 +184,7 @@ $bgFeatureBlock: #fffbf2 !default;
     color: #AAAAAA;
 }
 .the_list_of_the_days {
+    display: inline-block;
     margin-left: 5px;
     padding-left: 0;
     padding-right: 0;
