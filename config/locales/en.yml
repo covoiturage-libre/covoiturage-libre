@@ -18,3 +18,22 @@ en:
       trip_date_without_the_year: "%A %e %B"
   helpers:
     number_to_age: "%{age} years old"
+  auth:
+    change_password: Security
+    confirm_email: Confirm email
+    delete_account: Delete account
+    didnt_get_confirmation: Didn't receive confirmation instructions?
+    forgot_password: Forgot your password?
+    invalid_reset_password_token: Password reset token is invalid or expired. Please request a new one.
+    login: Log in
+    logout: Logout
+    migrate_account: Move to a different account
+    migrate_account_html: If you wish to redirect this account to a different one, you can <a href="%{path}">configure it here</a>.
+    or_log_in_with: Or log in with
+    providers:
+      cas: CAS
+      saml: SAML
+    register: Sign up
+    resend_confirmation: Resend confirmation instructions
+    reset_password: Reset password
+    set_new_password: Set new password

@@ -1,0 +1,18 @@
+<% content_for :title do %>
+  <i class="fa fa-edit"></i>
+  <%= @user.username %>
+<% end %>
+
+<% content_for :subtitle, "Modifier" %>
+
+<% content_for :breadcrumbs do %>
+  <li><a href="<%= root_path %>"><i class="fa fa-home"></i> Accueil</a></li>
+  <li><a href="<%= admin_path %>"><i class="fa fa-cogs"></i> Administration</a></li>
+  <li><a href="<%= admin_users_path %>"><i class="fa fa-users"></i> Utilisateurs</a></li>
+  <li><a href="<%= admin_user_path(@user) %>"><i class="fa fa-users"></i> <%= @user.username %></a></li>
+  <li class="active"><i class="fa fa-edit"></i> Modifier</a></li>
+<% end %>
+
+<%= simple_form_for @user, url: [:admin, @user], html: {class: 'form', multipart: true } do |f| %>
+  <%= render 'profile/form', f: f %>
+<% end %>

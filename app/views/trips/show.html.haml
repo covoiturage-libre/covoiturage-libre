@@ -95,7 +95,11 @@
       .panel-body
         #message_zone
           .message#message-wrapper
-            = render 'messages/form'
+            - if user_signed_in? || ENV['AUTHENTICATION_ENABLED'] != 'true'
+              = render 'messages/form'
+            - else
+              %p Vous devez vous authentifier pour réserver un trajet ou envoyer un message au conducteur
+              = link_to 'Connexion', new_user_session_path(redirect_to: trip_path(@trip)), class: 'btn btn-primary'
     .panel.panel-default
       .panel-body
         .trip-ownership

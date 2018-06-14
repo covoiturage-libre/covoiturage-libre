@@ -18,3 +18,18 @@
         %li
           %p.navbar-btn
             = link_to 'Publier une annonce', new_trip_path, class: 'btn btn-warning' unless current_page?('/')
+        - if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{href: "#",role: "button", data: { toggle: "dropdown" }}
+              = current_user.display_name || current_user.email
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                %a{href: profile_path}
+                  Mon profil
+              %li.divider{role: "separator"}
+              %li
+                %a{href: destroy_user_session_path, data: { method: :delete }}
+                  Déconnexion
+        - else
+          %li= link_to 'Connexion', new_user_session_path
