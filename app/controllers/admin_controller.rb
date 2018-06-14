@@ -1,5 +1,5 @@
 class AdminController < ApplicationController
-  before_action :authenticate_user! unless ENV['AUTHENTICATION_ENABLED'] != 'true'
+  before_action :authenticate_user!
   before_action :user_must_be_admin
 
   private
