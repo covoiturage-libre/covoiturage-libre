@@ -43,26 +43,8 @@ private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    _opening_hours_params = [:id, :day, :opened, :from, :to, :splitted, :from2, :to2]
-    _brands_params = [:id, :name, :_destroy]
-    _city_params = [:id, :name]
-    _repairer_params = [ :id,
-      :company_name, :company_type, :company_type_id, :address, :zip_code, :telephone, :fax, :website, :facebook_url, :category,
-      :category_id, :company_description, :service_description, :seniority, :opens_at, :closes_at, :open_sat_at, :close_sat_at,
-      :intervention_area, :region, :department, :rate_description, :travel_expenses, :emergency_service,  :emergency_service_description,
-      :payment_by_check, :payment_by_credit_card, :payment_by_cash, :payment_by_other_method, :free_estimate, :estimate_description,
-      :warranty_period_id, :warranty_description, :b_to_b, :b_to_c, :intervention_delay_id, :device_recycling, :recycling_description,
-      :spare_parts, :spare_parts_description, :equipment_loan, :equipment_loan_description, :remote_troubleshooting,
-      :remote_troubleshooting_description, :home_troubleshooting, :home_troubleshooting_description, :approved_brands,
-      :approved_brands_free_troubleshooting, :siret, :premium_interested, :opening_hours_description, :payment_by_method, :payment_by_check_cesu,
-      opening_hours_attributes: _opening_hours_params,
-      brands_attributes: _brands_params,
-      city_attributes: _city_params,
-      category_ids: []
-    ]
     _user_params = [
-      :username, :email, :remember_me, :firstname, :lastname, :avatar, :gender, :date_of_birth, :newsletter, :how_you_know_us,
-      repairer_attributes: _repairer_params
+      :email, :remember_me, :display_name
     ]
     if params[:user][:password] != "" and params[:user][:password_confirmation] != ""
       _user_params.concat([:password, :password_confirmation])
