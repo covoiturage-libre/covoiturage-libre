@@ -1,11 +1,19 @@
 .page-header
   %h1
     Mon profil
-  %dl
-    %dt Email
-    %dd= @user.email
-    %dt Nom
-    %dd= @user.display_name
-    %dt Date de naissance
-    %dd= @user.date_of_birth
+  .panel.panel-default
+    .panel-heading.clearfix
+      %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+        Informations
+      .btn-group.pull-right
+        %a.btn.btn-default.btn-sm{href: edit_profile_path}
+          Modifier
+    .panel-body.pb-0
+      %dl.row
+        %dt.col-sm-4 Email
+        %dd.col-sm-8= @user.email || "-"
+        %dt.col-sm-4 Nom
+        %dd.col-sm-8= @user.display_name || "-"
+        %dt.col-sm-4 Date de naissance
+        %dd.col-sm-8= @user.date_of_birth || "-"
 

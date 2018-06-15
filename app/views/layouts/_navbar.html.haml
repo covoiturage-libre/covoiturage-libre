@@ -12,9 +12,9 @@
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to 'Faire un don', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener'
-        %li= link_to 'Contribuer', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil', target: '_blank', rel: 'noopener'
-        %li= link_to 'Le blog', 'http://blog.covoiturage-libre.fr', target: '_blank', rel: 'noopener'
+        %li.hidden-sm= link_to 'Faire un don', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener'
+        %li.hidden-sm= link_to 'Contribuer', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil', target: '_blank', rel: 'noopener'
+        %li.hidden-sm= link_to 'Le blog', 'http://blog.covoiturage-libre.fr', target: '_blank', rel: 'noopener'
         %li
           %p.navbar-btn
             = link_to 'Publier une annonce', new_trip_path, class: 'btn btn-warning' unless current_page?('/')

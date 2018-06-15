@@ -81,7 +81,7 @@
       ga('send', 'event', 'Trajet', 'search', '#{[@search.from_city, @search.to_city].join(', ')}', '#{@trips.count}' );
     }
     
-    var the_start_coordinates = JSON.parse('#{[@search.from_lat, @search.from_lon]}');
+    var the_start_coordinates = JSON.parse('#{[@search.from_lat.to_f, @search.from_lon.to_f]}');
     if (the_start_coordinates[0] != '') {
       var the_start_map = L.map('the_trip_start_map').setView(the_start_coordinates, 8);
       
@@ -91,7 +91,7 @@
       L.circle(the_start_coordinates, {radius: 25 *1000}).addTo(the_start_map);
     };
     
-    var the_end_coordinates = JSON.parse('#{[@search.to_lat, @search.to_lon]}');
+    var the_end_coordinates = JSON.parse('#{[@search.to_lat.to_f, @search.to_lon.to_f]}');
     if (the_end_coordinates[0] != '') {
       var the_end_map = L.map('the_trip_end_map').setView(the_end_coordinates, 8);
       

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     get 'search', to: 'search#index'
     get 'profil', to: 'profile#show', as: 'profile'
     get 'profil/modifier', to: 'profile#edit', as: 'edit_profile'
-    put 'profil', to: 'profile#update'
+    patch 'profil', to: 'profile#update'
 
     get "/covoits/:from-:to", to: 'landing#index'
     # get "/covoits/:from", to: 'landing#index'

@@ -1,4 +1,11 @@
-- simple_form_for @user do |f|
-  = f.input :name
-  = f.input :email
-
+= simple_form_for @user, url: profile_path do |f|
+  .panel.panel-default
+    .panel-heading.clearfix
+      %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+        Informations
+      .btn-group.pull-right
+        %input.btn.btn-primary.btn-sm{type: "submit", value: "Enregistrer"}
+    .panel-body.pb-0
+      = f.input :display_name, label: "Nom d'usage"
+      = f.input :email, label: "Email"
+      = f.input :date_of_birth, label: "Date de naissance"
