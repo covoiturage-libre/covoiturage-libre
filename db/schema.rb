@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614124549) do
+ActiveRecord::Schema.define(version: 20180615143637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(version: 20180614124549) do
     t.boolean "terms_of_service"
     t.float "total_distance"
     t.float "total_time"
-    t.integer "user_id"
     t.datetime "last_trip_information_at"
+    t.bigint "user_id"
     t.index ["confirmation_token"], name: "index_trips_on_confirmation_token"
     t.index ["created_at"], name: "index_trips_on_created_at"
     t.index ["departure_date"], name: "index_trips_on_departure_date"
@@ -184,5 +184,5 @@ ActiveRecord::Schema.define(version: 20180614124549) do
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "messages", "trips"
   add_foreign_key "points", "trips"
-  add_foreign_key "trips", "users"
+  add_foreign_key "trips", "users", on_delete: :nullify
 end
