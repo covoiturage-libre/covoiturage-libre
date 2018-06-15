@@ -14,7 +14,6 @@
       .row
         .col-md-9
           %h1.p-home__title Le covoiturage gratuit, collaboratif et libre.
-          %h2.p-home__subtitle Trouvez votre covoiturage
           = render partial: 'search/form', locals: { 'large_inputs': true }
         .col-md-3
           .home-publish-cta
@@ -27,17 +26,25 @@
               Association loi 1901
 
 - content_for :home_content do
+  -#%section.p-home__dashboard
+    .container
+      .row
+        .col-sm-6
+          %h3 Derniers convoiturages publiés
+        .col-sm-6
+          %h3 Covoiturages à venir incomplets
+
   = render 'banner'
   %section.p-home__features
     .container
       .row
-        .col-sm-4
+        .col-sm-3
           %h3.p-home__heading Sans commission
           %p
             Des économies plus importantes pour les conducteurs, des voyages vraiment moins chers pour les passagers. Les prix sont fixés par les conducteurs, le site ne prélève aucune commission sur les trajets, nous ne vivons que de dons.
           %p
             = link_to 'Faire un don »', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener', class: 'btn btn-default'
-        .col-sm-4
+        .col-sm-6
           %h3.p-home__heading Libre
           %p Nous avons pris cinq engagements :
           %ul
@@ -48,7 +55,7 @@
             %li la plateforme contribue au lien social entre covoitureurs.
           %p
             = link_to 'Pour en savoir plus »', '/association', class: 'btn btn-default'
-        .col-sm-4
+        .col-sm-3
           %h3.p-home__heading Un bien commun
           %p
             Le covoiturage est un bien commun : la valeur créée par les utilisateurs en covoiturant, comme conducteurs ou comme passagers, doit revenir aux utilisateurs.

@@ -3,8 +3,13 @@
   %em Les champs précédés d'un astérisque sont obligatoires
 - @message ||= Message.new
 = simple_form_for [@trip, @message], remote: true do |f|
-  = f.input :sender_name
-  = f.input :sender_email
-  = f.input :sender_phone
+  - if user_signed_in?
+    = f.input :sender_name, input_html: { value: current_user.display_name }, disabled: true
+    = f.input :sender_email, input_html: { value: current_user.email }, disabled: true
+    = f.input :sender_phone, input_html: { value: current_user.telephone }, disabled: true
+  - else
+    = f.input :sender_name
+    = f.input :sender_email
+    = f.input :sender_phone
   = f.input :body, as: :text
   = f.submit 'Envoyer', class: 'btn btn-warning btn-lg'

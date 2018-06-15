@@ -1,0 +1,21 @@
+.page-header
+  %h1
+    Mon profil
+  .panel.panel-default
+    .panel-heading.clearfix
+      %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+        Informations
+      .btn-group.pull-right
+        %a.btn.btn-default.btn-sm{href: edit_profile_path}
+          Modifier
+    .panel-body.pb-0
+      %dl.row
+        %dt.col-sm-4 Nom d'usage
+        %dd.col-sm-8= @user.display_name.presence || "-"
+        %dt.col-sm-4 Email
+        %dd.col-sm-8= @user.email.presence || "-"
+        %dt.col-sm-4 Téléphone
+        %dd.col-sm-8= @user.telephone.presence || "-"
+        %dt.col-sm-4 Âge
+        %dd.col-sm-8= @user.age.presence || "-"
+

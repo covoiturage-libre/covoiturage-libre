@@ -5,17 +5,18 @@
       Vous n'avez pas encore de compte?
       = link_to "S'inscrire", new_user_registration_path
 
-    .well
-      - if Devise.omniauth_configs.has_key?(:facebook)
-        = link_to omniauth_authorize_path(resource_name, :facebook), class: "btn-lg btn-primary btn-block" do
-          .sso-icon= icon('facebook')
-          .sso-label Connexion via Facebook
-          .clearfix
-      - if Devise.omniauth_configs.has_key?(:google_oauth2)
-        = link_to omniauth_authorize_path(resource_name, :google_oauth2), class: "btn-lg btn-danger btn-block" do
-          .sso-icon= icon('google')
-          .sso-label Connexion via Google
-          .clearfix
+    - if Devise.omniauth_configs.any?
+      .well
+        - if Devise.omniauth_configs.has_key?(:facebook)
+          = link_to omniauth_authorize_path(resource_name, :facebook), class: "btn-lg btn-primary btn-block" do
+            .sso-icon= icon('facebook')
+            .sso-label Connexion via Facebook
+            .clearfix
+        - if Devise.omniauth_configs.has_key?(:google_oauth2)
+          = link_to omniauth_authorize_path(resource_name, :google_oauth2), class: "btn-lg btn-danger btn-block" do
+            .sso-icon= icon('google')
+            .sso-label Connexion via Google
+            .clearfix
 
     .well
       %center

@@ -72,13 +72,14 @@
 
   %body
     = render 'layouts/navbar'
+    = flash_messages
     = yield :page_part_1
     = yield :search_zone
     = yield :home_content
     .container
       %br
-      = flash_messages
       = render 'layouts/admin_menu' if admin_page?
+      = render 'layouts/user_menu' if user_page?
       = yield
 
     = render 'layouts/footer'

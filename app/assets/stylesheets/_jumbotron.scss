@@ -4,7 +4,8 @@ $orangeStrong     : #ff6f00;
 $bgDefault        : #e9f1ff;
 
 .jumbotron {
-  background-image: image_url('jumbotron-home.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, .7), rgba(0, 0, 0, 0)),
+    image_url('jumbotron-home.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;

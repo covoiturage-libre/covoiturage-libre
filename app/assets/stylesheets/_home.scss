@@ -51,6 +51,7 @@ $bgFeatureBlock: #fffbf2 !default;
 .p-home__title {
   &,
   .jumbotron & {
+    margin-top: 0;
     font-size: 30px;
   }
 }
@@ -74,8 +75,8 @@ $bgFeatureBlock: #fffbf2 !default;
 .p-home__features {
   background-color: $blue-shade;
   color: transparentize(#fff, .25);
-  padding-top: $spacing-unit;
-  padding-bottom: $spacing-unit;
+  padding-top: $spacing-unit*3;
+  padding-bottom: $spacing-unit*3;
 
   .p-home__heading {
     margin-top: 0;
@@ -100,7 +101,7 @@ $bgFeatureBlock: #fffbf2 !default;
   .home__banner_close {
     float: right;
     font-size: 2em;
-    background-color: #fff;
+    background-color: transparent;
     border: 0;
   }
   .home__banner_close:hover {

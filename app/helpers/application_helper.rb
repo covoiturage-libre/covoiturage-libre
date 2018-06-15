@@ -22,9 +22,8 @@ module ApplicationHelper
   def flash_messages(opts = {})
     html = ''
     flash.each do |msg_type, message|
-      html << content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
-        content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
-        message
+      html << content_tag(:div, nil, class: "alert #{bootstrap_class_for(msg_type)} fade in mb-0") do
+        (message + content_tag(:button, '&times;'.html_safe, class: 'close', data: { dismiss: 'alert' })).html_safe
       end
     end
     html.html_safe
@@ -55,6 +54,10 @@ module ApplicationHelper
 
   def admin_page?
     /admin/.match(params[:controller])
+  end
+
+  def user_page?
+    /profile/.match(params[:controller])
   end
 
   def back_trip_page?

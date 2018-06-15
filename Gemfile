@@ -53,7 +53,7 @@ gem 'active_link_to'
 gem 'font-awesome-sass'
 gem 'chartkick'
 
-### Authentication
+### Authentication / ACL
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
@@ -61,6 +61,8 @@ gem 'domp'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-cas', '~> 1.1'#, install_if: -> { ENV['CAS_ENABLED'] == 'true' }
+gem 'omniauth-saml', '~> 1.8'#, install_if: -> { ENV['SAML_ENABLED'] == 'true' }
 
 ### i18n
 
@@ -96,6 +98,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'email_spec'
   gem 'rails-controller-testing', '~> 1.0'
+  gem 'dotenv-rails'
 end
 
 group :development do

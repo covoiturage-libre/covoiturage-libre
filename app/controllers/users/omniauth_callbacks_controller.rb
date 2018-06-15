@@ -1,47 +1,33 @@
+# frozen_string_literal: true
+
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  skip_before_action :verify_authenticity_token
 
-  def facebook
-    create
-  end
+  def self.provides_callback_for(provider)
+    provider_id = provider.to_s.chomp '_oauth2'
 
-  def google_oauth2
-    create
-  end
+    define_method provider do
+      @user = User.find_for_oauth(request.env['omniauth.auth'], current_user)
 
-  private
-
-    def create
-      auth_params = request.env["omniauth.auth"]
-      provider = AuthenticationProvider.where(name: auth_params.provider).first
-      authentication = provider.user_authentications.where(uid: auth_params.uid).first
-      existing_user = current_user || User.where('email = ?', auth_params['info']['email']).first
-
-      if authentication
-        sign_in_with_existing_authentication(authentication)
-      elsif existing_user
-        create_authentication_and_sign_in(auth_params, existing_user, provider)
+      if @user.persisted?
+        sign_in_and_redirect @user, event: :authentication
+        set_flash_message(:notice, :success, kind: provider_id.capitalize) if is_navigational_format?
       else
-        create_user_and_authentication_and_sign_in(auth_params, provider)
-      end
-    end
-
-    def sign_in_with_existing_authentication(authentication)
-      sign_in_and_redirect(:user, authentication.user)
-    end
-
-    def create_authentication_and_sign_in(auth_params, user, provider)
-      UserAuthentication.create_from_omniauth(auth_params, user, provider)
-
-      sign_in_and_redirect(:user, user)
-    end
-
-    def create_user_and_authentication_and_sign_in(auth_params, provider)
-      user = User.create_from_omniauth(auth_params)
-      if user.valid?
-        create_authentication_and_sign_in(auth_params, user, provider)
-      else
-        flash[:error] = user.errors.full_messages.first
+        session["devise.#{provider}_data"] = request.env['omniauth.auth']
         redirect_to new_user_registration_url
       end
     end
+  end
+
+  Devise.omniauth_configs.each_key do |provider|
+    provides_callback_for provider
+  end
+
+  def after_sign_in_path_for(resource)
+    if resource.email_verified?
+      root_path
+    else
+      finish_signup_path
+    end
+  end
 end
