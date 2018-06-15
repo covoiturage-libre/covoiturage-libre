@@ -31,8 +31,8 @@ Rails.application.routes.draw do
       resources :messages
     end
     get 'search', to: 'search#index'
-    get 'profil', to: 'profile#show', as: 'profile'
-    get 'profil/modifier', to: 'profile#edit', as: 'edit_profile'
+    get 'profile', to: 'profile#show', as: 'profile'
+    get 'profile/edit', to: 'profile#edit', as: 'edit_profile'
     patch 'profil', to: 'profile#update'
 
     get "/covoits/:from-:to", to: 'landing#index'

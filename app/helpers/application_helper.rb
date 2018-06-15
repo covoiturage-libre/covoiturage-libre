@@ -56,6 +56,10 @@ module ApplicationHelper
     /admin/.match(params[:controller])
   end
 
+  def user_page?
+    /profile/.match(params[:controller])
+  end
+
   def back_trip_page?
     /new_for_back/.match(params[:action])
   end

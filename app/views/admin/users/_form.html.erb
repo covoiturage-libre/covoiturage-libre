@@ -1,9 +1,0 @@
-<div class="row">
-  <%= f.input :username, label: "Nom d'utilisateur", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :email, label: "Adresse email", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :password, label: "Mot de passe", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :password_confirmation, label: "Vérification #{"(Laisser vide pour ne pas modifier)" unless f.object.new_record?}", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :lastname, label: "Nom d'usage", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :firstname, label: "Prénom d'usage", required: true, wrapper_html: { class: "col-md-6"} %>
-  <%= f.input :avatar, label: "Image de profil", required: false, wrapper_html: { class: "col-md-6"} %>
-</div>

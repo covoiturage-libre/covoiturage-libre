@@ -74,7 +74,7 @@
               .info
                 .name= @trip.name
                 .age= "#{@trip.age} ans" if @trip.age.present?
-                .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
+                .sex=t :"activerecord.attributes.trip.title_#{@trip.title.downcase}"
                 .phone#phone
                   - if @trip.phone.present?
                     = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'

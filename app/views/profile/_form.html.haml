@@ -8,4 +8,14 @@
     .panel-body.pb-0
       = f.input :display_name, label: "Nom d'usage"
       = f.input :email, label: "Email"
-      = f.input :date_of_birth, label: "Date de naissance"
+      = f.input :telephone, label: "Téléphone"
+      = f.input :date_of_birth, label: "Date de naissance",
+        start_year: Date.today.year - 90,
+        end_year: Date.today.year - 12,
+        order: [:day, :month, :year]
+      - unless ENV['OAUTH_REDIRECT_AT_SIGN_IN'] == 'true'
+        .row
+          .col-sm-6
+            = f.input :password
+          .col-sm-6
+            = f.input :password_comfirmation

@@ -6,7 +6,10 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable
+
+  has_many :trips
 
   validates_inclusion_of :role, in: ROLES, allow_blank: true
 
@@ -26,6 +29,16 @@ class User < ApplicationRecord
 
   def admin?
     role == 'admin'
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    dob = date_of_birth
+    if dob.present?
+      "#{now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)} ans"
+    else
+      nil
+    end
   end
 
 end

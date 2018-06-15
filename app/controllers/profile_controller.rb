@@ -16,8 +16,21 @@ class ProfileController < ApplicationController
   # PATCH/PUT /profile
   # PATCH/PUT /profile.json
   def update
-    @user.update(user_params)
-    respond_with(@user, location: profile_path)
+    @user.email = user_params[:email]
+    email_changed = @user.email_changed?
+    respond_to do |format|
+      if @user.update(user_params)
+        notice = "Votre profil a correctement été mis à jour."
+        if email_changed
+          notice += " Un mail de confirmation d'adresse mail a été envoyé à #{user_params[:email]}."
+        end
+        format.html { redirect_to profile_path, notice: notice }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET/PATCH /users/:id/finish_signup
@@ -44,7 +57,7 @@ private
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     _user_params = [
-      :email, :remember_me, :display_name
+      :email, :remember_me, :display_name, :date_of_birth, :telephone,
     ]
     if params[:user][:password] != "" and params[:user][:password_confirmation] != ""
       _user_params.concat([:password, :password_confirmation])

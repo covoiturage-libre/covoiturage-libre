@@ -27,6 +27,22 @@
               %li
                 %a{href: profile_path}
                   Mon profil
+              %li.disabled= link_to 'Mes annonces', "#TODO", wrap_tag: :li
+              %li.disabled= link_to 'Mes trajets', "#TODO", wrap_tag: :li
+              %li.disabled= link_to 'Mes alertes', "#TODO", wrap_tag: :li
+              - if current_user.admin?
+                %li.divider{role: "separator"}
+                %li.dropdown-header
+                  Administration
+                %li
+                  %a{href: admin_pages_path}
+                    Pages
+                %li
+                  %a{href: admin_page_parts_path}
+                    Page Parts
+                %li
+                  %a{href: admin_stats_path}
+                    Stats
               %li.divider{role: "separator"}
               %li
                 %a{href: destroy_user_session_path, data: { method: :delete }}

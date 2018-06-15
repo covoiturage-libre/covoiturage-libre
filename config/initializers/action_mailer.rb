@@ -11,6 +11,7 @@ if ENV.has_key?('SMTP_SERVER')
     :enable_starttls_auto => true#false
   }
   ActionMailer::Base.config.content_type = "text/html"
+  ActionMailer::Base.config.mailer = ENV['MAILER_FROM']
   #ActionMailer::Base.perform_deliveries = true #try to force sending in development
   ActionMailer::Base.raise_delivery_errors = true
 end

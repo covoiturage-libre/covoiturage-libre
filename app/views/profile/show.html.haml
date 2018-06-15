@@ -10,10 +10,12 @@
           Modifier
     .panel-body.pb-0
       %dl.row
+        %dt.col-sm-4 Nom d'usage
+        %dd.col-sm-8= @user.display_name.presence || "-"
         %dt.col-sm-4 Email
-        %dd.col-sm-8= @user.email || "-"
-        %dt.col-sm-4 Nom
-        %dd.col-sm-8= @user.display_name || "-"
-        %dt.col-sm-4 Date de naissance
-        %dd.col-sm-8= @user.date_of_birth || "-"
+        %dd.col-sm-8= @user.email.presence || "-"
+        %dt.col-sm-4 Téléphone
+        %dd.col-sm-8= @user.telephone.presence || "-"
+        %dt.col-sm-4 Âge
+        %dd.col-sm-8= @user.age.presence || "-"
 

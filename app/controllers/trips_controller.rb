@@ -151,25 +151,27 @@ class TripsController < ApplicationController
   private
 
     def trip_params
-      params.require(:trip).permit(:departure_date,
-                                   :departure_time,
-                                   :price,
-                                   :description,
-                                   :title,
-                                   :name,
-                                   :age,
-                                   :phone,
-                                   :email,
-                                   :seats,
-                                   :comfort,
-                                   :smoking,
-                                   :terms_of_service,
-                                   :total_distance,
-                                   :total_time,
-                                   points_attributes: [
-                                       :id, :kind, :rank, :city, :lon, :lat, :price, :_destroy
-                                   ]
-      )
+      _points_params = [
+          :id, :kind, :rank, :city, :lon, :lat, :price, :_destroy
+      ]
+      _trip_params = [
+        :departure_date, :departure_time, :price, :description, :title, :name,
+        :age, :phone, :email, :seats, :comfort, :smoking, :terms_of_service,
+        :total_distance, :total_time,
+        points_attributes: _points_params
+      ]
+      if user_signed_in?
+        params.require(:trip).permit(*_trip_params).merge(
+          user_id: current_user.id,
+          email: current_user.email,
+          name: current_user.display_name,
+          age: current_user.age,
+          phone: current_user.telephone,
+          title: current_user.gender.upcase
+        )
+      else
+        params.require(:trip).permit(*_trip_params)
+      end
     end
 
     def build_points

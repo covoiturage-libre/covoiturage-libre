@@ -79,6 +79,7 @@
     .container
       %br
       = render 'layouts/admin_menu' if admin_page?
+      = render 'layouts/user_menu' if user_page?
       = yield
 
     = render 'layouts/footer'

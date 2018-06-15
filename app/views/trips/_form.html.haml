@@ -44,14 +44,11 @@
           = f.input :total_distance, as: :hidden
           = f.input :total_time, as: :hidden
 
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title Vous
-        .panel-body
-          - if user_signed_in?
-            = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes', input_html: { value: current_user.gender.upcase }, disabled: true
-            = f.input :name, as: :string, wrapper: :horizontal_form, input_html: { value: current_user.display_name }, disabled: true
-          - else
+      - unless user_signed_in?
+        .panel.panel-default
+          .panel-heading
+            %h3.panel-title Vous
+          .panel-body
             = f.input :title, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Homme', 'M'], ['Femme', 'F']], label: 'Vous êtes'
             = f.input :name, as: :string, wrapper: :horizontal_form
             = f.input :age, as: :integer, wrapper: :horizontal_form, input_html: { min: '0' }
