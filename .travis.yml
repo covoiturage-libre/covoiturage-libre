@@ -7,6 +7,8 @@ rvm:
 cache: bundler
 env:
   - DATABASE_URL=postgres://postgres@localhost/postgres
+  - PRICING=true
+  - LEGACY=true
 services:
   - elasticsearch
   - postgresql
