@@ -6,10 +6,14 @@
     = f.object.rank
   .col-xs-2.step-from-city.trip-from-city-value
     = f.object.trip.points[0].city if f.object.trip && f.object.trip.points[0]
-  .col-xs-3
-    = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
-  .col-xs-2
-    = f.input :price, wrapper: :step_horizontal_form, input_html: { min: '0', step: '1' }, placeholder: '* Prix'.html_safe
+  - if Rails.configuration.pricing
+    .col-xs-3
+      = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
+    .col-xs-2
+      = f.input :price, wrapper: :step_horizontal_form, input_html: { min: '0', step: '1' }, placeholder: '* Prix'.html_safe
+  - else
+    .col-xs-5
+      = f.input :city, as: :string, wrapper: :step_horizontal_form, input_html: { class: 'geoname' }, placeholder: 'Ville', required: false
   = f.input :lon, as: :hidden
   = f.input :lat, as: :hidden
   = f.input :kind, as: :hidden, input_html: { value: f.object.kind || 'Step' }

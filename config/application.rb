@@ -15,6 +15,7 @@ module CovoiturageLibreRails5
     # -- all .rb files in that directory are automatically loaded.
 
     config.app_name = ENV['APP_NAME'] || "Covoiturage-Libre.fr"
+    config.pricing = ENV['PRICING'] == "true"
 
     host = ENV['MAILER_HOST'] || 'localhost:3000'
     config.action_mailer.default_url_options = { host: host }

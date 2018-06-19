@@ -22,20 +22,21 @@ class Trip < ApplicationRecord
 
   accepts_nested_attributes_for :points, allow_destroy: true, reject_if: proc {|attrs| attrs[:city].blank? && attrs[:kind]=='Step' }
 
-  validates_presence_of :departure_date, :departure_time, :price, :seats, :comfort, :state 
+  validates_presence_of :departure_date, :departure_time,:seats, :comfort, :state 
+  validates_presence_of :price if Rails.configuration.pricing
   validates_presence_of :title, :name, :email, unless: -> (trip) { trip.user_id.present? }
   validates_inclusion_of :smoking, in: [true, false]
   validates_inclusion_of :comfort, in: CAR_RATINGS
   validates_inclusion_of :state, in: STATES
   validates_inclusion_of :departure_date, in: Time.zone.today..Time.zone.today+1.year, message: "Mettre une date située entre aujourd'hui et dans 1 an."
   validates_numericality_of :seats, only_integer: true, greater_than_or_equal_to: 0
-  validates_numericality_of :price, only_integer: true, greater_than_or_equal_to: 0
+  validates_numericality_of :price, only_integer: true, greater_than_or_equal_to: 0  if Rails.configuration.pricing
   validates_numericality_of :age, only_integer: true, allow_blank: true, greater_than: 0, less_than: 100, unless: -> (trip) { trip.user_id.present? }
 
   validate :must_have_from_and_to_points
   validates_acceptance_of :terms_of_service
   validates :email, email: true, unless: -> (trip) { trip.user_id.present? }
-  validates_with PricesValidator
+  validates_with PricesValidator if Rails.configuration.pricing
   validate :must_have_different_points
 
   before_validation :strip_whitespace
