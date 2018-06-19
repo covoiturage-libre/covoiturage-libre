@@ -30,6 +30,7 @@
 # environment
 .env*
 !.env.sample
+!.env.test
 /etl_errors.log
 
 # pessimize gem Gemfile backups
