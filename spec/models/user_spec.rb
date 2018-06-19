@@ -4,6 +4,7 @@ describe User, type: :model do
 
   before do
     @user = FactoryBot.create(:user)
+    @user.try(:skip_confirmation!)
   end
 
   subject { @user }
