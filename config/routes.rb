@@ -32,6 +32,7 @@ Rails.application.routes.draw do
     end
     get 'search', to: 'search#index'
     get 'profile', to: 'profile#show', as: 'profile'
+    get 'profile/trips', to: 'profile#trips', as: 'profile_trips'
     get 'profile/edit', to: 'profile#edit', as: 'edit_profile'
     patch 'profile', to: 'profile#update'
 

@@ -1,4 +1,14 @@
-%h3 Modifier une annonce
+- if @trip.repeat
+  %h3 Modifier un trajet réccurent
+  .alert.alert-danger
+    %strong ATTENTION !
+    %p
+      La modification d'un trajet réccurent entraîne la dépublication et la republication de toutes
+      vos annonces rattachées. Les réservations potentielles et les modifications
+      individuelles seront alors perdues.
+- else
+  %h3 Modifier une annonce
+
 
 = render 'form'
 

@@ -1,4 +1,6 @@
 - date_value = @trip.departure_date.present? ? @trip.departure_date.strftime('%d/%m/%Y') : ''
+- date_repeat_started_at_value = @trip.repeat_started_at.present? ? @trip.repeat_started_at.strftime('%d/%m/%Y') : ''
+- date_repeat_ended_at_value = @trip.repeat_ended_at.present? ? @trip.repeat_ended_at.strftime('%d/%m/%Y') : ''
 
 %p
   %em Les champs précédés d'un astérisque sont obligatoires
@@ -42,8 +44,29 @@
         .panel-heading
           %h3.panel-title Date, horaire et détails
         .panel-body
-          = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: { value: date_value, class: 'datepicker' }, placeholder: 'Date'
-          = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
+          - if @trip.new_record?
+            = f.input :repeat, as: :hidden
+
+            %ul#repeat-tabs.nav.nav-tabs.nav-justified
+              %li{ class: @trip.repeat ? '' : 'active' }
+                %a{href:"#single", data: { toggle:"tab" }} Trajet ponctuel
+              %li{ class: @trip.repeat ? 'active' : '' }
+                %a{href:"#repeat", data: { toggle:"tab" }} Trajet récurrent
+            </ul>
+
+          .tab-content.pt-3
+            #single.pt-3.tab-pane{ class: @trip.repeat ? '' : 'active' }
+              = f.input :departure_date, as: :string, wrapper: :horizontal_form, input_html: { value: date_value, class: 'datepicker' }, placeholder: 'Date', required: true
+              = f.input :departure_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
+            #repeat.pt-3.tab-pane{ class: @trip.repeat ? 'active' : '' }
+              .repetitions.clearfix.mb-3
+                = f.simple_fields_for :trip_repetitions do |repetition|
+                  = render 'trip_repetition_fields', f: repetition
+                .links
+                  = link_to_add_association '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un trajet régulier'.html_safe, f, :trip_repetitions, { class: 'btn btn-default pull-right', render_options: { locals: { rank: index } } }
+              = f.input :repeat_week, as: :select, wrapper: :horizontal_form, collection: (1..4).to_a.map {|sem| ["Toutes les #{sem if sem > 1} semaines", sem] }, include_blank: false, include_hidden: false
+              = f.input :repeat_started_at, as: :string, wrapper: :horizontal_form, input_html: { value: date_repeat_started_at_value, class: 'datepicker' }, placeholder: 'Date', required: true
+              = f.input :repeat_ended_at, as: :string, wrapper: :horizontal_form, input_html: { value: date_repeat_ended_at_value, class: 'datepicker' }, placeholder: 'Date', required: true
           = f.input :description, wrapper: :horizontal_form, hint: 'Important, les annonces avec commentaires sont plus efficaces : détails sur votre parcours, sur le lieu précis du départ, sur vos attentes, si vous acceptez les animaux de compagnie, etc.'
           = f.input :total_distance, as: :hidden
           = f.input :total_time, as: :hidden
@@ -95,6 +118,10 @@
     $('#trip_price_0').on('change', function(e) {
       $('#trip_price').prop('disabled', $(this).is(':checked')).val(0);
     });
+
+    $('#repeat-tabs a').click(function (e) {
+      $('input[name="trip[repeat]"]').val(/#repeat$/.test($(this).prop('href')));
+    })
 
     $('#steps').on('cocoon:after-insert', function(e, step) {
       $(step).find('.geoname').geonameAutocomplete();

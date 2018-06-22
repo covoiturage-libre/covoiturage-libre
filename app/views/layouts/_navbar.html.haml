@@ -27,7 +27,7 @@
               %li
                 %a{href: profile_path}
                   Mon profil
-              %li.disabled= link_to 'Mes annonces', "#TODO", wrap_tag: :li
+              %li= link_to 'Mes annonces', profile_trips_path, wrap_tag: :li
               %li.disabled= link_to 'Mes trajets', "#TODO", wrap_tag: :li
               %li.disabled= link_to 'Mes alertes', "#TODO", wrap_tag: :li
               - if current_user.admin?

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :trips
 
   validates_inclusion_of :role, in: ROLES, allow_blank: true
+  validates_presence_of :display_name, :email
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

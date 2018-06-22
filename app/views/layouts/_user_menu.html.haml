@@ -1,6 +1,6 @@
 %ul.nav.nav-pills
-  %li= active_link_to 'Mon profil', profile_path, wrap_tag: :li
-  %li.disabled= link_to 'Mes annonces', "#TODO", wrap_tag: :li
+  = active_link_to 'Mon profil', profile_path, wrap_tag: :li, active: [['profile'], ['show', 'edit']]
+  = active_link_to 'Mes annonces', profile_trips_path, wrap_tag: :li, active: controller_name == 'profile' && action_name == 'trips' || controller_name == 'trips' && action_name.in?(['show', 'edit'])
   %li.disabled= link_to 'Mes trajets', "#TODO", wrap_tag: :li
   %li.disabled= link_to 'Mes alertes', "#TODO", wrap_tag: :li
 

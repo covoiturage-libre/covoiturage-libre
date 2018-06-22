@@ -33,6 +33,10 @@ class ProfileController < ApplicationController
     end
   end
 
+  # GET /profile/trips
+  def trips
+  end
+
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     # authorize! :update, @user

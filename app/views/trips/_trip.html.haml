@@ -1,16 +1,30 @@
-.trip
+.trip{class: "#{'child-trip' if trip.parent.present?} #{'user-trip' if user_signed_in? && trip.user == current_user}"}
   = link_to trip, class: 'trip-item' do
     .driver
-      .avatar= image_tag('covoiturage-avatar-default2.png')
-      .info
-        .name= trip.name
-        .age= "#{trip.age} ans" if trip.age.present?
+      - if user_signed_in? && trip.user == current_user
+        .avatar
+          = image_tag('covoiturage-avatar-default.png')
+      - else
+        .avatar
+          = image_tag('covoiturage-avatar-default2.png')
+        .info
+          .name= trip.name
+          .age= "#{trip.age} ans" if trip.age.present?
     .trip-info
-      .title
-        =l trip.departure_time, format: :short
-        %p= "(le covoit' est sur la route)" if trip.is_before_today?
-      .details
+      - unless trip.repeat
+        .title
+          - if defined? with_date && with_date
+            %small
+              =l(trip.departure_date, format: :trip_date).capitalize
+              à
+          =l trip.departure_time, format: :short
+          %p= "(le covoit' est sur la route)" if trip.is_before_today?
+      .details.pull-left.mr-3
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
+      - if trip.parent.present?
+        .recurrent.pull-right.ml-3.text-muted
+          %i.fa.fa-refresh
+          Trajet récurrent
     .price
       - if trip.price > 0
         %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"

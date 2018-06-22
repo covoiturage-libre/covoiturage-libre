@@ -45,12 +45,44 @@ a.trip-item-after {
     }
   }
 
+  &.user-trip {
+    .driver {
+      width: 15%;
+    }
+    .trip-info {
+      width: 70%;
+    }
+    @media (max-width: $screen-xs-max) {
+      .avatar {
+        display: none;
+      }
+      .driver {
+        display: none;
+      }
+      .trip-info {
+        width: 80%;
+      }
+      .price {
+        width: 20%;
+      }
+    }
+  }
+
+  &.child-trip {
+    .price {
+    }
+  }
   .driver {
     width: 35%;
   }
 
   .price {
     width: 15%;
+  }
+  @media (max-width: $screen-xs-max) {
+    .avatar {
+      display: none;
+    }
   }
 }
 

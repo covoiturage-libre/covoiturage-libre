@@ -26,15 +26,21 @@
               Association loi 1901
 
 - content_for :home_content do
-  -#%section.p-home__dashboard
-    .container
+  = render 'banner'
+  %section.p-home__dashboard
+    .container.pv-5
       .row
         .col-sm-6
-          %h3 Derniers convoiturages publiés
+          .page-header.mb-0
+            %h3.p-home__heading Derniers convoiturages publiés
+          - @latest_trips.each do |trip|
+            = render 'trips/trip', trip: trip, with_date: true
         .col-sm-6
-          %h3 Covoiturages à venir incomplets
+          .page-header.mb-0
+            %h3.p-home__heading Covoiturages à venir incomplets
+          - @incoming_trips.each do |trip|
+            = render 'trips/trip', trip: trip, with_date: true
 
-  = render 'banner'
   %section.p-home__features
     .container
       .row
