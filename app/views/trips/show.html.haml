@@ -62,35 +62,7 @@
               = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
               = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
 
-        - if user_signed_in? && @trip.user == current_user
-          %hr
-          %div.pull-right
-            %a.btn.btn-primary{href: edit_trip_path(@trip.edition_token)}
-              Modifier
-            %a.btn.btn-danger{href: confirm_delete_trip_path(@trip.deletion_token)}
-              Supprimer
-          .clearfix
 
-    - if @trip.children.any?
-      .panel.panel-default
-        .panel-heading
-          %h3.panel-title
-            ="#{@trip.children.count} annonces rattachées"
-        .panel-body
-          - @trip.children.each do |trip|
-            = render 'trip', trip: trip
-
-
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title
-          %strong Étapes :
-          = trip_steps_breadcrumb(@trip)
-      .panel-body
-        #route-wrapper
-          #route
-
-  .col-md-6
     .panel.panel-default
       .panel-body
         .row
@@ -127,14 +99,54 @@
             - else
               %p Vous devez vous authentifier pour réserver un trajet ou envoyer un message au conducteur
               = link_to 'Connexion', new_user_session_path(redirect_to: trip_path(@trip)), class: 'btn btn-primary'
+  .col-md-6
+
+    - if !user_signed_in? || @trip.user == current_user
+      .panel.panel-default
+        .panel-body.p-3.pb-0
+          - if user_signed_in?
+            - if @trip.user == current_user
+              .row
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-primary{href: edit_trip_path(@trip.edition_token)}
+                    Modifier
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-info{href: new_for_back_trip_url(@trip.edition_token)}
+                    Trajet retour
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-inverse{href: new_from_copy_trip_path(@trip.edition_token)}
+                    Dupliquer
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-danger{href: confirm_delete_trip_path(@trip.deletion_token)}
+                    Supprimer
+
+              .clearfix
+          - else
+            .trip-ownership
+              %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
+              %p
+                Vous avez perdu le courriel de gestion de l'annonce ?
+                = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
+                pour le recevoir à nouveau.
     .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %strong Étapes :
+          = trip_steps_breadcrumb(@trip)
       .panel-body
-        .trip-ownership
-          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
-          %p
-            Vous avez perdu le courriel de gestion de l'annonce ?
-            = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
-            pour le recevoir à nouveau.
+        #route-wrapper
+          #route
+
+    - if @trip.children.undeleted.any?
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            ="#{@trip.children.undeleted.count} annonces rattachées"
+        .panel-body
+          - @trip.children.undeleted.each do |trip|
+            = render 'trip', trip: trip
+
+
 
 - content_for :javascript_footer do
   :javascript

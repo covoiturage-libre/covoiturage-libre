@@ -60,12 +60,16 @@ class Trip < ApplicationRecord
   # eager load points each time a trip is requested
   default_scope { includes(:points) }
 
-  scope :published, -> { where(state: 'confirmed') }
+  scope :confirmed,  -> { where(state: 'confirmed') }
+  scope :pending,    -> { where(state: 'pending') }
+  scope :deleted,    -> { where(state: 'deleted') }
+  scope :undeleted,  -> { where('state != ?', 'deleted') }
+  scope :repeated,   -> { where(repeat: true) }
   scope :unrepeated, -> { where(repeat: false) }
-  scope :repeated, -> { where(repeat: true) }
-  scope :for_today, -> { published.where(['departure_date = ? AND departure_time > ?', Date.today, Time.now]) }
-  scope :latests, -> { published.where('departure_date >= ?', Date.today).order(created_at: :desc) }
-  scope :incoming, -> { published.where('departure_date > ?', Date.today).or(for_today).order(departure_date: :asc, departure_time: :asc) }
+  scope :incoming,   -> { where(['departure_date > ? OR (departure_date = ? AND departure_time > ?)', Date.today, Date.today, Time.now]) }
+  scope :past,       -> { where(['departure_date < ? OR (departure_date = ? AND departure_time <= ?)', Date.today, Date.today, Time.now]) }
+  scope :latests,    -> { order(updated_at: :desc, created_at: :desc) }
+  scope :soon,       -> { order(departure_date: :asc, departure_time: :asc) }
 
   def to_param
     confirmation_token
@@ -94,6 +98,7 @@ class Trip < ApplicationRecord
 
   def soft_delete!
     self.update_attribute(:state, 'deleted')
+    self.children.update_all(state: 'deleted')
   end
 
   def confirmed?

@@ -1,4 +1,4 @@
-.trip{class: "#{'child-trip' if trip.parent.present?} #{'user-trip' if user_signed_in? && trip.user == current_user}"}
+.trip{class: "#{trip.state}-trip #{'child-trip' if trip.parent.present?} #{'past-trip' if trip.is_before_today?} #{'user-trip' if user_signed_in? && trip.user == current_user}"}
   = link_to trip, class: 'trip-item' do
     .driver
       - if user_signed_in? && trip.user == current_user
@@ -18,9 +18,16 @@
               =l(trip.departure_date, format: :trip_date).capitalize
               à
           =l trip.departure_time, format: :short
-          %p= "(le covoit' est sur la route)" if trip.is_before_today?
       .details.pull-left.mr-3
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
+      - if trip.state == 'pending'
+        .state.pull-right.ml-3.text-warning
+          %i.fa.fa-clock-o
+          En attente de confirmation
+      - if trip.state == 'deleted'
+        .state.pull-right.ml-3.text-danger
+          %i.fa.fa-trash
+          Supprimé
       - if trip.parent.present?
         .recurrent.pull-right.ml-3.text-muted
           %i.fa.fa-refresh

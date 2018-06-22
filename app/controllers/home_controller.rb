@@ -16,8 +16,8 @@ class HomeController < ApplicationController
       'Boulogne-Billancourt'
     ]
 
-    @latest_trips = Trip.latests.limit(5)
-    @incoming_trips = Trip.incoming.limit(5)
+    @latest_trips = Trip.incoming.confirmed.latests.limit(5)
+    @incoming_trips = Trip.incoming.confirmed.soon.limit(5)
 
     @testimonials = [
       {

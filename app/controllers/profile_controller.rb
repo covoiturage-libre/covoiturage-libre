@@ -35,6 +35,10 @@ class ProfileController < ApplicationController
 
   # GET /profile/trips
   def trips
+    @incoming_trips = current_user.trips.undeleted.unrepeated.soon
+    @repeated_trips = current_user.trips.undeleted.repeated.latests
+    @deleted_trips = current_user.trips.deleted.latests
+    @past_trips = current_user.trips.past.soon
   end
 
   # GET/PATCH /users/:id/finish_signup

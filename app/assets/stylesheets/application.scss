@@ -48,6 +48,18 @@
   margin-top: 20px;
 }
 
+.btn-inverse {
+  background-color: $brand-inverse;
+  color: white;
+  border-color: darken($brand-inverse, 10%);
+}
+
+.btn-inverse:hover {
+  color: white;
+  background-color: darken($brand-inverse, 5%);
+}
+
+
 .m-0  { margin: 0 !important; }
 .m-1  { margin: .25rem !important; }
 .m-2  { margin: .5rem !important; }
@@ -93,30 +105,3 @@
 .pv-4 { padding-top: 2rem !important; padding-bottom: 2rem !important }
 .pv-5 { padding-top: 4rem !important; padding-bottom: 4rem !important }
 
-.trip_trip_repetitions_departure_time {
-  .input-group-addon,
-  .input-group-btn .btn {
-    background: none;
-    border: none;
-    width: auto;
-  }
-  .form-control {
-    border-radius: 4px !important;
-  }
-  .input-group-addon > label {
-    margin: 0 2px;
-  }
-  .input-group-addon > label > input[type='radio'] {
-    vertical-align: text-bottom;
-    width: auto;
-    height: auto;
-  }
-  @media (max-width: $screen-xs-max) {
-    .input-group-addon,
-    .form-control,
-    .input-group-btn .btn {
-      padding-left: 0.25rem;
-      padding-right: 0.25rem;
-    }
-  }
-}
