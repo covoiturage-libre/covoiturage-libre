@@ -35,10 +35,14 @@ class ProfileController < ApplicationController
 
   # GET /profile/trips
   def trips
-    @incoming_trips = current_user.trips.undeleted.unrepeated.soon
+    @incoming_trips = current_user.trips.undeleted.unrepeated.incoming.soon
     @repeated_trips = current_user.trips.undeleted.repeated.latests
     @deleted_trips = current_user.trips.deleted.latests
-    @past_trips = current_user.trips.past.soon
+    @past_trips = current_user.trips.past.desc
+  end
+
+  def alerts
+    @user_alerts = current_user.user_alerts
   end
 
   # GET/PATCH /users/:id/finish_signup

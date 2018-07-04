@@ -1,0 +1,31 @@
+.trip.user_alert{class: ""}
+  = link_to user_alert, class: 'user_alert-item' do
+    .driver{style: "width: auto"}
+      .avatar
+        %span.fa-stack
+          %i.fa.fa-envelope.fa-stack-2x{style: "color: #666"}
+          %i.fa.fa-exclamation.fa-stack-2x.fa-inverse
+    .user_alert-info
+      .details.pull-left.mr-3{style: "width: 70%"}
+        %dl.text-muted.dl-horizontal
+          %dt Date(s)
+          %dd
+            = user_alert.departure_from_date.strftime('%d/%m/%Y')
+            - if user_alert.departure_from_date != user_alert.departure_to_date
+              = " - "
+              = user_alert.departure_to_date.strftime('%d/%m/%Y')
+          %dt Horaire(s) :
+          %dd
+            = user_alert.departure_from_time.strftime('%H:%M')
+            - if user_alert.departure_from_date != user_alert.departure_to_date
+              = " - "
+              = user_alert.departure_to_time.strftime('%H:%M')
+    .price
+      - if user_alert.max_price > 0
+        = number_to_currency(user_alert.max_price, locale: :fr)
+        &euro;ou moins
+      - else
+        Gratuit
+      .seats
+        = "#{user_alert.min_seats} place#{'s' if user_alert.min_seats > 1}"
+    .clearfix

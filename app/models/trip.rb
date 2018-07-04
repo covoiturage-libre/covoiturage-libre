@@ -70,6 +70,7 @@ class Trip < ApplicationRecord
   scope :past,       -> { where(['departure_date < ? OR (departure_date = ? AND departure_time <= ?)', Date.today, Date.today, Time.now]) }
   scope :latests,    -> { order(updated_at: :desc, created_at: :desc) }
   scope :soon,       -> { order(departure_date: :asc, departure_time: :asc) }
+  scope :desc,       -> { order(departure_date: :desc, departure_time: :desc) }
 
   def to_param
     confirmation_token

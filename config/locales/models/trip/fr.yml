@@ -2,6 +2,7 @@ fr:
   activerecord:
     models:
       trip: Voyage
+      user_alert: Alerte
     attributes:
       trip:
         departure_date: Date
@@ -27,3 +28,12 @@ fr:
         repeat_week: Répéter
         repeat_started_at: À partir du
         repeat_ended_at: Jusqu'au
+      user_alert:
+        departure_from_date: Entre le
+        departure_from_time: Entre
+        departure_to_date: et le
+        departure_to_time: et
+        smoking: Fumeur
+        max_price: Prix maximum
+        min_seats: Nombre de places minimum
+        min_comfort: Confort minimum

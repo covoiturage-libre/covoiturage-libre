@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180620162044) do
+ActiveRecord::Schema.define(version: 20180704083433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,29 @@ ActiveRecord::Schema.define(version: 20180620162044) do
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
+  create_table "user_alerts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "departure_from_date"
+    t.time "departure_from_time"
+    t.date "departure_to_date"
+    t.time "departure_to_time"
+    t.boolean "smoking"
+    t.float "max_price"
+    t.integer "min_seats"
+    t.string "min_comfort"
+    t.float "from_lat"
+    t.float "float"
+    t.float "from_lon"
+    t.string "from_city"
+    t.string "string"
+    t.float "to_lat"
+    t.float "to_lon"
+    t.string "to_city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_alerts_on_user_id"
+  end
+
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -212,4 +235,5 @@ ActiveRecord::Schema.define(version: 20180620162044) do
   add_foreign_key "trip_repetition_exceptions", "trips"
   add_foreign_key "trip_repetitions", "trips"
   add_foreign_key "trips", "users", on_delete: :nullify
+  add_foreign_key "user_alerts", "users"
 end

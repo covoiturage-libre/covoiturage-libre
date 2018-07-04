@@ -10,6 +10,7 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :trips
+  has_many :user_alerts
 
   validates_inclusion_of :role, in: ROLES, allow_blank: true
   validates_presence_of :display_name, :email

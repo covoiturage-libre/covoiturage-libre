@@ -32,6 +32,11 @@
         .recurrent.pull-right.ml-3.text-muted
           %i.fa.fa-refresh
           Trajet récurrent
+      - if trip.repeat
+        .recurrent.pull-right.ml-3.text-muted
+          %i.fa.fa-list
+          = trip.children.count
+          trajets
     .price
       - if trip.price > 0
         %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"

@@ -1,0 +1,20 @@
+.page-header
+  %h1
+    Mes alertes
+
+.panel.panel-default
+  .panel-heading.clearfix
+    %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+      Alertes en cours
+    .btn-group.pull-right
+      %a.btn.btn-primary.btn-sm{href: new_user_alert_path}
+        %i.fa.fa-plus
+        Nouvelle alerte
+  .panel-body
+    - if @user_alerts.any?
+      - @user_alerts.each do |user_alert|
+        = render 'user_alerts/user_alert', user_alert: user_alert
+    - else
+      .text-center
+        Aucunes alertes enregistrées
+
