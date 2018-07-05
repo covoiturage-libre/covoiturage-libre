@@ -4,6 +4,10 @@ class UserAlert < ApplicationRecord
 
   belongs_to :user
 
+  validates_presence_of :departure_from_date, :departure_from_time, :departure_to_date, :departure_to_time
+
+  validate :must_departure_dates_be_interval
+
   scope :from_and_to_null, -> { from_null.to_null }
   scope :from_null, -> { where('from_lat IS NULL AND from_lon IS NULL') }
   scope :from_point, -> (point, around_distance) { where("ST_Dwithin(
@@ -54,4 +58,13 @@ class UserAlert < ApplicationRecord
     comforts = Trip::CAR_RATINGS[0..comfort_index]
     user_alerts = user_alerts.where(min_comfort: comforts)
   end
+
+  private
+
+    def must_departure_dates_be_interval
+      return if departure_from_date.nil? || departure_to_date.nil?
+      if departure_from_date > departure_to_date
+        errors.add(:departure_to_date, "L'intervalle de date est incorrecte")
+      end
+    end
 end

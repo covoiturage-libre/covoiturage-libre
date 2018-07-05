@@ -1,10 +1,10 @@
 .page-header
   %h1
     Alerte du
-    = @user_alert.departure_from_date.strftime('%d/%m/%Y')
+    = @user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
     - if @user_alert.departure_from_date != @user_alert.departure_to_date
       = " au "
-      = @user_alert.departure_to_date.strftime('%d/%m/%Y')
+      = @user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
 
 .row
   .col-md-6
@@ -20,7 +20,7 @@
           %dd= @user_alert.to_city
           %dt Tarif maximum
           %dd
-            - if @user_alert.max_price > 0
+            - if (@user_alert.max_price || 0) > 0
               = number_to_currency(@user_alert.max_price, locale: :fr)
               ou moins
             - else
@@ -34,16 +34,16 @@
         %dl.dl-horizontal
           %dt Date(s)
           %dd
-            = @user_alert.departure_from_date.strftime('%d/%m/%Y')
+            = @user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
             - if @user_alert.departure_from_date != @user_alert.departure_to_date
               = " - "
-              = @user_alert.departure_to_date.strftime('%d/%m/%Y')
+              = @user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
           %dt Horaire(s) :
           %dd
-            = @user_alert.departure_from_time.strftime('%H:%M')
+            = @user_alert.departure_from_time.try(:strftime, '%H:%M')
             - if @user_alert.departure_from_date != @user_alert.departure_to_date
               = " - "
-              = @user_alert.departure_to_time.strftime('%H:%M')
+              = @user_alert.departure_to_time.try(:strftime, '%H:%M')
 
     .panel.panel-default
       .panel-heading.clearfix

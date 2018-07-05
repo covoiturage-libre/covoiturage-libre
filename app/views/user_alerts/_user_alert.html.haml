@@ -10,18 +10,18 @@
         %dl.text-muted.dl-horizontal.mb-0.p-3
           %dt Date(s)
           %dd
-            = user_alert.departure_from_date.strftime('%d/%m/%Y')
+            = user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
             - if user_alert.departure_from_date != user_alert.departure_to_date
               = " - "
-              = user_alert.departure_to_date.strftime('%d/%m/%Y')
+              = user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
           %dt Horaire(s) :
           %dd
-            = user_alert.departure_from_time.strftime('%H:%M')
+            = user_alert.departure_from_time.try(:strftime, '%H:%M')
             - if user_alert.departure_from_date != user_alert.departure_to_date
               = " - "
-              = user_alert.departure_to_time.strftime('%H:%M')
+              = user_alert.departure_to_time.try(:strftime, '%H:%M')
     .price
-      - if user_alert.max_price > 0
+      - if (user_alert.try(:max_price) || 0) > 0
         = number_to_currency(user_alert.max_price, locale: :fr)
         ou moins
       - else

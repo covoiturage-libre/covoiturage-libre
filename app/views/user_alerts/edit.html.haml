@@ -1,9 +1,9 @@
 .page-header
   %h1
     Modifer l'alerte du
-    = @user_alert.departure_from_date.strftime('%d/%m/%Y')
+    = @user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
     - if @user_alert.departure_from_date != @user_alert.departure_to_date
       = " au "
-      = @user_alert.departure_to_date.strftime('%d/%m/%Y')
+      = @user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
 
 = render 'form'
