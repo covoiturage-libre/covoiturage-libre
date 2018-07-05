@@ -38,13 +38,19 @@ class UserAlertsController < ApplicationController
   end
 
   def destroy
+    @user_alert.destroy
+    redirect_to profile_alerts_url, notice: "L'alerte a correctement été supprimée"
   end
 
   private
 
   def set_user_alert
     @user_alert = UserAlert.find(params[:id] || params[:user_alert_id])
-    redirect_to root_path, flash: { error: "Vous ne pouvez pas consulter cette alerte" } if @user_alert.user != current_user
+    if user_signed_in?
+      redirect_to root_path, flash: { error: "Vous ne pouvez pas consulter cette alerte" } if @user_alert.user != current_user
+    else
+      redirect_to new_user_session_path(redirect_to: user_alert_path(@user_alert)), flash: { error: "Vous devez vous connecter pour consulter cette alerte" } 
+    end
   end
 
   def user_alert_params

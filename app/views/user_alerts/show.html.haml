@@ -15,10 +15,10 @@
       .panel-body
         %dl.dl-horizontal
           %dt De
-          %dd= @user_alert.from_city
+          %dd= @user_alert.from_city.presence || 'Indifférent'
           %dt À
-          %dd= @user_alert.to_city
-          %dt Tarif maximum
+          %dd= @user_alert.to_city.presence || 'Indifférent'
+          %dt Tarif
           %dd
             - if (@user_alert.max_price || 0) > 0
               = number_to_currency(@user_alert.max_price, locale: :fr)
@@ -54,7 +54,7 @@
           %dt Nombre de sièges
           %dd= @user_alert.min_seats
           %dt Confort minimum
-          %dd= @user_alert.min_comfort
+          %dd= t :"activerecord.attributes.trip.comfort_#{@user_alert.min_comfort}"
           %dt Fumeur
           %dd= @user_alert.smoking.nil? ? 'Indifférent' : @user_alert.smoking ? 'Oui' : 'Non'
 
@@ -66,7 +66,7 @@
             %a.btn.btn-block.mb-3.btn-primary{href: edit_user_alert_path(@user_alert)}
               Modifier
           .col-sm-3
-            %a.btn.btn-block.mb-3.btn-danger{href: user_alert_path(@user_alert), data: { method: :delete }}
+            %a.btn.btn-block.mb-3.btn-danger{href: user_alert_path(@user_alert), data: { method: :delete, confirm: "Êtes-vous sûr ?" }}
               Supprimer
 
             .clearfix

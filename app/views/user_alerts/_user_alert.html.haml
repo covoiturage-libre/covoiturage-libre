@@ -7,15 +7,20 @@
           %i.fa.fa-exclamation.fa-stack-2x.fa-inverse
     .user_alert-info
       .details.pull-left.mr-3{style: "width: 70%"}
-        %dl.text-muted.dl-horizontal.mb-0.p-3
-          %dt Date(s)
-          %dd
+        .text-muted.p-3
+          = user_alert.from_city.presence || "N'importe où"
+          &rarr;
+          = user_alert.to_city.presence || "N'importe où"
+          %br
+          %strong Date(s)
+          %span
             = user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
             - if user_alert.departure_from_date != user_alert.departure_to_date
               = " - "
               = user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
-          %dt Horaire(s) :
-          %dd
+          %br
+          %strong Horaire(s) :
+          %span
             = user_alert.departure_from_time.try(:strftime, '%H:%M')
             - if user_alert.departure_from_date != user_alert.departure_to_date
               = " - "
