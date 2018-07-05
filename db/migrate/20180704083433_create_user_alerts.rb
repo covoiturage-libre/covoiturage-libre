@@ -10,11 +10,11 @@ class CreateUserAlerts < ActiveRecord::Migration[5.1]
       t.float :max_price
       t.integer :min_seats
       t.string :min_comfort
-      t.float :from_lat
-      t.float :from_lon
+      t.decimal :from_lat, precision: 9, scale: 6
+      t.decimal :from_lon, precision: 9, scale: 6
       t.string :from_city
-      t.float :to_lat
-      t.float :to_lon
+      t.decimal :to_lat, precision: 9, scale: 6
+      t.decimal :to_lon, precision: 9, scale: 6
       t.string :to_city
 
       t.timestamps

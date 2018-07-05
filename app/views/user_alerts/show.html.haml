@@ -22,7 +22,7 @@
           %dd
             - if @user_alert.max_price > 0
               = number_to_currency(@user_alert.max_price, locale: :fr)
-              &euro;ou moins
+              ou moins
             - else
               Gratuit
 

@@ -56,6 +56,7 @@ class Trip < ApplicationRecord
 
   after_create :send_confirmation_email, unless: -> (trip) { trip.parent.present? }
   after_save :set_last_point_price
+  after_save :send_user_alerts
 
   # eager load points each time a trip is requested
   default_scope { includes(:points) }
@@ -64,6 +65,7 @@ class Trip < ApplicationRecord
   scope :pending,    -> { where(state: 'pending') }
   scope :deleted,    -> { where(state: 'deleted') }
   scope :undeleted,  -> { where('state != ?', 'deleted') }
+  scope :orphans,    -> { where(parent: nil) }
   scope :repeated,   -> { where(repeat: true) }
   scope :unrepeated, -> { where(repeat: false) }
   scope :incoming,   -> { where(['departure_date > ? OR (departure_date = ? AND departure_time > ?)', Date.today, Date.today, Time.now]) }
@@ -178,6 +180,15 @@ class Trip < ApplicationRecord
 
     def set_last_point_price
       self.point_to.update_attribute(:price, self.price)
+    end
+
+    def send_user_alerts
+      if self.confirmed?
+        user_alerts = UserAlert.find_by_trip(self)
+        user_alerts.each do |user_alert|
+          UserMailer.alert_notification(self, user_alert).deliver_later
+        end
+      end
     end
 
     def must_repeat_dates_be_interval

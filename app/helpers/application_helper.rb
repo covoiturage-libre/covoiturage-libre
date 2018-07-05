@@ -63,7 +63,7 @@ module ApplicationHelper
   def user_page?
     user_signed_in? && (
       /profile/.match(params[:controller]) ||
-      defined?(@trip) && @trip.user == current_user ||
+      defined?(@trip) && (@trip.user == current_user || action_name == 'new') ||
       defined?(@user_alert)
     )
   end

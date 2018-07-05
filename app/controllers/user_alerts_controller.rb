@@ -44,12 +44,15 @@ class UserAlertsController < ApplicationController
 
   def set_user_alert
     @user_alert = UserAlert.find(params[:id] || params[:user_alert_id])
+    redirect_to root_path, flash: { error: "Vous ne pouvez pas consulter cette alerte" } if @user_alert.user != current_user
   end
 
   def user_alert_params
-    params.require(:user_alert).permit(:departure_from_date,
+    _user_alert_params = params.require(:user_alert).permit(:departure_from_date,
       :departure_from_time, :departure_to_date, :departure_to_time, :smoking,
       :max_price, :min_seats, :min_comfort,  :from_lat,  :from_lon, :from_city,
       :to_lat, :to_lon, :to_city)
+    _user_alert_params[:smoking] = '' if _user_alert_params[:smoking] == 'on'
+    _user_alert_params
   end
 end

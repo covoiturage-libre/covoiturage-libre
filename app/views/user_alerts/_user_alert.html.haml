@@ -7,7 +7,7 @@
           %i.fa.fa-exclamation.fa-stack-2x.fa-inverse
     .user_alert-info
       .details.pull-left.mr-3{style: "width: 70%"}
-        %dl.text-muted.dl-horizontal
+        %dl.text-muted.dl-horizontal.mb-0.p-3
           %dt Date(s)
           %dd
             = user_alert.departure_from_date.strftime('%d/%m/%Y')
@@ -23,7 +23,7 @@
     .price
       - if user_alert.max_price > 0
         = number_to_currency(user_alert.max_price, locale: :fr)
-        &euro;ou moins
+        ou moins
       - else
         Gratuit
       .seats

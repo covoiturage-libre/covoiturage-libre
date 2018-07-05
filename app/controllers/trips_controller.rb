@@ -1,7 +1,7 @@
 # coding: utf-8
 class TripsController < ApplicationController
   include ApplicationHelper
-  before_action :authenticate_user!, except: [:index, :show] unless ENV['AUTHENTICATION_ENABLED'] != 'true'
+  before_action :authenticate_user!, except: [:index, :show] if Rails.application.config.authentication_enabled
 
   skip_before_action :verify_authenticity_token
 
