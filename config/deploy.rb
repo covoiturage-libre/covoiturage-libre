@@ -28,6 +28,7 @@ set :pty, true
 set :linked_files, %w{
     config/database.yml
     config/secrets.yml
+    .env.production
 }
 
 # Default value for linked_dirs is []
@@ -43,7 +44,7 @@ set :passenger_restart_with_touch, true
 
 
 def copy_config_file(file)
-    local_file  = File.dirname(__FILE__) + "../#{file}"
+    local_file  = File.dirname(__FILE__) + "/../#{file}"
     server_file = "#{ deploy_to }/shared/#{file}"
     upload! local_file, server_file#, :via => :scp, :mode => "755" 
     #execute :sudo, "rm -rf #{ latest_release }/config/#{file}"
