@@ -43,7 +43,7 @@
         .col-sm-6
           .page-header.mb-0
             %h3.p-home__heading Trajets ponctuels à venir
-          - if @unrepeated_trips
+          - if @unrepeated_trips.any?
             - @unrepeated_trips.each do |trip|
               = render 'trips/trip', trip: trip, with_date: true
           - else
