@@ -22,9 +22,8 @@ module ApplicationHelper
   def flash_messages(opts = {})
     html = ''
     flash.each do |msg_type, message|
-      html << content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type)} fade in") do
-        content_tag(:button, 'x', class: 'close', data: { dismiss: 'alert' })
-        message
+      html << content_tag(:div, nil, class: "alert #{bootstrap_class_for(msg_type)} fade in mb-0") do
+        (message + content_tag(:button, '&times;'.html_safe, class: 'close', data: { dismiss: 'alert' })).html_safe
       end
     end
     html.html_safe
@@ -35,7 +34,11 @@ module ApplicationHelper
   end
 
   def trip_title(trip, separator = '&rarr;')
-    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :trip_date} à #{l trip.departure_time, format: :short}".html_safe
+    if trip.repeat
+      "#{trip_steps_breadcrumb(trip, separator)} du #{l trip.repeat_started_at, format: :trip_date} au #{l trip.repeat_ended_at, format: :trip_date}".html_safe
+    else
+      "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :trip_date} à #{l trip.departure_time, format: :short}".html_safe
+    end
   end
 
   def trip_steps_breadcrumb_with_emphasis(trip, point_a_id = nil, point_b_id = nil, separator = '&rarr;')
@@ -55,6 +58,14 @@ module ApplicationHelper
 
   def admin_page?
     /admin/.match(params[:controller])
+  end
+
+  def user_page?
+    user_signed_in? && (
+      /profile/.match(params[:controller]) ||
+      defined?(@trip) && (@trip.user == current_user || action_name == 'new') ||
+      defined?(@user_alert)
+    )
   end
 
   def back_trip_page?

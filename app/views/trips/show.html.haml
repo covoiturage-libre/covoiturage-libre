@@ -4,11 +4,18 @@
 %p= link_to '&larr; Retour aux résutats'.html_safe, :back
 
 .page-header
-  %h1
-    ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city} le #{l @trip.departure_date, format: :trip_date}"
+  - if @trip.repeat
+    %h1
+      ="Voyages entre #{@trip.point_from.city} et #{@trip.point_to.city}"
+    %h2
+      ="du #{l @trip.repeat_started_at, format: :trip_date} au #{l @trip.repeat_ended_at, format: :trip_date}"
+  - else
+    %h1
+      ="Voyage de #{@trip.point_from.city} à #{@trip.point_to.city} le #{l @trip.departure_date, format: :trip_date}"
 
 .row
   .col-md-6
+
     .panel.panel-default
       .panel-body
         .row
@@ -54,17 +61,13 @@
             %strong
               = distance_of_time_in_words(@trip.total_time) if @trip.total_time.present?
               = "- #{(@trip.total_distance / 1000).round} km" if @trip.total_distance.present?
+        - if @trip.parent.present?
+          %hr
+          %p Ce trajet est récurrent pour le conducteur.
+          = link_to 'Autres dates pour ce trajet', trip_path(@trip.parent.confirmation_token), class: 'btn btn-primary'
 
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title
-          %strong Étapes :
-          = trip_steps_breadcrumb(@trip)
-      .panel-body
-        #route-wrapper
-          #route
 
-  .col-md-6
+
     .panel.panel-default
       .panel-body
         .row
@@ -74,10 +77,11 @@
               .info
                 .name= @trip.name
                 .age= "#{@trip.age} ans" if @trip.age.present?
-                .sex=t :"activerecord.attributes.trip.title_#{@trip.title}"
+                .sex=t :"activerecord.attributes.trip.title_#{@trip.title.upcase}"
                 .phone#phone
-                  - if @trip.phone.present?
-                    = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
+                  - if user_signed_in? || !Rails.application.config.authentication_enabled
+                    - if @trip.phone.present?
+                      = link_to 'Afficher le numéro de téléphone', trip_phone_path(@trip), class: 'btn btn-warning', remote: true, disable_with: 'En attente...'
           - if @trip.seats
             .col-md-4
               .main_seats
@@ -85,25 +89,70 @@
                   Complet
                 - else
                   = "#{@trip.seats} place#{'s' if @trip.seats > 1}"
-        .row
-          .col-md-9.col-md-offset-1
-            %br
-            = "Commentaire de #{@trip.name} :"
-            .well= nl2br @trip.description
+        - if @trip.description.present?
+          .row
+            .col-md-9.col-md-offset-1
+              %br
+              = "Commentaire de #{@trip.name} :"
+              .well= nl2br @trip.description
 
     .panel.panel-default
       .panel-body
         #message_zone
           .message#message-wrapper
-            = render 'messages/form'
+            - if user_signed_in? || !Rails.application.config.authentication_enabled
+              = render 'messages/form'
+            - else
+              %p Vous devez vous authentifier pour réserver un trajet ou envoyer un message au conducteur
+              = link_to 'Connexion', new_user_session_path(redirect_to: trip_path(@trip)), class: 'btn btn-primary'
+  .col-md-6
+
+    - if !user_signed_in? || @trip.user == current_user
+      .panel.panel-default
+        .panel-body.p-3.pb-0
+          - if user_signed_in?
+            - if @trip.user == current_user
+              .row
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-primary{href: edit_trip_path(@trip.edition_token)}
+                    Modifier
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-info{href: new_for_back_trip_url(@trip.edition_token)}
+                    Trajet retour
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-inverse{href: new_from_copy_trip_path(@trip.edition_token)}
+                    Dupliquer
+                .col-sm-3
+                  %a.btn.btn-block.mb-3.btn-danger{href: confirm_delete_trip_path(@trip.deletion_token)}
+                    Supprimer
+
+              .clearfix
+          - else
+            .trip-ownership
+              %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
+              %p
+                Vous avez perdu le courriel de gestion de l'annonce ?
+                = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
+                pour le recevoir à nouveau.
     .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %strong Étapes :
+          = trip_steps_breadcrumb(@trip)
       .panel-body
-        .trip-ownership
-          %p C'est votre annonce et vous souhaitez la modifier/supprimer ? Utilisez les liens présents dans le courriel de gestion que vous avez reçu lors de la confirmation de l'annonce.
-          %p
-            Vous avez perdu le courriel de gestion de l'annonce ?
-            = link_to 'Cliquez ici', resend_information_email_trip_path(@trip.edition_token)
-            pour le recevoir à nouveau.
+        #route-wrapper
+          #route
+
+    - if @trip.children.undeleted.any?
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            ="#{@trip.children.undeleted.count} annonces rattachées"
+        .panel-body
+          - @trip.children.undeleted.each do |trip|
+            = render 'trip', trip: trip
+
+
 
 - content_for :javascript_footer do
   :javascript

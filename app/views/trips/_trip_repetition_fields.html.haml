@@ -1,0 +1,12 @@
+.nested-fields.form-inputs
+  = f.input :departure_time, as: :string, wrapper: :inline_select, label: false, wrapper_html: { class: 'ml-0 mr-0' } do
+    .input-group-addon
+      = f.input :backway, label: false, wrapper: :radio, as: :radio_buttons, collection: [['A<span class="hidden-xs">ller</span>'.html_safe, false], ['R<span class="hidden-xs">etour</span>'.html_safe, true]], label_html: { class: 'mb-0' }, checked: f.object.backway || false
+    .input-group-addon
+      le
+    = f.input :day_of_week, label: false, wrapper: false, as: :week_day, input_html: { class: 'form-control' }
+    .input-group-addon
+      à
+    = f.input :departure_time, label: false, wrapper: :none, as: :time, html5: false, minute_step: 5 , prompt: { hour: '00', minute: '00' }, time_separator: '<div class="input-group-addon">:</div>'.html_safe, include_blank: false, include_hidden: false
+    %span.input-group-btn
+      = link_to_remove_association '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'.html_safe, f, class: 'btn btn-default repetition-delete'

@@ -1,6 +1,7 @@
-%ul.nav.nav-pills
+%br
+%ul.nav.nav-pills.mt-3
   %li= active_link_to 'Pages', admin_pages_path, wrap_tag: :li
   %li= active_link_to 'Pages Parts', admin_page_parts_path, wrap_tag: :li
   %li= active_link_to 'Stats', admin_stats_path, wrap_tag: :li
-  .nav.nav-pills.navbar-right
-    %li= active_link_to 'Déconnexion', destroy_user_session_path, method: :delete, wrap_tag: :li
+
+%hr.separator

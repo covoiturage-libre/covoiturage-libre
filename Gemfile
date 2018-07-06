@@ -4,6 +4,8 @@ ruby '>= 2.2.2'
 ### Main Gems
 
 gem 'rails', '~> 5.1', '< 5.2'
+gem 'execjs'
+gem 'therubyracer'
 
 ### Database
 
@@ -22,7 +24,6 @@ gem 'typhoeus' # Significantly increase performance with persistent HTTP connect
 ### for ETL job only > delete after platform migration
 
 gem 'kiba' # the awesome ETL tool
-gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
 
 ### App Server
@@ -53,7 +54,7 @@ gem 'active_link_to'
 gem 'font-awesome-sass'
 gem 'chartkick'
 
-### Authentication
+### Authentication / ACL
 gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
@@ -61,6 +62,8 @@ gem 'domp'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-cas', '~> 1.1'#, install_if: -> { ENV['CAS_ENABLED'] == 'true' }
+gem 'omniauth-saml', '~> 1.8'#, install_if: -> { ENV['SAML_ENABLED'] == 'true' }
 
 ### i18n
 
@@ -80,6 +83,8 @@ gem 'dragonfly' # TODO remove if not in use
 gem 'redcarpet' # Require the Markdown converter gem
 
 ### Other Gems
+
+gem 'dotenv-rails'
 
 # gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production
 # gem 'bcrypt', '~> 3.1.7' # Use ActiveModel has_secure_password
@@ -105,6 +110,9 @@ group :development do
   gem 'listen'
   gem 'spring' # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring-watcher-listen'
+  gem 'capistrano', '~> 3.4.0'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

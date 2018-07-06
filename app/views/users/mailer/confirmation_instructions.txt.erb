@@ -1,0 +1,5 @@
+Bonjour #{@email},
+
+Vous venez de changer votre adresse mail sur notre site. Cliquez sur le lien ci-dessous pour confirmer ce changement : 
+
+<%= confirmation_url(@resource, confirmation_token: @token) %>

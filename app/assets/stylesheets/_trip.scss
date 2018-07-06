@@ -45,12 +45,59 @@ a.trip-item-after {
     }
   }
 
+  &.deleted-trip a {
+    opacity: 0.15;
+    &:hover {
+    opacity: 0.75;
+    }
+  }
+
+  &.pending-trip a {
+    background: #EEE;
+  }
+
+  &.past-trip a {
+    color: #999;
+  }
+
+  &.user-trip {
+    .driver {
+      width: 15%;
+    }
+    .trip-info {
+      width: 70%;
+    }
+    @media (max-width: $screen-xs-max) {
+      .avatar {
+        display: none;
+      }
+      .driver {
+        display: none;
+      }
+      .trip-info {
+        width: 80%;
+      }
+      .price {
+        width: 20%;
+      }
+    }
+  }
+
+  &.child-trip {
+    .price {
+    }
+  }
   .driver {
     width: 35%;
   }
 
   .price {
     width: 15%;
+  }
+  @media (max-width: $screen-xs-max) {
+    .avatar {
+      display: none;
+    }
   }
 }
 
@@ -108,4 +155,32 @@ a.trip-item-after {
   color: $priceColor;
   font-size: 24px;
   font-weight: bold;
+}
+
+.trip_trip_repetitions_departure_time {
+  .input-group-addon,
+  .input-group-btn .btn {
+    background: none;
+    border: none;
+    width: auto;
+  }
+  .form-control {
+    border-radius: 4px !important;
+  }
+  .input-group-addon > label {
+    margin: 0 2px;
+  }
+  .input-group-addon > label > input[type='radio'] {
+    vertical-align: text-bottom;
+    width: auto;
+    height: auto;
+  }
+  @media (max-width: $screen-xs-max) {
+    .input-group-addon,
+    .form-control,
+    .input-group-btn .btn {
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+  }
 }

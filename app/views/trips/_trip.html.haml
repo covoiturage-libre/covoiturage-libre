@@ -1,18 +1,45 @@
-.trip
+.trip{class: "#{trip.state}-trip #{'child-trip' if trip.parent.present?} #{'past-trip' if trip.is_before_today?} #{'user-trip' if user_signed_in? && trip.user == current_user}"}
   = link_to trip, class: 'trip-item' do
     .driver
-      .avatar= image_tag('covoiturage-avatar-default2.png')
-      .info
-        .name= trip.name
-        .age= "#{trip.age} ans" if trip.age.present?
+      - if user_signed_in? && trip.user == current_user
+        .avatar
+          = image_tag('covoiturage-avatar-default.png')
+      - else
+        .avatar
+          = image_tag('covoiturage-avatar-default2.png')
+        .info
+          .name= trip.name
+          .age= "#{trip.age} ans" if trip.age.present?
     .trip-info
-      .title
-        =l trip.departure_time, format: :short
-        %p= "(le covoit' est sur la route)" if trip.is_before_today?
-      .details
+      - unless trip.repeat
+        .title
+          - if defined? with_date && with_date
+            %small
+              =l(trip.departure_date, format: :trip_date).capitalize
+              à
+          =l trip.departure_time, format: :short
+      .details.pull-left.mr-3
         = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
+      - if trip.state == 'pending'
+        .state.pull-right.ml-3.text-warning
+          %i.fa.fa-clock-o
+          En attente de confirmation
+      - if trip.state == 'deleted'
+        .state.pull-right.ml-3.text-danger
+          %i.fa.fa-trash
+          Supprimé
+      - if trip.parent.present?
+        .recurrent.pull-right.ml-3.text-muted
+          %i.fa.fa-refresh
+          Trajet récurrent
+      - if trip.repeat
+        .recurrent.pull-right.ml-3.text-muted
+          %i.fa.fa-list
+          = trip.children.count
+          trajets
     .price
-      %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
+      - if trip.price > 0
+        %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
       .seats
         - if trip.seats == 0
           Complet

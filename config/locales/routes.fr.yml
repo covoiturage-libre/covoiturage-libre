@@ -1,9 +1,10 @@
 fr:
   routes:
     trips: trajets
+    profile: profil
 
     new: nouveau
-    edit: editer
+    edit: modifier
     confirm: confirmer
     confirm_delete: supprimer
     new_from_copy: dupliquer

@@ -28,7 +28,8 @@
 .idea
 
 # environment
-.env
+.env*
+!.env.sample
 /etl_errors.log
 
 # pessimize gem Gemfile backups
@@ -41,3 +42,5 @@ Gemfile.lock.backup
 
 # Logs
 ${sys:es.logs}*
+
+config/deploy/*

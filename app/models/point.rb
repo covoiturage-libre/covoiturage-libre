@@ -10,7 +10,7 @@ class Point < ApplicationRecord
   validate :lat_lon_must_be_set
 
   validates :price, presence: true, if: Proc.new { |p| !p.price.nil? || p.kind == 'Step' },
-                    numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    numericality: { only_integer: true, greater_than_or_equal_to: 0 } if Rails.configuration.pricing
 
   before_validation :set_from_rank, :set_to_rank
 

@@ -1,0 +1,26 @@
+en:
+  activerecord:
+    models:
+      trip: Trip
+    attributes:
+      trip:
+        departure_date: Date
+        departure_time: Time
+        price: Price
+        description: Comment
+        name: Name
+        age: Age
+        phone: Télephone
+        email: Email
+        seats: Seats
+        title: Gender
+        title_M: H
+        title_F: F
+        smoking: Smoking
+        smoking_true: Yes
+        smoking_false: No
+        comfort: Comfort
+        comfort_standard: Basic
+        comfort_comfort: Normal
+        comfort_first_class: Confortable
+        comfort_luxury: Luxurious

@@ -27,6 +27,15 @@ class UserMailer < ApplicationMailer
     result
   end
 
+  def alert_notification(trip, user_alert)
+    @trip = trip
+    @user_alert = user_alert
+    mail(
+      to: user_alert.user.email,
+      subject: prefix_subject('Un trajet correspond à vos critères')
+    )
+  end
+
   def message_received_notification(message)
     @message = message
     @trip = message.trip

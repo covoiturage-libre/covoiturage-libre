@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
+    match '/users/finish_signup' => 'users/confirmations#finish_signup', via: [:get, :patch], as: :finish_signup
+  end
+
+  devise_for :users, path: 'users', controllers: {
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    sessions:           'users/sessions',
+    registrations:      'users/registrations',
+    passwords:          'users/passwords',
+    confirmations:      'users/confirmations',
+  }
 
   # translated routes by the route_translator gem
   localized do
@@ -21,10 +31,15 @@ Rails.application.routes.draw do
       resources :messages
     end
     get 'search', to: 'search#index'
+    get 'profile', to: 'profile#show', as: 'profile'
+    get 'profile/trips', to: 'profile#trips', as: 'profile_trips'
+    get 'profile/alerts', to: 'profile#alerts', as: 'profile_alerts'
+    get 'profile/edit', to: 'profile#edit', as: 'edit_profile'
+    patch 'profile', to: 'profile#update'
 
     get "/covoits/:from-:to", to: 'landing#index'
     # get "/covoits/:from", to: 'landing#index'
-
+    resources :user_alerts, except: [:index]
   end
 
   resources :cities, defaults: { format: :json } do
@@ -35,6 +50,12 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :users do
+      put :lock
+      delete :lock, to: 'users#unlock'
+      post :send_reset_password_mail
+      post :send_confirmation_mail
+    end
     resources :page_parts
     resources :pages
     resources :stats, only: :index do

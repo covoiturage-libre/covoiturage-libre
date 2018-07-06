@@ -1,2 +1,8 @@
-User.create(email: 'admin@local', password: 'changeme', \
-            role: 'admin')
+user = User.new(
+  email: 'admin@local',
+  password: 'changeme',
+  password_confirmation: 'changeme',
+  role: 'admin',
+)
+user.try(:skip_confirmation!)
+user.save!
