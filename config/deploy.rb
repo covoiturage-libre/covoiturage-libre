@@ -28,7 +28,6 @@ set :pty, true
 set :linked_files, %w{
     config/database.yml
     config/secrets.yml
-    config/elasticsearch.yml
 }
 
 # Default value for linked_dirs is []
