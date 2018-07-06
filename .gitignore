@@ -42,3 +42,5 @@ Gemfile.lock.backup
 
 # Logs
 ${sys:es.logs}*
+
+config/deploy/*
