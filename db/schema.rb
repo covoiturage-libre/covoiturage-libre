@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180704083433) do
+ActiveRecord::Schema.define(version: 20180705142508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,14 +19,16 @@ ActiveRecord::Schema.define(version: 20180704083433) do
   create_table "cities", id: :serial, force: :cascade do |t|
     t.string "name", limit: 50
     t.string "postal_code", limit: 10
-    t.string "department", limit: 2
-    t.string "region", limit: 10
+    t.string "department", limit: 3
+    t.string "region", limit: 50
     t.string "country_code", limit: 2
     t.decimal "lat", precision: 9, scale: 6
     t.decimal "lon", precision: 9, scale: 6
     t.decimal "distance", precision: 4, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "code"
+    t.index ["code"], name: "index_cities_on_code", unique: true
     t.index ["name"], name: "index_cities_on_name"
   end
 
