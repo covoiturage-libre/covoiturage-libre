@@ -43,8 +43,8 @@ set :passenger_restart_with_touch, true
 
 
 def copy_config_file(file)
-    local_file  = File.dirname(__FILE__) + "/#{file}"
-    server_file = "#{ deploy_to }/shared/config/#{file}"
+    local_file  = File.dirname(__FILE__) + "../#{file}"
+    server_file = "#{ deploy_to }/shared/#{file}"
     upload! local_file, server_file#, :via => :scp, :mode => "755" 
     #execute :sudo, "rm -rf #{ latest_release }/config/#{file}"
     #execute :sudo, "ln -s #{ deploy_to }/shared/config/#{file} #{ latest_release }/config/#{file}"
@@ -57,8 +57,9 @@ namespace :deploy do
     on roles(:app) do
       execute "mkdir -p #{ deploy_to }/shared/config/initializers", :pty => true
 
-      copy_config_file "database.yml"
-      copy_config_file "secrets.yml"
+      copy_config_file "config/database.yml"
+      copy_config_file "config/secrets.yml"
+      copy_config_file ".env.production"
     end
   end
 
