@@ -4,6 +4,8 @@ ruby '>= 2.2.2'
 ### Main Gems
 
 gem 'rails', '~> 5.1', '< 5.2'
+gem 'execjs'
+gem 'therubyracer'
 
 ### Database
 
