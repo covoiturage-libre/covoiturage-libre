@@ -8,29 +8,29 @@
  */
 
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "variables";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-@import "variables";
 @import "mixins";
-@import "_typography";
+@import "typography";
 @import "media";
-@import "_navbar";
+@import "navbar";
 @import "footer";
-@import "_jumbotron";
-@import "_home";
-@import "_trip";
-@import "_errors";
+@import "jumbotron";
+@import "home";
+@import "trip";
+@import "errors";
 @import "devise";
 @import "testimonial";
 @import "cities";
 @import "link";
 @import "stickers-carousel";
 @import "steps";
-@import "_slaask";
+@import "slaask";
 
 #route-wrapper {
   #route {
@@ -47,3 +47,61 @@
 .page-header {
   margin-top: 20px;
 }
+
+.btn-inverse {
+  background-color: $brand-inverse;
+  color: white;
+  border-color: darken($brand-inverse, 10%);
+}
+
+.btn-inverse:hover {
+  color: white;
+  background-color: darken($brand-inverse, 5%);
+}
+
+
+.m-0  { margin: 0 !important; }
+.m-1  { margin: .25rem !important; }
+.m-2  { margin: .5rem !important; }
+.m-3  { margin: 1rem !important; }
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: .25rem !important; }
+.mt-2 { margin-top: .5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: .25rem !important; }
+.mb-2 { margin-bottom: .5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.ml-0 { margin-left: 0 !important; }
+.ml-1 { margin-left: .25rem !important; }
+.ml-2 { margin-left: .5rem !important; }
+.ml-3 { margin-left: 1rem !important; }
+.mr-0 { margin-right: 0 !important; }
+.mr-1 { margin-right: .25rem !important; }
+.mr-2 { margin-right: .5rem !important; }
+.mr-3 { margin-right: 1rem !important; }
+
+.p-0  { padding: 0 !important; }
+.p-1  { padding: .25rem !important; }
+.p-2  { padding: .5rem !important; }
+.p-3  { padding: 1rem !important; }
+.pt-0 { padding-top: 0 !important; }
+.pt-1 { padding-top: .25rem !important; }
+.pt-2 { padding-top: .5rem !important; }
+.pt-3 { padding-top: 1rem !important; }
+.pb-0 { padding-bottom: 0 !important; }
+.pb-1 { padding-bottom: .25rem !important; }
+.pb-2 { padding-bottom: .5rem !important; }
+.pb-3 { padding-bottom: 1rem !important; }
+.pl-0 { padding-left: 0 !important; }
+.pl-1 { padding-left: .25rem !important; }
+.pl-2 { padding-left: .5rem !important; }
+.pl-3 { padding-left: 1rem !important; }
+.pr-0 { padding-right: 0 !important; }
+.pr-1 { padding-right: .25rem !important; }
+.pr-2 { padding-right: .5rem !important; }
+.pr-3 { padding-right: 1rem !important; }
+
+.pv-4 { padding-top: 2rem !important; padding-bottom: 2rem !important }
+.pv-5 { padding-top: 4rem !important; padding-bottom: 4rem !important }
+

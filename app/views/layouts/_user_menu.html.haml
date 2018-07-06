@@ -1,0 +1,7 @@
+%br
+%ul.nav.nav-pills
+  = active_link_to 'Mon profil', profile_path, wrap_tag: :li, active: [['profile'], ['show', 'edit']]
+  = active_link_to 'Mes annonces', profile_trips_path, wrap_tag: :li, active: controller_name == 'profile' && action_name == 'trips' || controller_name == 'trips' && action_name.in?(['show', 'edit', 'new'])
+  = active_link_to 'Mes alertes', profile_alerts_path, wrap_tag: :li, active: controller_name == 'profile' && action_name == 'alerts' || controller_name == 'user_alerts' && action_name.in?(['show', 'edit', 'new'])
+
+%hr.separator

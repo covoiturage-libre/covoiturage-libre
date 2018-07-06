@@ -1,3 +1,5 @@
+require 'csv'
+
 class City < ApplicationRecord
 
   searchkick locations: [:location],
@@ -8,6 +10,29 @@ class City < ApplicationRecord
 
   def search_data
     attributes.merge location: { lat: lat, lon: lon }
+  end
+
+  def self.import_csv(csv_text)
+    csv = CSV.parse(csv_text, headers: true, col_sep: ';')
+
+    self.transaction do
+      csv.each do |row|
+        h           = row.to_hash
+
+        city = self.find_or_initialize_by(code: h['code_insee'])
+
+        city.name = h['nom_commune']
+        city.postal_code = h['codes_postaux'].split(' ').first
+        city.department = h['numéro_département']
+        city.region = h['nom_région']
+        city.country_code = 'FR'
+        city.lat = h['latitude']
+        city.lon = h['longitude']
+        city.distance = 1.00
+
+        city.save!
+      end
+    end
   end
 
 end

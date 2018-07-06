@@ -1,0 +1,122 @@
+.page-header
+  %h1
+    Alerte du
+    = @user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
+    - if @user_alert.departure_from_date != @user_alert.departure_to_date
+      = " au "
+      = @user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
+
+.row
+  .col-md-6
+    .panel.panel-default
+      .panel-heading.clearfix
+        %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+          Destination
+      .panel-body
+        %dl.dl-horizontal
+          %dt De
+          %dd= @user_alert.from_city.presence || 'Indifférent'
+          %dt À
+          %dd= @user_alert.to_city.presence || 'Indifférent'
+          %dt Tarif
+          %dd
+            - if (@user_alert.max_price || 0) > 0
+              = number_to_currency(@user_alert.max_price, locale: :fr)
+              ou moins
+            - else
+              Gratuit
+
+    .panel.panel-default
+      .panel-heading.clearfix
+        %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+          Dates et horaires de départ
+      .panel-body
+        %dl.dl-horizontal
+          %dt Date(s)
+          %dd
+            = @user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
+            - if @user_alert.departure_from_date != @user_alert.departure_to_date
+              = " - "
+              = @user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
+          %dt Horaire(s) :
+          %dd
+            = @user_alert.departure_from_time.try(:strftime, '%H:%M')
+            - if @user_alert.departure_from_date != @user_alert.departure_to_date
+              = " - "
+              = @user_alert.departure_to_time.try(:strftime, '%H:%M')
+
+    .panel.panel-default
+      .panel-heading.clearfix
+        %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+          Critères de l'alerte
+      .panel-body
+        %dl.dl-horizontal
+          %dt Nombre de sièges
+          %dd= @user_alert.min_seats
+          %dt Confort minimum
+          %dd= t :"activerecord.attributes.trip.comfort_#{@user_alert.min_comfort}"
+          %dt Fumeur
+          %dd= @user_alert.smoking.nil? ? 'Indifférent' : @user_alert.smoking ? 'Oui' : 'Non'
+
+  .col-md-6
+    .panel.panel-default
+      .panel-body.p-3.pb-0
+        .row
+          .col-sm-3
+            %a.btn.btn-block.mb-3.btn-primary{href: edit_user_alert_path(@user_alert)}
+              Modifier
+          .col-sm-3
+            %a.btn.btn-block.mb-3.btn-danger{href: user_alert_path(@user_alert), data: { method: :delete, confirm: "Êtes-vous sûr ?" }}
+              Supprimer
+
+            .clearfix
+    .panel.panel-default
+      .panel-body
+        #route-wrapper
+          #route
+    #distance_and_time.pull-right
+
+- content_for :javascript_footer do
+  :javascript
+    // City name autocomplete, calendar popup and routing map
+    $('.geoname').geonameAutocomplete();
+
+    $('.datepicker').datepicker({
+      dateFormat: "dd/mm/yy",
+      minDate: 0
+    })
+
+    $('#user_alert_max_price_0').on('change', function(e) {
+      $('#user_alert_max_price').prop('disabled', $(this).is(':checked')).val(0);
+    });
+
+    var myMap = L.map('route').setView([46.227638, 2.213749], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(myMap);
+
+    var myRouting = L.Routing.control({
+      plan: L.Routing.plan([], {
+        draggableWaypoints: false, // disable live edit on map
+        addWaypoints: false,
+      }),
+      routeWhileDragging: true,
+      show: false, // setting show to false hides the directions text block
+      // disable live edit on map
+      lineOptions : {
+        addWaypoints: false
+      }
+    }).addTo(myMap);
+
+    var initialTripPoints = #{raw [[@user_alert.from_lat.to_f, @user_alert.from_lon.to_f], [@user_alert.to_lat.to_f, @user_alert.to_lon.to_f]]};
+    var myTripDrawing = (new TripDrawing());
+    myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
+
+    // Sortabe steps
+
+    $( '#steps' ).sortable({
+      handle: '.handle',
+      placeholder: 'step-placeholder'
+    });
+    $( '#steps' ).disableSelection();

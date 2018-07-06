@@ -12,9 +12,40 @@
 
     #navbar.navbar-collapse.collapse
       %ul.nav.navbar-nav.navbar-right
-        %li= link_to 'Faire un don', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener'
-        %li= link_to 'Contribuer', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil', target: '_blank', rel: 'noopener'
-        %li= link_to 'Le blog', 'http://blog.covoiturage-libre.fr', target: '_blank', rel: 'noopener'
+        - if Rails.application.config.legacy
+          %li.hidden-sm= link_to 'Faire un don', 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', target: '_blank', rel: 'noopener'
+          %li.hidden-sm= link_to 'Contribuer', 'http://wiki.covoiturage-libre.fr/index.php?title=Accueil', target: '_blank', rel: 'noopener'
+          %li.hidden-sm= link_to 'Le blog', 'http://blog.covoiturage-libre.fr', target: '_blank', rel: 'noopener'
         %li
           %p.navbar-btn
             = link_to 'Publier une annonce', new_trip_path, class: 'btn btn-warning' unless current_page?('/')
+        - if user_signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{href: "#",role: "button", data: { toggle: "dropdown" }}
+              = current_user.display_name || current_user.email
+              %span.caret
+            %ul.dropdown-menu
+              %li
+                %a{href: profile_path}
+                  Mon profil
+              %li= link_to 'Mes annonces', profile_trips_path, wrap_tag: :li
+              %li= link_to 'Mes alertes', profile_alerts_path, wrap_tag: :li
+              - if current_user.admin?
+                %li.divider{role: "separator"}
+                %li.dropdown-header
+                  Administration
+                %li
+                  %a{href: admin_pages_path}
+                    Pages
+                %li
+                  %a{href: admin_page_parts_path}
+                    Page Parts
+                %li
+                  %a{href: admin_stats_path}
+                    Stats
+              %li.divider{role: "separator"}
+              %li
+                %a{href: destroy_user_session_path, data: { method: :delete }}
+                  Déconnexion
+        - else
+          %li= link_to 'Connexion', new_user_session_path

@@ -1,0 +1,107 @@
+- from_date_value = @user_alert.departure_from_date.present? ? @user_alert.departure_from_date.strftime('%d/%m/%Y') : ''
+- to_date_value = @user_alert.departure_to_date.present? ? @user_alert.departure_to_date.strftime('%d/%m/%Y') : ''
+
+= simple_form_for @user_alert, html: { class: 'form-horizontal', autocomplete: :off } do |f|
+  
+  .row
+    .col-md-6
+      .panel.panel-default
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Destination
+        .panel-body
+          #city_from
+            = f.input :from_city, wrapper: :horizontal_form, as: :string, input_html: { class: "geoname #{'trip-from-city-input' if true}" }, placeholder: 'Peu importe', label: t('from_place')
+            = f.input :from_lon, as: :hidden, wrapper_html: { class: 'trip_points_lon' }
+            = f.input :from_lat, as: :hidden, wrapper_html: { class: 'trip_points_lat' }
+            .form-group.hidden.trip_points_kind
+              %input#trip_points_attributes_0_kind.form-control.hidden{value:"From"}
+            .form-group.hidden.trip_points_rank
+              %input#trip_points_attributes_0_rank.form-control.hidden{value:0}
+          #city_to
+            = f.input :to_city, wrapper: :horizontal_form, as: :string, input_html: { class: "geoname #{'trip-from-city-input' if true}" }, placeholder: 'Peu importe', label: t('to_place')
+            = f.input :to_lon, as: :hidden, wrapper_html: { class: 'trip_points_lon' }
+            = f.input :to_lat, as: :hidden, wrapper_html: { class: 'trip_points_lat' }
+            .form-group.hidden.trip_points_kind
+              %input#trip_points_attributes_1_kind.form-control.hidden{value:"To"}
+            .form-group.hidden.trip_points_rank
+              %input#trip_points_attributes_1_rank.form-control.hidden{value:1}
+          - if Rails.configuration.pricing
+            = f.input :max_price, wrapper: :horizontal_form  do
+              = f.input :max_price, label: false, wrapper: false, error: false, input_html: { min: '0', step: '1', disabled: @user_alert.max_price == 0 }
+              %input#user_alert_max_price_0{name: "user_alert[max_price]", type: "checkbox", value: "0", checked: @user_alert.max_price == 0}
+              %label{for: 'user_alert_max_price_0'} Gratuit
+
+      .panel.panel-default
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Dates et horaires de départ
+        .panel-body
+          = f.input :departure_from_date, as: :string, wrapper: :horizontal_form, input_html: { value: from_date_value, class: 'datepicker' }, placeholder: 'Date', required: true
+          = f.input :departure_to_date, as: :string, wrapper: :horizontal_form, input_html: { value: to_date_value, class: 'datepicker' }, placeholder: 'Date', required: true
+          %hr
+          = f.input :departure_from_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
+          = f.input :departure_to_time, as: :time, html5: false, wrapper: :horizontal_form, minute_step: 5 , required: true, input_html: { style: 'display: initial; width: initial;' }, prompt: { hour: '', minute: '' }
+
+      .panel.panel-default
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Critères de l'alerte
+        .panel-body
+          = f.input :min_seats, wrapper: :horizontal_form, input_html: { min: '0' }, collection: 1..8, include_blank: false, include_hidden: false
+          = f.input :min_comfort, wrapper: :horizontal_form, collection: Trip::CAR_RATINGS.map {|c| [t(:"activerecord.attributes.trip.comfort_#{c}"), c.to_sym] }, include_blank: false, include_hidden: false
+          = f.input :smoking, as: :radio_buttons, wrapper: :horizontal_radio_and_checkboxes, item_label_class: 'radio-inline', collection: [['Oui', true], ['Non', false], ['Peu importe', nil]]
+
+      = f.button :submit, value: "Créer une alerte", class: 'btn btn-primary btn-lg pull-right', style: 'margin-bottom: 1em;'
+
+    .col-md-6
+      .panel.panel-default
+        .panel-body
+          #route-wrapper
+            #route
+      #distance_and_time.pull-right
+
+- content_for :javascript_footer do
+  :javascript
+    // City name autocomplete, calendar popup and routing map
+    $('.geoname').geonameAutocomplete();
+
+    $('.datepicker').datepicker({
+      dateFormat: "dd/mm/yy",
+      minDate: 0
+    })
+
+    $('#user_alert_max_price_0').on('change', function(e) {
+      $('#user_alert_max_price').prop('disabled', $(this).is(':checked')).val(0);
+    });
+
+    var myMap = L.map('route').setView([46.227638, 2.213749], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(myMap);
+
+    var myRouting = L.Routing.control({
+      plan: L.Routing.plan([], {
+        draggableWaypoints: false, // disable live edit on map
+        addWaypoints: false,
+      }),
+      routeWhileDragging: true,
+      show: false, // setting show to false hides the directions text block
+      // disable live edit on map
+      lineOptions : {
+        addWaypoints: false
+      }
+    }).addTo(myMap);
+
+    var initialTripPoints = #{raw [[@user_alert.from_lat.to_f, @user_alert.from_lon.to_f], [@user_alert.to_lat.to_f, @user_alert.to_lon.to_f]]};
+    var myTripDrawing = (new TripDrawing());
+    myTripDrawing.init(myRouting, initialTripPoints, #{Trip::STEPS_MAX_RANK});
+
+    // Sortabe steps
+
+    $( '#steps' ).sortable({
+      handle: '.handle',
+      placeholder: 'step-placeholder'
+    });
+    $( '#steps' ).disableSelection();
