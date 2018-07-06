@@ -171,6 +171,7 @@ GEM
       actionmailer (>= 3.2)
       letter_opener (~> 1.0)
       railties (>= 3.2)
+    libv8 (3.16.14.19)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -272,6 +273,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
+    ref (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -352,6 +354,9 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.0)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -408,6 +413,7 @@ DEPENDENCIES
   dragonfly
   email_spec
   erubis
+  execjs
   factory_bot_rails
   font-awesome-sass
   groupdate
@@ -447,6 +453,7 @@ DEPENDENCIES
   simple_form
   spring
   spring-watcher-listen
+  therubyracer
   turbolinks (~> 5.0)
   typhoeus
   tzinfo-data
