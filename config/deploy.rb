@@ -59,7 +59,6 @@ namespace :deploy do
 
       copy_config_file "database.yml"
       copy_config_file "secrets.yml"
-      copy_config_file "elasticsearch.yml"
     end
   end
 

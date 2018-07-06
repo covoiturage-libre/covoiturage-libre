@@ -22,7 +22,6 @@ gem 'typhoeus' # Significantly increase performance with persistent HTTP connect
 ### for ETL job only > delete after platform migration
 
 gem 'kiba' # the awesome ETL tool
-gem 'mysql2', '~> 0.4' # for kiba migrations
 gem 'awesome_print'
 
 ### App Server
