@@ -13,18 +13,18 @@ class City < ApplicationRecord
   end
 
   def self.import_csv(csv_text)
-    csv = CSV.parse(csv_text, headers: true, col_sep: ';')
+    csv = CSV.parse(csv_text, headers: true, col_sep: ',')
 
     self.transaction do
       csv.each do |row|
         h           = row.to_hash
 
-        city = self.find_or_initialize_by(code: h['code_insee'])
+        city = self.find_or_initialize_by(code: h['insee'])
 
-        city.name = h['nom_commune']
-        city.postal_code = h['codes_postaux'].split(' ').first
-        city.department = h['numéro_département']
-        city.region = h['nom_région']
+        city.name = h['VILLE']
+        city.postal_code = h['code postal'].split(' ').first
+        city.department = h['dep']
+        city.region = h['nom region']
         city.country_code = 'FR'
         city.lat = h['latitude']
         city.lon = h['longitude']

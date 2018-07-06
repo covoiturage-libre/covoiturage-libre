@@ -33,6 +33,19 @@ Required ? :
       libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev \
       libcurl4-openssl-dev python-software-properties libffi-dev libaprutil1-dev
 
+
+## Java
+
+    sudo apt-get install openjdk-8-jdk-headless
+
+## Elasticsearch
+
+    wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.3.0.deb
+    sudo dpkg -i elasticsearch-5.3.0.deb
+    sudo systemctl start elasticsearch.service
+    sudo /bin/systemctl enable elasticsearch.service
+    sudo /bin/systemctl daemon-reload
+
 ## Install Nginx/Phusion Passenger (Debian 8)
 
 Install the PGP key. Packages are signed by "Phusion Automated Software Signing
@@ -143,3 +156,10 @@ Last step, you must restart passenger in order to complete de code update :
 Passenger will restart the application for you. It monitors the file's timestamp
 to determine if it should restart the app. This is helpful when you want to
 restart the app manually without deploying it.
+
+## Provision
+
+    RAILS_ENV=production bundle exec rake db:seed:pages
+    RAILS_ENV=production bundle exec rake db:seed:users
+    RAILS_ENV=production bundle exec rake db:seed:cities
+    RAILS_ENV=production bundle exec rake searchkick:reindex CLASS=City
