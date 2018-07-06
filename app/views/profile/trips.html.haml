@@ -1,0 +1,35 @@
+.page-header
+  %h1
+    Mes annonces
+  .row
+    .col-sm-6
+      .panel.panel-info
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Trajets récurrents
+        .panel-body
+          - @repeated_trips.each do |trip|
+            = render 'trips/trip', trip: trip
+      .panel.panel-primary
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Trajets à venir
+        .panel-body
+          - @incoming_trips.each do |trip|
+            = render 'trips/trip', trip: trip
+
+    .col-sm-6
+      .panel.panel-default
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Trajets effectués
+        .panel-body
+          - @past_trips.each do |trip|
+            = render 'trips/trip', trip: trip
+      .panel.panel-danger
+        .panel-heading.clearfix
+          %h4.panel-title.pull-left{style: "padding-top: 7.5px;"}
+            Trajets annulés
+        .panel-body
+          - @deleted_trips.each do |trip|
+            = render 'trips/trip', trip: trip

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615143637) do
+ActiveRecord::Schema.define(version: 20180705142508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,14 +19,16 @@ ActiveRecord::Schema.define(version: 20180615143637) do
   create_table "cities", id: :serial, force: :cascade do |t|
     t.string "name", limit: 50
     t.string "postal_code", limit: 10
-    t.string "department", limit: 2
-    t.string "region", limit: 10
+    t.string "department", limit: 3
+    t.string "region", limit: 50
     t.string "country_code", limit: 2
     t.decimal "lat", precision: 9, scale: 6
     t.decimal "lon", precision: 9, scale: 6
     t.decimal "distance", precision: 4, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "code"
+    t.index ["code"], name: "index_cities_on_code", unique: true
     t.index ["name"], name: "index_cities_on_name"
   end
 
@@ -119,13 +121,31 @@ ActiveRecord::Schema.define(version: 20180615143637) do
     t.index ["trip_id"], name: "index_points_on_trip_id"
   end
 
+  create_table "trip_repetition_exceptions", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.date "exception_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_trip_repetition_exceptions_on_trip_id"
+  end
+
+  create_table "trip_repetitions", force: :cascade do |t|
+    t.bigint "trip_id"
+    t.boolean "backway"
+    t.string "day_of_week"
+    t.time "departure_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_trip_repetitions_on_trip_id"
+  end
+
   create_table "trips", id: :serial, force: :cascade do |t|
     t.date "departure_date"
     t.time "departure_time"
     t.integer "seats"
     t.string "comfort"
     t.text "description"
-    t.integer "price"
+    t.integer "price", default: 0, null: false
     t.string "title"
     t.boolean "smoking", default: false, null: false
     t.string "name"
@@ -145,13 +165,43 @@ ActiveRecord::Schema.define(version: 20180615143637) do
     t.float "total_time"
     t.datetime "last_trip_information_at"
     t.bigint "user_id"
+    t.integer "repeat_amount", default: 0, null: false
+    t.bigint "parent_id"
+    t.boolean "repeat", default: false, null: false
+    t.integer "repeat_week", default: 1, null: false
+    t.date "repeat_started_at"
+    t.date "repeat_ended_at"
     t.index ["confirmation_token"], name: "index_trips_on_confirmation_token"
     t.index ["created_at"], name: "index_trips_on_created_at"
     t.index ["departure_date"], name: "index_trips_on_departure_date"
     t.index ["departure_time"], name: "index_trips_on_departure_time"
     t.index ["edition_token"], name: "index_trips_on_edition_token"
+    t.index ["parent_id"], name: "index_trips_on_parent_id"
     t.index ["state"], name: "index_trips_on_state"
     t.index ["user_id"], name: "index_trips_on_user_id"
+  end
+
+  create_table "user_alerts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "departure_from_date"
+    t.time "departure_from_time"
+    t.date "departure_to_date"
+    t.time "departure_to_time"
+    t.boolean "smoking"
+    t.float "max_price"
+    t.integer "min_seats"
+    t.string "min_comfort"
+    t.float "from_lat"
+    t.float "float"
+    t.float "from_lon"
+    t.string "from_city"
+    t.string "string"
+    t.float "to_lat"
+    t.float "to_lon"
+    t.string "to_city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_alerts_on_user_id"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -184,5 +234,8 @@ ActiveRecord::Schema.define(version: 20180615143637) do
   add_foreign_key "identities", "users", on_delete: :cascade
   add_foreign_key "messages", "trips"
   add_foreign_key "points", "trips"
+  add_foreign_key "trip_repetition_exceptions", "trips"
+  add_foreign_key "trip_repetitions", "trips"
   add_foreign_key "trips", "users", on_delete: :nullify
+  add_foreign_key "user_alerts", "users"
 end

@@ -1,0 +1,19 @@
+.trip.child
+  = link_to trip, class: 'trip-item' do
+    .trip-info
+      .title
+        =l trip.departure_date, format: :trip_date
+        à
+        =l trip.departure_time, format: :short
+        %p= "(le covoit' est sur la route)" if trip.is_before_today?
+      .details
+        = trip_steps_breadcrumb_with_emphasis(trip, trip.try(:point_a_id), trip.try(:point_b_id))
+    .price
+      - if trip.price > 0
+        %p= "#{trip_price(trip, trip.try(:point_a_price), trip.try(:point_b_price))} €"
+      .seats
+        - if trip.seats == 0
+          Complet
+        - else
+          = "#{trip.seats} place#{'s' if trip.seats > 1}"
+    .clearfix

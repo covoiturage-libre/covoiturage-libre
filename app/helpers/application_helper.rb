@@ -34,7 +34,11 @@ module ApplicationHelper
   end
 
   def trip_title(trip, separator = '&rarr;')
-    "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :trip_date} à #{l trip.departure_time, format: :short}".html_safe
+    if trip.repeat
+      "#{trip_steps_breadcrumb(trip, separator)} du #{l trip.repeat_started_at, format: :trip_date} au #{l trip.repeat_ended_at, format: :trip_date}".html_safe
+    else
+      "#{trip_steps_breadcrumb(trip, separator)} le #{l trip.departure_date, format: :trip_date} à #{l trip.departure_time, format: :short}".html_safe
+    end
   end
 
   def trip_steps_breadcrumb_with_emphasis(trip, point_a_id = nil, point_b_id = nil, separator = '&rarr;')
@@ -57,7 +61,11 @@ module ApplicationHelper
   end
 
   def user_page?
-    /profile/.match(params[:controller])
+    user_signed_in? && (
+      /profile/.match(params[:controller]) ||
+      defined?(@trip) && (@trip.user == current_user || action_name == 'new') ||
+      defined?(@user_alert)
+    )
   end
 
   def back_trip_page?

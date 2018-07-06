@@ -1,7 +1,7 @@
 # coding: utf-8
 class TripsController < ApplicationController
   include ApplicationHelper
-  before_action :authenticate_user!, except: [:index, :show] unless ENV['AUTHENTICATION_ENABLED'] != 'true'
+  before_action :authenticate_user!, except: [:index, :show] if Rails.application.config.authentication_enabled
 
   skip_before_action :verify_authenticity_token
 
@@ -152,13 +152,19 @@ class TripsController < ApplicationController
 
     def trip_params
       _points_params = [
-          :id, :kind, :rank, :city, :lon, :lat, :price, :_destroy
+        :id, :kind, :rank, :city, :lon, :lat, :price, :_destroy
       ]
+      _trip_repetitions_params = [
+        :id, :departure_time, :backway, :day_of_week, :_destroy
+      ]
+
       _trip_params = [
         :departure_date, :departure_time, :price, :description, :title, :name,
         :age, :phone, :email, :seats, :comfort, :smoking, :terms_of_service,
-        :total_distance, :total_time,
-        points_attributes: _points_params
+        :total_distance, :total_time, :repeat, :repeat_started_at,
+        :repeat_ended_at, :repeat_week,
+        points_attributes: _points_params,
+        trip_repetitions_attributes: _trip_repetitions_params
       ]
       if user_signed_in?
         params.require(:trip).permit(*_trip_params).merge(

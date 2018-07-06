@@ -26,15 +26,50 @@
               Association loi 1901
 
 - content_for :home_content do
-  -#%section.p-home__dashboard
-    .container
+  - if Rails.application.config.legacy
+    = render 'banner'
+  %section.p-home__dashboard
+    .container.pv-5
       .row
         .col-sm-6
-          %h3 Derniers convoiturages publiés
+          .page-header.mb-0
+            %h3.p-home__heading Derniers trajets réccurents publiés
+          - if @repeated_trips.any?
+            - @repeated_trips.each do |trip|
+              = render 'trips/trip', trip: trip, with_date: true
+          - else
+            .text-center.text-muted.p-3
+              Aucun trajet réccurent à afficher
         .col-sm-6
-          %h3 Covoiturages à venir incomplets
+          .page-header.mb-0
+            %h3.p-home__heading Trajets ponctuels à venir
+          - if @unrepeated_trips
+            - @unrepeated_trips.each do |trip|
+              = render 'trips/trip', trip: trip, with_date: true
+          - else
+            .text-center.text-muted.p-3
+              Aucun trajet ponctuel à afficher
+      %hr
+      .row
+        .col-sm-6
+          .page-header.mb-0
+            %h3.p-home__heading Derniers covoiturages publiés
+          - if @latest_trips.any?
+            - @latest_trips.each do |trip|
+              = render 'trips/trip', trip: trip, with_date: true
+          - else
+            .text-center.text-muted.p-3
+              Aucun convoiturage à afficher
+        .col-sm-6
+          .page-header.mb-0
+            %h3.p-home__heading Covoiturages à venir incomplets
+          - if @incoming_trips.any?
+            - @incoming_trips.each do |trip|
+              = render 'trips/trip', trip: trip, with_date: true
+          - else
+            .text-center.text-muted.p-3
+              Aucun convoiturage à afficher
 
-  = render 'banner'
   %section.p-home__features
     .container
       .row
@@ -74,27 +109,28 @@
   -#              = link_to city, '#', class: 'c-link'
   -#        = link_to 'Tous les trajets en cours »', '#', class: 'p-home__all-trips c-link'
 
-  %section.p-home__testimonials
-    .container
-      .row
-        .col-sm-8
-          %h3.p-home__heading Les usagers en parlent
-          %ul.c-testimonials
-            - @testimonials.each do |testimonial|
-              = render 'shared/testimonial', testimonial: testimonial
-          -# link_to 'Lire plus de commentaires >', '#', class: 'c-link c-testimonial__link-more'
+  - if Rails.application.config.legacy
+    %section.p-home__testimonials
+      .container
+        .row
+          .col-sm-8
+            %h3.p-home__heading Les usagers en parlent
+            %ul.c-testimonials
+              - @testimonials.each do |testimonial|
+                = render 'shared/testimonial', testimonial: testimonial
+            -# link_to 'Lire plus de commentaires >', '#', class: 'c-link c-testimonial__link-more'
 
-        .col-sm-4
-          %h3 Recevez notre fameux stickers
-          .c-stickers-carousel
-            = link_to 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', { target: '_blank', rel: 'noopener', class: 'c-stickers-carousel__slides' } do
-              - 3.times do |index|
-                .c-stickers-carousel__item
-                  = image_tag "sticker-#{index + 1}.jpg"
-            .c-stickers-carousel__controls
-              %button.c-stickers-carousel__control.js-carousel-left
-                = image_tag 'carousel-arrow.png'
-              %span{id: 'active-sticker'}
-              \/ 3
-              %button.c-stickers-carousel__control.js-carousel-right
-                = image_tag 'carousel-arrow.png'
+          .col-sm-4
+            %h3 Recevez notre fameux stickers
+            .c-stickers-carousel
+              = link_to 'https://www.helloasso.com/associations/covoiturage-libre-fr/collectes/campagne-courante/', { target: '_blank', rel: 'noopener', class: 'c-stickers-carousel__slides' } do
+                - 3.times do |index|
+                  .c-stickers-carousel__item
+                    = image_tag "sticker-#{index + 1}.jpg"
+              .c-stickers-carousel__controls
+                %button.c-stickers-carousel__control.js-carousel-left
+                  = image_tag 'carousel-arrow.png'
+                %span{id: 'active-sticker'}
+                \/ 3
+                %button.c-stickers-carousel__control.js-carousel-right
+                  = image_tag 'carousel-arrow.png'

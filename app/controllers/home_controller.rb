@@ -16,6 +16,11 @@ class HomeController < ApplicationController
       'Boulogne-Billancourt'
     ]
 
+    @repeated_trips = Trip.confirmed.repeated.latests.limit(5)
+    @unrepeated_trips = Trip.incoming.confirmed.unrepeated.orphans.soon.limit(5)
+    @latest_trips = Trip.incoming.confirmed.latests.limit(5)
+    @incoming_trips = Trip.incoming.confirmed.soon.limit(5)
+
     @testimonials = [
       {
         author: {

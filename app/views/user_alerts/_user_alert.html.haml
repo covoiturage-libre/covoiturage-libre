@@ -1,0 +1,36 @@
+.trip.user_alert{class: ""}
+  = link_to user_alert, class: 'user_alert-item' do
+    .driver{style: "width: auto"}
+      .avatar
+        %span.fa-stack
+          %i.fa.fa-envelope.fa-stack-2x{style: "color: #666"}
+          %i.fa.fa-exclamation.fa-stack-2x.fa-inverse
+    .user_alert-info
+      .details.pull-left.mr-3{style: "width: 70%"}
+        .text-muted.p-3
+          = user_alert.from_city.presence || "N'importe où"
+          &rarr;
+          = user_alert.to_city.presence || "N'importe où"
+          %br
+          %strong Date(s)
+          %span
+            = user_alert.departure_from_date.try(:strftime, '%d/%m/%Y')
+            - if user_alert.departure_from_date != user_alert.departure_to_date
+              = " - "
+              = user_alert.departure_to_date.try(:strftime, '%d/%m/%Y')
+          %br
+          %strong Horaire(s) :
+          %span
+            = user_alert.departure_from_time.try(:strftime, '%H:%M')
+            - if user_alert.departure_from_date != user_alert.departure_to_date
+              = " - "
+              = user_alert.departure_to_time.try(:strftime, '%H:%M')
+    .price
+      - if (user_alert.try(:max_price) || 0) > 0
+        = number_to_currency(user_alert.max_price, locale: :fr)
+        ou moins
+      - else
+        Gratuit
+      .seats
+        = "#{user_alert.min_seats} place#{'s' if user_alert.min_seats > 1}"
+    .clearfix
