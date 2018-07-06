@@ -74,7 +74,6 @@ namespace :deploy do
 
 
   before :deploy, 'deploy:config'
-  after :deploy, "deploy:build_missing_paperclip_styles"
   after :publishing, :restart
   after :finishing, :cleanup
 
