@@ -84,6 +84,8 @@ gem 'redcarpet' # Require the Markdown converter gem
 
 ### Other Gems
 
+gem 'dotenv-rails'
+
 # gem 'redis', '~> 3.0' # Use Redis adapter to run Action Cable in production
 # gem 'bcrypt', '~> 3.1.7' # Use ActiveModel has_secure_password
 
@@ -99,7 +101,6 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'email_spec'
   gem 'rails-controller-testing', '~> 1.0'
-  gem 'dotenv-rails'
 end
 
 group :development do
