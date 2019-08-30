@@ -1,3 +1,5 @@
+UNMAINTAINED, please visit [mobicoop](https://www.mobicoop.fr/) and [contact them](https://www.mobicoop.fr/contact) fur further informations, thanks!
+
 # Covoiturage Libre
 
 [![Build Status](https://travis-ci.org/covoiturage-libre/covoiturage-libre.svg?branch=master)](https://travis-ci.org/covoiturage-libre/covoiturage-libre) [![Dependency Status](https://gemnasium.com/badges/github.com/nicolasleger/covoiturage-libre.svg)](https://gemnasium.com/github.com/nicolasleger/covoiturage-libre) [![Maintainability](https://api.codeclimate.com/v1/badges/7e1869bb570315f40bf8/maintainability)](https://codeclimate.com/github/covoiturage-libre/covoiturage-libre/maintainability)
